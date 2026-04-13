@@ -151,7 +151,7 @@
                     Studio Sessions in Barcelona
                 </h1>
                 <p class="font-body text-lg md:text-xl text-white/90 mb-8 max-w-2xl mx-auto" data-i18n="hero.subtitle">
-                    Photo &amp; video sessions in a fully equipped studio.
+                    Photo & video sessions in a fully equipped studio.
                 </p>
                 <div class="flex flex-col md:flex-row items-center justify-center gap-6">
                     <span class="text-white/80 font-medium text-lg" data-i18n="hero.priceInfo">From 150€ · Edited photos
@@ -171,8 +171,8 @@
                     <div
                         class="p-12 bg-surface-container-low flex flex-col justify-center gap-4 group hover:bg-surface-container-high transition-colors">
                         <span class="material-symbols-outlined text-primary text-4xl">schedule</span>
-                        <h3 class="font-headline text-2xl font-bold" data-i18n="overview.title1">1h Sessions</h3>
-                        <p class="text-on-surface-variant body-md" data-i18n="overview.desc1">Concise, impactful
+                        <h3 class="font-headline text-2xl font-bold" data-i18n="overview.title1">Flexible Sessions</h3>
+                        <p class="text-on-surface-variant body-md" data-i18n="overview.desc1">Productive, impactful
                             sessions starting from 150€.</p>
                     </div>
                     <div
@@ -291,22 +291,52 @@
                         class="px-8 py-4 border-b-2 border-primary font-bold text-primary hover:bg-primary-container/10 transition-all"
                         data-i18n="portfolio.viewExamples">View examples</button>
                 </div>
-                <div class="grid grid-cols-1 md:grid-cols-12 gap-4">
-                    <div class="md:col-span-8 h-[600px] overflow-hidden rounded-xl">
-                        <img class="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
-                            data-alt="high fashion editorial shot in studio with beige background and soft shadows on model"
-                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuBX2Uwk58kpRCV1IFQyYGeGCYFvhsBuoYktL0tiwlcspIezyLLyCeDT1_-OfcuuL6gYo_lWNNkEWuwRFgS4XMbUrkU6BRl0lUMbbNHfQtvdZnZQeO_kXSsDLDddpgvkAi6zqmaX38gokKvE8cSU0Fn3f_eX86XhB4pNzW7iihXVkUSVFwfKfLjN8MOo30EUtxsFGjMKnrFMT6oAkHhTMeyT1fynQ-9vh9UrYftj1UbeiicWeVf46uv4NL2Fd4nDfdyheXaw8JDViCE" />
-                    </div>
-                    <div class="md:col-span-4 h-[600px] flex flex-col gap-4">
-                        <div class="h-1/2 overflow-hidden rounded-xl">
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 items-start">
+                    <!-- Column 1 (Desktop) / Column 1 (Mobile) -->
+                    <div class="flex flex-col gap-4 md:gap-6">
+                        <!-- Vertical Portrait 1 -->
+                        <div class="overflow-hidden rounded-xl aspect-[3/4]">
                             <img class="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
-                                data-alt="close up headshot of a man with dramatic lighting focusing on eyes and texture"
-                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuCWBqcvhk169wLxhQSLxszec8gmgfxikAUGlBSIMFDkIJqK6Ttp6UEmYF6FKA-2-CDN47HdVoC9x0Bj476bZJYzG6JRg5SJ6oIiktPrVKgBEYwCMskUMn2_udIGhvnqpNiWAAkZAOcbaFjZmzPSvsr8bvRj3qcYmEy46GfKtS4zpfXPZhpFcoyp1v4Qybq4fOO6NZh5LBVh_zwduAvu7wljULZJsKL0P9SjI1btjrLzgKQkb5jjLdW74SWVFAEcnqEwYsk8goL-N7Q" />
+                                alt="Studio portrait 1"
+                                src="images/portfolio/v1.png" />
                         </div>
-                        <div class="h-1/2 overflow-hidden rounded-xl">
+                        <!-- Horizontal 1 (Mobile intercalation) -->
+                        <div class="overflow-hidden rounded-xl aspect-[4/3] md:hidden">
                             <img class="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
-                                data-alt="smiling woman in minimalist studio setting with warm natural lighting"
-                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuBU25NMTuUMgP-PlNvs5-r7AmoJ7PpV7EhQ3OInf1yUJ4AnAlSXd-9G3YntvMQcDnqMOiHfP39iLIHWOWzwuSX3MoYIsj1jVC2SsqgFSYffIKqoudEqdXJEu1HxAD8HM7ZfN2kEmjDUSaFGx4qH82MvVpXPjiW3PRFeM-tocU1WifPl-J7TXViFmapKTxydFsPw3DR83shp_q7aPsx9zul-EVjysqdDJ7su-SHFTAI6AzvhdQNvQ8SAnyImcZaxQ1RId1v1DaYQWJY" />
+                                alt="Studio portrait 2"
+                                src="images/portfolio/h1.png" />
+                        </div>
+                    </div>
+
+                    <!-- Column 2 (Desktop) / Column 2 (Mobile) -->
+                    <div class="flex flex-col gap-4 md:gap-6">
+                        <!-- Horizontal 1 (Desktop) -->
+                        <div class="overflow-hidden rounded-xl aspect-[4/3] hidden md:block">
+                            <img class="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
+                                alt="Studio portrait 2"
+                                src="images/portfolio/h1.png" />
+                        </div>
+                        <!-- Horizontal 2 -->
+                        <div class="overflow-hidden rounded-xl aspect-[4/3]">
+                            <img class="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
+                                alt="Studio portrait 3"
+                                src="images/portfolio/h2.png" />
+                        </div>
+                        <!-- Vertical 2 (Mobile intercalation) -->
+                        <div class="overflow-hidden rounded-xl aspect-[3/4] md:hidden">
+                            <img class="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
+                                alt="Studio portrait 4"
+                                src="images/portfolio/v2.png" />
+                        </div>
+                    </div>
+
+                    <!-- Column 3 (Desktop Only) -->
+                    <div class="hidden md:flex flex-col gap-4 md:gap-6 md:mt-12">
+                        <!-- Vertical Portrait 2 (Desktop) -->
+                        <div class="overflow-hidden rounded-xl aspect-[3/4]">
+                            <img class="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
+                                alt="Studio portrait 4"
+                                src="images/portfolio/v2.png" />
                         </div>
                     </div>
                 </div>
@@ -331,7 +361,7 @@
                             <img class="rounded-lg shadow-lg hover:scale-[1.02] transition-transform duration-500 w-full aspect-[4/3] object-cover" 
                                  src="images/studio-equipment.png" alt="Studio Equipment">
                             <div class="absolute -bottom-6 -right-6 bg-primary p-8 text-white hidden md:block z-10 shadow-xl">
-                                <span class="text-3xl font-headline font-bold" data-i18n="studio.spaceSize">120m²</span>
+                                <span class="text-3xl font-headline font-bold" data-i18n="studio.spaceSize">150m²</span>
                                 <p class="text-[10px] uppercase tracking-widest mt-1" data-i18n="studio.spaceLabel">Creative Space</p>
                             </div>
                         </div>
@@ -378,7 +408,7 @@
                     <!-- Column 1: Context & Core Info -->
                     <div class="p-12 md:p-24 flex flex-col justify-center">
                         <h2 class="font-headline text-4xl font-bold mb-6 editorial-spacing" data-i18n="location.title">
-                            Find Us in Poble Espanyol</h2>
+                            Find us in Poble Espanyol</h2>
                         <p class="text-lg text-secondary mb-12" data-i18n="location.desc">Nestled in the heart of
                             Montjuïc, our studio combines historic charm with modern technical facilities.</p>
                         
@@ -395,7 +425,7 @@
 
                             <div class="flex items-center gap-4">
                                 <span class="material-symbols-outlined text-primary">local_parking</span>
-                                <span class="font-medium" data-i18n="location.parking">Private parking nearby</span>
+                                <span class="font-medium" data-i18n="location.parking">Parking available nearby</span>
                             </div>
 
                             <div class="flex items-center gap-4">
@@ -479,7 +509,7 @@
                         <div class="text-5xl font-headline font-extrabold text-primary-container/20 mb-4">04</div>
                         <h4 class="font-bold mb-2" data-i18n="process.step4Title">Delivery</h4>
                         <p class="text-xs text-secondary uppercase tracking-widest" data-i18n="process.step4Desc">Final
-                            edits in 7 days</p>
+                            edits in ~7 days</p>
                     </div>
                 </div>
             </div>
@@ -529,7 +559,7 @@
             </div>
         </section>
         <!-- Final CTA -->
-        <section class="py-32 px-6">
+        <section class="py-10 px-6">
             <div
                 class="max-w-4xl mx-auto bg-primary text-on-primary p-12 md:p-24 rounded-xl text-center shadow-2xl relative overflow-hidden">
                 <div class="absolute top-0 right-0 p-8 opacity-10">
@@ -556,7 +586,7 @@
         </section>
     </main>
     <!-- Footer (Shared Component) -->
-    <footer class="w-full mt-24 bg-[#f6f3f2] dark:bg-[#121111]">
+    <footer class="w-full mt-8 bg-[#f6f3f2] dark:bg-[#121111]">
         <div class="flex flex-col md:flex-row justify-between items-center px-12 py-12 gap-8 max-w-[1440px] mx-auto">
             <a href="#"
                 class="font-manrope font-semibold text-[#1c1b1b] dark:text-[#fcf9f8] hover:opacity-70 transition-opacity">LUMINA
