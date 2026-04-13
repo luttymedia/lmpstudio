@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>Studio Sessions in Barcelona | LUMINA</title>
+    <title>Lutty Moreira Photo | Barcelona</title>
     <link href="https://fonts.googleapis.com" rel="preconnect" />
     <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
     <link
@@ -101,7 +101,7 @@
             position: fixed;
             inset: 0;
             z-index: 200;
-            background: rgba(0,0,0,0.92);
+            background: rgba(0, 0, 0, 0.92);
             display: flex;
             flex-direction: column;
             opacity: 0;
@@ -109,43 +109,49 @@
             transition: opacity 0.35s ease;
             overflow: hidden;
         }
+
         #gallery-modal.is-open {
             opacity: 1;
             pointer-events: all;
         }
+
         #gallery-modal-inner {
             transform: scale(0.96);
-            transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1);
+            transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
             display: flex;
             flex-direction: column;
             flex: 1;
             min-height: 0;
         }
+
         #gallery-modal.is-open #gallery-modal-inner {
             transform: scale(1);
         }
+
         #gallery-modal-header {
             flex-shrink: 0;
             display: flex;
             align-items: center;
             justify-content: space-between;
             padding: 20px 24px;
-            border-bottom: 1px solid rgba(255,255,255,0.08);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
         }
+
         #gallery-modal-header h3 {
-            color: rgba(255,255,255,0.85);
+            color: rgba(255, 255, 255, 0.85);
             font-family: 'Manrope', sans-serif;
             font-weight: 700;
             font-size: 1rem;
             letter-spacing: 0.12em;
             text-transform: uppercase;
         }
+
         #gallery-modal-close {
             width: 40px;
             height: 40px;
             border-radius: 50%;
             border: none;
-            background: rgba(255,255,255,0.08);
+            background: rgba(255, 255, 255, 0.08);
             color: #fff;
             cursor: pointer;
             display: flex;
@@ -153,21 +159,36 @@
             justify-content: center;
             transition: background 0.2s;
         }
-        #gallery-modal-close:hover { background: rgba(255,255,255,0.18); }
+
+        #gallery-modal-close:hover {
+            background: rgba(255, 255, 255, 0.18);
+        }
+
         #gallery-scroll {
             flex: 1;
             overflow-y: auto;
             padding: 24px;
             scrollbar-width: thin;
-            scrollbar-color: rgba(255,255,255,0.15) transparent;
+            scrollbar-color: rgba(255, 255, 255, 0.15) transparent;
         }
+
         /* Masonry via CSS columns */
         #masonry-grid {
             column-count: 4;
             column-gap: 12px;
         }
-        @media (max-width: 1199px) { #masonry-grid { column-count: 3; } }
-        @media (max-width: 767px)  { #masonry-grid { column-count: 2; } }
+
+        @media (max-width: 1199px) {
+            #masonry-grid {
+                column-count: 3;
+            }
+        }
+
+        @media (max-width: 767px) {
+            #masonry-grid {
+                column-count: 2;
+            }
+        }
 
         .masonry-item {
             break-inside: avoid;
@@ -177,13 +198,19 @@
             cursor: pointer;
             position: relative;
         }
+
         .masonry-item img {
             display: block;
             width: 100%;
             height: auto;
             transition: transform 0.45s ease, filter 0.3s ease;
         }
-        .masonry-item:hover img { transform: scale(1.04); filter: brightness(1.06); }
+
+        .masonry-item:hover img {
+            transform: scale(1.04);
+            filter: brightness(1.06);
+        }
+
         .masonry-item.is-highlighted {
             outline: 2px solid #c5a059;
             outline-offset: 2px;
@@ -194,7 +221,7 @@
             position: fixed;
             inset: 0;
             z-index: 300;
-            background: rgba(0,0,0,0.96);
+            background: rgba(0, 0, 0, 0.96);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -202,20 +229,24 @@
             pointer-events: none;
             transition: opacity 0.25s ease;
         }
+
         #lightbox.is-open {
             opacity: 1;
             pointer-events: all;
         }
+
         #lightbox-img-wrap {
             position: relative;
             max-width: 90vw;
             max-height: 90vh;
             transform: scale(0.95);
-            transition: transform 0.3s cubic-bezier(0.34,1.3,0.64,1);
+            transition: transform 0.3s cubic-bezier(0.34, 1.3, 0.64, 1);
         }
+
         #lightbox.is-open #lightbox-img-wrap {
             transform: scale(1);
         }
+
         #lightbox-img {
             display: block;
             max-width: 90vw;
@@ -224,6 +255,7 @@
             border-radius: 4px;
             user-select: none;
         }
+
         #lightbox-close {
             position: fixed;
             top: 20px;
@@ -231,7 +263,7 @@
             width: 44px;
             height: 44px;
             border-radius: 50%;
-            background: rgba(255,255,255,0.1);
+            background: rgba(255, 255, 255, 0.1);
             border: none;
             color: #fff;
             cursor: pointer;
@@ -241,7 +273,11 @@
             transition: background 0.2s;
             z-index: 301;
         }
-        #lightbox-close:hover { background: rgba(255,255,255,0.2); }
+
+        #lightbox-close:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
         .lightbox-arrow {
             position: fixed;
             top: 50%;
@@ -249,7 +285,7 @@
             width: 52px;
             height: 52px;
             border-radius: 50%;
-            background: rgba(255,255,255,0.1);
+            background: rgba(255, 255, 255, 0.1);
             border: none;
             color: #fff;
             cursor: pointer;
@@ -259,23 +295,40 @@
             transition: background 0.2s, opacity 0.2s;
             z-index: 301;
         }
-        .lightbox-arrow:hover { background: rgba(255,255,255,0.22); }
-        .lightbox-arrow:disabled { opacity: 0.2; pointer-events: none; }
-        #lightbox-prev { left: 16px; }
-        #lightbox-next { right: 16px; }
+
+        .lightbox-arrow:hover {
+            background: rgba(255, 255, 255, 0.22);
+        }
+
+        .lightbox-arrow:disabled {
+            opacity: 0.2;
+            pointer-events: none;
+        }
+
+        #lightbox-prev {
+            left: 16px;
+        }
+
+        #lightbox-next {
+            right: 16px;
+        }
+
         #lightbox-counter {
             position: fixed;
             bottom: 20px;
             left: 50%;
             transform: translateX(-50%);
-            color: rgba(255,255,255,0.55);
+            color: rgba(255, 255, 255, 0.55);
             font-family: 'Inter', sans-serif;
             font-size: 0.8rem;
             letter-spacing: 0.08em;
             z-index: 301;
         }
+
         /* preview cursor */
-        .gallery-preview-img { cursor: pointer; }
+        .gallery-preview-img {
+            cursor: pointer;
+        }
     </style>
 </head>
 
@@ -284,9 +337,10 @@
     <header
         class="fixed top-0 w-full z-[100] bg-[#fcf9f8]/80 backdrop-blur-md shadow-[0_20px_50px_rgba(28,27,27,0.05)]">
         <nav class="flex justify-between items-center px-6 md:px-12 py-6 max-w-[1440px] mx-auto">
-            <a href="#"
-                class="font-manrope text-xl font-bold tracking-tighter text-[#1c1b1b] hover:opacity-70 transition-opacity">LUMINA
-                BARCELONA</a>
+            <a href="#" class="hover:opacity-70 transition-opacity">
+                <img src="images/logo-nav.png" alt="Lutty Moreira Photo" class="h-6 md:h-8 w-auto aspect-auto"
+                    style="image-rendering: -webkit-optimize-contrast; mix-blend-mode: multiply;">
+            </a>
             <div class="hidden md:flex items-center gap-8">
                 <a class="text-[#1c1b1b]/60 font-medium hover:text-[#775a19] transition-colors duration-300"
                     href="#pricing" data-i18n="nav.pricing">Pricing</a>
@@ -481,16 +535,12 @@
                         <!-- Vertical Portrait 1 -->
                         <div class="overflow-hidden rounded-xl aspect-[3/4]">
                             <img class="gallery-preview-img w-full h-full object-cover hover:scale-105 transition-transform duration-700"
-                                alt="Studio portrait 1"
-                                src="images/portfolio/v1.png"
-                                data-gallery-index="0" />
+                                alt="Studio portrait 1" src="images/portfolio/v1.png" data-gallery-index="0" />
                         </div>
                         <!-- Horizontal 1 (Mobile intercalation) -->
                         <div class="overflow-hidden rounded-xl aspect-[4/3] md:hidden">
                             <img class="gallery-preview-img w-full h-full object-cover hover:scale-105 transition-transform duration-700"
-                                alt="Studio portrait 2"
-                                src="images/portfolio/h1.png"
-                                data-gallery-index="1" />
+                                alt="Studio portrait 2" src="images/portfolio/h1.png" data-gallery-index="1" />
                         </div>
                     </div>
 
@@ -499,23 +549,17 @@
                         <!-- Horizontal 1 (Desktop) -->
                         <div class="overflow-hidden rounded-xl aspect-[4/3] hidden md:block">
                             <img class="gallery-preview-img w-full h-full object-cover hover:scale-105 transition-transform duration-700"
-                                alt="Studio portrait 2"
-                                src="images/portfolio/h1.png"
-                                data-gallery-index="1" />
+                                alt="Studio portrait 2" src="images/portfolio/h1.png" data-gallery-index="1" />
                         </div>
                         <!-- Horizontal 2 -->
                         <div class="overflow-hidden rounded-xl aspect-[4/3]">
                             <img class="gallery-preview-img w-full h-full object-cover hover:scale-105 transition-transform duration-700"
-                                alt="Studio portrait 3"
-                                src="images/portfolio/h2.png"
-                                data-gallery-index="2" />
+                                alt="Studio portrait 3" src="images/portfolio/h2.png" data-gallery-index="2" />
                         </div>
                         <!-- Vertical 2 (Mobile intercalation) -->
                         <div class="overflow-hidden rounded-xl aspect-[3/4] md:hidden">
                             <img class="gallery-preview-img w-full h-full object-cover hover:scale-105 transition-transform duration-700"
-                                alt="Studio portrait 4"
-                                src="images/portfolio/v2.png"
-                                data-gallery-index="3" />
+                                alt="Studio portrait 4" src="images/portfolio/v2.png" data-gallery-index="3" />
                         </div>
                     </div>
 
@@ -524,9 +568,7 @@
                         <!-- Vertical Portrait 2 (Desktop) -->
                         <div class="overflow-hidden rounded-xl aspect-[3/4]">
                             <img class="gallery-preview-img w-full h-full object-cover hover:scale-105 transition-transform duration-700"
-                                alt="Studio portrait 4"
-                                src="images/portfolio/v2.png"
-                                data-gallery-index="3" />
+                                alt="Studio portrait 4" src="images/portfolio/v2.png" data-gallery-index="3" />
                         </div>
                     </div>
                 </div>
@@ -536,49 +578,58 @@
         <section class="py-24 bg-surface-container-lowest" id="studio">
             <div class="max-w-[1440px] mx-auto px-6">
                 <!-- Mobile Only Title -->
-                <h2 class="font-headline text-4xl font-bold mb-12 editorial-spacing md:hidden" data-i18n="studio.title">The Studio</h2>
+                <h2 class="font-headline text-4xl font-bold mb-12 editorial-spacing md:hidden" data-i18n="studio.title">
+                    The Studio</h2>
 
                 <div class="grid md:grid-cols-2 gap-12 md:gap-24 items-center">
                     <!-- Studio Images Grid -->
                     <div class="relative">
                         <div class="grid grid-cols-2 gap-3 md:gap-4 relative">
-                            <img class="rounded-lg shadow-lg hover:scale-[1.02] transition-transform duration-500 w-full aspect-[4/3] object-cover" 
-                                 src="images/studio-1.png" alt="Studio Room 1">
-                            <img class="rounded-lg shadow-lg hover:scale-[1.02] transition-transform duration-500 w-full aspect-[4/3] object-cover" 
-                                 src="images/studio-2.png" alt="Studio Room 2">
-                            <img class="rounded-lg shadow-lg hover:scale-[1.02] transition-transform duration-500 w-full aspect-[4/3] object-cover" 
-                                 src="images/studio-makeup.png" alt="Makeup Area">
-                            <img class="rounded-lg shadow-lg hover:scale-[1.02] transition-transform duration-500 w-full aspect-[4/3] object-cover" 
-                                 src="images/studio-equipment.png" alt="Studio Equipment">
-                            <div class="absolute -bottom-6 -right-6 bg-primary p-8 text-white hidden md:block z-10 shadow-xl">
+                            <img class="rounded-lg shadow-lg hover:scale-[1.02] transition-transform duration-500 w-full aspect-[4/3] object-cover"
+                                src="images/studio-1.png" alt="Studio Room 1">
+                            <img class="rounded-lg shadow-lg hover:scale-[1.02] transition-transform duration-500 w-full aspect-[4/3] object-cover"
+                                src="images/studio-2.png" alt="Studio Room 2">
+                            <img class="rounded-lg shadow-lg hover:scale-[1.02] transition-transform duration-500 w-full aspect-[4/3] object-cover"
+                                src="images/studio-makeup.png" alt="Makeup Area">
+                            <img class="rounded-lg shadow-lg hover:scale-[1.02] transition-transform duration-500 w-full aspect-[4/3] object-cover"
+                                src="images/studio-equipment.png" alt="Studio Equipment">
+                            <div
+                                class="absolute -bottom-6 -right-6 bg-primary p-8 text-white hidden md:block z-10 shadow-xl">
                                 <span class="text-3xl font-headline font-bold" data-i18n="studio.spaceSize">150m²</span>
-                                <p class="text-[10px] uppercase tracking-widest mt-1" data-i18n="studio.spaceLabel">Creative Space</p>
+                                <p class="text-[10px] uppercase tracking-widest mt-1" data-i18n="studio.spaceLabel">
+                                    Creative Space</p>
                             </div>
                         </div>
                     </div>
 
                     <!-- Studio Content -->
                     <div>
-                        <h2 class="font-headline text-4xl font-bold mb-8 editorial-spacing hidden md:block" data-i18n="studio.title">The Studio</h2>
+                        <h2 class="font-headline text-4xl font-bold mb-8 editorial-spacing hidden md:block"
+                            data-i18n="studio.title">The Studio</h2>
                         <div class="space-y-8">
                             <div class="flex gap-6">
                                 <span class="material-symbols-outlined text-primary text-3xl">panorama_horizontal</span>
                                 <div>
-                                    <h4 class="font-headline font-bold text-lg mb-2" data-i18n="studio.feature1Title">Infinite cyclorama</h4>
-                                    <p class="text-on-surface-variant" data-i18n="studio.feature1Desc">Clean seamless background for a minimal, professional look</p>
+                                    <h4 class="font-headline font-bold text-lg mb-2" data-i18n="studio.feature1Title">
+                                        Infinite cyclorama</h4>
+                                    <p class="text-on-surface-variant" data-i18n="studio.feature1Desc">Clean seamless
+                                        background for a minimal, professional look</p>
                                 </div>
                             </div>
                             <div class="flex gap-6">
                                 <span class="material-symbols-outlined text-primary text-3xl">weekend</span>
                                 <div>
-                                    <h4 class="font-headline font-bold text-lg mb-2" data-i18n="studio.feature2Title">Ambient room</h4>
-                                    <p class="text-on-surface-variant" data-i18n="studio.feature2Desc">Textured walls, props, and more natural setups</p>
+                                    <h4 class="font-headline font-bold text-lg mb-2" data-i18n="studio.feature2Title">
+                                        Ambient room</h4>
+                                    <p class="text-on-surface-variant" data-i18n="studio.feature2Desc">Textured walls,
+                                        props, and more natural setups</p>
                                 </div>
                             </div>
                             <div class="flex gap-6">
                                 <span class="material-symbols-outlined text-primary text-3xl">verified</span>
                                 <div>
-                                    <h4 class="font-headline font-bold text-lg mb-2" data-i18n="studio.feature3Title">Included in all sessions</h4>
+                                    <h4 class="font-headline font-bold text-lg mb-2" data-i18n="studio.feature3Title">
+                                        Included in all sessions</h4>
                                     <ul class="space-y-1 text-on-surface-variant" id="studio-inclusions">
                                         <li>- Changing & makeup area</li>
                                         <li>- Multiple backdrops available</li>
@@ -601,14 +652,14 @@
                             Find us in Poble Espanyol</h2>
                         <p class="text-lg text-secondary mb-12" data-i18n="location.desc">Nestled in the heart of
                             Montjuïc, our studio combines historic charm with modern technical facilities.</p>
-                        
+
                         <div class="space-y-6">
                             <div class="flex items-center gap-4">
                                 <span class="material-symbols-outlined text-primary">pin_drop</span>
-                                <a href="https://www.google.com/maps/search/?api=1&query=Porta+d'Àvila+-+Av.+de+Francesc+Ferrer+i+Guàrdia,+13,+08038+Barcelona" 
-                                   target="_blank" 
-                                   class="font-medium hover:text-primary transition-colors underline decoration-primary/30 underline-offset-4" 
-                                   data-i18n="location.address">
+                                <a href="https://www.google.com/maps/search/?api=1&query=Porta+d'Àvila+-+Av.+de+Francesc+Ferrer+i+Guàrdia,+13,+08038+Barcelona"
+                                    target="_blank"
+                                    class="font-medium hover:text-primary transition-colors underline decoration-primary/30 underline-offset-4"
+                                    data-i18n="location.address">
                                     Porta d'Àvila - Av. de Francesc Ferrer i Guàrdia, 13, 08038 Barcelona
                                 </a>
                             </div>
@@ -620,51 +671,67 @@
 
                             <div class="flex items-center gap-4">
                                 <span class="material-symbols-outlined text-primary">verified</span>
-                                <span class="font-medium" data-i18n="location.entrance">Free entrance to the village</span>
+                                <span class="font-medium" data-i18n="location.entrance">Free entrance to the
+                                    village</span>
                             </div>
                         </div>
                     </div>
 
                     <!-- Column 2: Logistics & Bonus -->
-                    <div class="p-12 md:p-24 bg-surface-container flex flex-col justify-center border-t md:border-t-0 md:border-l border-outline-variant/30">
+                    <div
+                        class="p-12 md:p-24 bg-surface-container flex flex-col justify-center border-t md:border-t-0 md:border-l border-outline-variant/30">
                         <!-- Getting there Section -->
                         <div class="space-y-8">
-                            <h3 class="font-headline text-[11px] font-extrabold uppercase tracking-[0.2em] text-secondary/80" data-i18n="location.gettingThere">GETTING THERE</h3>
-                            
+                            <h3 class="font-headline text-[11px] font-extrabold uppercase tracking-[0.2em] text-secondary/80"
+                                data-i18n="location.gettingThere">GETTING THERE</h3>
+
                             <div class="space-y-5">
                                 <div class="flex items-center gap-4">
-                                    <span class="material-symbols-outlined text-primary text-xl" style="font-variation-settings: 'wght' 400;">subway</span>
+                                    <span class="material-symbols-outlined text-primary text-xl"
+                                        style="font-variation-settings: 'wght' 400;">subway</span>
                                     <p class="text-sm text-left">
-                                        <span class="font-bold" data-i18n="location.transitMetroLabel">Metro:</span> <span data-i18n="location.transitMetro">Espanya Station (Line 1 and Line 3)</span>
+                                        <span class="font-bold" data-i18n="location.transitMetroLabel">Metro:</span>
+                                        <span data-i18n="location.transitMetro">Espanya Station (Line 1 and Line
+                                            3)</span>
                                     </p>
                                 </div>
-                                
+
                                 <div class="flex items-center gap-4">
-                                    <span class="material-symbols-outlined text-primary text-xl" style="font-variation-settings: 'wght' 400;">train</span>
+                                    <span class="material-symbols-outlined text-primary text-xl"
+                                        style="font-variation-settings: 'wght' 400;">train</span>
                                     <p class="text-sm text-left">
-                                        <span class="font-bold" data-i18n="location.transitTrainLabel">Renfe & Rodalies:</span> <span data-i18n="location.transitTrain">Sants Estació Stop</span>
+                                        <span class="font-bold" data-i18n="location.transitTrainLabel">Renfe &
+                                            Rodalies:</span> <span data-i18n="location.transitTrain">Sants Estació
+                                            Stop</span>
                                     </p>
                                 </div>
-                                
+
                                 <div class="flex items-center gap-4">
-                                    <span class="material-symbols-outlined text-primary text-xl" style="font-variation-settings: 'wght' 400;">train</span>
+                                    <span class="material-symbols-outlined text-primary text-xl"
+                                        style="font-variation-settings: 'wght' 400;">train</span>
                                     <p class="text-sm text-left">
-                                        <span class="font-bold" data-i18n="location.transitFGCLabel">FGC:</span> <span data-i18n="location.transitFGC">Espanya Station</span>
+                                        <span class="font-bold" data-i18n="location.transitFGCLabel">FGC:</span> <span
+                                            data-i18n="location.transitFGC">Espanya Station</span>
                                     </p>
                                 </div>
-                                
+
                                 <div class="flex items-center gap-4">
-                                    <span class="material-symbols-outlined text-primary text-xl" style="font-variation-settings: 'wght' 400;">directions_bus</span>
+                                    <span class="material-symbols-outlined text-primary text-xl"
+                                        style="font-variation-settings: 'wght' 400;">directions_bus</span>
                                     <p class="text-sm text-left">
-                                        <span class="font-bold" data-i18n="location.transitBusLabel">Bus:</span> <span data-i18n="location.transitBus">Poble Espanyol Stop (Lines 13, 23, 150)</span>
+                                        <span class="font-bold" data-i18n="location.transitBusLabel">Bus:</span> <span
+                                            data-i18n="location.transitBus">Poble Espanyol Stop (Lines 13, 23,
+                                            150)</span>
                                     </p>
                                 </div>
                             </div>
                         </div>
 
                         <!-- Bonus Box -->
-                        <div class="mt-12 p-6 bg-primary/5 border border-primary/20 rounded-lg flex items-center gap-4 group hover:bg-primary/10 transition-all duration-300">
-                            <span class="material-symbols-outlined text-primary group-hover:scale-110 transition-transform duration-300">grade</span>
+                        <div
+                            class="mt-12 p-6 bg-primary/5 border border-primary/20 rounded-lg flex items-center gap-4 group hover:bg-primary/10 transition-all duration-300">
+                            <span
+                                class="material-symbols-outlined text-primary group-hover:scale-110 transition-transform duration-300">grade</span>
                             <p class="text-sm font-medium text-on-surface" data-i18n="location.bonus">
                                 Access to Poble Espanyol included with your session
                             </p>
@@ -711,39 +778,58 @@
                     Frequently Asked Questions</h2>
                 <div class="divide-y divide-outline-variant/20 border-t border-outline-variant/20">
                     <details class="group py-4 transition-all duration-300">
-                        <summary class="flex justify-between items-center font-medium cursor-pointer list-none text-on-surface">
+                        <summary
+                            class="flex justify-between items-center font-medium cursor-pointer list-none text-on-surface">
                             <span data-i18n="faq.q1">What happens if I'm late?</span>
-                            <span class="material-symbols-outlined group-open:rotate-180 transition-transform text-primary/50">expand_more</span>
+                            <span
+                                class="material-symbols-outlined group-open:rotate-180 transition-transform text-primary/50">expand_more</span>
                         </summary>
-                        <p class="mt-2 text-sm text-on-surface-variant/80 leading-relaxed" data-i18n="faq.a1">Session time starts at the booked hour. Being late will reduce your shooting time as we often have consecutive bookings.</p>
+                        <p class="mt-2 text-sm text-on-surface-variant/80 leading-relaxed" data-i18n="faq.a1">Session
+                            time starts at the booked hour. Being late will reduce your shooting time as we often have
+                            consecutive bookings.</p>
                     </details>
                     <details class="group py-4 transition-all duration-300">
-                        <summary class="flex justify-between items-center font-medium cursor-pointer list-none text-on-surface">
+                        <summary
+                            class="flex justify-between items-center font-medium cursor-pointer list-none text-on-surface">
                             <span data-i18n="faq.q2">Can I have the RAW files?</span>
-                            <span class="material-symbols-outlined group-open:rotate-180 transition-transform text-primary/50">expand_more</span>
+                            <span
+                                class="material-symbols-outlined group-open:rotate-180 transition-transform text-primary/50">expand_more</span>
                         </summary>
-                        <p class="mt-2 text-sm text-on-surface-variant/80 leading-relaxed" data-i18n="faq.a2">We do not deliver RAW or unedited files. Part of our studio's value is the curated editing and color grading process.</p>
+                        <p class="mt-2 text-sm text-on-surface-variant/80 leading-relaxed" data-i18n="faq.a2">We do not
+                            deliver RAW or unedited files. Part of our studio's value is the curated editing and color
+                            grading process.</p>
                     </details>
                     <details class="group py-4 transition-all duration-300">
-                        <summary class="flex justify-between items-center font-medium cursor-pointer list-none text-on-surface">
+                        <summary
+                            class="flex justify-between items-center font-medium cursor-pointer list-none text-on-surface">
                             <span data-i18n="faq.q3">Studio shoe policy?</span>
-                            <span class="material-symbols-outlined group-open:rotate-180 transition-transform text-primary/50">expand_more</span>
+                            <span
+                                class="material-symbols-outlined group-open:rotate-180 transition-transform text-primary/50">expand_more</span>
                         </summary>
-                        <p class="mt-2 text-sm text-on-surface-variant/80 leading-relaxed" data-i18n="faq.a3">To keep our white cyclorama pristine, we ask that all shoes used for shooting have their soles taped or are thoroughly cleaned before stepping on the wall.</p>
+                        <p class="mt-2 text-sm text-on-surface-variant/80 leading-relaxed" data-i18n="faq.a3">To keep
+                            our white cyclorama pristine, we ask that all shoes used for shooting have their soles taped
+                            or are thoroughly cleaned before stepping on the wall.</p>
                     </details>
                     <details class="group py-4 transition-all duration-300">
-                        <summary class="flex justify-between items-center font-medium cursor-pointer list-none text-on-surface">
+                        <summary
+                            class="flex justify-between items-center font-medium cursor-pointer list-none text-on-surface">
                             <span data-i18n="faq.q4">Does the session time include setup?</span>
-                            <span class="material-symbols-outlined group-open:rotate-180 transition-transform text-primary/50">expand_more</span>
+                            <span
+                                class="material-symbols-outlined group-open:rotate-180 transition-transform text-primary/50">expand_more</span>
                         </summary>
-                        <p class="mt-2 text-sm text-on-surface-variant/80 leading-relaxed" data-i18n="faq.a4">Yes, session time includes both setup at the beginning and wrap-up at the end (around 20 minutes).</p>
+                        <p class="mt-2 text-sm text-on-surface-variant/80 leading-relaxed" data-i18n="faq.a4">Yes,
+                            session time includes both setup at the beginning and wrap-up at the end (around 20
+                            minutes).</p>
                     </details>
                     <details class="group py-4 transition-all duration-300">
-                        <summary class="flex justify-between items-center font-medium cursor-pointer list-none text-on-surface">
+                        <summary
+                            class="flex justify-between items-center font-medium cursor-pointer list-none text-on-surface">
                             <span data-i18n="faq.q5">What is the cancellation policy?</span>
-                            <span class="material-symbols-outlined group-open:rotate-180 transition-transform text-primary/50">expand_more</span>
+                            <span
+                                class="material-symbols-outlined group-open:rotate-180 transition-transform text-primary/50">expand_more</span>
                         </summary>
-                        <p class="mt-2 text-sm text-on-surface-variant/80 leading-relaxed" data-i18n="faq.a5">Cancellation depends on booking conditions (deposit loss, rebooking, etc).</p>
+                        <p class="mt-2 text-sm text-on-surface-variant/80 leading-relaxed" data-i18n="faq.a5">
+                            Cancellation depends on booking conditions (deposit loss, rebooking, etc).</p>
                     </details>
                 </div>
             </div>
@@ -814,9 +900,10 @@
     <!-- Footer (Shared Component) -->
     <footer class="w-full mt-8 bg-[#f6f3f2] dark:bg-[#121111]">
         <div class="flex flex-col md:flex-row justify-between items-center px-12 py-12 gap-8 max-w-[1440px] mx-auto">
-            <a href="#"
-                class="font-manrope font-semibold text-[#1c1b1b] dark:text-[#fcf9f8] hover:opacity-70 transition-opacity">LUMINA
-                PHOTOGRAPHY</a>
+            <div class="flex flex-col items-center md:items-start gap-4">
+                <img src="images/film-strip.png" alt="Lutty Moreira Photo Signature"
+                    class="h-12 md:h-16 w-auto drop-shadow-md">
+            </div>
             <div class="flex gap-8">
                 <a class="font-inter text-[10px] tracking-widest uppercase text-[#1c1b1b]/40 dark:text-[#fcf9f8]/40 hover:text-[#775a19] transition-all"
                     href="#" data-i18n="footer.instagram">Instagram</a>
@@ -829,7 +916,7 @@
             </div>
             <div class="font-inter text-[10px] tracking-widest uppercase text-[#1c1b1b]/40"
                 data-i18n="footer.copyright">
-                © 2024 LUMINA PHOTOGRAPHY BARCELONA. CURATED CAPTURES.
+                © 2024 LUMINA PHOTOGRAPHY BARCELONA.
             </div>
         </div>
     </footer>
@@ -882,200 +969,200 @@
     </div>
 
     <script>
-    /* ─── GalleryModal + Masonry + Lightbox ─────────────────────────────────
-       Single source of truth:
-         galleryImages  – ordered list of {src, alt}
-         modalOpen      – boolean
-         lightboxIndex  – current lightbox image index (-1 = closed)
-    ─────────────────────────────────────────────────────────────────────── */
-    (function GallerySystem() {
-        // ── Data ─────────────────────────────────────────────────
-        const galleryImages = [
-            { src: 'images/portfolio/v1.png', alt: 'Studio portrait 1' },
-            { src: 'images/portfolio/h1.png', alt: 'Studio portrait 2' },
-            { src: 'images/portfolio/h2.png', alt: 'Studio portrait 3' },
-            { src: 'images/portfolio/v2.png', alt: 'Studio portrait 4' },
-            { src: 'images/portfolio/h2.png', alt: 'Studio portrait 5' },
-            { src: 'images/portfolio/v1.png', alt: 'Studio portrait 6' },
-            { src: 'images/portfolio/v2.png', alt: 'Studio portrait 7' },
-            { src: 'images/portfolio/h1.png', alt: 'Studio portrait 8' },
-            { src: 'images/portfolio/v1.png', alt: 'Studio portrait 9' },
-            { src: 'images/portfolio/h2.png', alt: 'Studio portrait 10' },
-        ];
+            /* ─── GalleryModal + Masonry + Lightbox ─────────────────────────────────
+               Single source of truth:
+                 galleryImages  – ordered list of {src, alt}
+                 modalOpen      – boolean
+                 lightboxIndex  – current lightbox image index (-1 = closed)
+            ─────────────────────────────────────────────────────────────────────── */
+            (function GallerySystem() {
+                // ── Data ─────────────────────────────────────────────────
+                const galleryImages = [
+                    { src: 'images/portfolio/v1.png', alt: 'Studio portrait 1' },
+                    { src: 'images/portfolio/h1.png', alt: 'Studio portrait 2' },
+                    { src: 'images/portfolio/h2.png', alt: 'Studio portrait 3' },
+                    { src: 'images/portfolio/v2.png', alt: 'Studio portrait 4' },
+                    { src: 'images/portfolio/h2.png', alt: 'Studio portrait 5' },
+                    { src: 'images/portfolio/v1.png', alt: 'Studio portrait 6' },
+                    { src: 'images/portfolio/v2.png', alt: 'Studio portrait 7' },
+                    { src: 'images/portfolio/h1.png', alt: 'Studio portrait 8' },
+                    { src: 'images/portfolio/v1.png', alt: 'Studio portrait 9' },
+                    { src: 'images/portfolio/h2.png', alt: 'Studio portrait 10' },
+                ];
 
-        let modalOpen = false;
-        let lightboxIndex = -1;
+                let modalOpen = false;
+                let lightboxIndex = -1;
 
-        // ── DOM refs ──────────────────────────────────────────────
-        const galleryModal     = document.getElementById('gallery-modal');
-        const galleryScroll    = document.getElementById('gallery-scroll');
-        const masonryGrid      = document.getElementById('masonry-grid');
-        const modalCloseBtn    = document.getElementById('gallery-modal-close');
-        const galleryOpenBtn   = document.getElementById('gallery-open-btn');
-        const lightbox         = document.getElementById('lightbox');
-        const lightboxImg      = document.getElementById('lightbox-img');
-        const lightboxClose    = document.getElementById('lightbox-close');
-        const lightboxPrev     = document.getElementById('lightbox-prev');
-        const lightboxNext     = document.getElementById('lightbox-next');
-        const lightboxCounter  = document.getElementById('lightbox-counter');
+                // ── DOM refs ──────────────────────────────────────────────
+                const galleryModal = document.getElementById('gallery-modal');
+                const galleryScroll = document.getElementById('gallery-scroll');
+                const masonryGrid = document.getElementById('masonry-grid');
+                const modalCloseBtn = document.getElementById('gallery-modal-close');
+                const galleryOpenBtn = document.getElementById('gallery-open-btn');
+                const lightbox = document.getElementById('lightbox');
+                const lightboxImg = document.getElementById('lightbox-img');
+                const lightboxClose = document.getElementById('lightbox-close');
+                const lightboxPrev = document.getElementById('lightbox-prev');
+                const lightboxNext = document.getElementById('lightbox-next');
+                const lightboxCounter = document.getElementById('lightbox-counter');
 
-        // ── Build masonry grid ────────────────────────────────────
-        function buildMasonry() {
-            masonryGrid.innerHTML = '';
-            galleryImages.forEach((img, i) => {
-                const item = document.createElement('div');
-                item.className = 'masonry-item';
-                item.dataset.index = i;
+                // ── Build masonry grid ────────────────────────────────────
+                function buildMasonry() {
+                    masonryGrid.innerHTML = '';
+                    galleryImages.forEach((img, i) => {
+                        const item = document.createElement('div');
+                        item.className = 'masonry-item';
+                        item.dataset.index = i;
 
-                const el = document.createElement('img');
-                el.src = img.src;
-                el.alt = img.alt;
-                el.loading = i < 4 ? 'eager' : 'lazy';
-                el.draggable = false;
+                        const el = document.createElement('img');
+                        el.src = img.src;
+                        el.alt = img.alt;
+                        el.loading = i < 4 ? 'eager' : 'lazy';
+                        el.draggable = false;
 
-                item.appendChild(el);
-                item.addEventListener('click', e => {
-                    e.stopPropagation(); // prevent bubbling to scroll → closeModal
-                    openLightbox(i);
+                        item.appendChild(el);
+                        item.addEventListener('click', e => {
+                            e.stopPropagation(); // prevent bubbling to scroll → closeModal
+                            openLightbox(i);
+                        });
+                        masonryGrid.appendChild(item);
+                    });
+                }
+
+                buildMasonry();
+
+                // ── Preload first 4 images ───────────────────────────────
+                galleryImages.slice(0, 4).forEach(img => {
+                    const link = document.createElement('link');
+                    link.rel = 'preload'; link.as = 'image'; link.href = img.src;
+                    document.head.appendChild(link);
                 });
-                masonryGrid.appendChild(item);
-            });
-        }
 
-        buildMasonry();
+                // ── Modal open/close ─────────────────────────────────────
+                function openModal(highlightIndex) {
+                    modalOpen = true;
+                    galleryModal.classList.add('is-open');
+                    document.body.style.overflow = 'hidden';
 
-        // ── Preload first 4 images ───────────────────────────────
-        galleryImages.slice(0, 4).forEach(img => {
-            const link = document.createElement('link');
-            link.rel = 'preload'; link.as = 'image'; link.href = img.src;
-            document.head.appendChild(link);
-        });
+                    if (highlightIndex !== undefined && highlightIndex >= 0) {
+                        // Brief highlight then scroll to item
+                        requestAnimationFrame(() => {
+                            setTimeout(() => {
+                                const target = masonryGrid.querySelector('[data-index="' + highlightIndex + '"]');
+                                if (target) {
+                                    target.classList.add('is-highlighted');
+                                    target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                                    setTimeout(() => target.classList.remove('is-highlighted'), 1800);
+                                }
+                            }, 350); // wait for animation
+                        });
+                    }
+                }
 
-        // ── Modal open/close ─────────────────────────────────────
-        function openModal(highlightIndex) {
-            modalOpen = true;
-            galleryModal.classList.add('is-open');
-            document.body.style.overflow = 'hidden';
+                function closeModal() {
+                    modalOpen = false;
+                    galleryModal.classList.remove('is-open');
+                    if (lightboxIndex === -1) restoreBodyScroll();
+                }
 
-            if (highlightIndex !== undefined && highlightIndex >= 0) {
-                // Brief highlight then scroll to item
-                requestAnimationFrame(() => {
+                function restoreBodyScroll() {
+                    if (!modalOpen && lightboxIndex === -1) {
+                        document.body.style.overflow = '';
+                    }
+                }
+
+                // ── Lightbox open/close/navigate ─────────────────────────
+                function openLightbox(index) {
+                    lightboxIndex = index;
+                    renderLightbox();
+                    lightbox.classList.add('is-open');
+                    document.body.style.overflow = 'hidden';
+                }
+
+                function closeLightbox() {
+                    lightboxIndex = -1;
+                    lightbox.classList.remove('is-open');
+                    restoreBodyScroll();
+                }
+
+                function renderLightbox() {
+                    const img = galleryImages[lightboxIndex];
+                    lightboxImg.src = img.src;
+                    lightboxImg.alt = img.alt;
+                    lightboxCounter.textContent = (lightboxIndex + 1) + ' / ' + galleryImages.length;
+                    // Looping: never disable arrows
+                    lightboxPrev.disabled = false;
+                    lightboxNext.disabled = false;
+                }
+
+                function lightboxNavigate(delta) {
+                    // Wraps around: last→first, first→last
+                    lightboxIndex = (lightboxIndex + delta + galleryImages.length) % galleryImages.length;
+                    lightboxImg.style.opacity = '0';
                     setTimeout(() => {
-                        const target = masonryGrid.querySelector('[data-index="' + highlightIndex + '"]');
-                        if (target) {
-                            target.classList.add('is-highlighted');
-                            target.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                            setTimeout(() => target.classList.remove('is-highlighted'), 1800);
-                        }
-                    }, 350); // wait for animation
+                        renderLightbox();
+                        lightboxImg.style.opacity = '1';
+                    }, 150);
+                }
+                lightboxImg.style.transition = 'opacity 0.15s ease';
+
+                // ── Event wiring ─────────────────────────────────────────
+                // CTA button
+                galleryOpenBtn.addEventListener('click', () => openModal());
+
+                // Preview images → open modal and highlight
+                document.querySelectorAll('.gallery-preview-img').forEach(img => {
+                    img.addEventListener('click', () => {
+                        const idx = parseInt(img.dataset.galleryIndex, 10);
+                        openModal(isNaN(idx) ? undefined : idx);
+                    });
                 });
-            }
-        }
 
-        function closeModal() {
-            modalOpen = false;
-            galleryModal.classList.remove('is-open');
-            if (lightboxIndex === -1) restoreBodyScroll();
-        }
+                // Modal close
+                const galleryModalInner = document.getElementById('gallery-modal-inner');
+                const galleryModalHeader = document.getElementById('gallery-modal-header');
+                modalCloseBtn.addEventListener('click', closeModal);
+                // Close when clicking empty space in the scroll area (between/around images).
+                // Masonry items stopPropagation so clicking images only opens the lightbox.
+                // Header stopPropagation so clicking the top bar doesn't close either.
+                galleryScroll.addEventListener('click', closeModal);
+                galleryModalHeader.addEventListener('click', e => e.stopPropagation());
 
-        function restoreBodyScroll() {
-            if (!modalOpen && lightboxIndex === -1) {
-                document.body.style.overflow = '';
-            }
-        }
+                // Lightbox controls
+                lightboxClose.addEventListener('click', closeLightbox);
+                lightboxPrev.addEventListener('click', () => lightboxNavigate(-1));
+                lightboxNext.addEventListener('click', () => lightboxNavigate(1));
 
-        // ── Lightbox open/close/navigate ─────────────────────────
-        function openLightbox(index) {
-            lightboxIndex = index;
-            renderLightbox();
-            lightbox.classList.add('is-open');
-            document.body.style.overflow = 'hidden';
-        }
+                // Click outside lightbox image
+                lightbox.addEventListener('click', e => {
+                    if (e.target === lightbox) closeLightbox();
+                });
 
-        function closeLightbox() {
-            lightboxIndex = -1;
-            lightbox.classList.remove('is-open');
-            restoreBodyScroll();
-        }
+                // Keyboard
+                document.addEventListener('keydown', e => {
+                    if (e.key === 'Escape') {
+                        if (lightboxIndex >= 0) { closeLightbox(); return; }
+                        if (modalOpen) closeModal();
+                    }
+                    if (lightboxIndex >= 0) {
+                        if (e.key === 'ArrowLeft') lightboxNavigate(-1);
+                        if (e.key === 'ArrowRight') lightboxNavigate(1);
+                    }
+                });
 
-        function renderLightbox() {
-            const img = galleryImages[lightboxIndex];
-            lightboxImg.src = img.src;
-            lightboxImg.alt = img.alt;
-            lightboxCounter.textContent = (lightboxIndex + 1) + ' / ' + galleryImages.length;
-            // Looping: never disable arrows
-            lightboxPrev.disabled = false;
-            lightboxNext.disabled = false;
-        }
+                // ── Touch / swipe on lightbox ────────────────────────────
+                let touchStartX = null;
+                lightbox.addEventListener('touchstart', e => {
+                    touchStartX = e.touches[0].clientX;
+                }, { passive: true });
+                lightbox.addEventListener('touchend', e => {
+                    if (touchStartX === null) return;
+                    const dx = e.changedTouches[0].clientX - touchStartX;
+                    if (Math.abs(dx) > 50) lightboxNavigate(dx < 0 ? 1 : -1);
+                    touchStartX = null;
+                }, { passive: true });
 
-        function lightboxNavigate(delta) {
-            // Wraps around: last→first, first→last
-            lightboxIndex = (lightboxIndex + delta + galleryImages.length) % galleryImages.length;
-            lightboxImg.style.opacity = '0';
-            setTimeout(() => {
-                renderLightbox();
-                lightboxImg.style.opacity = '1';
-            }, 150);
-        }
-        lightboxImg.style.transition = 'opacity 0.15s ease';
-
-        // ── Event wiring ─────────────────────────────────────────
-        // CTA button
-        galleryOpenBtn.addEventListener('click', () => openModal());
-
-        // Preview images → open modal and highlight
-        document.querySelectorAll('.gallery-preview-img').forEach(img => {
-            img.addEventListener('click', () => {
-                const idx = parseInt(img.dataset.galleryIndex, 10);
-                openModal(isNaN(idx) ? undefined : idx);
-            });
-        });
-
-        // Modal close
-        const galleryModalInner = document.getElementById('gallery-modal-inner');
-        const galleryModalHeader = document.getElementById('gallery-modal-header');
-        modalCloseBtn.addEventListener('click', closeModal);
-        // Close when clicking empty space in the scroll area (between/around images).
-        // Masonry items stopPropagation so clicking images only opens the lightbox.
-        // Header stopPropagation so clicking the top bar doesn't close either.
-        galleryScroll.addEventListener('click', closeModal);
-        galleryModalHeader.addEventListener('click', e => e.stopPropagation());
-
-        // Lightbox controls
-        lightboxClose.addEventListener('click', closeLightbox);
-        lightboxPrev.addEventListener('click', () => lightboxNavigate(-1));
-        lightboxNext.addEventListener('click', () => lightboxNavigate(1));
-
-        // Click outside lightbox image
-        lightbox.addEventListener('click', e => {
-            if (e.target === lightbox) closeLightbox();
-        });
-
-        // Keyboard
-        document.addEventListener('keydown', e => {
-            if (e.key === 'Escape') {
-                if (lightboxIndex >= 0) { closeLightbox(); return; }
-                if (modalOpen) closeModal();
-            }
-            if (lightboxIndex >= 0) {
-                if (e.key === 'ArrowLeft')  lightboxNavigate(-1);
-                if (e.key === 'ArrowRight') lightboxNavigate(1);
-            }
-        });
-
-        // ── Touch / swipe on lightbox ────────────────────────────
-        let touchStartX = null;
-        lightbox.addEventListener('touchstart', e => {
-            touchStartX = e.touches[0].clientX;
-        }, { passive: true });
-        lightbox.addEventListener('touchend', e => {
-            if (touchStartX === null) return;
-            const dx = e.changedTouches[0].clientX - touchStartX;
-            if (Math.abs(dx) > 50) lightboxNavigate(dx < 0 ? 1 : -1);
-            touchStartX = null;
-        }, { passive: true });
-
-    })();
+            })();
     </script>
     <script>
         const menuToggle = document.getElementById('mobile-menu-toggle');
