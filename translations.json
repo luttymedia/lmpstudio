@@ -6,13 +6,13 @@
       "studio": "Studio",
       "location": "Location",
       "faq": "FAQ",
-      "checkAvailability": "Check Availability"
+      "contact": "Contact"
     },
     "hero": {
       "title": "Studio Sessions in Barcelona",
       "subtitle": "Photo & video sessions in a fully equipped studio.",
       "priceInfo": "From 150€ · Edited photos included",
-      "cta": "Check availability"
+      "cta": "Contact Now"
     },
     "overview": {
       "title1": "Flexible Sessions",
@@ -119,9 +119,21 @@
     },
     "cta": {
       "title": "Ready to frame your moment?",
-      "desc": "Check availability or ask us any questions about your project.",
-      "checkAvailability": "Check availability",
-      "askQuestion": "Ask a question"
+      "desc": "Choose how you'd like to get in touch."
+    },
+    "contact": {
+      "title": "Get in touch",
+      "desc": "Tell us about your project and we'll get back to you.",
+      "nameLabel": "Name *",
+      "namePlaceholder": "Your name",
+      "emailLabel": "Email *",
+      "emailPlaceholder": "your@email.com",
+      "phoneLabel": "Phone",
+      "phonePlaceholder": "+34 000 000 000",
+      "optional": "(optional)",
+      "messageLabel": "Message *",
+      "messagePlaceholder": "Tell us about your project, ideal date, style...",
+      "submit": "Send message"
     },
     "ctaContact": {
       "title": "Check availability or ask any questions",
@@ -145,13 +157,13 @@
       "studio": "Estudio",
       "location": "Ubicación",
       "faq": "FAQ",
-      "checkAvailability": "Ver disponibilidad"
+      "contact": "Contacto"
     },
     "hero": {
       "title": "Sesiones de Estudio en Barcelona",
       "subtitle": "Sesiones de foto y video en un estudio completamente equipado.",
       "priceInfo": "Desde 150€ · Fotos editadas incluidas",
-      "cta": "Ver disponibilidad"
+      "cta": "Contactar ahora"
     },
     "overview": {
       "title1": "Sesiones Flexibles",
@@ -258,9 +270,21 @@
     },
     "cta": {
       "title": "¿Listo para capturar tu momento?",
-      "desc": "Verifica disponibilidad o pregúntanos sobre tu proyecto.",
-      "checkAvailability": "Ver disponibilidad",
-      "askQuestion": "Hacer una pregunta"
+      "desc": "Elige cómo quieres contactarnos."
+    },
+    "contact": {
+      "title": "Escríbenos",
+      "desc": "Cuéntanos sobre tu proyecto y te responderemos.",
+      "nameLabel": "Nombre *",
+      "namePlaceholder": "Tu nombre",
+      "emailLabel": "Email *",
+      "emailPlaceholder": "tu@email.com",
+      "phoneLabel": "Teléfono",
+      "phonePlaceholder": "+34 000 000 000",
+      "optional": "(opcional)",
+      "messageLabel": "Mensaje *",
+      "messagePlaceholder": "Cuéntanos sobre tu proyecto, fecha ideal, estilo...",
+      "submit": "Enviar mensaje"
     },
     "ctaContact": {
       "title": "Consulta disponibilidad o haz cualquier pregunta",

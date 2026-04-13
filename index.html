@@ -369,11 +369,11 @@
                     <span class="material-symbols-outlined text-[20px]">language</span>
                     <span class="lang-label">ES</span>
                 </button>
-                <button
+                <a href="#contact"
                     class="hidden md:block bg-gradient-to-r from-primary to-primary-container text-on-primary px-6 py-2.5 rounded-lg text-sm font-semibold tracking-wide hover:opacity-90 active:scale-95 transition-all shadow-sm"
-                    data-i18n="nav.checkAvailability">
-                    Check Availability
-                </button>
+                    data-i18n="nav.contact">
+                    Contact
+                </a>
             </div>
         </nav>
     </header>
@@ -400,11 +400,11 @@
                 <div class="flex flex-col md:flex-row items-center justify-center gap-6">
                     <span class="text-white/80 font-medium text-lg" data-i18n="hero.priceInfo">From 150€ · Edited photos
                         included</span>
-                    <button
+                    <a href="#contact"
                         class="bg-white text-[#1c1b1b] px-8 py-4 rounded-lg font-bold hover:bg-surface-container-low transition-colors shadow-xl"
                         data-i18n="hero.cta">
-                        Check availability
-                    </button>
+                        Contact Now
+                    </a>
                 </div>
             </div>
         </section>
@@ -489,7 +489,8 @@
                 </h2>
                 <div class="flex flex-wrap items-center justify-center gap-4">
                     <!-- WhatsApp -->
-                    <a href="#"
+                    <a href="https://wa.me/34634518666"
+                        target="_blank" rel="noopener noreferrer"
                         class="w-16 h-16 aspect-square flex items-center justify-center bg-[#4a5f47] text-on-primary rounded-none hover:opacity-90 active:scale-95 transition-all group"
                         data-i18n-title="ctaContact.whatsapp" title="WhatsApp">
                         <svg class="w-8 h-8 fill-current" viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg">
@@ -498,7 +499,8 @@
                         </svg>
                     </a>
                     <!-- Instagram -->
-                    <a href="#"
+                    <a href="https://www.instagram.com/luttymoreira/"
+                        target="_blank" rel="noopener noreferrer"
                         class="w-16 h-16 aspect-square flex items-center justify-center bg-primary text-on-primary rounded-none hover:opacity-90 active:scale-95 transition-all group"
                         data-i18n-title="ctaContact.instagram" title="Instagram">
                         <svg class="w-8 h-8 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -513,7 +515,7 @@
                         <span class="material-symbols-outlined text-4xl">mail</span>
                     </a>
                     <!-- Contact Form -->
-                    <a href="#footer"
+                    <a href="#form"
                         class="w-16 h-16 aspect-square flex items-center justify-center bg-error text-on-error rounded-none hover:opacity-90 active:scale-95 transition-all group"
                         data-i18n-title="ctaContact.contactForm" title="Contact form">
                         <span class="material-symbols-outlined text-4xl">edit_document</span>
@@ -841,7 +843,7 @@
             </div>
         </section>
         <!-- Final CTA -->
-        <section class="py-10 px-6">
+        <section id="contact" class="py-10 px-6">
             <div
                 class="max-w-4xl mx-auto bg-primary text-on-primary p-12 md:p-24 rounded-xl text-center shadow-2xl relative overflow-hidden">
                 <div class="absolute top-0 right-0 p-8 opacity-10">
@@ -850,19 +852,38 @@
                 </div>
                 <h2 class="font-headline text-4xl md:text-5xl font-bold mb-8 editorial-spacing relative z-10"
                     data-i18n="cta.title">Ready to frame your moment?</h2>
-                <p class="text-xl mb-12 opacity-90 relative z-10" data-i18n="cta.desc">Check availability or ask us any
-                    questions about your project.</p>
-                <div class="flex flex-col sm:flex-row gap-4 justify-center relative z-10">
-                    <button
-                        class="bg-white text-primary px-10 py-5 rounded-lg font-bold text-lg hover:bg-surface-container-low transition-all shadow-xl"
-                        data-i18n="cta.checkAvailability">
-                        Check availability
-                    </button>
-                    <button
-                        class="bg-transparent border-2 border-white/30 text-white px-10 py-5 rounded-lg font-bold text-lg hover:bg-white/10 transition-all"
-                        data-i18n="cta.askQuestion">
-                        Ask a question
-                    </button>
+                <p class="text-xl mb-12 opacity-90 relative z-10" data-i18n="cta.desc">Choose how you'd like to get in touch.</p>
+                <div class="flex flex-wrap items-center justify-center gap-4 relative z-10">
+                    <!-- WhatsApp -->
+                    <a href="https://wa.me/34634518666"
+                        target="_blank" rel="noopener noreferrer"
+                        class="w-16 h-16 aspect-square flex items-center justify-center bg-white/10 text-white rounded-none hover:bg-white/20 active:scale-95 transition-all group"
+                        title="WhatsApp">
+                        <svg class="w-8 h-8 fill-current" viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-5.5-2.8-23.4-8.6-44.6-27.6-16.5-14.7-27.6-32.8-30.8-38.4-3.2-5.6-.3-8.6 2.5-11.4 2.5-2.5 5.5-6.5 8.3-9.8 2.8-3.3 3.7-5.6 5.5-9.3 1.8-3.7.9-7-0.5-9.8-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 13.3 5.7 23.7 9.1 31.7 11.7 13.3 4.2 25.4 3.6 35 2.2 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z" />
+                        </svg>
+                    </a>
+                    <!-- Instagram -->
+                    <a href="https://www.instagram.com/luttymoreira/"
+                        target="_blank" rel="noopener noreferrer"
+                        class="w-16 h-16 aspect-square flex items-center justify-center bg-white/10 text-white rounded-none hover:bg-white/20 active:scale-95 transition-all group"
+                        title="Instagram">
+                        <svg class="w-8 h-8 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.012-3.584.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" />
+                        </svg>
+                    </a>
+                    <!-- Email -->
+                    <a href="mailto:luttyphoto@gmail.com"
+                        class="w-16 h-16 aspect-square flex items-center justify-center bg-white/10 text-white rounded-none hover:bg-white/20 active:scale-95 transition-all group"
+                        title="Email">
+                        <span class="material-symbols-outlined text-4xl">mail</span>
+                    </a>
+                    <!-- Contact Form -->
+                    <a href="#form"
+                        class="w-16 h-16 aspect-square flex items-center justify-center bg-white/10 text-white rounded-none hover:bg-white/20 active:scale-95 transition-all group"
+                        title="Contact form">
+                        <span class="material-symbols-outlined text-4xl">edit_document</span>
+                    </a>
                 </div>
             </div>
         </section>
@@ -903,6 +924,52 @@
         </button>
         <div id="lightbox-counter"></div>
     </div>
+
+    <!-- Contact Form Section -->
+    <section id="form" class="py-12 px-6 bg-surface">
+        <div class="max-w-xl mx-auto">
+            <h2 class="font-headline text-4xl font-bold mb-4 text-center" data-i18n="contact.title">
+                Get in touch
+            </h2>
+            <p class="text-secondary text-center mb-12" data-i18n="contact.desc">
+                Tell us about your project and we'll get back to you.
+            </p>
+            <form id="contact-form" class="space-y-6">
+                <div>
+                    <label for="contact-name" class="block text-sm font-medium mb-2" data-i18n="contact.nameLabel">Name *</label>
+                    <input type="text" id="contact-name" name="name" required
+                        class="w-full px-4 py-3 rounded-lg border border-outline-variant bg-surface text-on-surface focus:outline-none focus:ring-2 focus:ring-primary"
+                        data-i18n-placeholder="contact.namePlaceholder">
+                </div>
+                <div>
+                    <label for="contact-email" class="block text-sm font-medium mb-2" data-i18n="contact.emailLabel">Email *</label>
+                    <input type="email" id="contact-email" name="email" required
+                        class="w-full px-4 py-3 rounded-lg border border-outline-variant bg-surface text-on-surface focus:outline-none focus:ring-2 focus:ring-primary"
+                        data-i18n-placeholder="contact.emailPlaceholder">
+                </div>
+                <div>
+                    <label for="contact-phone" class="block text-sm font-medium mb-2">
+                        <span data-i18n="contact.phoneLabel">Phone</span> <span class="text-xs opacity-60" data-i18n="contact.optional">(optional)</span>
+                    </label>
+                    <input type="tel" id="contact-phone" name="phone"
+                        class="w-full px-4 py-3 rounded-lg border border-outline-variant bg-surface text-on-surface focus:outline-none focus:ring-2 focus:ring-primary"
+                        data-i18n-placeholder="contact.phonePlaceholder">
+                </div>
+                <div>
+                    <label for="contact-message" class="block text-sm font-medium mb-2" data-i18n="contact.messageLabel">Message *</label>
+                    <textarea id="contact-message" name="message" rows="5" required
+                        class="w-full px-4 py-3 rounded-lg border border-outline-variant bg-surface text-on-surface focus:outline-none focus:ring-2 focus:ring-primary resize-none"
+                        data-i18n-placeholder="contact.messagePlaceholder"></textarea>
+                </div>
+                <button type="submit"
+                    class="w-full bg-gradient-to-r from-primary to-primary-container text-on-primary px-8 py-4 rounded-lg font-bold text-lg hover:opacity-90 active:scale-95 transition-all shadow-xl"
+                    data-i18n="contact.submit">
+                    Send message
+                </button>
+            </form>
+        </div>
+    </section>
+
     <!-- Footer (Shared Component) -->
     <footer class="w-full mt-8 bg-[#f6f3f2] dark:bg-[#121111]">
         <div class="flex flex-col md:flex-row justify-between items-center px-12 py-12 gap-8 max-w-[1440px] mx-auto">
@@ -911,26 +978,26 @@
                     class="h-12 md:h-16 w-auto drop-shadow-md">
             </div>
             <div class="flex gap-8 items-center">
-                <a class="flex items-center justify-center text-[#1c1b1b]/40 dark:text-[#fcf9f8]/40 hover:text-[#775a19] transition-all duration-300"
-                    href="#" data-i18n-title="ctaContact.whatsapp" aria-label="WhatsApp">
+                <a class="flex items-center justify-center text-[#1c1b1b]/40 dark:text-[#fcf9f8]/40 hover:text-[#4a5f47] transition-all duration-300"
+                    href="https://wa.me/34634518666" target="_blank" rel="noopener noreferrer" data-i18n-title="ctaContact.whatsapp" aria-label="WhatsApp">
                     <svg class="w-5 h-5 fill-current stroke-current" style="stroke-width: 12px" viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg">
                         <path
                             d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-5.5-2.8-23.4-8.6-44.6-27.6-16.5-14.7-27.6-32.8-30.8-38.4-3.2-5.6-.3-8.6 2.5-11.4 2.5-2.5 5.5-6.5 8.3-9.8 2.8-3.3 3.7-5.6 5.5-9.3 1.8-3.7.9-7-0.5-9.8-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 13.3 5.7 23.7 9.1 31.7 11.7 13.3 4.2 25.4 3.6 35 2.2 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z" />
                     </svg>
                 </a>
-                <a class="flex items-center justify-center text-[#1c1b1b]/40 dark:text-[#fcf9f8]/40 hover:text-[#775a19] transition-all duration-300"
-                    href="#" data-i18n-title="ctaContact.instagram" aria-label="Instagram">
+                <a class="flex items-center justify-center text-[#1c1b1b]/40 dark:text-[#fcf9f8]/40 hover:text-primary transition-all duration-300"
+                    href="https://www.instagram.com/luttymoreira/" target="_blank" rel="noopener noreferrer" data-i18n-title="ctaContact.instagram" aria-label="Instagram">
                     <svg class="w-5 h-5 fill-current stroke-current" style="stroke-width: 0.5px;" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path
                             d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.012-3.584.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" />
                     </svg>
                 </a>
-                <a class="flex items-center justify-center text-[#1c1b1b]/40 dark:text-[#fcf9f8]/40 hover:text-[#775a19] transition-all duration-300"
-                    href="mailto:hello@lumina.studio" data-i18n-title="ctaContact.email" aria-label="Email">
+                <a class="flex items-center justify-center text-[#1c1b1b]/40 dark:text-[#fcf9f8]/40 hover:text-tertiary transition-all duration-300"
+                    href="mailto:luttyphoto@gmail.com" data-i18n-title="ctaContact.email" aria-label="Email">
                     <span class="material-symbols-outlined text-[22px]" style="font-variation-settings: 'wght' 600;">mail</span>
                 </a>
-                <a class="flex items-center justify-center text-[#1c1b1b]/40 dark:text-[#fcf9f8]/40 hover:text-[#775a19] transition-all duration-300"
-                    href="#footer" data-i18n-title="ctaContact.contactForm" aria-label="Contact form">
+                <a class="flex items-center justify-center text-[#1c1b1b]/40 dark:text-[#fcf9f8]/40 hover:text-error transition-all duration-300"
+                    href="#form" data-i18n-title="ctaContact.contactForm" aria-label="Contact form">
                     <span class="material-symbols-outlined text-[22px]" style="font-variation-settings: 'wght' 600;">edit_document</span>
                 </a>
             </div>
@@ -979,11 +1046,11 @@
                 </a>
             </nav>
             <div class="pt-8 border-t border-outline-variant/30 flex justify-center items-center">
-                <button
-                    class="bg-gradient-to-r from-primary to-primary-container text-on-primary px-8 py-4 rounded-lg font-semibold shadow-xl active:scale-95 transition-all text-sm w-full"
-                    data-i18n="nav.checkAvailability">
-                    Check Availability
-                </button>
+                <a href="#contact"
+                    class="mobile-nav-link bg-gradient-to-r from-primary to-primary-container text-on-primary px-8 py-4 rounded-lg font-semibold shadow-xl active:scale-95 transition-all text-sm w-full text-center block"
+                    data-i18n="nav.contact">
+                    Contact
+                </a>
             </div>
         </div>
     </div>
@@ -1255,6 +1322,12 @@
                 el.title = t(key);
             });
 
+            // Handle form placeholders
+            document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+                const key = el.getAttribute('data-i18n-placeholder');
+                el.placeholder = t(key);
+            });
+
             const session1Features = document.getElementById('session1-features');
             if (session1Features) {
                 session1Features.innerHTML = t('pricing.session1Features').map(f =>
@@ -1320,6 +1393,41 @@
             }
 
             updateContent();
+        }
+
+        // Contact form handler
+        const contactForm = document.getElementById('contact-form');
+        if (contactForm) {
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const formData = new FormData(this);
+                const data = {
+                    name: formData.get('name'),
+                    email: formData.get('email'),
+                    phone: formData.get('phone'),
+                    message: formData.get('message')
+                };
+                
+                // For now, show a success message (you can integrate with a service like Formspree, EmailJS, etc.)
+                const submitBtn = contactForm.querySelector('button[type="submit"]');
+                const originalText = submitBtn.textContent;
+                
+                submitBtn.disabled = true;
+                submitBtn.textContent = '✓ Message sent!';
+                submitBtn.classList.add('bg-green-600');
+                
+                // Log the data (replace with actual form submission)
+                console.log('Form submitted:', data);
+                
+                // Reset form after delay
+                setTimeout(() => {
+                    contactForm.reset();
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = originalText;
+                    submitBtn.classList.remove('bg-green-600');
+                }, 3000);
+            });
         }
     </script>
 </body>
