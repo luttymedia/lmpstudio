@@ -15,8 +15,8 @@
       "cta": "Check availability"
     },
     "overview": {
-      "title1": "1h Sessions",
-      "desc1": "Concise, impactful sessions starting from 150€.",
+      "title1": "Flexible Sessions",
+      "desc1": "Productive, impactful sessions starting from 150€.",
       "title2": "3 Outfits",
       "desc2": "Express your range with up to three look changes.",
       "title3": "Studio Included",
@@ -46,7 +46,8 @@
       ],
       "additionalExtras": "Additional Extras",
       "video": "Video",
-      "outdoor": "Outdoor shooting (Poble Espanyol)",
+      "outdoor": "Outdoor session",
+      "outdoorSubtext": "(Poble Espanyol)",
       "extraPhotos": "Extra photos",
       "retouch": "Retouch",
       "expressDelivery": "Express delivery",
@@ -103,6 +104,13 @@
       "checkAvailability": "Check availability",
       "askQuestion": "Ask a question"
     },
+    "ctaContact": {
+      "title": "Check availability or ask any questions",
+      "whatsapp": "WhatsApp",
+      "instagram": "Instagram",
+      "email": "Email",
+      "contactForm": "Contact form"
+    },
     "footer": {
       "instagram": "Instagram",
       "vogue": "Vogue Portfolio",
@@ -127,8 +135,8 @@
       "cta": "Ver disponibilidad"
     },
     "overview": {
-      "title1": "Sesiones de 1h",
-      "desc1": "Sesiones concisas e impactantes desde 150€.",
+      "title1": "Sesiones Flexibles",
+      "desc1": "Sesiones productivas e impactantes desde 150€.",
       "title2": "3 Outfits",
       "desc2": "Expresa tu variedad con hasta tres cambios de look.",
       "title3": "Estudio Incluido",
@@ -158,7 +166,8 @@
       ],
       "additionalExtras": "Extras Adicionales",
       "video": "Video",
-      "outdoor": "Sesión exterior (Poble Espanyol)",
+      "outdoor": "Sesión exterior",
+      "outdoorSubtext": "(Poble Espanyol)",
       "extraPhotos": "Fotos extra",
       "retouch": "Retoque",
       "expressDelivery": "Entrega express",
@@ -214,6 +223,13 @@
       "desc": "Verifica disponibilidad o pregúntanos sobre tu proyecto.",
       "checkAvailability": "Ver disponibilidad",
       "askQuestion": "Hacer una pregunta"
+    },
+    "ctaContact": {
+      "title": "Consulta disponibilidad o haz cualquier pregunta",
+      "whatsapp": "WhatsApp",
+      "instagram": "Instagram",
+      "email": "Email",
+      "contactForm": "Formulario de contacto"
     },
     "footer": {
       "instagram": "Instagram",

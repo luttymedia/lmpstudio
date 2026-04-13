@@ -1,532 +1,693 @@
 <!DOCTYPE html>
 
-<html class="scroll-smooth" lang="en"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Studio Sessions in Barcelona | LUMINA</title>
-<link href="https://fonts.googleapis.com" rel="preconnect"/>
-<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Manrope:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<script id="tailwind-config">
+<html class="scroll-smooth" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Studio Sessions in Barcelona | LUMINA</title>
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Manrope:wght@600;700;800&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
         tailwind.config = {
-          darkMode: "class",
-          theme: {
-            extend: {
-              "colors": {
-                      "inverse-surface": "#313030",
-                      "secondary-container": "#e4e2e1",
-                      "tertiary": "#485e8b",
-                      "on-error": "#ffffff",
-                      "primary-container": "#c5a059",
-                      "surface-container-low": "#f6f3f2",
-                      "on-secondary-fixed": "#1b1c1c",
-                      "on-secondary-container": "#656464",
-                      "secondary": "#5f5e5e",
-                      "on-primary-container": "#4e3700",
-                      "on-surface-variant": "#4e4639",
-                      "on-tertiary": "#ffffff",
-                      "surface-bright": "#fcf9f8",
-                      "surface-tint": "#775a19",
-                      "secondary-fixed-dim": "#c8c6c5",
-                      "on-tertiary-container": "#233a65",
-                      "tertiary-fixed": "#d8e2ff",
-                      "on-surface": "#1c1b1b",
-                      "on-background": "#1c1b1b",
-                      "on-tertiary-fixed-variant": "#304671",
-                      "secondary-fixed": "#e4e2e1",
-                      "surface-container-highest": "#e5e2e1",
-                      "surface-variant": "#e5e2e1",
-                      "outline": "#7f7667",
-                      "on-primary-fixed-variant": "#5d4201",
-                      "on-tertiary-fixed": "#001a41",
-                      "primary": "#775a19",
-                      "on-error-container": "#93000a",
-                      "on-primary-fixed": "#261900",
-                      "surface-dim": "#dcd9d9",
-                      "surface-container": "#f0eded",
-                      "surface": "#fcf9f8",
-                      "outline-variant": "#d1c5b4",
-                      "error-container": "#ffdad6",
-                      "background": "#fcf9f8",
-                      "inverse-primary": "#e9c176",
-                      "tertiary-container": "#8fa5d6",
-                      "tertiary-fixed-dim": "#b0c6f9",
-                      "inverse-on-surface": "#f3f0ef",
-                      "error": "#ba1a1a",
-                      "primary-fixed": "#ffdea5",
-                      "on-primary": "#ffffff",
-                      "surface-container-lowest": "#ffffff",
-                      "on-secondary": "#ffffff",
-                      "primary-fixed-dim": "#e9c176",
-                      "on-secondary-fixed-variant": "#474747",
-                      "surface-container-high": "#eae7e7"
-              },
-              "borderRadius": {
-                      "DEFAULT": "0.125rem",
-                      "lg": "0.25rem",
-                      "xl": "0.5rem",
-                      "full": "0.75rem"
-              },
-              "fontFamily": {
-                      "headline": ["Manrope"],
-                      "body": ["Inter"],
-                      "label": ["Inter"]
-              }
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "inverse-surface": "#313030",
+                        "secondary-container": "#e4e2e1",
+                        "tertiary": "#485e8b",
+                        "on-error": "#ffffff",
+                        "primary-container": "#c5a059",
+                        "surface-container-low": "#f6f3f2",
+                        "on-secondary-fixed": "#1b1c1c",
+                        "on-secondary-container": "#656464",
+                        "secondary": "#5f5e5e",
+                        "on-primary-container": "#4e3700",
+                        "on-surface-variant": "#4e4639",
+                        "on-tertiary": "#ffffff",
+                        "surface-bright": "#fcf9f8",
+                        "surface-tint": "#775a19",
+                        "secondary-fixed-dim": "#c8c6c5",
+                        "on-tertiary-container": "#233a65",
+                        "tertiary-fixed": "#d8e2ff",
+                        "on-surface": "#1c1b1b",
+                        "on-background": "#1c1b1b",
+                        "on-tertiary-fixed-variant": "#304671",
+                        "secondary-fixed": "#e4e2e1",
+                        "surface-container-highest": "#e5e2e1",
+                        "surface-variant": "#e5e2e1",
+                        "outline": "#7f7667",
+                        "on-primary-fixed-variant": "#5d4201",
+                        "on-tertiary-fixed": "#001a41",
+                        "primary": "#775a19",
+                        "on-error-container": "#93000a",
+                        "on-primary-fixed": "#261900",
+                        "surface-dim": "#dcd9d9",
+                        "surface-container": "#f0eded",
+                        "surface": "#fcf9f8",
+                        "outline-variant": "#d1c5b4",
+                        "error-container": "#ffdad6",
+                        "background": "#fcf9f8",
+                        "inverse-primary": "#e9c176",
+                        "tertiary-container": "#8fa5d6",
+                        "tertiary-fixed-dim": "#b0c6f9",
+                        "inverse-on-surface": "#f3f0ef",
+                        "error": "#ba1a1a",
+                        "primary-fixed": "#ffdea5",
+                        "on-primary": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "primary-fixed-dim": "#e9c176",
+                        "on-secondary-fixed-variant": "#474747",
+                        "surface-container-high": "#eae7e7"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "fontFamily": {
+                        "headline": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                },
             },
-          },
         }
     </script>
-<style>
+    <style>
         .material-symbols-outlined {
             font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
         }
-        .editorial-spacing { letter-spacing: -0.02em; }
+
+        .editorial-spacing {
+            letter-spacing: -0.02em;
+        }
     </style>
 </head>
+
 <body class="bg-surface text-on-surface font-body selection:bg-primary-container selection:text-on-primary-container">
-<!-- TopNavBar (Shared Component) -->
-<header class="fixed top-0 w-full z-[100] bg-[#fcf9f8]/80 backdrop-blur-md shadow-[0_20px_50px_rgba(28,27,27,0.05)]">
-<nav class="flex justify-between items-center px-6 md:px-12 py-6 max-w-[1440px] mx-auto">
-<a href="#" class="font-manrope text-xl font-bold tracking-tighter text-[#1c1b1b] hover:opacity-70 transition-opacity">LUMINA BARCELONA</a>
-    <div class="hidden md:flex items-center gap-8">
-        <a class="text-[#1c1b1b]/60 font-medium hover:text-[#775a19] transition-colors duration-300" href="#pricing" data-i18n="nav.pricing">Pricing</a>
-        <a class="text-[#1c1b1b]/60 font-medium hover:text-[#775a19] transition-colors duration-300" href="#portfolio" data-i18n="nav.portfolio">Portfolio</a>
-        <a class="text-[#1c1b1b]/60 font-medium hover:text-[#775a19] transition-colors duration-300" href="#studio" data-i18n="nav.studio">Studio</a>
-        <a class="text-[#1c1b1b]/60 font-medium hover:text-[#775a19] transition-colors duration-300" href="#location" data-i18n="nav.location">Location</a>
-        <a class="text-[#1c1b1b]/60 font-medium hover:text-[#775a19] transition-colors duration-300" href="#faq" data-i18n="nav.faq">FAQ</a>
-        <button id="lang-switch" class="text-[#1c1b1b]/60 font-medium hover:text-[#775a19] transition-colors duration-300 text-sm">ES</button>
-    </div>
-    <div class="flex items-center gap-2">
-        <button id="mobile-lang-switch-nav" class="md:hidden text-[#1c1b1b]/60 font-medium hover:text-[#775a19] transition-colors p-2 text-sm">ES</button>
-        <button id="mobile-menu-toggle" class="md:hidden flex items-center justify-center p-2 text-[#1c1b1b] hover:bg-black/5 rounded-full transition-colors">
-            <span class="material-symbols-outlined transition-all duration-300 menu-icon">menu</span>
-            <span class="material-symbols-outlined transition-all duration-300 close-icon hidden">close</span>
-        </button>
-        <button class="hidden md:block bg-gradient-to-r from-primary to-primary-container text-on-primary px-6 py-2.5 rounded-lg text-sm font-semibold tracking-wide hover:opacity-90 active:scale-95 transition-all shadow-sm" data-i18n="nav.checkAvailability">
-            Check Availability
-        </button>
-    </div>
-</nav>
-</header>
-<main>
-<!-- Hero Section -->
-<section class="relative h-screen flex items-center justify-center overflow-hidden">
-<div class="absolute inset-0 z-0">
-<img class="w-full h-full object-cover" data-alt="striking high-end portrait of a person with dramatic soft lighting, neutral background, editorial fashion photography style" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB1EoOFJnWeQx-O8fGUtF3M10EQo3fozAXSe6qCSVXHWCZs8doYsKi_xwTslHFVhyI5bAlU6r1M-9ny46X3uk79dw9IyyI74dpl9MAO54W9EWY6ln-BcYKgBti_c1tA3Kb63INHsTcTyZmK1C7-sAgDmDrtxtluO6VgCGWTyvNunredQ9ire2zl7qwR6xPx5krxn7HUYQ0DYVLnOzntPdrkH3ljU7dU6i1wijnuLZwmE04lfGQdEgqN-eof_lGIXUJKynOxChQ_xYc"/>
-<div class="absolute inset-0 bg-[#1c1b1b]/40"></div>
-</div>
-<div class="relative z-10 text-center px-6 max-w-4xl mx-auto">
-<h1 class="font-headline text-5xl md:text-7xl font-extrabold text-white editorial-spacing mb-6" data-i18n="hero.title">
+    <!-- TopNavBar (Shared Component) -->
+    <header
+        class="fixed top-0 w-full z-[100] bg-[#fcf9f8]/80 backdrop-blur-md shadow-[0_20px_50px_rgba(28,27,27,0.05)]">
+        <nav class="flex justify-between items-center px-6 md:px-12 py-6 max-w-[1440px] mx-auto">
+            <a href="#"
+                class="font-manrope text-xl font-bold tracking-tighter text-[#1c1b1b] hover:opacity-70 transition-opacity">LUMINA
+                BARCELONA</a>
+            <div class="hidden md:flex items-center gap-8">
+                <a class="text-[#1c1b1b]/60 font-medium hover:text-[#775a19] transition-colors duration-300"
+                    href="#pricing" data-i18n="nav.pricing">Pricing</a>
+                <a class="text-[#1c1b1b]/60 font-medium hover:text-[#775a19] transition-colors duration-300"
+                    href="#portfolio" data-i18n="nav.portfolio">Portfolio</a>
+                <a class="text-[#1c1b1b]/60 font-medium hover:text-[#775a19] transition-colors duration-300"
+                    href="#studio" data-i18n="nav.studio">Studio</a>
+                <a class="text-[#1c1b1b]/60 font-medium hover:text-[#775a19] transition-colors duration-300"
+                    href="#location" data-i18n="nav.location">Location</a>
+                <a class="text-[#1c1b1b]/60 font-medium hover:text-[#775a19] transition-colors duration-300" href="#faq"
+                    data-i18n="nav.faq">FAQ</a>
+                <button id="lang-switch"
+                    class="text-[#1c1b1b]/60 font-medium hover:text-[#775a19] transition-colors duration-300 text-sm">ES</button>
+            </div>
+            <div class="flex items-center gap-2">
+                <button id="mobile-lang-switch-nav"
+                    class="md:hidden text-[#1c1b1b]/60 font-medium hover:text-[#775a19] transition-colors p-2 text-sm">ES</button>
+                <button id="mobile-menu-toggle"
+                    class="md:hidden flex items-center justify-center p-2 text-[#1c1b1b] hover:bg-black/5 rounded-full transition-colors">
+                    <span class="material-symbols-outlined transition-all duration-300 menu-icon">menu</span>
+                    <span class="material-symbols-outlined transition-all duration-300 close-icon hidden">close</span>
+                </button>
+                <button
+                    class="hidden md:block bg-gradient-to-r from-primary to-primary-container text-on-primary px-6 py-2.5 rounded-lg text-sm font-semibold tracking-wide hover:opacity-90 active:scale-95 transition-all shadow-sm"
+                    data-i18n="nav.checkAvailability">
+                    Check Availability
+                </button>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <!-- Hero Section -->
+        <section class="relative h-screen flex items-center justify-center overflow-hidden">
+            <div class="absolute inset-0 z-0">
+                <img class="w-full h-full object-cover"
+                    data-alt="striking high-end portrait of a person with dramatic soft lighting, neutral background, editorial fashion photography style"
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuB1EoOFJnWeQx-O8fGUtF3M10EQo3fozAXSe6qCSVXHWCZs8doYsKi_xwTslHFVhyI5bAlU6r1M-9ny46X3uk79dw9IyyI74dpl9MAO54W9EWY6ln-BcYKgBti_c1tA3Kb63INHsTcTyZmK1C7-sAgDmDrtxtluO6VgCGWTyvNunredQ9ire2zl7qwR6xPx5krxn7HUYQ0DYVLnOzntPdrkH3ljU7dU6i1wijnuLZwmE04lfGQdEgqN-eof_lGIXUJKynOxChQ_xYc" />
+                <div class="absolute inset-0 bg-[#1c1b1b]/40"></div>
+            </div>
+            <div class="relative z-10 text-center px-6 max-w-4xl mx-auto">
+                <h1 class="font-headline text-5xl md:text-7xl font-extrabold text-white editorial-spacing mb-6"
+                    data-i18n="hero.title">
                     Studio Sessions in Barcelona
                 </h1>
                 <p class="font-body text-lg md:text-xl text-white/90 mb-8 max-w-2xl mx-auto" data-i18n="hero.subtitle">
                     Photo &amp; video sessions in a fully equipped studio.
                 </p>
                 <div class="flex flex-col md:flex-row items-center justify-center gap-6">
-                    <span class="text-white/80 font-medium text-lg" data-i18n="hero.priceInfo">From 150€ · Edited photos included</span>
-                    <button class="bg-white text-[#1c1b1b] px-8 py-4 rounded-lg font-bold hover:bg-surface-container-low transition-colors shadow-xl" data-i18n="hero.cta">
+                    <span class="text-white/80 font-medium text-lg" data-i18n="hero.priceInfo">From 150€ · Edited photos
+                        included</span>
+                    <button
+                        class="bg-white text-[#1c1b1b] px-8 py-4 rounded-lg font-bold hover:bg-surface-container-low transition-colors shadow-xl"
+                        data-i18n="hero.cta">
                         Check availability
                     </button>
                 </div>
-</div>
-</section>
-<!-- Quick Overview -->
-<section class="py-24 px-6 md:px-12 bg-surface">
-<div class="max-w-[1440px] mx-auto">
-<div class="grid grid-cols-1 md:grid-cols-4 gap-1">
-    <div class="p-12 bg-surface-container-low flex flex-col justify-center gap-4 group hover:bg-surface-container-high transition-colors">
-        <span class="material-symbols-outlined text-primary text-4xl">schedule</span>
-        <h3 class="font-headline text-2xl font-bold" data-i18n="overview.title1">1h Sessions</h3>
-        <p class="text-on-surface-variant body-md" data-i18n="overview.desc1">Concise, impactful sessions starting from 150€.</p>
-    </div>
-    <div class="p-12 bg-surface-container flex flex-col justify-center gap-4 group hover:bg-surface-container-high transition-colors">
-        <span class="material-symbols-outlined text-primary text-4xl">checkroom</span>
-        <h3 class="font-headline text-2xl font-bold" data-i18n="overview.title2">3 Outfits</h3>
-        <p class="text-on-surface-variant body-md" data-i18n="overview.desc2">Express your range with up to three look changes.</p>
-    </div>
-    <div class="p-12 bg-surface-container-low flex flex-col justify-center gap-4 group hover:bg-surface-container-high transition-colors">
-        <span class="material-symbols-outlined text-primary text-4xl">lightbulb</span>
-        <h3 class="font-headline text-2xl font-bold" data-i18n="overview.title3">Studio Included</h3>
-        <p class="text-on-surface-variant body-md" data-i18n="overview.desc3">Professional lighting gear and cyclorama ready.</p>
-    </div>
-    <div class="p-12 bg-surface-container flex flex-col justify-center gap-4 group hover:bg-surface-container-high transition-colors">
-        <span class="material-symbols-outlined text-primary text-4xl">wb_sunny</span>
-        <h3 class="font-headline text-2xl font-bold" data-i18n="overview.title4">Mixed Options</h3>
-        <p class="text-on-surface-variant body-md" data-i18n="overview.desc4">Seamlessly blend indoor studio and outdoor light.</p>
-    </div>
-</div>
-</div>
-</section>
-<!-- Pricing Section -->
-<section class="py-24 bg-surface-container-low" id="pricing">
-<div class="max-w-5xl mx-auto px-6">
-<div class="text-center mb-16">
-    <h2 class="font-headline text-4xl font-bold mb-4 editorial-spacing" data-i18n="pricing.title">Investment</h2>
-    <p class="text-secondary font-medium uppercase tracking-widest text-xs" data-i18n="pricing.subtitle">Curated Session Packages</p>
-</div>
-<div class="grid md:grid-cols-2 gap-8 mb-16">
-    <!-- 1 Hour -->
-    <div class="bg-surface p-12 shadow-[0_20px_50px_rgba(28,27,27,0.03)] hover:shadow-[0_20px_50px_rgba(28,27,27,0.06)] transition-all flex flex-col">
-        <h3 class="font-headline text-xl font-bold mb-2" data-i18n="pricing.session1Title">1 Hour Session</h3>
-        <div class="text-3xl font-headline font-bold text-primary mb-8" data-i18n="pricing.session1Price">150€</div>
-        <ul class="space-y-4 mb-12 flex-grow" id="session1-features"></ul>
-    </div>
-    <!-- 2 Hours -->
-    <div class="bg-surface p-12 shadow-[0_20px_50px_rgba(28,27,27,0.03)] hover:shadow-[0_20px_50px_rgba(28,27,27,0.06)] transition-all flex flex-col border border-primary/10">
-        <h3 class="font-headline text-xl font-bold mb-2" data-i18n="pricing.session2Title">2 Hour Session</h3>
-        <div class="text-3xl font-headline font-bold text-primary mb-8" data-i18n="pricing.session2Price">250€</div>
-        <ul class="space-y-4 mb-12 flex-grow" id="session2-features"></ul>
-    </div>
-</div>
-<div class="bg-surface-container p-8">
-    <h4 class="font-headline font-bold text-sm uppercase tracking-widest mb-6" data-i18n="pricing.additionalExtras">Additional Extras</h4>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="extras-list"></div>
-</div><p class="mt-8 text-center text-secondary text-sm font-medium" data-i18n="pricing.note">Same price for individuals, couples, and small groups (up to 5 people)</p>
-</div>
-</section>
-<!-- Portfolio Gallery -->
-<section class="py-24 px-6 bg-surface" id="portfolio">
-<div class="max-w-[1440px] mx-auto">
-<div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
-    <div class="max-w-2xl">
-        <h2 class="font-headline text-5xl font-extrabold editorial-spacing mb-6" data-i18n="portfolio.title">The Curated Gallery</h2>
-        <p class="text-secondary text-lg" data-i18n="portfolio.desc">A glimpse into our recent studio sessions. We focus on natural skin tones, architectural lighting, and raw emotion.</p>
-    </div>
-    <button class="px-8 py-4 border-b-2 border-primary font-bold text-primary hover:bg-primary-container/10 transition-all" data-i18n="portfolio.viewExamples">View examples</button>
-</div>
-<div class="grid grid-cols-1 md:grid-cols-12 gap-4">
-<div class="md:col-span-8 h-[600px] overflow-hidden rounded-xl">
-<img class="w-full h-full object-cover hover:scale-105 transition-transform duration-700" data-alt="high fashion editorial shot in studio with beige background and soft shadows on model" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBX2Uwk58kpRCV1IFQyYGeGCYFvhsBuoYktL0tiwlcspIezyLLyCeDT1_-OfcuuL6gYo_lWNNkEWuwRFgS4XMbUrkU6BRl0lUMbbNHfQtvdZnZQeO_kXSsDLDddpgvkAi6zqmaX38gokKvE8cSU0Fn3f_eX86XhB4pNzW7iihXVkUSVFwfKfLjN8MOo30EUtxsFGjMKnrFMT6oAkHhTMeyT1fynQ-9vh9UrYftj1UbeiicWeVf46uv4NL2Fd4nDfdyheXaw8JDViCE"/>
-</div>
-<div class="md:col-span-4 h-[600px] flex flex-col gap-4">
-<div class="h-1/2 overflow-hidden rounded-xl">
-<img class="w-full h-full object-cover hover:scale-105 transition-transform duration-700" data-alt="close up headshot of a man with dramatic lighting focusing on eyes and texture" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCWBqcvhk169wLxhQSLxszec8gmgfxikAUGlBSIMFDkIJqK6Ttp6UEmYF6FKA-2-CDN47HdVoC9x0Bj476bZJYzG6JRg5SJ6oIiktPrVKgBEYwCMskUMn2_udIGhvnqpNiWAAkZAOcbaFjZmzPSvsr8bvRj3qcYmEy46GfKtS4zpfXPZhpFcoyp1v4Qybq4fOO6NZh5LBVh_zwduAvu7wljULZJsKL0P9SjI1btjrLzgKQkb5jjLdW74SWVFAEcnqEwYsk8goL-N7Q"/>
-</div>
-<div class="h-1/2 overflow-hidden rounded-xl">
-<img class="w-full h-full object-cover hover:scale-105 transition-transform duration-700" data-alt="smiling woman in minimalist studio setting with warm natural lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBU25NMTuUMgP-PlNvs5-r7AmoJ7PpV7EhQ3OInf1yUJ4AnAlSXd-9G3YntvMQcDnqMOiHfP39iLIHWOWzwuSX3MoYIsj1jVC2SsqgFSYffIKqoudEqdXJEu1HxAD8HM7ZfN2kEmjDUSaFGx4qH82MvVpXPjiW3PRFeM-tocU1WifPl-J7TXViFmapKTxydFsPw3DR83shp_q7aPsx9zul-EVjysqdDJ7su-SHFTAI6AzvhdQNvQ8SAnyImcZaxQ1RId1v1DaYQWJY"/>
-</div>
-</div>
-</div>
-</div>
-</section>
-<!-- Studio Details -->
-<section class="py-24 bg-surface-container-lowest" id="studio">
-<div class="max-w-[1440px] mx-auto px-6 grid md:grid-cols-2 gap-24 items-center">
-<div class="relative">
-<img class="rounded-xl shadow-2xl" data-alt="professional photography studio interior with white cyclorama wall and studio lights on stands" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDi7qAmiaqbCmtUTfDhUgvY9b_U7uIsJT1DH3o8MQyTCy_zsSl2FBH5SKftaN2h7njTwboCoiie7axt9iP35m2jik9knd97eSwMew6es0Ba9tOA95qf2c1HX0HAfOuKJ9EiUN4ncvTPolbNtdZORCZJzcF0NC2rm9CfAMg4jUCK3cICYpGuwtygQ8EtTlcWYpL-MIS4lhMo8DtA0AAku5TGuLmiIZxJSz9vcYxzwNl9UU6Y7h0ykF5AYfoyxOpJ3dEPLgbQmvJLXIQ"/>
-<div class="absolute -bottom-8 -right-8 bg-primary p-12 text-white hidden md:block">
-    <span class="text-4xl font-headline font-bold" data-i18n="studio.spaceSize">120m²</span>
-    <p class="text-xs uppercase tracking-widest mt-2" data-i18n="studio.spaceLabel">Creative Space</p>
-</div>
-</div>
-<div>
-    <h2 class="font-headline text-4xl font-bold mb-8 editorial-spacing" data-i18n="studio.title">The Studio Environment</h2>
-    <div class="space-y-8">
-    <div class="flex gap-6">
-        <span class="material-symbols-outlined text-primary text-3xl">architecture</span>
-        <div>
-        <h4 class="font-headline font-bold text-lg mb-2" data-i18n="studio.feature1Title">Infinite Cyclorama</h4>
-        <p class="text-on-surface-variant" data-i18n="studio.feature1Desc">A seamless 5m wide white infinity wall for that clean, commercial aesthetic.</p>
-        </div>
-    </div>
-    <div class="flex gap-6">
-        <span class="material-symbols-outlined text-primary text-3xl">flare</span>
-        <div>
-        <h4 class="font-headline font-bold text-lg mb-2" data-i18n="studio.feature2Title">Pro Lighting Rig</h4>
-        <p class="text-on-surface-variant" data-i18n="studio.feature2Desc">Godox &amp; Profoto strobes, varied modifiers, and RGB continuous lighting available.</p>
-        </div>
-    </div>
-    <div class="flex gap-6">
-        <span class="material-symbols-outlined text-primary text-3xl">chair</span>
-        <div>
-        <h4 class="font-headline font-bold text-lg mb-2" data-i18n="studio.feature3Title">Ambient Room</h4>
-        <p class="text-on-surface-variant" data-i18n="studio.feature3Desc">Separate area with natural light, changing area, and makeup vanity.</p>
-        </div>
-    </div>
-    </div>
-    </div>
-</div>
-</section>
-<!-- Location -->
-<section class="py-24 bg-surface" id="location">
-<div class="max-w-[1440px] mx-auto px-6">
-<div class="bg-surface-container-low p-1 rounded-xl overflow-hidden grid md:grid-cols-2">
-<div class="p-12 md:p-24 flex flex-col justify-center">
-    <h2 class="font-headline text-4xl font-bold mb-6 editorial-spacing" data-i18n="location.title">Find Us in Poble Espanyol</h2>
-    <p class="text-lg text-secondary mb-12" data-i18n="location.desc">Nestled in the heart of Montjuïc, our studio combines historic charm with modern technical facilities.</p>
-    <div class="space-y-6">
-    <div class="flex items-center gap-4">
-        <span class="material-symbols-outlined text-primary">pin_drop</span>
-        <span class="font-medium" data-i18n="location.address">Poble Espanyol, Barcelona</span>
-    </div>
-    <div class="flex items-center gap-4">
-        <span class="material-symbols-outlined text-primary">directions_subway</span>
-        <span class="font-medium" data-i18n="location.transit">12 min from Plaza España</span>
-    </div>
-    <div class="flex items-center gap-4">
-        <span class="material-symbols-outlined text-primary">local_parking</span>
-        <span class="font-medium" data-i18n="location.parking">Private parking nearby</span>
-    </div>
-    </div>
-</div>
-<div class="h-[400px] md:h-auto grayscale contrast-125 opacity-80">
-<div class="w-full h-full bg-surface-container-highest flex items-center justify-center relative">
-<img class="w-full h-full object-cover" data-alt="abstract architectural map-like view of Barcelona streets in a minimalist artistic style" data-location="Barcelona" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAlvuYaOvBZqmXCVj6hAqTUfulUZQxTHNbMXkVT-aZVIpY5dUi0RvP6h2U0JpGKZk38h6rsPGwEyjpebyaGpH3plZIIFmhqrSYNjyYea0QQ0IPJoTE6Ht7sxTrzHmxpHYIgtQG6qHyGMbFhoWnqvFivspg49gZHR3-ayMx_3EsHRxkONKC2AwoRrTJAmzXuoAHDET0SCq9XgVyqFJVi50Ua29bbirsnQwrYJAm7GlfghPj7oh_HxZ2ljiaXVt-d5fc9BzcPS6Lu45w"/>
-<div class="absolute inset-0 bg-primary/10 mix-blend-overlay"></div>
-</div>
-</div>
-</div>
-</div>
-</section>
-<!-- Process -->
-<section class="py-24 bg-surface-container-low">
-<div class="max-w-[1440px] mx-auto px-6">
-<div class="grid grid-cols-2 md:grid-cols-4 gap-8">
-    <div class="text-center">
-        <div class="text-5xl font-headline font-extrabold text-primary-container/20 mb-4">01</div>
-        <h4 class="font-bold mb-2" data-i18n="process.step1Title">Contact</h4>
-        <p class="text-xs text-secondary uppercase tracking-widest" data-i18n="process.step1Desc">Share your vision</p>
-    </div>
-    <div class="text-center">
-        <div class="text-5xl font-headline font-extrabold text-primary-container/20 mb-4">02</div>
-        <h4 class="font-bold mb-2" data-i18n="process.step2Title">Confirm</h4>
-        <p class="text-xs text-secondary uppercase tracking-widest" data-i18n="process.step2Desc">Secure your date</p>
-    </div>
-    <div class="text-center">
-        <div class="text-5xl font-headline font-extrabold text-primary-container/20 mb-4">03</div>
-        <h4 class="font-bold mb-2" data-i18n="process.step3Title">Shoot</h4>
-        <p class="text-xs text-secondary uppercase tracking-widest" data-i18n="process.step3Desc">In-studio magic</p>
-    </div>
-    <div class="text-center">
-        <div class="text-5xl font-headline font-extrabold text-primary-container/20 mb-4">04</div>
-        <h4 class="font-bold mb-2" data-i18n="process.step4Title">Delivery</h4>
-        <p class="text-xs text-secondary uppercase tracking-widest" data-i18n="process.step4Desc">Final edits in 7 days</p>
-    </div>
-</div>
-</div>
-</section>
-<!-- FAQ Section -->
-<section class="py-24 bg-surface" id="faq">
-    <div class="max-w-3xl mx-auto px-6">
-        <h2 class="font-headline text-3xl font-bold mb-12 text-center editorial-spacing" data-i18n="faq.title">Frequently Asked Questions</h2>
-        <div class="space-y-2">
-        <details class="group bg-surface-container-low p-6 transition-all duration-300 open:bg-surface-container">
-            <summary class="flex justify-between items-center font-bold cursor-pointer list-none">
-            <span data-i18n="faq.q1">What happens if I'm late?</span>
-            <span class="material-symbols-outlined group-open:rotate-180 transition-transform">expand_more</span>
-            </summary>
-            <p class="mt-4 text-on-surface-variant leading-relaxed" data-i18n="faq.a1">Session time starts at the booked hour. Being late will reduce your shooting time as we often have consecutive bookings.</p>
-        </details>
-        <details class="group bg-surface-container-low p-6 transition-all duration-300 open:bg-surface-container">
-            <summary class="flex justify-between items-center font-bold cursor-pointer list-none">
-            <span data-i18n="faq.q2">Can I have the RAW files?</span>
-            <span class="material-symbols-outlined group-open:rotate-180 transition-transform">expand_more</span>
-            </summary>
-            <p class="mt-4 text-on-surface-variant leading-relaxed" data-i18n="faq.a2">We do not deliver RAW or unedited files. Part of our studio's value is the curated editing and color grading process.</p>
-        </details>
-        <details class="group bg-surface-container-low p-6 transition-all duration-300 open:bg-surface-container">
-            <summary class="flex justify-between items-center font-bold cursor-pointer list-none">
-            <span data-i18n="faq.q3">Studio shoe policy?</span>
-            <span class="material-symbols-outlined group-open:rotate-180 transition-transform">expand_more</span>
-            </summary>
-            <p class="mt-4 text-on-surface-variant leading-relaxed" data-i18n="faq.a3">To keep our white cyclorama pristine, we ask that all shoes used for shooting have their soles taped or are thoroughly cleaned before stepping on the wall.</p>
-        </details>
-        </div>
-    </div>
-</section>
-<!-- Final CTA -->
-<section class="py-32 px-6">
-    <div class="max-w-4xl mx-auto bg-primary text-on-primary p-12 md:p-24 rounded-xl text-center shadow-2xl relative overflow-hidden">
-        <div class="absolute top-0 right-0 p-8 opacity-10">
-            <span class="material-symbols-outlined text-[200px]" style="font-variation-settings: 'FILL' 1;">camera</span>
-        </div>
-        <h2 class="font-headline text-4xl md:text-5xl font-bold mb-8 editorial-spacing relative z-10" data-i18n="cta.title">Ready to frame your moment?</h2>
-        <p class="text-xl mb-12 opacity-90 relative z-10" data-i18n="cta.desc">Check availability or ask us any questions about your project.</p>
-        <div class="flex flex-col sm:flex-row gap-4 justify-center relative z-10">
-            <button class="bg-white text-primary px-10 py-5 rounded-lg font-bold text-lg hover:bg-surface-container-low transition-all shadow-xl" data-i18n="cta.checkAvailability">
+            </div>
+        </section>
+        <!-- Quick Overview -->
+        <section class="py-24 px-6 md:px-12 bg-surface">
+            <div class="max-w-[1440px] mx-auto">
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-1">
+                    <div
+                        class="p-12 bg-surface-container-low flex flex-col justify-center gap-4 group hover:bg-surface-container-high transition-colors">
+                        <span class="material-symbols-outlined text-primary text-4xl">schedule</span>
+                        <h3 class="font-headline text-2xl font-bold" data-i18n="overview.title1">1h Sessions</h3>
+                        <p class="text-on-surface-variant body-md" data-i18n="overview.desc1">Concise, impactful
+                            sessions starting from 150€.</p>
+                    </div>
+                    <div
+                        class="p-12 bg-surface-container flex flex-col justify-center gap-4 group hover:bg-surface-container-high transition-colors">
+                        <span class="material-symbols-outlined text-primary text-4xl">checkroom</span>
+                        <h3 class="font-headline text-2xl font-bold" data-i18n="overview.title2">3 Outfits</h3>
+                        <p class="text-on-surface-variant body-md" data-i18n="overview.desc2">Express your range with up
+                            to three look changes.</p>
+                    </div>
+                    <div
+                        class="p-12 bg-surface-container-low flex flex-col justify-center gap-4 group hover:bg-surface-container-high transition-colors">
+                        <span class="material-symbols-outlined text-primary text-4xl">lightbulb</span>
+                        <h3 class="font-headline text-2xl font-bold" data-i18n="overview.title3">Studio Included</h3>
+                        <p class="text-on-surface-variant body-md" data-i18n="overview.desc3">Professional lighting gear
+                            and cyclorama ready.</p>
+                    </div>
+                    <div
+                        class="p-12 bg-surface-container flex flex-col justify-center gap-4 group hover:bg-surface-container-high transition-colors">
+                        <span class="material-symbols-outlined text-primary text-4xl">wb_sunny</span>
+                        <h3 class="font-headline text-2xl font-bold" data-i18n="overview.title4">Mixed Options</h3>
+                        <p class="text-on-surface-variant body-md" data-i18n="overview.desc4">Seamlessly blend indoor
+                            studio and outdoor light.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Pricing Section -->
+        <section class="py-24 bg-surface-container-low" id="pricing">
+            <div class="max-w-5xl mx-auto px-6">
+                <div class="text-center mb-16">
+                    <h2 class="font-headline text-4xl font-bold mb-4 editorial-spacing" data-i18n="pricing.title">
+                        Investment</h2>
+                    <p class="text-secondary font-medium uppercase tracking-widest text-xs"
+                        data-i18n="pricing.subtitle">Curated Session Packages</p>
+                </div>
+                <div class="grid md:grid-cols-2 gap-8 mb-16">
+                    <!-- 1 Hour -->
+                    <div
+                        class="bg-surface p-12 shadow-[0_20px_50px_rgba(28,27,27,0.03)] hover:shadow-[0_20px_50px_rgba(28,27,27,0.06)] transition-all flex flex-col">
+                        <h3 class="font-headline text-xl font-bold mb-2" data-i18n="pricing.session1Title">1 Hour
+                            Session</h3>
+                        <div class="text-3xl font-headline font-bold text-primary mb-8"
+                            data-i18n="pricing.session1Price">150€</div>
+                        <ul class="space-y-4 mb-12 flex-grow" id="session1-features"></ul>
+                    </div>
+                    <!-- 2 Hours -->
+                    <div
+                        class="bg-surface p-12 shadow-[0_20px_50px_rgba(28,27,27,0.03)] hover:shadow-[0_20px_50px_rgba(28,27,27,0.06)] transition-all flex flex-col border border-primary/10">
+                        <h3 class="font-headline text-xl font-bold mb-2" data-i18n="pricing.session2Title">2 Hour
+                            Session</h3>
+                        <div class="text-3xl font-headline font-bold text-primary mb-8"
+                            data-i18n="pricing.session2Price">250€</div>
+                        <ul class="space-y-4 mb-12 flex-grow" id="session2-features"></ul>
+                    </div>
+                </div>
+                <div class="bg-surface-container p-8">
+                    <h4 class="font-headline font-bold text-sm uppercase tracking-widest mb-6"
+                        data-i18n="pricing.additionalExtras">Additional Extras</h4>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="extras-list"></div>
+                </div>
+                <p class="mt-8 text-center text-secondary text-sm font-medium" data-i18n="pricing.note">Same price for
+                    individuals, couples, and small groups (up to 5 people)</p>
+            </div>
+        </section>
+        <!-- Fast Contact CTA -->
+        <section class="py-24 bg-surface-container text-center">
+            <div class="max-w-4xl mx-auto px-6">
+                <h2 class="font-headline text-3xl font-bold editorial-spacing mb-12" data-i18n="ctaContact.title">
+                    Check availability or ask any questions
+                </h2>
+                <div class="flex flex-wrap items-center justify-center gap-4">
+                    <!-- WhatsApp -->
+                    <a href="#" class="w-16 h-16 aspect-square flex items-center justify-center bg-[#4a5f47] text-on-primary rounded-none hover:opacity-90 active:scale-95 transition-all group" data-i18n-title="ctaContact.whatsapp" title="WhatsApp">
+                        <svg class="w-8 h-8 fill-current" viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-5.5-2.8-23.4-8.6-44.6-27.6-16.5-14.7-27.6-32.8-30.8-38.4-3.2-5.6-.3-8.6 2.5-11.4 2.5-2.5 5.5-6.5 8.3-9.8 2.8-3.3 3.7-5.6 5.5-9.3 1.8-3.7.9-7-0.5-9.8-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 13.3 5.7 23.7 9.1 31.7 11.7 13.3 4.2 25.4 3.6 35 2.2 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/>
+                        </svg>
+                    </a>
+                    <!-- Instagram -->
+                    <a href="#" class="w-16 h-16 aspect-square flex items-center justify-center bg-primary text-on-primary rounded-none hover:opacity-90 active:scale-95 transition-all group" data-i18n-title="ctaContact.instagram" title="Instagram">
+                        <svg class="w-8 h-8 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.012-3.584.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+                        </svg>
+                    </a>
+                    <!-- Email -->
+                    <a href="mailto:hello@lumina.studio" class="w-16 h-16 aspect-square flex items-center justify-center bg-tertiary text-on-tertiary rounded-none hover:opacity-90 active:scale-95 transition-all group" data-i18n-title="ctaContact.email" title="Email">
+                        <span class="material-symbols-outlined text-4xl">mail</span>
+                    </a>
+                    <!-- Contact Form -->
+                    <a href="#footer" class="w-16 h-16 aspect-square flex items-center justify-center bg-error text-on-error rounded-none hover:opacity-90 active:scale-95 transition-all group" data-i18n-title="ctaContact.contactForm" title="Contact form">
+                        <span class="material-symbols-outlined text-4xl">edit_document</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+        <!-- Portfolio Gallery -->
+        <section class="py-24 px-6 bg-surface" id="portfolio">
+            <div class="max-w-[1440px] mx-auto">
+                <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
+                    <div class="max-w-2xl">
+                        <h2 class="font-headline text-5xl font-extrabold editorial-spacing mb-6"
+                            data-i18n="portfolio.title">The Curated Gallery</h2>
+                        <p class="text-secondary text-lg" data-i18n="portfolio.desc">A glimpse into our recent studio
+                            sessions. We focus on natural skin tones, architectural lighting, and raw emotion.</p>
+                    </div>
+                    <button
+                        class="px-8 py-4 border-b-2 border-primary font-bold text-primary hover:bg-primary-container/10 transition-all"
+                        data-i18n="portfolio.viewExamples">View examples</button>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-4">
+                    <div class="md:col-span-8 h-[600px] overflow-hidden rounded-xl">
+                        <img class="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
+                            data-alt="high fashion editorial shot in studio with beige background and soft shadows on model"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuBX2Uwk58kpRCV1IFQyYGeGCYFvhsBuoYktL0tiwlcspIezyLLyCeDT1_-OfcuuL6gYo_lWNNkEWuwRFgS4XMbUrkU6BRl0lUMbbNHfQtvdZnZQeO_kXSsDLDddpgvkAi6zqmaX38gokKvE8cSU0Fn3f_eX86XhB4pNzW7iihXVkUSVFwfKfLjN8MOo30EUtxsFGjMKnrFMT6oAkHhTMeyT1fynQ-9vh9UrYftj1UbeiicWeVf46uv4NL2Fd4nDfdyheXaw8JDViCE" />
+                    </div>
+                    <div class="md:col-span-4 h-[600px] flex flex-col gap-4">
+                        <div class="h-1/2 overflow-hidden rounded-xl">
+                            <img class="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
+                                data-alt="close up headshot of a man with dramatic lighting focusing on eyes and texture"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuCWBqcvhk169wLxhQSLxszec8gmgfxikAUGlBSIMFDkIJqK6Ttp6UEmYF6FKA-2-CDN47HdVoC9x0Bj476bZJYzG6JRg5SJ6oIiktPrVKgBEYwCMskUMn2_udIGhvnqpNiWAAkZAOcbaFjZmzPSvsr8bvRj3qcYmEy46GfKtS4zpfXPZhpFcoyp1v4Qybq4fOO6NZh5LBVh_zwduAvu7wljULZJsKL0P9SjI1btjrLzgKQkb5jjLdW74SWVFAEcnqEwYsk8goL-N7Q" />
+                        </div>
+                        <div class="h-1/2 overflow-hidden rounded-xl">
+                            <img class="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
+                                data-alt="smiling woman in minimalist studio setting with warm natural lighting"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuBU25NMTuUMgP-PlNvs5-r7AmoJ7PpV7EhQ3OInf1yUJ4AnAlSXd-9G3YntvMQcDnqMOiHfP39iLIHWOWzwuSX3MoYIsj1jVC2SsqgFSYffIKqoudEqdXJEu1HxAD8HM7ZfN2kEmjDUSaFGx4qH82MvVpXPjiW3PRFeM-tocU1WifPl-J7TXViFmapKTxydFsPw3DR83shp_q7aPsx9zul-EVjysqdDJ7su-SHFTAI6AzvhdQNvQ8SAnyImcZaxQ1RId1v1DaYQWJY" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Studio Details -->
+        <section class="py-24 bg-surface-container-lowest" id="studio">
+            <div class="max-w-[1440px] mx-auto px-6 grid md:grid-cols-2 gap-24 items-center">
+                <div class="relative">
+                    <img class="rounded-xl shadow-2xl"
+                        data-alt="professional photography studio interior with white cyclorama wall and studio lights on stands"
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuDi7qAmiaqbCmtUTfDhUgvY9b_U7uIsJT1DH3o8MQyTCy_zsSl2FBH5SKftaN2h7njTwboCoiie7axt9iP35m2jik9knd97eSwMew6es0Ba9tOA95qf2c1HX0HAfOuKJ9EiUN4ncvTPolbNtdZORCZJzcF0NC2rm9CfAMg4jUCK3cICYpGuwtygQ8EtTlcWYpL-MIS4lhMo8DtA0AAku5TGuLmiIZxJSz9vcYxzwNl9UU6Y7h0ykF5AYfoyxOpJ3dEPLgbQmvJLXIQ" />
+                    <div class="absolute -bottom-8 -right-8 bg-primary p-12 text-white hidden md:block">
+                        <span class="text-4xl font-headline font-bold" data-i18n="studio.spaceSize">120m²</span>
+                        <p class="text-xs uppercase tracking-widest mt-2" data-i18n="studio.spaceLabel">Creative Space
+                        </p>
+                    </div>
+                </div>
+                <div>
+                    <h2 class="font-headline text-4xl font-bold mb-8 editorial-spacing" data-i18n="studio.title">The
+                        Studio Environment</h2>
+                    <div class="space-y-8">
+                        <div class="flex gap-6">
+                            <span class="material-symbols-outlined text-primary text-3xl">architecture</span>
+                            <div>
+                                <h4 class="font-headline font-bold text-lg mb-2" data-i18n="studio.feature1Title">
+                                    Infinite Cyclorama</h4>
+                                <p class="text-on-surface-variant" data-i18n="studio.feature1Desc">A seamless 5m wide
+                                    white infinity wall for that clean, commercial aesthetic.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6">
+                            <span class="material-symbols-outlined text-primary text-3xl">flare</span>
+                            <div>
+                                <h4 class="font-headline font-bold text-lg mb-2" data-i18n="studio.feature2Title">Pro
+                                    Lighting Rig</h4>
+                                <p class="text-on-surface-variant" data-i18n="studio.feature2Desc">Godox &amp; Profoto
+                                    strobes, varied modifiers, and RGB continuous lighting available.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6">
+                            <span class="material-symbols-outlined text-primary text-3xl">chair</span>
+                            <div>
+                                <h4 class="font-headline font-bold text-lg mb-2" data-i18n="studio.feature3Title">
+                                    Ambient Room</h4>
+                                <p class="text-on-surface-variant" data-i18n="studio.feature3Desc">Separate area with
+                                    natural light, changing area, and makeup vanity.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Location -->
+        <section class="py-24 bg-surface" id="location">
+            <div class="max-w-[1440px] mx-auto px-6">
+                <div class="bg-surface-container-low p-1 rounded-xl overflow-hidden grid md:grid-cols-2">
+                    <div class="p-12 md:p-24 flex flex-col justify-center">
+                        <h2 class="font-headline text-4xl font-bold mb-6 editorial-spacing" data-i18n="location.title">
+                            Find Us in Poble Espanyol</h2>
+                        <p class="text-lg text-secondary mb-12" data-i18n="location.desc">Nestled in the heart of
+                            Montjuïc, our studio combines historic charm with modern technical facilities.</p>
+                        <div class="space-y-6">
+                            <div class="flex items-center gap-4">
+                                <span class="material-symbols-outlined text-primary">pin_drop</span>
+                                <span class="font-medium" data-i18n="location.address">Poble Espanyol, Barcelona</span>
+                            </div>
+                            <div class="flex items-center gap-4">
+                                <span class="material-symbols-outlined text-primary">directions_subway</span>
+                                <span class="font-medium" data-i18n="location.transit">12 min from Plaza España</span>
+                            </div>
+                            <div class="flex items-center gap-4">
+                                <span class="material-symbols-outlined text-primary">local_parking</span>
+                                <span class="font-medium" data-i18n="location.parking">Private parking nearby</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="h-[400px] md:h-auto grayscale contrast-125 opacity-80">
+                        <div
+                            class="w-full h-full bg-surface-container-highest flex items-center justify-center relative">
+                            <img class="w-full h-full object-cover"
+                                data-alt="abstract architectural map-like view of Barcelona streets in a minimalist artistic style"
+                                data-location="Barcelona"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuAlvuYaOvBZqmXCVj6hAqTUfulUZQxTHNbMXkVT-aZVIpY5dUi0RvP6h2U0JpGKZk38h6rsPGwEyjpebyaGpH3plZIIFmhqrSYNjyYea0QQ0IPJoTE6Ht7sxTrzHmxpHYIgtQG6qHyGMbFhoWnqvFivspg49gZHR3-ayMx_3EsHRxkONKC2AwoRrTJAmzXuoAHDET0SCq9XgVyqFJVi50Ua29bbirsnQwrYJAm7GlfghPj7oh_HxZ2ljiaXVt-d5fc9BzcPS6Lu45w" />
+                            <div class="absolute inset-0 bg-primary/10 mix-blend-overlay"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Process -->
+        <section class="py-24 bg-surface-container-low">
+            <div class="max-w-[1440px] mx-auto px-6">
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                    <div class="text-center">
+                        <div class="text-5xl font-headline font-extrabold text-primary-container/20 mb-4">01</div>
+                        <h4 class="font-bold mb-2" data-i18n="process.step1Title">Contact</h4>
+                        <p class="text-xs text-secondary uppercase tracking-widest" data-i18n="process.step1Desc">Share
+                            your vision</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-5xl font-headline font-extrabold text-primary-container/20 mb-4">02</div>
+                        <h4 class="font-bold mb-2" data-i18n="process.step2Title">Confirm</h4>
+                        <p class="text-xs text-secondary uppercase tracking-widest" data-i18n="process.step2Desc">Secure
+                            your date</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-5xl font-headline font-extrabold text-primary-container/20 mb-4">03</div>
+                        <h4 class="font-bold mb-2" data-i18n="process.step3Title">Shoot</h4>
+                        <p class="text-xs text-secondary uppercase tracking-widest" data-i18n="process.step3Desc">
+                            In-studio magic</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-5xl font-headline font-extrabold text-primary-container/20 mb-4">04</div>
+                        <h4 class="font-bold mb-2" data-i18n="process.step4Title">Delivery</h4>
+                        <p class="text-xs text-secondary uppercase tracking-widest" data-i18n="process.step4Desc">Final
+                            edits in 7 days</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- FAQ Section -->
+        <section class="py-24 bg-surface" id="faq">
+            <div class="max-w-3xl mx-auto px-6">
+                <h2 class="font-headline text-3xl font-bold mb-12 text-center editorial-spacing" data-i18n="faq.title">
+                    Frequently Asked Questions</h2>
+                <div class="space-y-2">
+                    <details
+                        class="group bg-surface-container-low p-6 transition-all duration-300 open:bg-surface-container">
+                        <summary class="flex justify-between items-center font-bold cursor-pointer list-none">
+                            <span data-i18n="faq.q1">What happens if I'm late?</span>
+                            <span
+                                class="material-symbols-outlined group-open:rotate-180 transition-transform">expand_more</span>
+                        </summary>
+                        <p class="mt-4 text-on-surface-variant leading-relaxed" data-i18n="faq.a1">Session time starts
+                            at the booked hour. Being late will reduce your shooting time as we often have consecutive
+                            bookings.</p>
+                    </details>
+                    <details
+                        class="group bg-surface-container-low p-6 transition-all duration-300 open:bg-surface-container">
+                        <summary class="flex justify-between items-center font-bold cursor-pointer list-none">
+                            <span data-i18n="faq.q2">Can I have the RAW files?</span>
+                            <span
+                                class="material-symbols-outlined group-open:rotate-180 transition-transform">expand_more</span>
+                        </summary>
+                        <p class="mt-4 text-on-surface-variant leading-relaxed" data-i18n="faq.a2">We do not deliver RAW
+                            or unedited files. Part of our studio's value is the curated editing and color grading
+                            process.</p>
+                    </details>
+                    <details
+                        class="group bg-surface-container-low p-6 transition-all duration-300 open:bg-surface-container">
+                        <summary class="flex justify-between items-center font-bold cursor-pointer list-none">
+                            <span data-i18n="faq.q3">Studio shoe policy?</span>
+                            <span
+                                class="material-symbols-outlined group-open:rotate-180 transition-transform">expand_more</span>
+                        </summary>
+                        <p class="mt-4 text-on-surface-variant leading-relaxed" data-i18n="faq.a3">To keep our white
+                            cyclorama pristine, we ask that all shoes used for shooting have their soles taped or are
+                            thoroughly cleaned before stepping on the wall.</p>
+                    </details>
+                </div>
+            </div>
+        </section>
+        <!-- Final CTA -->
+        <section class="py-32 px-6">
+            <div
+                class="max-w-4xl mx-auto bg-primary text-on-primary p-12 md:p-24 rounded-xl text-center shadow-2xl relative overflow-hidden">
+                <div class="absolute top-0 right-0 p-8 opacity-10">
+                    <span class="material-symbols-outlined text-[200px]"
+                        style="font-variation-settings: 'FILL' 1;">camera</span>
+                </div>
+                <h2 class="font-headline text-4xl md:text-5xl font-bold mb-8 editorial-spacing relative z-10"
+                    data-i18n="cta.title">Ready to frame your moment?</h2>
+                <p class="text-xl mb-12 opacity-90 relative z-10" data-i18n="cta.desc">Check availability or ask us any
+                    questions about your project.</p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center relative z-10">
+                    <button
+                        class="bg-white text-primary px-10 py-5 rounded-lg font-bold text-lg hover:bg-surface-container-low transition-all shadow-xl"
+                        data-i18n="cta.checkAvailability">
                         Check availability
                     </button>
-            <button class="bg-transparent border-2 border-white/30 text-white px-10 py-5 rounded-lg font-bold text-lg hover:bg-white/10 transition-all" data-i18n="cta.askQuestion">
+                    <button
+                        class="bg-transparent border-2 border-white/30 text-white px-10 py-5 rounded-lg font-bold text-lg hover:bg-white/10 transition-all"
+                        data-i18n="cta.askQuestion">
                         Ask a question
                     </button>
-        </div>
-    </div>
-</section>
-</main>
-<!-- Footer (Shared Component) -->
-<footer class="w-full mt-24 bg-[#f6f3f2] dark:bg-[#121111]">
-<div class="flex flex-col md:flex-row justify-between items-center px-12 py-12 gap-8 max-w-[1440px] mx-auto">
-<a href="#" class="font-manrope font-semibold text-[#1c1b1b] dark:text-[#fcf9f8] hover:opacity-70 transition-opacity">LUMINA PHOTOGRAPHY</a>
-<div class="flex gap-8">
-<a class="font-inter text-[10px] tracking-widest uppercase text-[#1c1b1b]/40 dark:text-[#fcf9f8]/40 hover:text-[#775a19] transition-all" href="#" data-i18n="footer.instagram">Instagram</a>
-            <a class="font-inter text-[10px] tracking-widest uppercase text-[#1c1b1b]/40 dark:text-[#fcf9f8]/40 hover:text-[#775a19] transition-all" href="#" data-i18n="footer.vogue">Vogue Portfolio</a>
-            <a class="font-inter text-[10px] tracking-widest uppercase text-[#1c1b1b]/40 dark:text-[#fcf9f8]/40 hover:text-[#775a19] transition-all" href="#" data-i18n="footer.contact">Contact</a>
-            <a class="font-inter text-[10px] tracking-widest uppercase text-[#1c1b1b]/40 dark:text-[#fcf9f8]/40 hover:text-[#775a19] transition-all" href="#" data-i18n="footer.privacy">Privacy</a>
-</div>
-<div class="font-inter text-[10px] tracking-widest uppercase text-[#1c1b1b]/40" data-i18n="footer.copyright">
+                </div>
+            </div>
+        </section>
+    </main>
+    <!-- Footer (Shared Component) -->
+    <footer class="w-full mt-24 bg-[#f6f3f2] dark:bg-[#121111]">
+        <div class="flex flex-col md:flex-row justify-between items-center px-12 py-12 gap-8 max-w-[1440px] mx-auto">
+            <a href="#"
+                class="font-manrope font-semibold text-[#1c1b1b] dark:text-[#fcf9f8] hover:opacity-70 transition-opacity">LUMINA
+                PHOTOGRAPHY</a>
+            <div class="flex gap-8">
+                <a class="font-inter text-[10px] tracking-widest uppercase text-[#1c1b1b]/40 dark:text-[#fcf9f8]/40 hover:text-[#775a19] transition-all"
+                    href="#" data-i18n="footer.instagram">Instagram</a>
+                <a class="font-inter text-[10px] tracking-widest uppercase text-[#1c1b1b]/40 dark:text-[#fcf9f8]/40 hover:text-[#775a19] transition-all"
+                    href="#" data-i18n="footer.vogue">Vogue Portfolio</a>
+                <a class="font-inter text-[10px] tracking-widest uppercase text-[#1c1b1b]/40 dark:text-[#fcf9f8]/40 hover:text-[#775a19] transition-all"
+                    href="#" data-i18n="footer.contact">Contact</a>
+                <a class="font-inter text-[10px] tracking-widest uppercase text-[#1c1b1b]/40 dark:text-[#fcf9f8]/40 hover:text-[#775a19] transition-all"
+                    href="#" data-i18n="footer.privacy">Privacy</a>
+            </div>
+            <div class="font-inter text-[10px] tracking-widest uppercase text-[#1c1b1b]/40"
+                data-i18n="footer.copyright">
                 © 2024 LUMINA PHOTOGRAPHY BARCELONA. CURATED CAPTURES.
             </div>
-</div>
-</footer>
-<div id="mobile-overlay" class="fixed inset-0 bg-[#1c1b1b]/40 z-[80] opacity-0 pointer-events-none transition-opacity duration-300 backdrop-blur-sm md:hidden"></div>
-<div id="mobile-menu" class="fixed top-0 left-0 w-full bg-surface/95 backdrop-blur-xl z-[90] border-b border-outline-variant/30 transform -translate-y-full transition-transform duration-500 ease-in-out md:hidden shadow-2xl overflow-hidden">
-    <div class="px-6 pt-[100px] pb-12 flex flex-col gap-8 max-h-screen overflow-y-auto">
-        <nav class="flex flex-col gap-6">
-            <a class="mobile-nav-link text-2xl font-headline font-bold text-[#1c1b1b] flex items-center justify-between group" href="#pricing">
-                <span data-i18n="nav.pricing">Pricing</span>
-                <span class="material-symbols-outlined text-primary opacity-0 -translate-x-4 transition-all group-hover:opacity-100 group-hover:translate-x-0">arrow_forward</span>
-            </a>
-            <a class="mobile-nav-link text-2xl font-headline font-bold text-[#1c1b1b] flex items-center justify-between group" href="#portfolio">
-                <span data-i18n="nav.portfolio">Portfolio</span>
-                <span class="material-symbols-outlined text-primary opacity-0 -translate-x-4 transition-all group-hover:opacity-100 group-hover:translate-x-0">arrow_forward</span>
-            </a>
-            <a class="mobile-nav-link text-2xl font-headline font-bold text-[#1c1b1b] flex items-center justify-between group" href="#studio">
-                <span data-i18n="nav.studio">Studio</span>
-                <span class="material-symbols-outlined text-primary opacity-0 -translate-x-4 transition-all group-hover:opacity-100 group-hover:translate-x-0">arrow_forward</span>
-            </a>
-            <a class="mobile-nav-link text-2xl font-headline font-bold text-[#1c1b1b] flex items-center justify-between group" href="#location">
-                <span data-i18n="nav.location">Location</span>
-                <span class="material-symbols-outlined text-primary opacity-0 -translate-x-4 transition-all group-hover:opacity-100 group-hover:translate-x-0">arrow_forward</span>
-            </a>
-            <a class="mobile-nav-link text-2xl font-headline font-bold text-[#1c1b1b] flex items-center justify-between group" href="#faq">
-                <span data-i18n="nav.faq">FAQ</span>
-                <span class="material-symbols-outlined text-primary opacity-0 -translate-x-4 transition-all group-hover:opacity-100 group-hover:translate-x-0">arrow_forward</span>
-            </a>
-        </nav>
-        <div class="pt-8 border-t border-outline-variant/30 flex justify-center items-center">
-             <button class="bg-[#1c1b1b] text-white px-8 py-4 rounded-lg font-bold shadow-xl active:scale-95 transition-all text-sm w-full" data-i18n="nav.checkAvailability">
-                 Check Availability
-             </button>
+        </div>
+    </footer>
+    <div id="mobile-overlay"
+        class="fixed inset-0 bg-[#1c1b1b]/40 z-[80] opacity-0 pointer-events-none transition-opacity duration-300 backdrop-blur-sm md:hidden">
+    </div>
+    <div id="mobile-menu"
+        class="fixed top-0 left-0 w-full bg-surface/95 backdrop-blur-xl z-[90] border-b border-outline-variant/30 transform -translate-y-full transition-transform duration-500 ease-in-out md:hidden shadow-2xl overflow-hidden">
+        <div class="px-6 pt-[100px] pb-12 flex flex-col gap-8 max-h-screen overflow-y-auto">
+            <nav class="flex flex-col gap-6">
+                <a class="mobile-nav-link text-2xl font-headline font-bold text-[#1c1b1b] flex items-center justify-between group"
+                    href="#pricing">
+                    <span data-i18n="nav.pricing">Pricing</span>
+                    <span
+                        class="material-symbols-outlined text-primary opacity-0 -translate-x-4 transition-all group-hover:opacity-100 group-hover:translate-x-0">arrow_forward</span>
+                </a>
+                <a class="mobile-nav-link text-2xl font-headline font-bold text-[#1c1b1b] flex items-center justify-between group"
+                    href="#portfolio">
+                    <span data-i18n="nav.portfolio">Portfolio</span>
+                    <span
+                        class="material-symbols-outlined text-primary opacity-0 -translate-x-4 transition-all group-hover:opacity-100 group-hover:translate-x-0">arrow_forward</span>
+                </a>
+                <a class="mobile-nav-link text-2xl font-headline font-bold text-[#1c1b1b] flex items-center justify-between group"
+                    href="#studio">
+                    <span data-i18n="nav.studio">Studio</span>
+                    <span
+                        class="material-symbols-outlined text-primary opacity-0 -translate-x-4 transition-all group-hover:opacity-100 group-hover:translate-x-0">arrow_forward</span>
+                </a>
+                <a class="mobile-nav-link text-2xl font-headline font-bold text-[#1c1b1b] flex items-center justify-between group"
+                    href="#location">
+                    <span data-i18n="nav.location">Location</span>
+                    <span
+                        class="material-symbols-outlined text-primary opacity-0 -translate-x-4 transition-all group-hover:opacity-100 group-hover:translate-x-0">arrow_forward</span>
+                </a>
+                <a class="mobile-nav-link text-2xl font-headline font-bold text-[#1c1b1b] flex items-center justify-between group"
+                    href="#faq">
+                    <span data-i18n="nav.faq">FAQ</span>
+                    <span
+                        class="material-symbols-outlined text-primary opacity-0 -translate-x-4 transition-all group-hover:opacity-100 group-hover:translate-x-0">arrow_forward</span>
+                </a>
+            </nav>
+            <div class="pt-8 border-t border-outline-variant/30 flex justify-center items-center">
+                <button
+                    class="bg-[#1c1b1b] text-white px-8 py-4 rounded-lg font-bold shadow-xl active:scale-95 transition-all text-sm w-full"
+                    data-i18n="nav.checkAvailability">
+                    Check Availability
+                </button>
+            </div>
         </div>
     </div>
-</div>
 
-<script>
-    const menuToggle = document.getElementById('mobile-menu-toggle');
-    const menu = document.getElementById('mobile-menu');
-    const overlay = document.getElementById('mobile-overlay');
-    const menuIcon = menuToggle.querySelector('.menu-icon');
-    const closeIcon = menuToggle.querySelector('.close-icon');
-    const body = document.body;
-    let isMenuOpen = false;
+    <script>
+        const menuToggle = document.getElementById('mobile-menu-toggle');
+        const menu = document.getElementById('mobile-menu');
+        const overlay = document.getElementById('mobile-overlay');
+        const menuIcon = menuToggle.querySelector('.menu-icon');
+        const closeIcon = menuToggle.querySelector('.close-icon');
+        const body = document.body;
+        let isMenuOpen = false;
 
-    function toggleMenu() {
-        isMenuOpen = !isMenuOpen;
-        if (isMenuOpen) {
-            menu.classList.remove('-translate-y-full');
-            overlay.classList.remove('opacity-0', 'pointer-events-none');
-            menuIcon.classList.add('hidden');
-            closeIcon.classList.remove('hidden');
-            body.classList.add('overflow-hidden');
-        } else {
-            menu.classList.add('-translate-y-full');
-            overlay.classList.add('opacity-0', 'pointer-events-none');
-            menuIcon.classList.remove('hidden');
-            closeIcon.classList.add('hidden');
-            body.classList.remove('overflow-hidden');
-        }
-    }
-
-    menuToggle.addEventListener('click', toggleMenu);
-    overlay.addEventListener('click', toggleMenu);
-
-    // Close menu when clicking a link
-    document.querySelectorAll('.mobile-nav-link').forEach(link => {
-        link.addEventListener('click', () => {
-            if (isMenuOpen) toggleMenu();
-        });
-    });
-
-    let translations = {};
-    let currentLang = 'en';
-
-    fetch('translations.json')
-        .then(response => response.json())
-        .then(data => {
-            translations = data;
-            setupTranslations();
-        })
-        .catch(err => {
-            console.error('Failed to load translations:', err);
-        });
-
-    function t(key) {
-        const keys = key.split('.');
-        let value = translations[currentLang];
-        for (const k of keys) value = value?.[k];
-        return value || key;
-    }
-
-    function updateContent() {
-        document.querySelectorAll('[data-i18n]').forEach(el => {
-            const key = el.getAttribute('data-i18n');
-            if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
-                el.placeholder = t(key);
+        function toggleMenu() {
+            isMenuOpen = !isMenuOpen;
+            if (isMenuOpen) {
+                menu.classList.remove('-translate-y-full');
+                overlay.classList.remove('opacity-0', 'pointer-events-none');
+                menuIcon.classList.add('hidden');
+                closeIcon.classList.remove('hidden');
+                body.classList.add('overflow-hidden');
             } else {
-                el.textContent = t(key);
+                menu.classList.add('-translate-y-full');
+                overlay.classList.add('opacity-0', 'pointer-events-none');
+                menuIcon.classList.remove('hidden');
+                closeIcon.classList.add('hidden');
+                body.classList.remove('overflow-hidden');
             }
+        }
+
+        menuToggle.addEventListener('click', toggleMenu);
+        overlay.addEventListener('click', toggleMenu);
+
+        // Close menu when clicking a link
+        document.querySelectorAll('.mobile-nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                if (isMenuOpen) toggleMenu();
+            });
         });
 
-        const session1Features = document.getElementById('session1-features');
-        if (session1Features) {
-            session1Features.innerHTML = t('pricing.session1Features').map(f => 
-                '<li class="flex items-start gap-3 text-on-surface-variant"><span class="material-symbols-outlined text-primary-container text-xl">done</span><span>' + f + '</span></li>'
-            ).join('');
+        let translations = {};
+        let currentLang = 'en';
+
+        fetch('translations.json')
+            .then(response => response.json())
+            .then(data => {
+                translations = data;
+                setupTranslations();
+            })
+            .catch(err => {
+                console.error('Failed to load translations:', err);
+            });
+
+        function t(key) {
+            const keys = key.split('.');
+            let value = translations[currentLang];
+            for (const k of keys) value = value?.[k];
+            return value || key;
         }
 
-        const session2Features = document.getElementById('session2-features');
-        if (session2Features) {
-            session2Features.innerHTML = t('pricing.session2Features').map(f => 
-                '<li class="flex items-start gap-3 text-on-surface-variant"><span class="material-symbols-outlined text-primary-container text-xl">done</span><span>' + f + '</span></li>'
-            ).join('');
+        function updateContent() {
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+                    el.placeholder = t(key);
+                } else {
+                    el.innerHTML = t(key);
+                }
+            });
+
+            document.querySelectorAll('[data-i18n-title]').forEach(el => {
+                const key = el.getAttribute('data-i18n-title');
+                el.title = t(key);
+            });
+
+            const session1Features = document.getElementById('session1-features');
+            if (session1Features) {
+                session1Features.innerHTML = t('pricing.session1Features').map(f =>
+                    '<li class="flex items-start gap-3 text-on-surface-variant"><span class="material-symbols-outlined text-primary-container text-xl">done</span><span>' + f + '</span></li>'
+                ).join('');
+            }
+
+            const session2Features = document.getElementById('session2-features');
+            if (session2Features) {
+                session2Features.innerHTML = t('pricing.session2Features').map(f =>
+                    '<li class="flex items-start gap-3 text-on-surface-variant"><span class="material-symbols-outlined text-primary-container text-xl">done</span><span>' + f + '</span></li>'
+                ).join('');
+            }
+
+            const extrasList = document.getElementById('extras-list');
+            if (extrasList) {
+                const extras = [
+                    { label: 'pricing.video', price: '+50€' },
+                    { label: 'pricing.outdoor', subtext: 'pricing.outdoorSubtext', price: '+50€' },
+                    { label: 'pricing.extraPhotos', price: '+30€' + t('pricing.perPhoto') },
+                    { label: 'pricing.retouch', price: '+30€' + t('pricing.perHour') },
+                    { label: 'pricing.expressDelivery', price: t('pricing.onRequest') }
+                ];
+                extrasList.innerHTML = extras.map(e => {
+                    const subtextHtml = e.subtext ? `<br><small class="text-[12px] opacity-70 block mt-1">${t(e.subtext)}</small>` : '';
+                    return '<div class="flex justify-between items-center border-b border-outline-variant/30 pb-2"><span class="text-on-surface-variant">' + t(e.label) + subtextHtml + '</span><span class="font-bold' + (e.label === 'pricing.expressDelivery' ? ' text-xs uppercase' : '') + '">' + e.price + '</span></div>';
+                }).join('');
+            }
+
+            document.documentElement.lang = currentLang;
+
+            // Update language text in mobile menu and navbar
+            document.querySelectorAll('.lang-text, #lang-switch, #mobile-lang-switch-nav').forEach(el => {
+                el.textContent = currentLang === 'en' ? 'ES' : 'EN';
+            });
         }
 
-        const extrasList = document.getElementById('extras-list');
-        if (extrasList) {
-            const extras = [
-                { label: 'pricing.video', price: '+50€' },
-                { label: 'pricing.outdoor', price: '+50€' },
-                { label: 'pricing.extraPhotos', price: '+30€' + t('pricing.perPhoto') },
-                { label: 'pricing.retouch', price: '+30€' + t('pricing.perHour') },
-                { label: 'pricing.expressDelivery', price: t('pricing.onRequest') }
+        function setupTranslations() {
+            const langSwitches = [
+                document.getElementById('lang-switch'),
+                document.getElementById('mobile-lang-switch-nav')
             ];
-            extrasList.innerHTML = extras.map(e => 
-                '<div class="flex justify-between items-center border-b border-outline-variant/30 pb-2"><span class="text-on-surface-variant">' + t(e.label) + '</span><span class="font-bold' + (e.label === 'pricing.expressDelivery' ? ' text-xs uppercase' : '') + '">' + e.price + '</span></div>'
-            ).join('');
-        }
 
-        document.documentElement.lang = currentLang;
-        
-        // Update language text in mobile menu and navbar
-        document.querySelectorAll('.lang-text, #lang-switch, #mobile-lang-switch-nav').forEach(el => {
-            el.textContent = currentLang === 'en' ? 'ES' : 'EN';
-        });
-    }
+            langSwitches.forEach(btn => {
+                if (btn) {
+                    btn.addEventListener('click', () => {
+                        currentLang = currentLang === 'en' ? 'es' : 'en';
+                        updateContent();
+                        localStorage.setItem('lang', currentLang);
+                    });
+                }
+            });
 
-    function setupTranslations() {
-        const langSwitches = [
-            document.getElementById('lang-switch'), 
-            document.getElementById('mobile-lang-switch-nav')
-        ];
-        
-        langSwitches.forEach(btn => {
-            if (btn) {
-                btn.addEventListener('click', () => {
-                    currentLang = currentLang === 'en' ? 'es' : 'en';
-                    updateContent();
-                    localStorage.setItem('lang', currentLang);
-                });
+            if (localStorage.getItem('lang')) {
+                currentLang = localStorage.getItem('lang');
             }
-        });
 
-        if (localStorage.getItem('lang')) {
-            currentLang = localStorage.getItem('lang');
+            updateContent();
         }
+    </script>
+</body>
 
-        updateContent();
-    }
-</script>
-</body></html>
+</html>
