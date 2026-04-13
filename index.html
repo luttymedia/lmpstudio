@@ -319,11 +319,14 @@
     </header>
     <main>
         <!-- Hero Section -->
-        <section class="relative h-screen flex items-center justify-center overflow-hidden">
+        <section class="relative flex items-center justify-center overflow-hidden h-[calc(100vh-80px)] mt-[80px]">
             <div class="absolute inset-0 z-0">
-                <img class="w-full h-full object-cover"
-                    data-alt="striking high-end portrait of a person with dramatic soft lighting, neutral background, editorial fashion photography style"
-                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuB1EoOFJnWeQx-O8fGUtF3M10EQo3fozAXSe6qCSVXHWCZs8doYsKi_xwTslHFVhyI5bAlU6r1M-9ny46X3uk79dw9IyyI74dpl9MAO54W9EWY6ln-BcYKgBti_c1tA3Kb63INHsTcTyZmK1C7-sAgDmDrtxtluO6VgCGWTyvNunredQ9ire2zl7qwR6xPx5krxn7HUYQ0DYVLnOzntPdrkH3ljU7dU6i1wijnuLZwmE04lfGQdEgqN-eof_lGIXUJKynOxChQ_xYc" />
+                <picture class="block w-full h-full">
+                    <source media="(min-width: 1024px)" srcset="images/hero-desktop.png">
+                    <img class="w-full h-full object-cover object-center"
+                        data-alt="striking high-end portrait of a person with dramatic soft lighting, neutral background, editorial fashion photography style"
+                        src="images/hero.png" />
+                </picture>
                 <div class="absolute inset-0 bg-[#1c1b1b]/40"></div>
             </div>
             <div class="relative z-10 text-center px-6 max-w-4xl mx-auto">
