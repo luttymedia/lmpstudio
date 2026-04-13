@@ -95,6 +95,187 @@
         .editorial-spacing {
             letter-spacing: -0.02em;
         }
+
+        /* ── Gallery Modal ──────────────────────────────────────── */
+        #gallery-modal {
+            position: fixed;
+            inset: 0;
+            z-index: 200;
+            background: rgba(0,0,0,0.92);
+            display: flex;
+            flex-direction: column;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.35s ease;
+            overflow: hidden;
+        }
+        #gallery-modal.is-open {
+            opacity: 1;
+            pointer-events: all;
+        }
+        #gallery-modal-inner {
+            transform: scale(0.96);
+            transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1);
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            min-height: 0;
+        }
+        #gallery-modal.is-open #gallery-modal-inner {
+            transform: scale(1);
+        }
+        #gallery-modal-header {
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 24px;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+        #gallery-modal-header h3 {
+            color: rgba(255,255,255,0.85);
+            font-family: 'Manrope', sans-serif;
+            font-weight: 700;
+            font-size: 1rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+        #gallery-modal-close {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: none;
+            background: rgba(255,255,255,0.08);
+            color: #fff;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+        }
+        #gallery-modal-close:hover { background: rgba(255,255,255,0.18); }
+        #gallery-scroll {
+            flex: 1;
+            overflow-y: auto;
+            padding: 24px;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(255,255,255,0.15) transparent;
+        }
+        /* Masonry via CSS columns */
+        #masonry-grid {
+            column-count: 4;
+            column-gap: 12px;
+        }
+        @media (max-width: 1199px) { #masonry-grid { column-count: 3; } }
+        @media (max-width: 767px)  { #masonry-grid { column-count: 2; } }
+
+        .masonry-item {
+            break-inside: avoid;
+            margin-bottom: 12px;
+            border-radius: 4px;
+            overflow: hidden;
+            cursor: pointer;
+            position: relative;
+        }
+        .masonry-item img {
+            display: block;
+            width: 100%;
+            height: auto;
+            transition: transform 0.45s ease, filter 0.3s ease;
+        }
+        .masonry-item:hover img { transform: scale(1.04); filter: brightness(1.06); }
+        .masonry-item.is-highlighted {
+            outline: 2px solid #c5a059;
+            outline-offset: 2px;
+        }
+
+        /* ── Lightbox ───────────────────────────────────────────── */
+        #lightbox {
+            position: fixed;
+            inset: 0;
+            z-index: 300;
+            background: rgba(0,0,0,0.96);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.25s ease;
+        }
+        #lightbox.is-open {
+            opacity: 1;
+            pointer-events: all;
+        }
+        #lightbox-img-wrap {
+            position: relative;
+            max-width: 90vw;
+            max-height: 90vh;
+            transform: scale(0.95);
+            transition: transform 0.3s cubic-bezier(0.34,1.3,0.64,1);
+        }
+        #lightbox.is-open #lightbox-img-wrap {
+            transform: scale(1);
+        }
+        #lightbox-img {
+            display: block;
+            max-width: 90vw;
+            max-height: 85vh;
+            object-fit: contain;
+            border-radius: 4px;
+            user-select: none;
+        }
+        #lightbox-close {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.1);
+            border: none;
+            color: #fff;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+            z-index: 301;
+        }
+        #lightbox-close:hover { background: rgba(255,255,255,0.2); }
+        .lightbox-arrow {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.1);
+            border: none;
+            color: #fff;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s, opacity 0.2s;
+            z-index: 301;
+        }
+        .lightbox-arrow:hover { background: rgba(255,255,255,0.22); }
+        .lightbox-arrow:disabled { opacity: 0.2; pointer-events: none; }
+        #lightbox-prev { left: 16px; }
+        #lightbox-next { right: 16px; }
+        #lightbox-counter {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(255,255,255,0.55);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.8rem;
+            letter-spacing: 0.08em;
+            z-index: 301;
+        }
+        /* preview cursor */
+        .gallery-preview-img { cursor: pointer; }
     </style>
 </head>
 
@@ -287,24 +468,26 @@
                         <p class="text-secondary text-lg" data-i18n="portfolio.desc">A glimpse into our recent studio
                             sessions. We focus on natural skin tones, architectural lighting, and raw emotion.</p>
                     </div>
-                    <button
+                    <button id="gallery-open-btn"
                         class="px-8 py-4 border-b-2 border-primary font-bold text-primary hover:bg-primary-container/10 transition-all"
-                        data-i18n="portfolio.viewExamples">View examples</button>
+                        data-i18n="portfolio.viewExamples">View Gallery</button>
                 </div>
                 <div class="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 items-start">
                     <!-- Column 1 (Desktop) / Column 1 (Mobile) -->
                     <div class="flex flex-col gap-4 md:gap-6">
                         <!-- Vertical Portrait 1 -->
                         <div class="overflow-hidden rounded-xl aspect-[3/4]">
-                            <img class="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
+                            <img class="gallery-preview-img w-full h-full object-cover hover:scale-105 transition-transform duration-700"
                                 alt="Studio portrait 1"
-                                src="images/portfolio/v1.png" />
+                                src="images/portfolio/v1.png"
+                                data-gallery-index="0" />
                         </div>
                         <!-- Horizontal 1 (Mobile intercalation) -->
                         <div class="overflow-hidden rounded-xl aspect-[4/3] md:hidden">
-                            <img class="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
+                            <img class="gallery-preview-img w-full h-full object-cover hover:scale-105 transition-transform duration-700"
                                 alt="Studio portrait 2"
-                                src="images/portfolio/h1.png" />
+                                src="images/portfolio/h1.png"
+                                data-gallery-index="1" />
                         </div>
                     </div>
 
@@ -312,21 +495,24 @@
                     <div class="flex flex-col gap-4 md:gap-6">
                         <!-- Horizontal 1 (Desktop) -->
                         <div class="overflow-hidden rounded-xl aspect-[4/3] hidden md:block">
-                            <img class="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
+                            <img class="gallery-preview-img w-full h-full object-cover hover:scale-105 transition-transform duration-700"
                                 alt="Studio portrait 2"
-                                src="images/portfolio/h1.png" />
+                                src="images/portfolio/h1.png"
+                                data-gallery-index="1" />
                         </div>
                         <!-- Horizontal 2 -->
                         <div class="overflow-hidden rounded-xl aspect-[4/3]">
-                            <img class="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
+                            <img class="gallery-preview-img w-full h-full object-cover hover:scale-105 transition-transform duration-700"
                                 alt="Studio portrait 3"
-                                src="images/portfolio/h2.png" />
+                                src="images/portfolio/h2.png"
+                                data-gallery-index="2" />
                         </div>
                         <!-- Vertical 2 (Mobile intercalation) -->
                         <div class="overflow-hidden rounded-xl aspect-[3/4] md:hidden">
-                            <img class="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
+                            <img class="gallery-preview-img w-full h-full object-cover hover:scale-105 transition-transform duration-700"
                                 alt="Studio portrait 4"
-                                src="images/portfolio/v2.png" />
+                                src="images/portfolio/v2.png"
+                                data-gallery-index="3" />
                         </div>
                     </div>
 
@@ -334,9 +520,10 @@
                     <div class="hidden md:flex flex-col gap-4 md:gap-6 md:mt-12">
                         <!-- Vertical Portrait 2 (Desktop) -->
                         <div class="overflow-hidden rounded-xl aspect-[3/4]">
-                            <img class="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
+                            <img class="gallery-preview-img w-full h-full object-cover hover:scale-105 transition-transform duration-700"
                                 alt="Studio portrait 4"
-                                src="images/portfolio/v2.png" />
+                                src="images/portfolio/v2.png"
+                                data-gallery-index="3" />
                         </div>
                     </div>
                 </div>
@@ -585,6 +772,42 @@
             </div>
         </section>
     </main>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         GALLERY MODAL
+    ═══════════════════════════════════════════════════════════ -->
+    <div id="gallery-modal" role="dialog" aria-modal="true" aria-label="Full Gallery">
+        <div id="gallery-modal-inner">
+            <div id="gallery-modal-header">
+                <h3>The Curated Gallery</h3>
+                <button id="gallery-modal-close" aria-label="Close gallery">
+                    <span class="material-symbols-outlined" style="font-size:20px">close</span>
+                </button>
+            </div>
+            <div id="gallery-scroll">
+                <div id="masonry-grid"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         LIGHTBOX
+    ═══════════════════════════════════════════════════════════ -->
+    <div id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
+        <button id="lightbox-close" aria-label="Close lightbox">
+            <span class="material-symbols-outlined" style="font-size:20px">close</span>
+        </button>
+        <button id="lightbox-prev" class="lightbox-arrow" aria-label="Previous image">
+            <span class="material-symbols-outlined">chevron_left</span>
+        </button>
+        <div id="lightbox-img-wrap">
+            <img id="lightbox-img" src="" alt="Enlarged photo" />
+        </div>
+        <button id="lightbox-next" class="lightbox-arrow" aria-label="Next image">
+            <span class="material-symbols-outlined">chevron_right</span>
+        </button>
+        <div id="lightbox-counter"></div>
+    </div>
     <!-- Footer (Shared Component) -->
     <footer class="w-full mt-8 bg-[#f6f3f2] dark:bg-[#121111]">
         <div class="flex flex-col md:flex-row justify-between items-center px-12 py-12 gap-8 max-w-[1440px] mx-auto">
@@ -655,6 +878,202 @@
         </div>
     </div>
 
+    <script>
+    /* ─── GalleryModal + Masonry + Lightbox ─────────────────────────────────
+       Single source of truth:
+         galleryImages  – ordered list of {src, alt}
+         modalOpen      – boolean
+         lightboxIndex  – current lightbox image index (-1 = closed)
+    ─────────────────────────────────────────────────────────────────────── */
+    (function GallerySystem() {
+        // ── Data ─────────────────────────────────────────────────
+        const galleryImages = [
+            { src: 'images/portfolio/v1.png', alt: 'Studio portrait 1' },
+            { src: 'images/portfolio/h1.png', alt: 'Studio portrait 2' },
+            { src: 'images/portfolio/h2.png', alt: 'Studio portrait 3' },
+            { src: 'images/portfolio/v2.png', alt: 'Studio portrait 4' },
+            { src: 'images/portfolio/h2.png', alt: 'Studio portrait 5' },
+            { src: 'images/portfolio/v1.png', alt: 'Studio portrait 6' },
+            { src: 'images/portfolio/v2.png', alt: 'Studio portrait 7' },
+            { src: 'images/portfolio/h1.png', alt: 'Studio portrait 8' },
+            { src: 'images/portfolio/v1.png', alt: 'Studio portrait 9' },
+            { src: 'images/portfolio/h2.png', alt: 'Studio portrait 10' },
+        ];
+
+        let modalOpen = false;
+        let lightboxIndex = -1;
+
+        // ── DOM refs ──────────────────────────────────────────────
+        const galleryModal     = document.getElementById('gallery-modal');
+        const galleryScroll    = document.getElementById('gallery-scroll');
+        const masonryGrid      = document.getElementById('masonry-grid');
+        const modalCloseBtn    = document.getElementById('gallery-modal-close');
+        const galleryOpenBtn   = document.getElementById('gallery-open-btn');
+        const lightbox         = document.getElementById('lightbox');
+        const lightboxImg      = document.getElementById('lightbox-img');
+        const lightboxClose    = document.getElementById('lightbox-close');
+        const lightboxPrev     = document.getElementById('lightbox-prev');
+        const lightboxNext     = document.getElementById('lightbox-next');
+        const lightboxCounter  = document.getElementById('lightbox-counter');
+
+        // ── Build masonry grid ────────────────────────────────────
+        function buildMasonry() {
+            masonryGrid.innerHTML = '';
+            galleryImages.forEach((img, i) => {
+                const item = document.createElement('div');
+                item.className = 'masonry-item';
+                item.dataset.index = i;
+
+                const el = document.createElement('img');
+                el.src = img.src;
+                el.alt = img.alt;
+                el.loading = i < 4 ? 'eager' : 'lazy';
+                el.draggable = false;
+
+                item.appendChild(el);
+                item.addEventListener('click', e => {
+                    e.stopPropagation(); // prevent bubbling to scroll → closeModal
+                    openLightbox(i);
+                });
+                masonryGrid.appendChild(item);
+            });
+        }
+
+        buildMasonry();
+
+        // ── Preload first 4 images ───────────────────────────────
+        galleryImages.slice(0, 4).forEach(img => {
+            const link = document.createElement('link');
+            link.rel = 'preload'; link.as = 'image'; link.href = img.src;
+            document.head.appendChild(link);
+        });
+
+        // ── Modal open/close ─────────────────────────────────────
+        function openModal(highlightIndex) {
+            modalOpen = true;
+            galleryModal.classList.add('is-open');
+            document.body.style.overflow = 'hidden';
+
+            if (highlightIndex !== undefined && highlightIndex >= 0) {
+                // Brief highlight then scroll to item
+                requestAnimationFrame(() => {
+                    setTimeout(() => {
+                        const target = masonryGrid.querySelector('[data-index="' + highlightIndex + '"]');
+                        if (target) {
+                            target.classList.add('is-highlighted');
+                            target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                            setTimeout(() => target.classList.remove('is-highlighted'), 1800);
+                        }
+                    }, 350); // wait for animation
+                });
+            }
+        }
+
+        function closeModal() {
+            modalOpen = false;
+            galleryModal.classList.remove('is-open');
+            if (lightboxIndex === -1) restoreBodyScroll();
+        }
+
+        function restoreBodyScroll() {
+            if (!modalOpen && lightboxIndex === -1) {
+                document.body.style.overflow = '';
+            }
+        }
+
+        // ── Lightbox open/close/navigate ─────────────────────────
+        function openLightbox(index) {
+            lightboxIndex = index;
+            renderLightbox();
+            lightbox.classList.add('is-open');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            lightboxIndex = -1;
+            lightbox.classList.remove('is-open');
+            restoreBodyScroll();
+        }
+
+        function renderLightbox() {
+            const img = galleryImages[lightboxIndex];
+            lightboxImg.src = img.src;
+            lightboxImg.alt = img.alt;
+            lightboxCounter.textContent = (lightboxIndex + 1) + ' / ' + galleryImages.length;
+            // Looping: never disable arrows
+            lightboxPrev.disabled = false;
+            lightboxNext.disabled = false;
+        }
+
+        function lightboxNavigate(delta) {
+            // Wraps around: last→first, first→last
+            lightboxIndex = (lightboxIndex + delta + galleryImages.length) % galleryImages.length;
+            lightboxImg.style.opacity = '0';
+            setTimeout(() => {
+                renderLightbox();
+                lightboxImg.style.opacity = '1';
+            }, 150);
+        }
+        lightboxImg.style.transition = 'opacity 0.15s ease';
+
+        // ── Event wiring ─────────────────────────────────────────
+        // CTA button
+        galleryOpenBtn.addEventListener('click', () => openModal());
+
+        // Preview images → open modal and highlight
+        document.querySelectorAll('.gallery-preview-img').forEach(img => {
+            img.addEventListener('click', () => {
+                const idx = parseInt(img.dataset.galleryIndex, 10);
+                openModal(isNaN(idx) ? undefined : idx);
+            });
+        });
+
+        // Modal close
+        const galleryModalInner = document.getElementById('gallery-modal-inner');
+        const galleryModalHeader = document.getElementById('gallery-modal-header');
+        modalCloseBtn.addEventListener('click', closeModal);
+        // Close when clicking empty space in the scroll area (between/around images).
+        // Masonry items stopPropagation so clicking images only opens the lightbox.
+        // Header stopPropagation so clicking the top bar doesn't close either.
+        galleryScroll.addEventListener('click', closeModal);
+        galleryModalHeader.addEventListener('click', e => e.stopPropagation());
+
+        // Lightbox controls
+        lightboxClose.addEventListener('click', closeLightbox);
+        lightboxPrev.addEventListener('click', () => lightboxNavigate(-1));
+        lightboxNext.addEventListener('click', () => lightboxNavigate(1));
+
+        // Click outside lightbox image
+        lightbox.addEventListener('click', e => {
+            if (e.target === lightbox) closeLightbox();
+        });
+
+        // Keyboard
+        document.addEventListener('keydown', e => {
+            if (e.key === 'Escape') {
+                if (lightboxIndex >= 0) { closeLightbox(); return; }
+                if (modalOpen) closeModal();
+            }
+            if (lightboxIndex >= 0) {
+                if (e.key === 'ArrowLeft')  lightboxNavigate(-1);
+                if (e.key === 'ArrowRight') lightboxNavigate(1);
+            }
+        });
+
+        // ── Touch / swipe on lightbox ────────────────────────────
+        let touchStartX = null;
+        lightbox.addEventListener('touchstart', e => {
+            touchStartX = e.touches[0].clientX;
+        }, { passive: true });
+        lightbox.addEventListener('touchend', e => {
+            if (touchStartX === null) return;
+            const dx = e.changedTouches[0].clientX - touchStartX;
+            if (Math.abs(dx) > 50) lightboxNavigate(dx < 0 ? 1 : -1);
+            touchStartX = null;
+        }, { passive: true });
+
+    })();
+    </script>
     <script>
         const menuToggle = document.getElementById('mobile-menu-toggle');
         const menu = document.getElementById('mobile-menu');

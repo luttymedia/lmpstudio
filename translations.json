@@ -59,7 +59,7 @@
     "portfolio": {
       "title": "The Curated Gallery",
       "desc": "A glimpse into our recent studio sessions. We focus on natural skin tones, architectural lighting, and raw emotion.",
-      "viewExamples": "View examples"
+      "viewExamples": "View Gallery"
     },
     "studio": {
       "title": "The Studio",
@@ -198,7 +198,7 @@
     "portfolio": {
       "title": "La Galería Curada",
       "desc": "Una muestra de nuestras sesiones recientes de estudio. Nos enfocamos en tonos naturales de piel, iluminación arquitectónica y emoción cruda.",
-      "viewExamples": "Ver ejemplos"
+      "viewExamples": "Ver Galería"
     },
     "studio": {
       "title": "El Estudio",
