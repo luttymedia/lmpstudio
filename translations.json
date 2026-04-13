@@ -59,7 +59,8 @@
     "portfolio": {
       "title": "The Curated Gallery",
       "desc": "A glimpse into our recent studio sessions. We focus on natural skin tones, architectural lighting, and raw emotion.",
-      "viewExamples": "View Gallery"
+      "viewExamples": "View Gallery",
+      "imgAlt": "Studio portrait"
     },
     "studio": {
       "title": "The Studio",
@@ -133,7 +134,8 @@
       "optional": "(optional)",
       "messageLabel": "Message *",
       "messagePlaceholder": "Tell us about your project, ideal date, style...",
-      "submit": "Send message"
+      "submit": "Send message",
+      "success": "✓ Message sent!"
     },
     "ctaContact": {
       "title": "Check availability or ask any questions",
@@ -210,7 +212,8 @@
     "portfolio": {
       "title": "La Galería Curada",
       "desc": "Una muestra de nuestras sesiones recientes de estudio. Nos enfocamos en tonos naturales de piel, iluminación arquitectónica y emoción cruda.",
-      "viewExamples": "Ver Galería"
+      "viewExamples": "Ver Galería",
+      "imgAlt": "Retrato de estudio"
     },
     "studio": {
       "title": "El Estudio",

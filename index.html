@@ -508,7 +508,7 @@
                         </svg>
                     </a>
                     <!-- Email -->
-                    <a href="mailto:hello@lumina.studio"
+                    <a href="mailto:luttyphoto@gmail.com"
                         class="w-16 h-16 aspect-square flex items-center justify-center bg-tertiary text-on-tertiary rounded-none hover:opacity-90 active:scale-95 transition-all group"
                         data-i18n-title="ctaContact.email" title="Email">
                         <span class="material-symbols-outlined text-4xl">mail</span>
@@ -895,7 +895,7 @@
     <div id="gallery-modal" role="dialog" aria-modal="true" aria-label="Full Gallery">
         <div id="gallery-modal-inner">
             <div id="gallery-modal-header">
-                <h3>The Curated Gallery</h3>
+                <h3 data-i18n="portfolio.title">The Curated Gallery</h3>
                 <button id="gallery-modal-close" aria-label="Close gallery">
                     <span class="material-symbols-outlined" style="font-size:20px">close</span>
                 </button>
@@ -1013,7 +1013,7 @@
             </div>
             <div class="font-inter text-[10px] tracking-widest uppercase text-[#1c1b1b]/40"
                 data-i18n="footer.copyright">
-                © 2024 LUMINA PHOTOGRAPHY BARCELONA.
+                © 2026 LUTTY MOREIRA PHOTO
             </div>
         </div>
     </footer>
@@ -1075,16 +1075,16 @@
             (function GallerySystem() {
                 // ── Data ─────────────────────────────────────────────────
                 const galleryImages = [
-                    { src: 'images/portfolio/v1.png', alt: 'Studio portrait 1' },
-                    { src: 'images/portfolio/h1.png', alt: 'Studio portrait 2' },
-                    { src: 'images/portfolio/h2.png', alt: 'Studio portrait 3' },
-                    { src: 'images/portfolio/v2.png', alt: 'Studio portrait 4' },
-                    { src: 'images/portfolio/h2.png', alt: 'Studio portrait 5' },
-                    { src: 'images/portfolio/v1.png', alt: 'Studio portrait 6' },
-                    { src: 'images/portfolio/v2.png', alt: 'Studio portrait 7' },
-                    { src: 'images/portfolio/h1.png', alt: 'Studio portrait 8' },
-                    { src: 'images/portfolio/v1.png', alt: 'Studio portrait 9' },
-                    { src: 'images/portfolio/h2.png', alt: 'Studio portrait 10' },
+                    { src: 'images/portfolio/v1.png', alt: t('portfolio.imgAlt') + ' 1' },
+                    { src: 'images/portfolio/h1.png', alt: t('portfolio.imgAlt') + ' 2' },
+                    { src: 'images/portfolio/h2.png', alt: t('portfolio.imgAlt') + ' 3' },
+                    { src: 'images/portfolio/v2.png', alt: t('portfolio.imgAlt') + ' 4' },
+                    { src: 'images/portfolio/h2.png', alt: t('portfolio.imgAlt') + ' 5' },
+                    { src: 'images/portfolio/v1.png', alt: t('portfolio.imgAlt') + ' 6' },
+                    { src: 'images/portfolio/v2.png', alt: t('portfolio.imgAlt') + ' 7' },
+                    { src: 'images/portfolio/h1.png', alt: t('portfolio.imgAlt') + ' 8' },
+                    { src: 'images/portfolio/v1.png', alt: t('portfolio.imgAlt') + ' 9' },
+                    { src: 'images/portfolio/h2.png', alt: t('portfolio.imgAlt') + ' 10' },
                 ];
 
                 let modalOpen = false;
@@ -1451,7 +1451,7 @@
                 const originalText = submitBtn.textContent;
 
                 submitBtn.disabled = true;
-                submitBtn.textContent = '✓ Message sent!';
+                submitBtn.textContent = t('contact.success');
                 submitBtn.classList.add('bg-green-600');
 
                 // Log the data (replace with actual form submission)
