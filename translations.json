@@ -90,7 +90,7 @@
       "transitFGC": "Espanya Station",
       "transitBusLabel": "Bus:",
       "transitBus": "Poble Espanyol Stop (Lines 13, 23, 150)",
-      "parking": "Private parking nearby",
+      "parking": "Parking available nearby",
       "entrance": "Free entrance to the village",
       "bonus": "Access to Poble Espanyol included with your session"
     },
@@ -111,7 +111,11 @@
       "q2": "Can I have the RAW files?",
       "a2": "We do not deliver RAW or unedited files. Part of our studio's value is the curated editing and color grading process.",
       "q3": "Studio shoe policy?",
-      "a3": "To keep our white cyclorama pristine, we ask that all shoes used for shooting have their soles taped or are thoroughly cleaned before stepping on the wall."
+      "a3": "To keep our white cyclorama pristine, we ask that all shoes used for shooting have their soles taped or are thoroughly cleaned before stepping on the wall.",
+      "q4": "Does the session time include setup?",
+      "a4": "Yes, session time includes both setup at the beginning and wrap-up at the end (around 20 minutes).",
+      "q5": "What is the cancellation policy?",
+      "a5": "Cancellation depends on booking conditions (deposit loss, rebooking, etc)."
     },
     "cta": {
       "title": "Ready to frame your moment?",
@@ -225,7 +229,7 @@
       "transitFGC": "Estación Espanya",
       "transitBusLabel": "Autobús:",
       "transitBus": "Parada Poble Espanyol (líneas 13, 23 y 150)",
-      "parking": "Aparcamiento privado cerca",
+      "parking": "Parking disponible cerca",
       "entrance": "Entrada gratuita al recinto",
       "bonus": "Acceso a Poble Espanyol incluido con tu sesión"
     },
@@ -246,7 +250,11 @@
       "q2": "¿Puedo tener los archivos RAW?",
       "a2": "No entregamos archivos sin editar o RAW. Parte del valor de nuestro estudio es el proceso de edición y gradación de color.",
       "q3": "¿Política de calzado del estudio?",
-      "a3": "Para mantener nuestro ciclograma blanco impecable, pedimos que todos los zapatos usados para la sesión tengan las suelas taped o estén completamente limpios antes de pisar la pared."
+      "a3": "Para mantener nuestro ciclograma blanco impecable, pedimos que todos los zapatos usados para la sesión tengan las suelas taped o estén completamente limpios antes de pisar la pared.",
+      "q4": "¿El tiempo de sesión incluye la preparación?",
+      "a4": "Sí, el tiempo de sesión incluye tanto la preparación inicial como el cierre al final (alrededor de 20 minutos).",
+      "q5": "¿Cuál es la política de cancelación?",
+      "a5": "La cancelación depende de las condiciones de la reserva (pérdida de depósito, reprogramación, etc)."
     },
     "cta": {
       "title": "¿Listo para capturar tu momento?",
