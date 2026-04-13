@@ -77,11 +77,22 @@
       "spaceLabel": "Creative Space"
     },
     "location": {
-      "title": "Find Us in Poble Espanyol",
+      "title": "Find us in Poble Espanyol",
       "desc": "Nestled in the heart of Montjuïc, our studio combines historic charm with modern technical facilities.",
-      "address": "Poble Espanyol, Barcelona",
+      "address": "Porta d'Àvila - Av. de Francesc Ferrer i Guàrdia, 13, 08038 Barcelona",
       "transit": "12 min from Plaza España",
-      "parking": "Private parking nearby"
+      "gettingThere": "GETTING THERE",
+      "transitMetroLabel": "Metro:",
+      "transitMetro": "Espanya Station (Line 1 and Line 3)",
+      "transitTrainLabel": "Renfe & Rodalies:",
+      "transitTrain": "Sants Estació Stop",
+      "transitFGCLabel": "FGC:",
+      "transitFGC": "Espanya Station",
+      "transitBusLabel": "Bus:",
+      "transitBus": "Poble Espanyol Stop (Lines 13, 23, 150)",
+      "parking": "Private parking nearby",
+      "entrance": "Free entrance to the village",
+      "bonus": "Access to Poble Espanyol included with your session"
     },
     "process": {
       "step1Title": "Contact",
@@ -91,7 +102,7 @@
       "step3Title": "Shoot",
       "step3Desc": "In-studio magic",
       "step4Title": "Delivery",
-      "step4Desc": "Final edits in 7 days"
+      "step4Desc": "Final edits in ~7 days"
     },
     "faq": {
       "title": "Frequently Asked Questions",
@@ -201,21 +212,32 @@
       "spaceLabel": "Espacio creativo"
     },
     "location": {
-      "title": "Encuéntranos en Poble Espanyol",
-      "desc": "Ubicado en el corazón de Montjuïc, nuestro estudio combina el encanto histórico con instalaciones técnicas modernas.",
-      "address": "Poble Espanyol, Barcelona",
+      "title": "Visítanos en Poble Espanyol",
+      "desc": "En el corazón de Montjuïc, nuestro estudio combina encanto histórico con tecnología moderna.",
+      "address": "Porta d'Àvila - Av. de Francesc Ferrer i Guàrdia, 13, 08038 Barcelona",
       "transit": "12 min desde Plaza España",
-      "parking": "Aparcamiento privado cerca"
+      "gettingThere": "CÓMO LLEGAR",
+      "transitMetroLabel": "Metro:",
+      "transitMetro": "Estación Espanya (Línea 1 y Línea 3)",
+      "transitTrainLabel": "Renfe y Rodalies:",
+      "transitTrain": "Parada Sants Estació",
+      "transitFGCLabel": "FGC:",
+      "transitFGC": "Estación Espanya",
+      "transitBusLabel": "Autobús:",
+      "transitBus": "Parada Poble Espanyol (líneas 13, 23 y 150)",
+      "parking": "Aparcamiento privado cerca",
+      "entrance": "Entrada gratuita al recinto",
+      "bonus": "Acceso a Poble Espanyol incluido con tu sesión"
     },
     "process": {
       "step1Title": "Contacto",
       "step1Desc": "Comparte tu visión",
-      "step2Title": "Confirmar",
+      "step2Title": "Confirmación",
       "step2Desc": "Asegura tu fecha",
       "step3Title": "Sesión",
       "step3Desc": "Magia en estudio",
       "step4Title": "Entrega",
-      "step4Desc": "Ediciones finales en 7 días"
+      "step4Desc": "Ediciones en ~7 días"
     },
     "faq": {
       "title": "Preguntas Frecuentes",

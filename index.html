@@ -374,35 +374,80 @@
         <!-- Location -->
         <section class="py-24 bg-surface" id="location">
             <div class="max-w-[1440px] mx-auto px-6">
-                <div class="bg-surface-container-low p-1 rounded-xl overflow-hidden grid md:grid-cols-2">
+                <div class="bg-surface-container-low p-1 rounded-xl overflow-hidden grid grid-cols-1 md:grid-cols-2">
+                    <!-- Column 1: Context & Core Info -->
                     <div class="p-12 md:p-24 flex flex-col justify-center">
                         <h2 class="font-headline text-4xl font-bold mb-6 editorial-spacing" data-i18n="location.title">
                             Find Us in Poble Espanyol</h2>
                         <p class="text-lg text-secondary mb-12" data-i18n="location.desc">Nestled in the heart of
                             Montjuïc, our studio combines historic charm with modern technical facilities.</p>
+                        
                         <div class="space-y-6">
                             <div class="flex items-center gap-4">
                                 <span class="material-symbols-outlined text-primary">pin_drop</span>
-                                <span class="font-medium" data-i18n="location.address">Poble Espanyol, Barcelona</span>
+                                <a href="https://www.google.com/maps/search/?api=1&query=Porta+d'Àvila+-+Av.+de+Francesc+Ferrer+i+Guàrdia,+13,+08038+Barcelona" 
+                                   target="_blank" 
+                                   class="font-medium hover:text-primary transition-colors underline decoration-primary/30 underline-offset-4" 
+                                   data-i18n="location.address">
+                                    Porta d'Àvila - Av. de Francesc Ferrer i Guàrdia, 13, 08038 Barcelona
+                                </a>
                             </div>
-                            <div class="flex items-center gap-4">
-                                <span class="material-symbols-outlined text-primary">directions_subway</span>
-                                <span class="font-medium" data-i18n="location.transit">12 min from Plaza España</span>
-                            </div>
+
                             <div class="flex items-center gap-4">
                                 <span class="material-symbols-outlined text-primary">local_parking</span>
                                 <span class="font-medium" data-i18n="location.parking">Private parking nearby</span>
                             </div>
+
+                            <div class="flex items-center gap-4">
+                                <span class="material-symbols-outlined text-primary">verified</span>
+                                <span class="font-medium" data-i18n="location.entrance">Free entrance to the village</span>
+                            </div>
                         </div>
                     </div>
-                    <div class="h-[400px] md:h-auto grayscale contrast-125 opacity-80">
-                        <div
-                            class="w-full h-full bg-surface-container-highest flex items-center justify-center relative">
-                            <img class="w-full h-full object-cover"
-                                data-alt="abstract architectural map-like view of Barcelona streets in a minimalist artistic style"
-                                data-location="Barcelona"
-                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuAlvuYaOvBZqmXCVj6hAqTUfulUZQxTHNbMXkVT-aZVIpY5dUi0RvP6h2U0JpGKZk38h6rsPGwEyjpebyaGpH3plZIIFmhqrSYNjyYea0QQ0IPJoTE6Ht7sxTrzHmxpHYIgtQG6qHyGMbFhoWnqvFivspg49gZHR3-ayMx_3EsHRxkONKC2AwoRrTJAmzXuoAHDET0SCq9XgVyqFJVi50Ua29bbirsnQwrYJAm7GlfghPj7oh_HxZ2ljiaXVt-d5fc9BzcPS6Lu45w" />
-                            <div class="absolute inset-0 bg-primary/10 mix-blend-overlay"></div>
+
+                    <!-- Column 2: Logistics & Bonus -->
+                    <div class="p-12 md:p-24 bg-surface-container flex flex-col justify-center border-t md:border-t-0 md:border-l border-outline-variant/30">
+                        <!-- Getting there Section -->
+                        <div class="space-y-8">
+                            <h3 class="font-headline text-[11px] font-extrabold uppercase tracking-[0.2em] text-secondary/80" data-i18n="location.gettingThere">GETTING THERE</h3>
+                            
+                            <div class="space-y-5">
+                                <div class="flex items-center gap-4">
+                                    <span class="material-symbols-outlined text-primary text-xl" style="font-variation-settings: 'wght' 400;">subway</span>
+                                    <p class="text-sm text-left">
+                                        <span class="font-bold" data-i18n="location.transitMetroLabel">Metro:</span> <span data-i18n="location.transitMetro">Espanya Station (Line 1 and Line 3)</span>
+                                    </p>
+                                </div>
+                                
+                                <div class="flex items-center gap-4">
+                                    <span class="material-symbols-outlined text-primary text-xl" style="font-variation-settings: 'wght' 400;">train</span>
+                                    <p class="text-sm text-left">
+                                        <span class="font-bold" data-i18n="location.transitTrainLabel">Renfe & Rodalies:</span> <span data-i18n="location.transitTrain">Sants Estació Stop</span>
+                                    </p>
+                                </div>
+                                
+                                <div class="flex items-center gap-4">
+                                    <span class="material-symbols-outlined text-primary text-xl" style="font-variation-settings: 'wght' 400;">train</span>
+                                    <p class="text-sm text-left">
+                                        <span class="font-bold" data-i18n="location.transitFGCLabel">FGC:</span> <span data-i18n="location.transitFGC">Espanya Station</span>
+                                    </p>
+                                </div>
+                                
+                                <div class="flex items-center gap-4">
+                                    <span class="material-symbols-outlined text-primary text-xl" style="font-variation-settings: 'wght' 400;">directions_bus</span>
+                                    <p class="text-sm text-left">
+                                        <span class="font-bold" data-i18n="location.transitBusLabel">Bus:</span> <span data-i18n="location.transitBus">Poble Espanyol Stop (Lines 13, 23, 150)</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Bonus Box -->
+                        <div class="mt-12 p-6 bg-primary/5 border border-primary/20 rounded-lg flex items-center gap-4 group hover:bg-primary/10 transition-all duration-300">
+                            <span class="material-symbols-outlined text-primary group-hover:scale-110 transition-transform duration-300">grade</span>
+                            <p class="text-sm font-medium text-on-surface" data-i18n="location.bonus">
+                                Access to Poble Espanyol included with your session
+                            </p>
                         </div>
                     </div>
                 </div>
