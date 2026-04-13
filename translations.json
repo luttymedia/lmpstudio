@@ -62,14 +62,18 @@
       "viewExamples": "View examples"
     },
     "studio": {
-      "title": "The Studio Environment",
-      "feature1Title": "Infinite Cyclorama",
-      "feature1Desc": "A seamless 5m wide white infinity wall for that clean, commercial aesthetic.",
-      "feature2Title": "Pro Lighting Rig",
-      "feature2Desc": "Godox & Profoto strobes, varied modifiers, and RGB continuous lighting available.",
-      "feature3Title": "Ambient Room",
-      "feature3Desc": "Separate area with natural light, changing area, and makeup vanity.",
-      "spaceSize": "120m²",
+      "title": "The Studio",
+      "feature1Title": "Infinite cyclorama",
+      "feature1Desc": "Clean seamless background for a minimal, professional look",
+      "feature2Title": "Ambient room",
+      "feature2Desc": "Textured walls, props, and more natural setups",
+      "feature3Title": "Included in all sessions",
+      "feature3Desc": [
+        "Changing & makeup area",
+        "Multiple backdrops available",
+        "Professional lighting"
+      ],
+      "spaceSize": "150m²",
       "spaceLabel": "Creative Space"
     },
     "location": {
@@ -182,15 +186,19 @@
       "viewExamples": "Ver ejemplos"
     },
     "studio": {
-      "title": "El Entorno del Estudio",
-      "feature1Title": "Ciclograma Infinito",
-      "feature1Desc": "Una pared infinita blanca de 5m de ancho para esa estética comercial y limpia.",
-      "feature2Title": "Equipo de Iluminación Pro",
-      "feature2Desc": "Flashes Godox y Profoto, modificadores variados y iluminación continua RGB disponible.",
-      "feature3Title": "Sala Ambiental",
-      "feature3Desc": "Área separada con luz natural, vestidor y tocador de maquillaje.",
-      "spaceSize": "120m²",
-      "spaceLabel": "Espacio Creativo"
+      "title": "El Estudio",
+      "feature1Title": "Ciclorama infinito",
+      "feature1Desc": "Fondo continuo limpio para un look profesional y minimalista",
+      "feature2Title": "Sala ambiente",
+      "feature2Desc": "Paredes con textura, props y setups más naturales",
+      "feature3Title": "Incluido en todas las sesiones",
+      "feature3Desc": [
+        "Zona de cambio y maquillaje",
+        "Diferentes fondos disponibles",
+        "Iluminación profesional"
+      ],
+      "spaceSize": "150m²",
+      "spaceLabel": "Espacio creativo"
     },
     "location": {
       "title": "Encuéntranos en Poble Espanyol",
