@@ -336,7 +336,7 @@
     <!-- TopNavBar (Shared Component) -->
     <header
         class="fixed top-0 w-full z-[100] bg-[#fcf9f8]/80 backdrop-blur-md shadow-[0_20px_50px_rgba(28,27,27,0.05)]">
-        <nav class="flex justify-between items-center px-6 md:px-12 py-6 max-w-[1440px] mx-auto">
+        <nav class="flex justify-between items-center px-6 md:px-12 py-2 max-w-[1440px] mx-auto">
             <a href="#" class="hover:opacity-70 transition-opacity">
                 <img src="images/logo-nav.png" alt="Lutty Moreira Photo" class="h-6 md:h-8 w-auto aspect-auto"
                     style="image-rendering: -webkit-optimize-contrast; mix-blend-mode: multiply;">
@@ -352,16 +352,22 @@
                     href="#location" data-i18n="nav.location">Location</a>
                 <a class="text-[#1c1b1b]/60 font-medium hover:text-[#775a19] transition-colors duration-300" href="#faq"
                     data-i18n="nav.faq">FAQ</a>
-                <button id="lang-switch"
-                    class="text-[#1c1b1b]/60 font-medium hover:text-[#775a19] transition-colors duration-300 text-sm">ES</button>
             </div>
             <div class="flex items-center gap-2">
                 <button id="mobile-lang-switch-nav"
-                    class="md:hidden text-[#1c1b1b]/60 font-medium hover:text-[#775a19] transition-colors p-2 text-sm">ES</button>
+                    class="md:hidden text-[#1c1b1b]/60 font-medium hover:text-[#775a19] transition-colors p-2 text-sm flex items-center gap-1">
+                    <span class="material-symbols-outlined text-[18px]">language</span>
+                    <span class="lang-label">ES</span>
+                </button>
                 <button id="mobile-menu-toggle"
                     class="md:hidden flex items-center justify-center p-2 text-[#1c1b1b] hover:bg-black/5 rounded-full transition-colors">
                     <span class="material-symbols-outlined transition-all duration-300 menu-icon">menu</span>
                     <span class="material-symbols-outlined transition-all duration-300 close-icon hidden">close</span>
+                </button>
+                <button id="lang-switch"
+                    class="hidden md:flex items-center gap-1.5 text-[#1c1b1b]/60 font-medium hover:text-[#775a19] transition-colors duration-300 text-sm py-2 px-3 hover:bg-black/5 rounded-lg">
+                    <span class="material-symbols-outlined text-[20px]">language</span>
+                    <span class="lang-label">ES</span>
                 </button>
                 <button
                     class="hidden md:block bg-gradient-to-r from-primary to-primary-container text-on-primary px-6 py-2.5 rounded-lg text-sm font-semibold tracking-wide hover:opacity-90 active:scale-95 transition-all shadow-sm"
@@ -373,7 +379,7 @@
     </header>
     <main>
         <!-- Hero Section -->
-        <section class="relative flex items-center justify-center overflow-hidden h-[calc(100vh-80px)] mt-[80px]">
+        <section class="relative flex items-center justify-center overflow-hidden h-[calc(100vh-40px)] md:h-[calc(100vh-48px)] mt-[40px] md:mt-[48px]">
             <div class="absolute inset-0 z-0">
                 <picture class="block w-full h-full">
                     <source media="(min-width: 1024px)" srcset="images/hero-desktop.png">
@@ -927,31 +933,31 @@
         class="fixed top-0 left-0 w-full bg-surface/95 backdrop-blur-xl z-[90] border-b border-outline-variant/30 transform -translate-y-full transition-transform duration-500 ease-in-out md:hidden shadow-2xl overflow-hidden">
         <div class="px-6 pt-[100px] pb-12 flex flex-col gap-8 max-h-screen overflow-y-auto">
             <nav class="flex flex-col gap-6">
-                <a class="mobile-nav-link text-2xl font-headline font-bold text-[#1c1b1b] flex items-center justify-between group"
+                <a class="mobile-nav-link text-lg font-headline font-medium text-[#1c1b1b]/60 flex items-center justify-between group"
                     href="#pricing">
                     <span data-i18n="nav.pricing">Pricing</span>
                     <span
                         class="material-symbols-outlined text-primary opacity-0 -translate-x-4 transition-all group-hover:opacity-100 group-hover:translate-x-0">arrow_forward</span>
                 </a>
-                <a class="mobile-nav-link text-2xl font-headline font-bold text-[#1c1b1b] flex items-center justify-between group"
+                <a class="mobile-nav-link text-lg font-headline font-medium text-[#1c1b1b]/60 flex items-center justify-between group"
                     href="#portfolio">
                     <span data-i18n="nav.portfolio">Portfolio</span>
                     <span
                         class="material-symbols-outlined text-primary opacity-0 -translate-x-4 transition-all group-hover:opacity-100 group-hover:translate-x-0">arrow_forward</span>
                 </a>
-                <a class="mobile-nav-link text-2xl font-headline font-bold text-[#1c1b1b] flex items-center justify-between group"
+                <a class="mobile-nav-link text-lg font-headline font-medium text-[#1c1b1b]/60 flex items-center justify-between group"
                     href="#studio">
                     <span data-i18n="nav.studio">Studio</span>
                     <span
                         class="material-symbols-outlined text-primary opacity-0 -translate-x-4 transition-all group-hover:opacity-100 group-hover:translate-x-0">arrow_forward</span>
                 </a>
-                <a class="mobile-nav-link text-2xl font-headline font-bold text-[#1c1b1b] flex items-center justify-between group"
+                <a class="mobile-nav-link text-lg font-headline font-medium text-[#1c1b1b]/60 flex items-center justify-between group"
                     href="#location">
                     <span data-i18n="nav.location">Location</span>
                     <span
                         class="material-symbols-outlined text-primary opacity-0 -translate-x-4 transition-all group-hover:opacity-100 group-hover:translate-x-0">arrow_forward</span>
                 </a>
-                <a class="mobile-nav-link text-2xl font-headline font-bold text-[#1c1b1b] flex items-center justify-between group"
+                <a class="mobile-nav-link text-lg font-headline font-medium text-[#1c1b1b]/60 flex items-center justify-between group"
                     href="#faq">
                     <span data-i18n="nav.faq">FAQ</span>
                     <span
@@ -960,7 +966,7 @@
             </nav>
             <div class="pt-8 border-t border-outline-variant/30 flex justify-center items-center">
                 <button
-                    class="bg-[#1c1b1b] text-white px-8 py-4 rounded-lg font-bold shadow-xl active:scale-95 transition-all text-sm w-full"
+                    class="bg-gradient-to-r from-primary to-primary-container text-on-primary px-8 py-4 rounded-lg font-semibold shadow-xl active:scale-95 transition-all text-sm w-full"
                     data-i18n="nav.checkAvailability">
                     Check Availability
                 </button>
@@ -1274,7 +1280,7 @@
             document.documentElement.lang = currentLang;
 
             // Update language text in mobile menu and navbar
-            document.querySelectorAll('.lang-text, #lang-switch, #mobile-lang-switch-nav').forEach(el => {
+            document.querySelectorAll('.lang-text, .lang-label').forEach(el => {
                 el.textContent = currentLang === 'en' ? 'ES' : 'EN';
             });
         }
