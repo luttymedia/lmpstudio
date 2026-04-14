@@ -136,7 +136,8 @@
       "messageLabel": "Message *",
       "messagePlaceholder": "Tell us about your project, ideal date, style...",
       "submit": "Send message",
-      "success": "✓ Message sent!"
+      "success": "✓ Message sent! We'll be in touch soon.",
+      "error": "✗ Something went wrong. Please try again or contact us directly."
     },
     "ctaContact": {
       "title": "Check availability or ask any questions",
@@ -296,7 +297,9 @@
       "optional": "(opcional)",
       "messageLabel": "Mensaje *",
       "messagePlaceholder": "Cuéntanos sobre tu proyecto, fecha ideal, estilo...",
-      "submit": "Enviar mensaje"
+      "submit": "Enviar mensaje",
+      "success": "✓ ¡Mensaje enviado! Nos pondremos en contacto pronto.",
+      "error": "✗ Algo salió mal. Inténtalo de nuevo o contáctanos directamente."
     },
     "ctaContact": {
       "title": "Consulta disponibilidad o haz cualquier pregunta",
