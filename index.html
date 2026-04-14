@@ -379,8 +379,7 @@
     </header>
     <main>
         <!-- Hero Section -->
-        <section
-            class="relative flex items-center justify-center overflow-hidden h-screen">
+        <section class="relative flex items-center justify-center overflow-hidden h-screen">
             <div class="absolute inset-0 z-0">
                 <picture class="block w-full h-full">
                     <source media="(min-width: 1024px)" srcset="images/hero-desktop.png">
@@ -1540,6 +1539,25 @@
                 // ── Build the payload as JSON (Web3Forms accepts both JSON and FormData)
                 const formData = new FormData(contactForm);
                 const payload = Object.fromEntries(formData.entries());
+
+                // ── Google Sheets logging (secondary, non-blocking) ──────────────────
+                // Fires in parallel; failures are silently swallowed so they never
+                // affect the primary Web3Forms submission or the user-facing UX.
+                // URLSearchParams = application/x-www-form-urlencoded → CORS simple
+                // request, no OPTIONS preflight → Apps Script doPost(e) works.
+                const sheetsBody = new URLSearchParams({
+                    id: crypto.randomUUID(),
+                    name: payload.name || '',
+                    email: payload.email || '',
+                    phone: payload.phone || '',
+                    message: payload.message || '',
+                    source: 'landing-page'
+                });
+                fetch('https://script.google.com/macros/s/AKfycbxw7wIRWBsQmhuzCxNvdNYPldONiXN8gH3fAva0fhiL2Z9AgIAqZgL-wQcc855LBYyLZw/exec', {
+                    method: 'POST',
+                    body: sheetsBody          // no custom Content-Type header needed
+                }).catch(err => console.warn('[Sheets] Logging failed (non-critical):', err));
+                // ────────────────────────────────────────────────────────────────────
 
                 try {
                     // ── POST to Web3Forms API endpoint
