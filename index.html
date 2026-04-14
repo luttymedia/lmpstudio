@@ -1111,26 +1111,142 @@
     </div>
 
     <script>
-            /* ─── GalleryModal + Masonry + Lightbox ─────────────────────────────────
-               Single source of truth:
-                 galleryImages  – ordered list of {src, alt}
-                 modalOpen      – boolean
-                 lightboxIndex  – current lightbox image index (-1 = closed)
-            ─────────────────────────────────────────────────────────────────────── */
-            (function GallerySystem() {
-                // ── Data ─────────────────────────────────────────────────
-                const galleryImages = [
-                    { src: 'images/portfolio/v1.png', alt: t('portfolio.imgAlt') + ' 1' },
-                    { src: 'images/portfolio/h1.png', alt: t('portfolio.imgAlt') + ' 2' },
-                    { src: 'images/portfolio/h2.png', alt: t('portfolio.imgAlt') + ' 3' },
-                    { src: 'images/portfolio/v2.png', alt: t('portfolio.imgAlt') + ' 4' },
-                    { src: 'images/portfolio/h2.png', alt: t('portfolio.imgAlt') + ' 5' },
-                    { src: 'images/portfolio/v1.png', alt: t('portfolio.imgAlt') + ' 6' },
-                    { src: 'images/portfolio/v2.png', alt: t('portfolio.imgAlt') + ' 7' },
-                    { src: 'images/portfolio/h1.png', alt: t('portfolio.imgAlt') + ' 8' },
-                    { src: 'images/portfolio/v1.png', alt: t('portfolio.imgAlt') + ' 9' },
-                    { src: 'images/portfolio/h2.png', alt: t('portfolio.imgAlt') + ' 10' },
+        // ─── Translations & General Logic ───────────────────────────────────────
+        let translations = {};
+        let currentLang = localStorage.getItem('lang') || 'en';
+
+        function t(key) {
+            const keys = key.split('.');
+            let value = translations[currentLang];
+            for (const k of keys) value = value?.[k];
+            return value || key;
+        }
+
+        function updateContent() {
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+                    el.placeholder = t(key);
+                } else {
+                    el.innerHTML = t(key);
+                }
+            });
+
+            document.querySelectorAll('[data-i18n-title]').forEach(el => {
+                const key = el.getAttribute('data-i18n-title');
+                el.title = t(key);
+            });
+
+            document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+                const key = el.getAttribute('data-i18n-placeholder');
+                el.placeholder = t(key);
+            });
+
+            const session1Features = document.getElementById('session1-features');
+            if (session1Features) {
+                const features = t('pricing.session1Features');
+                session1Features.innerHTML = (Array.isArray(features) ? features : []).map(f =>
+                    '<li class="flex items-start gap-3 text-on-surface-variant"><span class="material-symbols-outlined text-primary-container text-xl">done</span><span>' + f + '</span></li>'
+                ).join('');
+            }
+
+            const session2Features = document.getElementById('session2-features');
+            if (session2Features) {
+                const features = t('pricing.session2Features');
+                session2Features.innerHTML = (Array.isArray(features) ? features : []).map(f =>
+                    '<li class="flex items-start gap-3 text-on-surface-variant"><span class="material-symbols-outlined text-primary-container text-xl">done</span><span>' + f + '</span></li>'
+                ).join('');
+            }
+
+            const studioInclusions = document.getElementById('studio-inclusions');
+            if (studioInclusions) {
+                const inclusions = t('studio.feature3Desc');
+                studioInclusions.innerHTML = (Array.isArray(inclusions) ? inclusions : []).map(f =>
+                    '<li>- ' + f + '</li>'
+                ).join('');
+            }
+
+            const extrasList = document.getElementById('extras-list');
+            if (extrasList) {
+                const extras = [
+                    { label: 'pricing.video', price: '+50€' },
+                    { label: 'pricing.outdoor', subtext: 'pricing.outdoorSubtext', price: '+50€' },
+                    { label: 'pricing.extraPhotos', price: '+30€' + t('pricing.perPhoto') },
+                    { label: 'pricing.retouch', price: '+30€' + t('pricing.perHour') },
+                    { label: 'pricing.expressDelivery', price: t('pricing.onRequest') }
                 ];
+                extrasList.innerHTML = extras.map(e => {
+                    const subtextHtml = e.subtext ? `<br><small class="text-[12px] opacity-70 block mt-1">${t(e.subtext)}</small>` : '';
+                    return '<div class="flex justify-between items-center border-b border-outline-variant/30 pb-2"><span class="text-on-surface-variant">' + t(e.label) + subtextHtml + '</span><span class="font-bold' + (e.label === 'pricing.expressDelivery' ? ' text-xs uppercase' : '') + '">' + e.price + '</span></div>';
+                }).join('');
+            }
+
+            document.documentElement.lang = currentLang;
+
+            document.querySelectorAll('.lang-text, .lang-label').forEach(el => {
+                el.textContent = currentLang === 'en' ? 'ES' : 'EN';
+            });
+
+            // Update Gallery if it exists
+            if (window.GallerySystem && window.GallerySystem.update) {
+                window.GallerySystem.update();
+            }
+        }
+
+        function setupTranslations() {
+            const langSwitches = [
+                document.getElementById('lang-switch'),
+                document.getElementById('mobile-lang-switch-nav')
+            ];
+
+            langSwitches.forEach(btn => {
+                if (btn) {
+                    btn.addEventListener('click', () => {
+                        currentLang = currentLang === 'en' ? 'es' : 'en';
+                        updateContent();
+                        localStorage.setItem('lang', currentLang);
+                    });
+                }
+            });
+
+            updateContent();
+        }
+
+        // Fetch translations
+        fetch('translations.json')
+            .then(response => response.json())
+            .then(data => {
+                translations = data;
+                setupTranslations();
+            })
+            .catch(err => {
+                console.error('Failed to load translations:', err);
+            });
+
+        /* ─── GalleryModal + Masonry + Lightbox ─────────────────────────────────
+           Single source of truth:
+             galleryImages  – ordered list of {src, alt}
+             modalOpen      – boolean
+             lightboxIndex  – current lightbox image index (-1 = closed)
+        ─────────────────────────────────────────────────────────────────────── */
+        window.GallerySystem = (function GallerySystem() {
+                // ── Data ─────────────────────────────────────────────────
+                function getGalleryImages() {
+                    return [
+                        { src: 'images/portfolio/v1.png', alt: t('portfolio.imgAlt') + ' 1' },
+                        { src: 'images/portfolio/h1.png', alt: t('portfolio.imgAlt') + ' 2' },
+                        { src: 'images/portfolio/h2.png', alt: t('portfolio.imgAlt') + ' 3' },
+                        { src: 'images/portfolio/v2.png', alt: t('portfolio.imgAlt') + ' 4' },
+                        { src: 'images/portfolio/h2.png', alt: t('portfolio.imgAlt') + ' 5' },
+                        { src: 'images/portfolio/v1.png', alt: t('portfolio.imgAlt') + ' 6' },
+                        { src: 'images/portfolio/v2.png', alt: t('portfolio.imgAlt') + ' 7' },
+                        { src: 'images/portfolio/h1.png', alt: t('portfolio.imgAlt') + ' 8' },
+                        { src: 'images/portfolio/v1.png', alt: t('portfolio.imgAlt') + ' 9' },
+                        { src: 'images/portfolio/h2.png', alt: t('portfolio.imgAlt') + ' 10' },
+                    ];
+                }
+
+                let galleryImages = getGalleryImages();
 
                 let modalOpen = false;
                 let lightboxIndex = -1;
@@ -1150,6 +1266,7 @@
 
                 // ── Build masonry grid ────────────────────────────────────
                 function buildMasonry() {
+                    galleryImages = getGalleryImages();
                     masonryGrid.innerHTML = '';
                     galleryImages.forEach((img, i) => {
                         const item = document.createElement('div');
@@ -1331,6 +1448,9 @@
                     }
                 });
 
+                return {
+                    update: buildMasonry
+                };
             })();
     </script>
     <script>
@@ -1368,114 +1488,6 @@
                 if (isMenuOpen) toggleMenu();
             });
         });
-
-        let translations = {};
-        let currentLang = 'en';
-
-        fetch('translations.json')
-            .then(response => response.json())
-            .then(data => {
-                translations = data;
-                setupTranslations();
-            })
-            .catch(err => {
-                console.error('Failed to load translations:', err);
-            });
-
-        function t(key) {
-            const keys = key.split('.');
-            let value = translations[currentLang];
-            for (const k of keys) value = value?.[k];
-            return value || key;
-        }
-
-        function updateContent() {
-            document.querySelectorAll('[data-i18n]').forEach(el => {
-                const key = el.getAttribute('data-i18n');
-                if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
-                    el.placeholder = t(key);
-                } else {
-                    el.innerHTML = t(key);
-                }
-            });
-
-            document.querySelectorAll('[data-i18n-title]').forEach(el => {
-                const key = el.getAttribute('data-i18n-title');
-                el.title = t(key);
-            });
-
-            // Handle form placeholders
-            document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
-                const key = el.getAttribute('data-i18n-placeholder');
-                el.placeholder = t(key);
-            });
-
-            const session1Features = document.getElementById('session1-features');
-            if (session1Features) {
-                session1Features.innerHTML = t('pricing.session1Features').map(f =>
-                    '<li class="flex items-start gap-3 text-on-surface-variant"><span class="material-symbols-outlined text-primary-container text-xl">done</span><span>' + f + '</span></li>'
-                ).join('');
-            }
-
-            const session2Features = document.getElementById('session2-features');
-            if (session2Features) {
-                session2Features.innerHTML = t('pricing.session2Features').map(f =>
-                    '<li class="flex items-start gap-3 text-on-surface-variant"><span class="material-symbols-outlined text-primary-container text-xl">done</span><span>' + f + '</span></li>'
-                ).join('');
-            }
-
-            const studioInclusions = document.getElementById('studio-inclusions');
-            if (studioInclusions) {
-                studioInclusions.innerHTML = t('studio.feature3Desc').map(f =>
-                    '<li>- ' + f + '</li>'
-                ).join('');
-            }
-
-            const extrasList = document.getElementById('extras-list');
-            if (extrasList) {
-                const extras = [
-                    { label: 'pricing.video', price: '+50€' },
-                    { label: 'pricing.outdoor', subtext: 'pricing.outdoorSubtext', price: '+50€' },
-                    { label: 'pricing.extraPhotos', price: '+30€' + t('pricing.perPhoto') },
-                    { label: 'pricing.retouch', price: '+30€' + t('pricing.perHour') },
-                    { label: 'pricing.expressDelivery', price: t('pricing.onRequest') }
-                ];
-                extrasList.innerHTML = extras.map(e => {
-                    const subtextHtml = e.subtext ? `<br><small class="text-[12px] opacity-70 block mt-1">${t(e.subtext)}</small>` : '';
-                    return '<div class="flex justify-between items-center border-b border-outline-variant/30 pb-2"><span class="text-on-surface-variant">' + t(e.label) + subtextHtml + '</span><span class="font-bold' + (e.label === 'pricing.expressDelivery' ? ' text-xs uppercase' : '') + '">' + e.price + '</span></div>';
-                }).join('');
-            }
-
-            document.documentElement.lang = currentLang;
-
-            // Update language text in mobile menu and navbar
-            document.querySelectorAll('.lang-text, .lang-label').forEach(el => {
-                el.textContent = currentLang === 'en' ? 'ES' : 'EN';
-            });
-        }
-
-        function setupTranslations() {
-            const langSwitches = [
-                document.getElementById('lang-switch'),
-                document.getElementById('mobile-lang-switch-nav')
-            ];
-
-            langSwitches.forEach(btn => {
-                if (btn) {
-                    btn.addEventListener('click', () => {
-                        currentLang = currentLang === 'en' ? 'es' : 'en';
-                        updateContent();
-                        localStorage.setItem('lang', currentLang);
-                    });
-                }
-            });
-
-            if (localStorage.getItem('lang')) {
-                currentLang = localStorage.getItem('lang');
-            }
-
-            updateContent();
-        }
 
         // Contact form handler
         const contactForm = document.getElementById('contact-form');
