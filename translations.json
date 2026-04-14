@@ -22,11 +22,11 @@
       "title3": "Studio Included",
       "desc3": "Professional lighting gear and cyclorama ready.",
       "title4": "Mixed Options",
-      "desc4": "Seamlessly blend indoor studio and outdoor light."
+      "desc4": "Book studio and outdoor setups within the same session."
     },
     "pricing": {
       "title": "Investment",
-      "subtitle": "Curated Session Packages",
+      "subtitle": "Tailored Session Packages",
       "session1Title": "1 Hour Session",
       "session1Price": "150€",
       "session1Features": [
@@ -44,21 +44,22 @@
         "More shooting time = more photos!",
         "Better value per hour"
       ],
-      "additionalExtras": "Additional Extras",
-      "video": "Video",
-      "outdoor": "Outdoor session",
+      "additionalExtras": "Add-ons",
+      "video": "Video*",
+      "outdoor": "Outdoor session*",
       "outdoorSubtext": "(Poble Espanyol)",
       "extraPhotos": "Extra photos",
       "retouch": "Retouch",
       "expressDelivery": "Express delivery",
+      "extraNote": "*Within the same booked time slot.",
       "onRequest": "on request",
       "perPhoto": "/ 10 photos",
       "perHour": "/hour",
       "note": "Same price for individuals, couples, and small groups (up to 5 people)"
     },
     "portfolio": {
-      "title": "The Curated Gallery",
-      "desc": "A glimpse into our recent studio sessions. We focus on natural skin tones, architectural lighting, and raw emotion.",
+      "title": "Gallery",
+      "desc": "Explore our sessions to discover setups, looks, and find ideas for your own shoot.",
       "viewExamples": "View Gallery",
       "imgAlt": "Studio portrait"
     },
@@ -182,11 +183,11 @@
       "title3": "Estudio Incluido",
       "desc3": "Equipo de iluminación profesional y ciclograma listo.",
       "title4": "Opciones Mixtas",
-      "desc4": "Combina perfectamente la luz del estudio al aire libre."
+      "desc4": "Combina estudio y exteriores en una misma sesión."
     },
     "pricing": {
       "title": "Inversión",
-      "subtitle": "Paquetes de Sesión Curados",
+      "subtitle": "Paquetes de Sesión a tu Medida",
       "session1Title": "Sesión de 1 Hora",
       "session1Price": "150€",
       "session1Features": [
@@ -204,21 +205,22 @@
         "Más tiempo de sesión = ¡más fotos!",
         "Mejor relación precio por hora"
       ],
-      "additionalExtras": "Extras Adicionales",
-      "video": "Video",
-      "outdoor": "Sesión exterior",
+      "additionalExtras": "Complementos",
+      "video": "Video*",
+      "outdoor": "Sesión exterior*",
       "outdoorSubtext": "(Poble Espanyol)",
       "extraPhotos": "Fotos extra",
       "retouch": "Retoque",
       "expressDelivery": "Entrega express",
+      "extraNote": "*Dentro del mismo bloque de tiempo reservado.",
       "onRequest": "bajo demanda",
       "perPhoto": "/ 10 fotos",
       "perHour": "/hora",
       "note": "Mismo precio para individuos, parejas y grupos pequeños (hasta 5 personas)"
     },
     "portfolio": {
-      "title": "La Galería Curada",
-      "desc": "Una muestra de nuestras sesiones recientes de estudio. Nos enfocamos en tonos naturales de piel, iluminación arquitectónica y emoción cruda.",
+      "title": "Galería",
+      "desc": "Explora nuestras sesiones para descubrir diferentes estilos y encontrar ideas para tu sesión.",
       "viewExamples": "Ver Galería",
       "imgAlt": "Retrato de estudio"
     },

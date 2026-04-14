@@ -438,8 +438,8 @@
                         class="p-12 bg-surface-container flex flex-col justify-center gap-4 group hover:bg-surface-container-high transition-colors">
                         <span class="material-symbols-outlined text-primary text-4xl">wb_sunny</span>
                         <h3 class="font-headline text-2xl font-bold" data-i18n="overview.title4">Mixed Options</h3>
-                        <p class="text-on-surface-variant body-md" data-i18n="overview.desc4">Seamlessly blend indoor
-                            studio and outdoor light.</p>
+                        <p class="text-on-surface-variant body-md" data-i18n="overview.desc4">Book studio and outdoor
+                            setups within the same session.</p>
                     </div>
                 </div>
             </div>
@@ -451,7 +451,7 @@
                     <h2 class="font-headline text-4xl font-bold mb-4 editorial-spacing" data-i18n="pricing.title">
                         Investment</h2>
                     <p class="text-secondary font-medium uppercase tracking-widest text-xs"
-                        data-i18n="pricing.subtitle">Curated Session Packages</p>
+                        data-i18n="pricing.subtitle">Tailored Session Packages</p>
                 </div>
                 <div class="grid md:grid-cols-2 gap-8 mb-16">
                     <!-- 1 Hour -->
@@ -475,7 +475,7 @@
                 </div>
                 <div class="bg-surface-container p-8">
                     <h4 class="font-headline font-bold text-sm uppercase tracking-widest mb-6"
-                        data-i18n="pricing.additionalExtras">Additional Extras</h4>
+                        data-i18n="pricing.additionalExtras">Add-ons</h4>
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="extras-list"></div>
                 </div>
                 <p class="mt-8 text-center text-secondary text-sm font-medium" data-i18n="pricing.note">Same price for
@@ -528,9 +528,9 @@
                 <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
                     <div class="max-w-2xl">
                         <h2 class="font-headline text-5xl font-extrabold editorial-spacing mb-6"
-                            data-i18n="portfolio.title">The Curated Gallery</h2>
-                        <p class="text-secondary text-lg" data-i18n="portfolio.desc">A glimpse into our recent studio
-                            sessions. We focus on natural skin tones, architectural lighting, and raw emotion.</p>
+                            data-i18n="portfolio.title">Gallery</h2>
+                        <p class="text-secondary text-lg" data-i18n="portfolio.desc">Explore our sessions
+                            to discover setups, looks, and find ideas for your own shoot.</p>
                     </div>
                     <button id="gallery-open-btn"
                         class="px-8 py-4 border-b-2 border-primary font-bold text-primary hover:bg-primary-container/10 transition-all"
@@ -1173,9 +1173,13 @@
                     { label: 'pricing.outdoor', subtext: 'pricing.outdoorSubtext', price: '+50€' },
                     { label: 'pricing.extraPhotos', price: '+30€' + t('pricing.perPhoto') },
                     { label: 'pricing.retouch', price: '+30€' + t('pricing.perHour') },
-                    { label: 'pricing.expressDelivery', price: t('pricing.onRequest') }
+                    { label: 'pricing.expressDelivery', price: t('pricing.onRequest') },
+                    { label: 'pricing.extraNote', price: '', isNote: true }
                 ];
                 extrasList.innerHTML = extras.map(e => {
+                    if (e.isNote) {
+                        return '<div class="md:col-start-3"><small class="text-[12px] opacity-70 block leading-tight">' + t(e.label) + '</small></div>';
+                    }
                     const subtextHtml = e.subtext ? `<br><small class="text-[12px] opacity-70 block mt-1">${t(e.subtext)}</small>` : '';
                     return '<div class="flex justify-between items-center border-b border-outline-variant/30 pb-2"><span class="text-on-surface-variant">' + t(e.label) + subtextHtml + '</span><span class="font-bold' + (e.label === 'pricing.expressDelivery' ? ' text-xs uppercase' : '') + '">' + e.price + '</span></div>';
                 }).join('');
@@ -1230,228 +1234,228 @@
              lightboxIndex  – current lightbox image index (-1 = closed)
         ─────────────────────────────────────────────────────────────────────── */
         window.GallerySystem = (function GallerySystem() {
-                // ── Data ─────────────────────────────────────────────────
-                function getGalleryImages() {
-                    return [
-                        { src: 'images/portfolio/v1.png', alt: t('portfolio.imgAlt') + ' 1' },
-                        { src: 'images/portfolio/h1.png', alt: t('portfolio.imgAlt') + ' 2' },
-                        { src: 'images/portfolio/h2.png', alt: t('portfolio.imgAlt') + ' 3' },
-                        { src: 'images/portfolio/v2.png', alt: t('portfolio.imgAlt') + ' 4' },
-                        { src: 'images/portfolio/h2.png', alt: t('portfolio.imgAlt') + ' 5' },
-                        { src: 'images/portfolio/v1.png', alt: t('portfolio.imgAlt') + ' 6' },
-                        { src: 'images/portfolio/v2.png', alt: t('portfolio.imgAlt') + ' 7' },
-                        { src: 'images/portfolio/h1.png', alt: t('portfolio.imgAlt') + ' 8' },
-                        { src: 'images/portfolio/v1.png', alt: t('portfolio.imgAlt') + ' 9' },
-                        { src: 'images/portfolio/h2.png', alt: t('portfolio.imgAlt') + ' 10' },
-                    ];
-                }
+            // ── Data ─────────────────────────────────────────────────
+            function getGalleryImages() {
+                return [
+                    { src: 'images/portfolio/v1.png', alt: t('portfolio.imgAlt') + ' 1' },
+                    { src: 'images/portfolio/h1.png', alt: t('portfolio.imgAlt') + ' 2' },
+                    { src: 'images/portfolio/h2.png', alt: t('portfolio.imgAlt') + ' 3' },
+                    { src: 'images/portfolio/v2.png', alt: t('portfolio.imgAlt') + ' 4' },
+                    { src: 'images/portfolio/h2.png', alt: t('portfolio.imgAlt') + ' 5' },
+                    { src: 'images/portfolio/v1.png', alt: t('portfolio.imgAlt') + ' 6' },
+                    { src: 'images/portfolio/v2.png', alt: t('portfolio.imgAlt') + ' 7' },
+                    { src: 'images/portfolio/h1.png', alt: t('portfolio.imgAlt') + ' 8' },
+                    { src: 'images/portfolio/v1.png', alt: t('portfolio.imgAlt') + ' 9' },
+                    { src: 'images/portfolio/h2.png', alt: t('portfolio.imgAlt') + ' 10' },
+                ];
+            }
 
-                let galleryImages = getGalleryImages();
+            let galleryImages = getGalleryImages();
 
-                let modalOpen = false;
-                let lightboxIndex = -1;
+            let modalOpen = false;
+            let lightboxIndex = -1;
 
-                // ── DOM refs ──────────────────────────────────────────────
-                const galleryModal = document.getElementById('gallery-modal');
-                const galleryScroll = document.getElementById('gallery-scroll');
-                const masonryGrid = document.getElementById('masonry-grid');
-                const modalCloseBtn = document.getElementById('gallery-modal-close');
-                const galleryOpenBtn = document.getElementById('gallery-open-btn');
-                const lightbox = document.getElementById('lightbox');
-                const lightboxImg = document.getElementById('lightbox-img');
-                const lightboxClose = document.getElementById('lightbox-close');
-                const lightboxPrev = document.getElementById('lightbox-prev');
-                const lightboxNext = document.getElementById('lightbox-next');
-                const lightboxCounter = document.getElementById('lightbox-counter');
+            // ── DOM refs ──────────────────────────────────────────────
+            const galleryModal = document.getElementById('gallery-modal');
+            const galleryScroll = document.getElementById('gallery-scroll');
+            const masonryGrid = document.getElementById('masonry-grid');
+            const modalCloseBtn = document.getElementById('gallery-modal-close');
+            const galleryOpenBtn = document.getElementById('gallery-open-btn');
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImg = document.getElementById('lightbox-img');
+            const lightboxClose = document.getElementById('lightbox-close');
+            const lightboxPrev = document.getElementById('lightbox-prev');
+            const lightboxNext = document.getElementById('lightbox-next');
+            const lightboxCounter = document.getElementById('lightbox-counter');
 
-                // ── Build masonry grid ────────────────────────────────────
-                function buildMasonry() {
-                    galleryImages = getGalleryImages();
-                    masonryGrid.innerHTML = '';
-                    galleryImages.forEach((img, i) => {
-                        const item = document.createElement('div');
-                        item.className = 'masonry-item';
-                        item.dataset.index = i;
+            // ── Build masonry grid ────────────────────────────────────
+            function buildMasonry() {
+                galleryImages = getGalleryImages();
+                masonryGrid.innerHTML = '';
+                galleryImages.forEach((img, i) => {
+                    const item = document.createElement('div');
+                    item.className = 'masonry-item';
+                    item.dataset.index = i;
 
-                        const el = document.createElement('img');
-                        el.src = img.src;
-                        el.alt = img.alt;
-                        el.loading = i < 4 ? 'eager' : 'lazy';
-                        el.draggable = false;
+                    const el = document.createElement('img');
+                    el.src = img.src;
+                    el.alt = img.alt;
+                    el.loading = i < 4 ? 'eager' : 'lazy';
+                    el.draggable = false;
 
-                        item.appendChild(el);
-                        item.addEventListener('click', e => {
-                            e.stopPropagation(); // prevent bubbling to scroll → closeModal
-                            openLightbox(i);
-                        });
-                        masonryGrid.appendChild(item);
+                    item.appendChild(el);
+                    item.addEventListener('click', e => {
+                        e.stopPropagation(); // prevent bubbling to scroll → closeModal
+                        openLightbox(i);
+                    });
+                    masonryGrid.appendChild(item);
+                });
+            }
+
+            buildMasonry();
+
+            // ── Preload first 4 images ───────────────────────────────
+            galleryImages.slice(0, 4).forEach(img => {
+                const link = document.createElement('link');
+                link.rel = 'preload'; link.as = 'image'; link.href = img.src;
+                document.head.appendChild(link);
+            });
+
+            // ── History API helpers ───────────────────────────────────
+            // Push a state only when we are not already handling a popstate
+            // (to avoid double-pushing during programmatic closes).
+            let _handlingPop = false;
+
+            function _pushState(state) {
+                if (!_handlingPop) history.pushState(state, '');
+            }
+
+            // ── Modal open/close ─────────────────────────────────────
+            function openModal(highlightIndex) {
+                modalOpen = true;
+                galleryModal.classList.add('is-open');
+                document.body.style.overflow = 'hidden';
+                _pushState({ gallery: 'modal' });
+
+                if (highlightIndex !== undefined && highlightIndex >= 0) {
+                    // Brief highlight then scroll to item
+                    requestAnimationFrame(() => {
+                        setTimeout(() => {
+                            const target = masonryGrid.querySelector('[data-index="' + highlightIndex + '"]');
+                            if (target) {
+                                target.classList.add('is-highlighted');
+                                target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                                setTimeout(() => target.classList.remove('is-highlighted'), 1800);
+                            }
+                        }, 350); // wait for animation
                     });
                 }
+            }
 
-                buildMasonry();
+            function closeModal() {
+                modalOpen = false;
+                galleryModal.classList.remove('is-open');
+                if (lightboxIndex === -1) restoreBodyScroll();
+            }
 
-                // ── Preload first 4 images ───────────────────────────────
-                galleryImages.slice(0, 4).forEach(img => {
-                    const link = document.createElement('link');
-                    link.rel = 'preload'; link.as = 'image'; link.href = img.src;
-                    document.head.appendChild(link);
-                });
-
-                // ── History API helpers ───────────────────────────────────
-                // Push a state only when we are not already handling a popstate
-                // (to avoid double-pushing during programmatic closes).
-                let _handlingPop = false;
-
-                function _pushState(state) {
-                    if (!_handlingPop) history.pushState(state, '');
+            function restoreBodyScroll() {
+                if (!modalOpen && lightboxIndex === -1) {
+                    document.body.style.overflow = '';
                 }
+            }
 
-                // ── Modal open/close ─────────────────────────────────────
-                function openModal(highlightIndex) {
-                    modalOpen = true;
-                    galleryModal.classList.add('is-open');
-                    document.body.style.overflow = 'hidden';
-                    _pushState({ gallery: 'modal' });
+            // ── Lightbox open/close/navigate ─────────────────────────
+            function openLightbox(index) {
+                lightboxIndex = index;
+                renderLightbox();
+                lightbox.classList.add('is-open');
+                document.body.style.overflow = 'hidden';
+                _pushState({ gallery: 'lightbox', index });
+            }
 
-                    if (highlightIndex !== undefined && highlightIndex >= 0) {
-                        // Brief highlight then scroll to item
-                        requestAnimationFrame(() => {
-                            setTimeout(() => {
-                                const target = masonryGrid.querySelector('[data-index="' + highlightIndex + '"]');
-                                if (target) {
-                                    target.classList.add('is-highlighted');
-                                    target.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                                    setTimeout(() => target.classList.remove('is-highlighted'), 1800);
-                                }
-                            }, 350); // wait for animation
-                        });
-                    }
-                }
+            function closeLightbox() {
+                lightboxIndex = -1;
+                lightbox.classList.remove('is-open');
+                restoreBodyScroll();
+            }
 
-                function closeModal() {
-                    modalOpen = false;
-                    galleryModal.classList.remove('is-open');
-                    if (lightboxIndex === -1) restoreBodyScroll();
-                }
+            function renderLightbox() {
+                const img = galleryImages[lightboxIndex];
+                lightboxImg.src = img.src;
+                lightboxImg.alt = img.alt;
+                lightboxCounter.textContent = (lightboxIndex + 1) + ' / ' + galleryImages.length;
+                // Looping: never disable arrows
+                lightboxPrev.disabled = false;
+                lightboxNext.disabled = false;
+            }
 
-                function restoreBodyScroll() {
-                    if (!modalOpen && lightboxIndex === -1) {
-                        document.body.style.overflow = '';
-                    }
-                }
-
-                // ── Lightbox open/close/navigate ─────────────────────────
-                function openLightbox(index) {
-                    lightboxIndex = index;
+            function lightboxNavigate(delta) {
+                // Wraps around: last→first, first→last
+                lightboxIndex = (lightboxIndex + delta + galleryImages.length) % galleryImages.length;
+                lightboxImg.style.opacity = '0';
+                setTimeout(() => {
                     renderLightbox();
-                    lightbox.classList.add('is-open');
-                    document.body.style.overflow = 'hidden';
-                    _pushState({ gallery: 'lightbox', index });
-                }
+                    lightboxImg.style.opacity = '1';
+                }, 150);
+            }
+            lightboxImg.style.transition = 'opacity 0.15s ease';
 
-                function closeLightbox() {
-                    lightboxIndex = -1;
-                    lightbox.classList.remove('is-open');
-                    restoreBodyScroll();
-                }
+            // ── Event wiring ─────────────────────────────────────────
+            // CTA button
+            galleryOpenBtn.addEventListener('click', () => openModal());
 
-                function renderLightbox() {
-                    const img = galleryImages[lightboxIndex];
-                    lightboxImg.src = img.src;
-                    lightboxImg.alt = img.alt;
-                    lightboxCounter.textContent = (lightboxIndex + 1) + ' / ' + galleryImages.length;
-                    // Looping: never disable arrows
-                    lightboxPrev.disabled = false;
-                    lightboxNext.disabled = false;
-                }
-
-                function lightboxNavigate(delta) {
-                    // Wraps around: last→first, first→last
-                    lightboxIndex = (lightboxIndex + delta + galleryImages.length) % galleryImages.length;
-                    lightboxImg.style.opacity = '0';
-                    setTimeout(() => {
-                        renderLightbox();
-                        lightboxImg.style.opacity = '1';
-                    }, 150);
-                }
-                lightboxImg.style.transition = 'opacity 0.15s ease';
-
-                // ── Event wiring ─────────────────────────────────────────
-                // CTA button
-                galleryOpenBtn.addEventListener('click', () => openModal());
-
-                // Preview images → open modal and highlight
-                document.querySelectorAll('.gallery-preview-img').forEach(img => {
-                    img.addEventListener('click', () => {
-                        const idx = parseInt(img.dataset.galleryIndex, 10);
-                        openModal(isNaN(idx) ? undefined : idx);
-                    });
+            // Preview images → open modal and highlight
+            document.querySelectorAll('.gallery-preview-img').forEach(img => {
+                img.addEventListener('click', () => {
+                    const idx = parseInt(img.dataset.galleryIndex, 10);
+                    openModal(isNaN(idx) ? undefined : idx);
                 });
+            });
 
-                // Modal close
-                const galleryModalInner = document.getElementById('gallery-modal-inner');
-                const galleryModalHeader = document.getElementById('gallery-modal-header');
-                modalCloseBtn.addEventListener('click', closeModal);
-                // Close when clicking empty space in the scroll area (between/around images).
-                // Masonry items stopPropagation so clicking images only opens the lightbox.
-                // Header stopPropagation so clicking the top bar doesn't close either.
-                galleryScroll.addEventListener('click', closeModal);
-                galleryModalHeader.addEventListener('click', e => e.stopPropagation());
+            // Modal close
+            const galleryModalInner = document.getElementById('gallery-modal-inner');
+            const galleryModalHeader = document.getElementById('gallery-modal-header');
+            modalCloseBtn.addEventListener('click', closeModal);
+            // Close when clicking empty space in the scroll area (between/around images).
+            // Masonry items stopPropagation so clicking images only opens the lightbox.
+            // Header stopPropagation so clicking the top bar doesn't close either.
+            galleryScroll.addEventListener('click', closeModal);
+            galleryModalHeader.addEventListener('click', e => e.stopPropagation());
 
-                // Lightbox controls
-                lightboxClose.addEventListener('click', closeLightbox);
-                lightboxPrev.addEventListener('click', () => lightboxNavigate(-1));
-                lightboxNext.addEventListener('click', () => lightboxNavigate(1));
+            // Lightbox controls
+            lightboxClose.addEventListener('click', closeLightbox);
+            lightboxPrev.addEventListener('click', () => lightboxNavigate(-1));
+            lightboxNext.addEventListener('click', () => lightboxNavigate(1));
 
-                // Click outside lightbox image
-                lightbox.addEventListener('click', e => {
-                    if (e.target === lightbox) closeLightbox();
-                });
+            // Click outside lightbox image
+            lightbox.addEventListener('click', e => {
+                if (e.target === lightbox) closeLightbox();
+            });
 
-                // Keyboard
-                document.addEventListener('keydown', e => {
-                    if (e.key === 'Escape') {
-                        if (lightboxIndex >= 0) { closeLightbox(); return; }
-                        if (modalOpen) closeModal();
-                    }
+            // Keyboard
+            document.addEventListener('keydown', e => {
+                if (e.key === 'Escape') {
+                    if (lightboxIndex >= 0) { closeLightbox(); return; }
+                    if (modalOpen) closeModal();
+                }
+                if (lightboxIndex >= 0) {
+                    if (e.key === 'ArrowLeft') lightboxNavigate(-1);
+                    if (e.key === 'ArrowRight') lightboxNavigate(1);
+                }
+            });
+
+            // ── Touch / swipe on lightbox ────────────────────────────
+            let touchStartX = null;
+            lightbox.addEventListener('touchstart', e => {
+                touchStartX = e.touches[0].clientX;
+            }, { passive: true });
+            lightbox.addEventListener('touchend', e => {
+                if (touchStartX === null) return;
+                const dx = e.changedTouches[0].clientX - touchStartX;
+                if (Math.abs(dx) > 50) lightboxNavigate(dx < 0 ? 1 : -1);
+                touchStartX = null;
+            }, { passive: true });
+
+            // ── Browser back button (History API) ────────────────────
+            window.addEventListener('popstate', e => {
+                _handlingPop = true;
+                try {
                     if (lightboxIndex >= 0) {
-                        if (e.key === 'ArrowLeft') lightboxNavigate(-1);
-                        if (e.key === 'ArrowRight') lightboxNavigate(1);
+                        // Lightbox is open → close it, keep modal open
+                        closeLightbox();
+                    } else if (modalOpen) {
+                        // Only gallery modal open → close it
+                        closeModal();
                     }
-                });
+                } finally {
+                    _handlingPop = false;
+                }
+            });
 
-                // ── Touch / swipe on lightbox ────────────────────────────
-                let touchStartX = null;
-                lightbox.addEventListener('touchstart', e => {
-                    touchStartX = e.touches[0].clientX;
-                }, { passive: true });
-                lightbox.addEventListener('touchend', e => {
-                    if (touchStartX === null) return;
-                    const dx = e.changedTouches[0].clientX - touchStartX;
-                    if (Math.abs(dx) > 50) lightboxNavigate(dx < 0 ? 1 : -1);
-                    touchStartX = null;
-                }, { passive: true });
-
-                // ── Browser back button (History API) ────────────────────
-                window.addEventListener('popstate', e => {
-                    _handlingPop = true;
-                    try {
-                        if (lightboxIndex >= 0) {
-                            // Lightbox is open → close it, keep modal open
-                            closeLightbox();
-                        } else if (modalOpen) {
-                            // Only gallery modal open → close it
-                            closeModal();
-                        }
-                    } finally {
-                        _handlingPop = false;
-                    }
-                });
-
-                return {
-                    update: buildMasonry
-                };
-            })();
+            return {
+                update: buildMasonry
+            };
+        })();
     </script>
     <script>
         const menuToggle = document.getElementById('mobile-menu-toggle');
