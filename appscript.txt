@@ -1,0 +1,223 @@
+function doPost(e) {
+  try {
+    const sheet = SpreadsheetApp
+  .openById("1b-OwqJTalb8hXJIAG60JhTMnkeFW3nxFelvvEGnwOQM")
+  .getSheetByName("Leads");
+
+    if (!sheet) {
+      return ContentService.createTextOutput(
+        JSON.stringify({ status: "error", message: "Sheet 'Leads' not found" })
+      ).setMimeType(ContentService.MimeType.JSON);
+    }
+
+    const data = e.parameter || {};
+
+    const id = Utilities.formatDate(new Date(), Session.getScriptTimeZone(), "yyMMdd-HHmmss");
+    const timestamp = new Date();
+
+    const name = data.name || "";
+    const email = data.email || "";
+    const phone = data.phone || "";
+    const message = data.message || "";
+    const source = data.source || "landing-page";
+
+    sheet.appendRow([
+      id,
+      timestamp,
+      name,
+      email,
+      phone,
+      message,
+      source
+    ]);
+
+    return ContentService.createTextOutput(
+      JSON.stringify({
+        status: "success",
+        id: id
+      })
+    ).setMimeType(ContentService.MimeType.JSON);
+
+  } catch (error) {
+    return ContentService.createTextOutput(
+      JSON.stringify({
+        status: "error",
+        message: error.toString()
+      })
+    ).setMimeType(ContentService.MimeType.JSON);
+  }
+}
+
+/**
+ * doGet handler — supports two-step fetch architecture.
+ *
+ * Query params (both steps require ?g=GALLERY_ID):
+ *   ?g=ID&action=metadata  → Returns title + requiresPin (+ pin if required).
+ *                            Does NOT touch DriveApp. Fast response.
+ *   ?g=ID&action=images    → Scans the Drive folder. Returns images[] + downloadZipUrl.
+ *
+ * Legacy behaviour: if no action param is supplied the old single-step
+ * response is returned for backwards compatibility.
+ */
+function doGet(e) {
+  try {
+    const galleryId = e.parameter.g || e.parameter.gallery_id;
+    const action = e.parameter.action || "legacy";
+
+    if (!galleryId) {
+      return createJsonResponse({
+        status: "error",
+        message: "Gallery not found or not available"
+      });
+    }
+
+    const ss = SpreadsheetApp.openById("1wEdS3riYUYzcBC8B9VZBpELzq2vp436Ln8tYzqRq3JU");
+    const sheet = ss.getSheetByName("Galleries");
+
+    if (!sheet) {
+      throw new Error("Galleries sheet not found.");
+    }
+
+    const data = sheet.getDataRange().getValues();
+    let foundRow = null;
+
+    for (let i = 1; i < data.length; i++) {
+      if (String(data[i][0]) === String(galleryId)) {
+        foundRow = data[i];
+        break;
+      }
+    }
+
+    if (!foundRow || foundRow[4] !== "live") {
+      return createJsonResponse({
+        status: "error",
+        message: "Gallery not found or not available"
+      });
+    }
+
+    const folderId  = foundRow[1];
+    const title     = foundRow[2];
+    const pin       = foundRow[3];
+    const requiresPin = pin !== "" && pin !== null && pin !== undefined;
+
+    // ── Step 1: metadata only — no DriveApp ──────────────────────────────
+    if (action === "metadata") {
+      const payload = {
+        status: "success",
+        gallery: {
+          id: galleryId,
+          title: title,
+          requiresPin: requiresPin
+        }
+      };
+      if (requiresPin) {
+        payload.gallery.pin = String(pin);
+      }
+      return createJsonResponse(payload);
+    }
+
+    // ── Step 2: images — DriveApp scan ───────────────────────────────────
+    if (action === "images") {
+      const folder = DriveApp.getFolderById(folderId);
+      const files = folder.getFiles();
+      const images = [];
+      let downloadZipUrl = null;
+
+      while (files.hasNext()) {
+        const file = files.next();
+        const mimeType = file.getMimeType();
+        const fileName = file.getName();
+
+        if (
+          mimeType === MimeType.JPEG ||
+          mimeType === MimeType.PNG  ||
+          mimeType === "image/webp"  ||
+          mimeType === "image/jpg"
+        ) {
+          const fileId = file.getId();
+          images.push({
+            name: fileName,
+            url: "https://drive.google.com/thumbnail?id=" + fileId + "&sz=w2000",
+            downloadUrl: "https://drive.google.com/uc?export=download&id=" + fileId
+          });
+        } else if (mimeType === MimeType.ZIP || fileName.toLowerCase().endsWith(".zip")) {
+          if (!downloadZipUrl) {
+            downloadZipUrl = "https://drive.google.com/uc?export=download&id=" + file.getId();
+          }
+        }
+      }
+
+      images.sort((a, b) => a.name.localeCompare(b.name));
+
+      return createJsonResponse({
+        status: "success",
+        gallery: {
+          id: galleryId,
+          images: images,
+          downloadZipUrl: downloadZipUrl
+        }
+      });
+    }
+
+    // ── Legacy / single-step (no action param) ───────────────────────────
+    const folder = DriveApp.getFolderById(folderId);
+    const files = folder.getFiles();
+    const images = [];
+    let downloadZipUrl = null;
+
+    while (files.hasNext()) {
+      const file = files.next();
+      const mimeType = file.getMimeType();
+      const fileName = file.getName();
+
+      if (
+        mimeType === MimeType.JPEG ||
+        mimeType === MimeType.PNG  ||
+        mimeType === "image/webp"  ||
+        mimeType === "image/jpg"
+      ) {
+        const fileId = file.getId();
+        images.push({
+          name: fileName,
+          url: "https://drive.google.com/thumbnail?id=" + fileId + "&sz=w2000",
+          downloadUrl: "https://drive.google.com/uc?export=download&id=" + fileId
+        });
+      } else if (mimeType === MimeType.ZIP || fileName.toLowerCase().endsWith(".zip")) {
+        if (!downloadZipUrl) {
+          downloadZipUrl = "https://drive.google.com/uc?export=download&id=" + file.getId();
+        }
+      }
+    }
+
+    images.sort((a, b) => a.name.localeCompare(b.name));
+
+    const responsePayload = {
+      status: "success",
+      gallery: {
+        id: galleryId,
+        title: title,
+        requiresPin: requiresPin,
+        images: images,
+        folderUrl: "https://drive.google.com/drive/folders/" + folderId,
+        downloadZipUrl: downloadZipUrl
+      }
+    };
+
+    if (requiresPin) {
+      responsePayload.gallery.pin = String(pin);
+    }
+
+    return createJsonResponse(responsePayload);
+
+  } catch (error) {
+    return createJsonResponse({
+      status: "error",
+      message: "An internal error occurred: " + error.message
+    });
+  }
+}
+
+function createJsonResponse(dataObject) {
+  return ContentService.createTextOutput(JSON.stringify(dataObject))
+    .setMimeType(ContentService.MimeType.JSON);
+}
