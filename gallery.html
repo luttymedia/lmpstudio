@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Your Gallery · Lutty Moreira Photo</title>
+    <meta name="description" content="Access your private photo gallery from Lutty Moreira Photo." />
+    <meta name="robots" content="noindex, nofollow" />
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@600;700;800&display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
+
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "inverse-surface": "#313030",
+                        "secondary-container": "#e4e2e1",
+                        "tertiary": "#485e8b",
+                        "on-error": "#ffffff",
+                        "primary-container": "#c5a059",
+                        "surface-container-low": "#f6f3f2",
+                        "on-secondary-fixed": "#1b1c1c",
+                        "on-secondary-container": "#656464",
+                        "secondary": "#5f5e5e",
+                        "on-primary-container": "#4e3700",
+                        "on-surface-variant": "#4e4639",
+                        "on-tertiary": "#ffffff",
+                        "surface-bright": "#fcf9f8",
+                        "surface-tint": "#775a19",
+                        "secondary-fixed-dim": "#c8c6c5",
+                        "on-tertiary-container": "#233a65",
+                        "tertiary-fixed": "#d8e2ff",
+                        "on-surface": "#1c1b1b",
+                        "on-background": "#1c1b1b",
+                        "on-tertiary-fixed-variant": "#304671",
+                        "secondary-fixed": "#e4e2e1",
+                        "surface-container-highest": "#e5e2e1",
+                        "surface-variant": "#e5e2e1",
+                        "outline": "#7f7667",
+                        "on-primary-fixed-variant": "#5d4201",
+                        "on-tertiary-fixed": "#001a41",
+                        "primary": "#775a19",
+                        "on-error-container": "#93000a",
+                        "on-primary-fixed": "#261900",
+                        "surface-dim": "#dcd9d9",
+                        "surface-container": "#f0eded",
+                        "surface": "#fcf9f8",
+                        "outline-variant": "#d1c5b4",
+                        "error-container": "#ffdad6",
+                        "background": "#fcf9f8",
+                        "inverse-primary": "#e9c176",
+                        "tertiary-container": "#8fa5d6",
+                        "tertiary-fixed-dim": "#b0c6f9",
+                        "inverse-on-surface": "#f3f0ef",
+                        "error": "#ba1a1a",
+                        "primary-fixed": "#ffdea5",
+                        "on-primary": "#ffffff",
+                        "surface-container-lowest": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "primary-fixed-dim": "#e9c176",
+                        "on-secondary-fixed-variant": "#474747",
+                        "surface-container-high": "#eae7e7"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "fontFamily": {
+                        "headline": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                },
+            },
+        }
+    </script>
+
+    <style>
+        /* ── Base ── */
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+
+        .editorial-spacing {
+            letter-spacing: -0.02em;
+        }
+
+        /* ── Entry Screens ── */
+        .entry-screen {
+            position: fixed;
+            inset: 0;
+            z-index: 400;
+            background: #fcf9f8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+        }
+
+        .entry-screen.visible {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .entry-screen.hidden-modal {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* Input styling */
+        #pin-input {
+            letter-spacing: 0.35em;
+            font-size: 1.5rem;
+            text-align: center;
+            appearance: textfield;
+        }
+
+        #pin-input::-webkit-outer-spin-button,
+        #pin-input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        /* ── Skeleton Loaders ── */
+        @keyframes skeleton-pulse {
+            0%   { background-color: #e5e2e1; }
+            50%  { background-color: #f0eded; }
+            100% { background-color: #e5e2e1; }
+        }
+
+        .skeleton-pulse {
+            animation: skeleton-pulse 1.8s ease-in-out infinite;
+        }
+
+        .skeleton-grid {
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+        }
+
+        .skeleton-col {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .skeleton-item {
+            border-radius: 4px;
+            animation: skeleton-pulse 1.8s ease-in-out infinite;
+        }
+
+        /* ── Masonry Grid ── */
+        #masonry-grid {
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+        }
+
+        .masonry-col {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .masonry-item {
+            border-radius: 4px;
+            overflow: hidden;
+            cursor: pointer;
+            position: relative;
+            background: #e5e2e1;
+        }
+
+        .masonry-item img {
+            display: block;
+            width: 100%;
+            height: auto;
+            transition: transform 0.45s ease, filter 0.3s ease;
+        }
+
+        .masonry-item:hover img {
+            transform: scale(1.04);
+            filter: brightness(1.06);
+        }
+
+        .masonry-item .img-dl-btn {
+            position: absolute;
+            bottom: 8px;
+            right: 8px;
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            background: rgba(0, 0, 0, 0.55);
+            border: none;
+            color: #fff;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.2s, background 0.2s;
+            z-index: 2;
+        }
+
+        .masonry-item:hover .img-dl-btn {
+            opacity: 1;
+        }
+
+        /* ── Lightbox ── */
+        #lightbox {
+            position: fixed;
+            inset: 0;
+            z-index: 300;
+            background: rgba(0, 0, 0, 0.96);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.25s ease;
+        }
+
+        #lightbox.is-open {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        #lightbox-img-wrap {
+            position: relative;
+            max-width: 90vw;
+            max-height: 90vh;
+            transform: scale(0.95);
+            transition: transform 0.3s cubic-bezier(0.34, 1.3, 0.64, 1);
+        }
+
+        #lightbox.is-open #lightbox-img-wrap {
+            transform: scale(1);
+        }
+
+        #lightbox-img {
+            transition: opacity 0.15s ease;
+        }
+
+        /* Desktop/tablet: enable transition */
+        @media (min-width: 768px) {
+            #lightbox-img {
+                transition: opacity 0.25s ease;
+            }
+        }
+
+        /* ── Shake ── */
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-8px); }
+            40%, 80% { transform: translateX(8px); }
+        }
+        .shake { animation: shake 0.4s ease; }
+
+        /* Circular buttons */
+        #lightbox-prev, #lightbox-next, #back-to-top, #lightbox-close, #lightbox-dl {
+            border-radius: 50% !important;
+        }
+        #lightbox-prev span, #lightbox-next span, #back-to-top span {
+            font-size: 28px;
+            line-height: 1;
+        }
+    </style>
+</head>
+
+<body class="bg-surface text-on-surface font-body selection:bg-primary-container selection:text-on-primary-container">
+
+    <!-- ═══════════════════════════════════════════════════════
+         ENTRY SCREEN (Optimistic UI)
+         Visible instantly. Logo + title skeleton or actual title.
+    ═══════════════════════════════════════════════════════ -->
+    <div id="entry-gate" class="entry-screen visible" role="dialog" aria-modal="true">
+        <div class="flex flex-col items-center gap-8 px-6 max-w-sm w-full text-center">
+            <span class="hover:opacity-70 transition-opacity cursor-default">
+                <img src="images/logo-nav.png" alt="Lutty Moreira Photo" class="h-8 w-auto"
+                    style="image-rendering:-webkit-optimize-contrast;mix-blend-mode:multiply;">
+            </span>
+
+            <div>
+                <!-- Loading hint / Session label -->
+                <p class="text-xs text-secondary uppercase tracking-widest font-bold mb-2">Your Session</p>
+
+                <!-- Pulse bar while title is unknown, actual title once meta arrives -->
+                <div id="entry-title-wrap" class="flex flex-col items-center">
+                   <div id="entry-title-skeleton" class="h-8 w-48 bg-surface-variant rounded-lg skeleton-pulse mb-3"></div>
+                   <h1 id="entry-title-text" class="font-headline text-3xl font-extrabold editorial-spacing mb-3 hidden"></h1>
+                   <p id="entry-subtitle" class="text-secondary text-sm hidden"></p>
+                </div>
+            </div>
+
+            <!-- Content revealed once metadata arrives -->
+            <div id="entry-action-wrap" class="w-full flex flex-col items-center gap-4 opacity-0 transition-opacity duration-300 pointer-events-none">
+                <!-- PIN Option -->
+                <div id="pin-section" class="w-full hidden flex-col items-center gap-4">
+                    <input id="pin-input" type="number" inputmode="numeric" maxlength="6" placeholder="· · · ·"
+                        class="w-full max-w-[200px] px-4 py-4 rounded-lg border border-outline-variant bg-surface text-on-surface focus:outline-none focus:ring-2 focus:ring-primary"
+                        aria-label="PIN code" />
+                    <p id="pin-error" class="text-error text-sm font-medium hidden">Incorrect PIN. Please try again.</p>
+                    <button id="pin-submit" disabled
+                        class="w-full max-w-[200px] bg-gradient-to-r from-primary to-primary-container text-on-primary px-6 py-3 rounded-lg font-bold hover:opacity-90 active:scale-95 transition-all shadow-sm disabled:opacity-50">
+                        Unlock Gallery
+                    </button>
+                </div>
+
+                <!-- Public Option -->
+                <div id="public-section" class="w-full hidden flex-col items-center">
+                    <button id="view-gallery-btn"
+                        class="w-full max-w-[240px] bg-gradient-to-r from-primary to-primary-container text-on-primary px-8 py-4 rounded-lg font-bold text-base hover:opacity-90 active:scale-95 transition-all shadow-sm flex items-center justify-center gap-2">
+                        <span class="material-symbols-outlined text-[20px]">photo_library</span>
+                        View Gallery
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════
+         HEADER (Hidden during entry screens)
+    ═══════════════════════════════════════════════════════ -->
+    <header id="site-header"
+        class="fixed top-0 w-full z-[100] bg-[#fcf9f8]/90 backdrop-blur-md shadow-[0_20px_50px_rgba(28,27,27,0.05)] opacity-0 pointer-events-none transition-opacity duration-500">
+        <nav class="flex justify-between items-center px-6 md:px-12 py-3 max-w-[1440px] mx-auto">
+            <span class="hover:opacity-70 transition-opacity cursor-default">
+                <img src="images/logo-nav.png" alt="Lutty Moreira Photo" class="h-6 md:h-8 w-auto aspect-auto"
+                    style="image-rendering:-webkit-optimize-contrast;mix-blend-mode:multiply;">
+            </span>
+            <div id="gallery-title-header"
+                class="font-headline text-sm font-bold text-secondary tracking-widest uppercase"></div>
+        </nav>
+    </header>
+
+    <!-- ═══════════════════════════════════════════════════════
+         GALLERY CONTENT
+    ═══════════════════════════════════════════════════════ -->
+    <main class="pt-12">
+
+        <!-- Initial hidden error state -->
+        <div id="error-state" class="hidden min-height-[60vh] flex-col items-center justify-center text-center px-6 mt-20">
+            <span class="material-symbols-outlined text-5xl text-outline mb-4">broken_image</span>
+            <p id="error-message" class="font-headline text-xl font-bold mb-2">Gallery not found</p>
+            <p class="text-secondary text-sm mb-6">Please check your link and try again.</p>
+            <a href="/" class="text-primary font-medium underline underline-offset-4">← Back to home</a>
+        </div>
+
+        <!-- Skeleton grid (shown while awaiting parallel image fetch) -->
+        <div id="skeleton-state" class="hidden">
+            <div class="px-6 md:px-12 py-8 max-w-[1440px] mx-auto flex flex-col md:flex-row justify-between items-start md:items-end gap-4 border-b border-outline-variant/20 mb-2">
+                <div>
+                    <h1 id="skeleton-title" class="font-headline text-3xl md:text-4xl font-extrabold editorial-spacing h-10 w-64 skeleton-pulse rounded-lg"></h1>
+                </div>
+                <div class="h-10 w-32 skeleton-pulse rounded-lg bg-surface-variant"></div>
+            </div>
+            <div class="px-4 md:px-8 py-6 max-w-[1440px] mx-auto">
+                <div id="skeleton-grid" class="skeleton-grid"></div>
+            </div>
+        </div>
+
+        <!-- Actual Gallery Container -->
+        <div id="gallery-content" class="hidden translate-y-4 opacity-0 transition-all duration-700">
+            <div class="px-6 md:px-12 py-8 max-w-[1440px] mx-auto flex flex-col md:flex-row justify-between items-start md:items-end gap-4 border-b border-outline-variant/20 mb-2">
+                <div>
+                    <p class="text-xs text-secondary uppercase tracking-widest font-bold mb-1">Your Session</p>
+                    <h1 id="gallery-title" class="font-headline text-3xl md:text-4xl font-extrabold editorial-spacing"></h1>
+                </div>
+                <div class="flex items-center gap-3 flex-wrap">
+                    <span id="image-count" class="text-sm text-secondary font-medium"></span>
+                    <button id="shuffle-btn" class="flex items-center gap-1.5 text-sm font-semibold text-secondary border border-outline-variant px-4 py-2.5 rounded-lg hover:bg-surface-container transition-all">
+                        <span class="material-symbols-outlined text-[18px]">shuffle</span> Shuffle
+                    </button>
+                    <button id="download-all-btn" class="hidden items-center gap-2 text-sm font-semibold bg-gradient-to-r from-primary to-primary-container text-on-primary px-5 py-2.5 rounded-lg hover:opacity-90 active:scale-95 transition-all shadow-sm">
+                        <span class="material-symbols-outlined text-[18px]">download</span> Download Full Album
+                    </button>
+                </div>
+            </div>
+
+            <div class="px-4 md:px-8 py-6 max-w-[1440px] mx-auto">
+                <div id="masonry-grid"></div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Lightbox -->
+    <div id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
+        <button id="lightbox-close" aria-label="Close" class="fixed top-5 right-5 w-11 h-11 rounded-full bg-white/10 text-white flex items-center justify-center hover:bg-white/20 transition-colors z-[301]">
+            <span class="material-symbols-outlined">close</span>
+        </button>
+        <a id="lightbox-dl" title="Download" class="fixed top-5 right-[70px] w-11 h-11 rounded-full bg-white/10 text-white flex items-center justify-center hover:bg-white/20 transition-colors z-[301]">
+            <span class="material-symbols-outlined">download</span>
+        </a>
+        <button id="lightbox-prev" class="fixed left-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/10 text-white flex items-center justify-center hover:bg-white/20 z-[301] disabled:opacity-20">
+            <span class="material-symbols-outlined">chevron_left</span>
+        </button>
+        <div id="lightbox-img-wrap"><img id="lightbox-img" src="" alt="" class="max-w-[90vw] max-h-[85vh] object-contain rounded"></div>
+        <button id="lightbox-next" class="fixed right-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/10 text-white flex items-center justify-center hover:bg-white/20 z-[301] disabled:opacity-20">
+            <span class="material-symbols-outlined">chevron_right</span>
+        </button>
+        <div id="lightbox-counter" class="fixed bottom-5 left-1/2 -translate-x-1/2 text-white/50 text-xs tracking-widest font-inter z-[301]"></div>
+    </div>
+
+    <!-- Footer -->
+    <footer id="site-footer" class="w-full mt-8 bg-[#f6f3f2] hidden">
+        <div class="flex flex-col md:flex-row justify-between items-center px-12 py-12 gap-8 max-w-[1440px] mx-auto">
+            <div class="flex flex-col items-center md:items-start gap-4">
+                <img src="images/film-strip.png" alt="Lutty Moreira Photo Signature"
+                    class="h-12 md:h-16 w-auto drop-shadow-lg -rotate-6">
+            </div>
+            <!-- Refined Text Links Grid -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-x-8 gap-y-10 md:gap-12 w-full md:w-auto py-4">
+                <div class="flex flex-col items-center gap-1.5 text-center">
+                    <span class="text-[9px] tracking-[0.2em] font-bold text-[#1c1b1b]/40 uppercase">PHONE</span>
+                    <a href="https://wa.me/34634518666" target="_blank" rel="noopener noreferrer"
+                        class="text-[12px] tracking-[0.1em] font-normal text-[#1c1b1b]/60 hover:font-medium hover:text-[#4a5f47] transition-all duration-300">
+                        +34 634 51 86 66
+                    </a>
+                </div>
+                <div class="flex flex-col items-center gap-1.5 text-center">
+                    <span class="text-[9px] tracking-[0.2em] font-bold text-[#1c1b1b]/40 uppercase">INSTAGRAM</span>
+                    <a href="https://www.instagram.com/luttymoreira/" target="_blank" rel="noopener noreferrer"
+                        class="text-[12px] tracking-[0.1em] font-normal text-[#1c1b1b]/60 hover:font-medium hover:text-primary transition-all duration-300">
+                        @luttymoreira
+                    </a>
+                </div>
+                <div class="flex flex-col items-center gap-1.5 text-center">
+                    <span class="text-[9px] tracking-[0.2em] font-bold text-[#1c1b1b]/40 uppercase">EMAIL</span>
+                    <a href="mailto:luttyphoto@gmail.com"
+                        class="text-[12px] tracking-[0.1em] font-normal text-[#1c1b1b]/60 hover:font-medium hover:text-tertiary transition-all duration-300">
+                        luttyphoto@gmail.com
+                    </a>
+                </div>
+                <div class="flex flex-col items-center gap-1.5 text-center">
+                    <span class="text-[9px] tracking-[0.2em] font-bold text-[#1c1b1b]/40 uppercase">YOUTUBE</span>
+                    <a href="https://www.youtube.com/user/luttymoreira" target="_blank" rel="noopener noreferrer"
+                        class="text-[12px] tracking-[0.1em] font-normal text-[#1c1b1b]/60 hover:font-medium hover:text-error transition-all duration-300">
+                        /luttymoreira
+                    </a>
+                </div>
+            </div>
+            <div class="font-inter text-[10px] tracking-widest uppercase text-[#1c1b1b]/40">
+                © 2026 LUTTY MOREIRA PHOTO
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to top -->
+    <button id="back-to-top" class="fixed bottom-6 right-6 z-50 w-14 h-14 bg-gradient-to-r from-primary to-primary-container text-on-primary flex items-center justify-center shadow-lg hover:opacity-90 active:scale-95 transition-all opacity-0 pointer-events-none rounded-full">
+        <span class="material-symbols-outlined text-2xl">keyboard_arrow_up</span>
+    </button>
+
+    <script>
+        (function () {
+            'use strict';
+
+            // ── Parallel Initialization ─────────────────────────────────────
+            const API_BASE = 'https://script.google.com/macros/s/AKfycbxw7wIRWBsQmhuzCxNvdNYPldONiXN8gH3fAva0fhiL2Z9AgIAqZgL-wQcc855LBYyLZw/exec';
+            const params = new URLSearchParams(window.location.search);
+            const gId = params.get('g');
+
+            async function fetchAPI(action) {
+                const res = await fetch(`${API_BASE}?g=${encodeURIComponent(gId)}&action=${action}`, { credentials: 'omit' });
+                const json = await res.json();
+                if (json.status !== 'success') throw new Error(json.message);
+                return json.gallery;
+            }
+
+            // ── State & Refs ────────────────────────────────────────────────
+            let galleryMeta = null;
+            let images = [];
+            let currentIndex = 0;
+            let metaPromise = null;
+            let imagePromise = null;
+
+            const entryGate       = document.getElementById('entry-gate');
+            const entryTitleSkel  = document.getElementById('entry-title-skeleton');
+            const entryTitleText  = document.getElementById('entry-title-text');
+            const entrySubtitle   = document.getElementById('entry-subtitle');
+            const entryActionWrap = document.getElementById('entry-action-wrap');
+            const pinSection      = document.getElementById('pin-section');
+            const publicSection   = document.getElementById('public-section');
+            const header          = document.getElementById('site-header');
+            const galleryContent = document.getElementById('gallery-content');
+            const skeletonState   = document.getElementById('skeleton-state');
+            const errorState      = document.getElementById('error-state');
+
+            // ── Session Storage Helpers ───────────────────────────────────────
+            function saveGalleryState(meta, imgs, downloadZipUrl) {
+                try {
+                    sessionStorage.setItem('galleryMeta', JSON.stringify(meta));
+                    sessionStorage.setItem('galleryImages', JSON.stringify(imgs));
+                    if (downloadZipUrl) {
+                        sessionStorage.setItem('galleryDownloadZip', downloadZipUrl);
+                    }
+                } catch (e) { /* ignore storage errors */ }
+            }
+
+            function loadGalleryState() {
+                try {
+                    const metaStr = sessionStorage.getItem('galleryMeta');
+                    const imgsStr = sessionStorage.getItem('galleryImages');
+                    const downloadZip = sessionStorage.getItem('galleryDownloadZip');
+                    if (metaStr && imgsStr) {
+                        return {
+                            meta: JSON.parse(metaStr),
+                            images: JSON.parse(imgsStr),
+                            downloadZipUrl: downloadZip || null
+                        };
+                    }
+                } catch (e) { /* ignore */ }
+                return null;
+            }
+
+            function clearGalleryState() {
+                try {
+                    sessionStorage.removeItem('galleryMeta');
+                    sessionStorage.removeItem('galleryImages');
+                    sessionStorage.removeItem('galleryDownloadZip');
+                } catch (e) { /* ignore */ }
+            }
+
+            // Check if we have a stored session matching current gallery
+            function hasStoredSession() {
+                const stored = loadGalleryState();
+                return stored && stored.meta && stored.images && stored.meta.id === gId;
+            }
+
+            // ── Instant Reveal from Session ───────────────────────────────────
+            function revealGalleryDirect() {
+                // Hide entry gate immediately
+                entryGate.classList.add('hidden-modal');
+                entryGate.style.display = 'none';
+
+                // Get stored download URL
+                let downloadZipUrl = null;
+                try {
+                    downloadZipUrl = sessionStorage.getItem('galleryDownloadZip');
+                } catch (e) { /* ignore */ }
+
+                // Setup gallery directly from stored data
+                document.getElementById('gallery-title').textContent = galleryMeta.title;
+                document.getElementById('gallery-title-header').textContent = galleryMeta.title;
+                document.getElementById('image-count').textContent = `${images.length} photo${images.length !== 1 ? 's' : ''}`;
+                
+                if (downloadZipUrl) {
+                    const dlBtn = document.getElementById('download-all-btn');
+                    dlBtn.classList.replace('hidden', 'flex');
+                    dlBtn.onclick = () => window.open(downloadZipUrl, '_blank');
+                }
+
+                renderGrid();
+
+                // Show gallery immediately
+                header.classList.remove('opacity-0', 'pointer-events-none');
+                galleryContent.classList.remove('hidden');
+                setTimeout(() => {
+                    galleryContent.classList.remove('translate-y-4', 'opacity-0');
+                }, 50);
+
+                document.getElementById('site-footer').classList.remove('hidden');
+                document.title = `${galleryMeta.title} · Lutty Moreira Photo`;
+            }
+
+            // ── Initialization ────────────────────────────────────────────────
+            // If we have a valid stored session, skip the entry gate entirely
+            if (gId && hasStoredSession()) {
+                const stored = loadGalleryState();
+                galleryMeta = stored.meta;
+                images = stored.images;
+                // Immediately show the gallery without the entry screen
+                revealGalleryDirect();
+            } else {
+                // No stored session - clear any stale data and start fresh
+                clearGalleryState();
+                
+                // Fire API calls immediately - title will show when metadata arrives
+                metaPromise = gId ? fetchAPI('metadata') : Promise.reject('No ID');
+                imagePromise = gId ? fetchAPI('images') : Promise.reject('No ID');
+
+                // Button click handler
+                document.getElementById('view-gallery-btn').onclick = () => {
+                    revealGallery();
+                };
+
+                // ── Cycle 1: Metadata arrived ───────────────────────────────────
+                metaPromise.then(meta => {
+                galleryMeta = meta;
+                // Swap skeleton for text
+                entryTitleSkel.classList.add('hidden');
+                entryTitleText.textContent = meta.title || 'Your Gallery';
+                entryTitleText.classList.remove('hidden');
+                entrySubtitle.textContent = meta.requiresPin ? 'Enter the PIN you received.' : 'Your photos are ready.';
+                entrySubtitle.classList.remove('hidden');
+
+                // Now show the appropriate action (can't show button until we know if PIN required)
+                if (meta.requiresPin) {
+                    pinSection.classList.replace('hidden', 'flex');
+                    document.getElementById('pin-input').focus();
+                } else {
+                    publicSection.classList.replace('hidden', 'flex');
+                }
+
+                entryActionWrap.classList.remove('opacity-0', 'pointer-events-none');
+            }).catch(err => {
+                entryGate.classList.add('hidden-modal');
+                errorState.classList.replace('hidden', 'flex');
+                document.getElementById('error-message').textContent = err || 'Gallery not found';
+            });
+
+            } // end else (no stored session)
+
+            // ── Cycle 2: Trigger reveal ──────────────────────────────────────
+            async function revealGallery() {
+                // Hide entry gate
+                entryGate.classList.add('hidden-modal');
+                setTimeout(() => entryGate.style.display = 'none', 450);
+
+                // Show skeleton grid immediately
+                skeletonState.classList.remove('hidden');
+                document.getElementById('skeleton-title').textContent = galleryMeta.title;
+                buildSkeletonGrid();
+                document.title = `${galleryMeta.title} · Lutty Moreira Photo`;
+
+                try {
+                    // Use already-fetched images (parallel prefetch), don't fetch again
+                    let imageData;
+                    if (imagePromise && images.length === 0) {
+                        imageData = await imagePromise;
+                        images = imageData.images || [];
+                    } else if (images.length > 0) {
+                        imageData = { images: images };
+                    } else {
+                        imageData = await fetchAPI('images');
+                        images = imageData.images || [];
+                    }
+
+                    // Save to session storage for instant reload on refresh
+                    saveGalleryState(galleryMeta, images, imageData.downloadZipUrl || null);
+
+                    // Setup gallery
+                    document.getElementById('gallery-title').textContent = galleryMeta.title;
+                    document.getElementById('gallery-title-header').textContent = galleryMeta.title;
+                    document.getElementById('image-count').textContent = `${images.length} photo${images.length !== 1 ? 's' : ''}`;
+                    if (imageData.downloadZipUrl) {
+                        const dlBtn = document.getElementById('download-all-btn');
+                        dlBtn.classList.replace('hidden', 'flex');
+                        dlBtn.onclick = () => window.open(imageData.downloadZipUrl, '_blank');
+                    }
+
+                    renderGrid();
+
+                    // Smooth reveal
+                    skeletonState.classList.add('hidden');
+                    header.classList.remove('opacity-0', 'pointer-events-none');
+                    galleryContent.classList.remove('hidden');
+                    setTimeout(() => {
+                        galleryContent.classList.remove('translate-y-4', 'opacity-0');
+                    }, 50);
+
+                    document.getElementById('site-footer').classList.remove('hidden');
+
+                } catch (err) {
+                    console.error('Error loading photos:', err);
+                    skeletonState.classList.add('hidden');
+                    errorState.classList.replace('hidden', 'flex');
+                    document.getElementById('error-message').textContent = err.message || 'Error loading photos.';
+                }
+            }
+
+            // ── Event Handlers ──────────────────────────────────────────────
+            const pinIn = document.getElementById('pin-input');
+            const pinBtn = document.getElementById('pin-submit');
+            pinIn.oninput = () => pinBtn.disabled = pinIn.value.length < 4;
+            pinIn.onkeydown = e => { if(e.key === 'Enter' && !pinBtn.disabled) checkPin(); };
+            pinBtn.onclick = checkPin;
+
+            function checkPin() {
+                if (String(pinIn.value) === String(galleryMeta.pin)) revealGallery();
+                else {
+                    document.getElementById('pin-error').classList.remove('hidden');
+                    document.getElementById('pin-form-wrap')?.classList.add('shake'); // check if wrapper exists
+                    pinIn.classList.add('shake');
+                    setTimeout(() => pinIn.classList.remove('shake'), 400);
+                    pinIn.value = '';
+                }
+            }
+
+            // ── Helpers ─────────────────────────────────────────────────────
+            function getNumCols() {
+                if (window.innerWidth >= 1024) return 4;
+                if (window.innerWidth >= 768) return 3;
+                return 2;
+            }
+
+            function buildSkeletonGrid() {
+                 const grid = document.getElementById('skeleton-grid');
+                 const num = getNumCols(); grid.innerHTML = '';
+                 const heights = [200, 150, 300, 250, 180, 220];
+                 const cols = Array.from({length:num}, () => {
+                     const c = document.createElement('div'); c.className='skeleton-col'; return c;
+                 });
+                 for(let i=0; i<num*4; i++){
+                     const item = document.createElement('div');
+                     item.className = 'skeleton-item';
+                     item.style.height = heights[i%6] + 'px';
+                     cols[i%num].appendChild(item);
+                 }
+                 cols.forEach(c => grid.appendChild(c));
+            }
+
+            function renderGrid() {
+                const num = getNumCols();
+                const cols = Array.from({length:num}, () => {
+                    const c = document.createElement('div'); c.className='masonry-col'; return c;
+                });
+                images.forEach((img, idx) => {
+                    const item = document.createElement('div');
+                    item.className = 'masonry-item';
+                    item.onclick = () => openLightbox(idx);
+                    const i = document.createElement('img'); i.src = img.url; i.loading='lazy';
+                    const d = document.createElement('a'); d.className='img-dl-btn'; d.href=img.downloadUrl; d.download=img.name;
+                    d.innerHTML = '<span class="material-symbols-outlined" style="font-size:16px">download</span>';
+                    d.onclick = e => e.stopPropagation();
+                    item.append(i, d);
+                    cols[idx % num].appendChild(item);
+                });
+                const grid = document.getElementById('masonry-grid');
+                grid.innerHTML = '';
+                cols.forEach(c => grid.appendChild(c));
+            }
+
+            // ── Lightbox ────────────────────────────────────────────────────
+            let lightboxImg = document.getElementById('lightbox-img');
+            let touchStartX = 0;
+            let touchEndX = 0;
+            let overlaysVisible = true;
+            
+            function openLightbox(i) { 
+                currentIndex = i; 
+                overlaysVisible = true;
+                renderLightbox(); 
+                document.getElementById('lightbox').classList.add('is-open'); 
+                document.body.style.overflow = 'hidden'; 
+            }
+            
+            function closeLightbox() { 
+                document.getElementById('lightbox').classList.remove('is-open'); 
+                document.body.style.overflow = ''; 
+            }
+            
+            function renderLightbox() {
+                const img = images[currentIndex];
+                const lb = document.getElementById('lightbox-img');
+                const isDesktop = window.innerWidth >= 768;
+                
+                if (isDesktop) {
+                    // Desktop: fade out, then swap image, then fade in
+                    lb.style.opacity = '0';
+                    setTimeout(() => {
+                        lb.src = img.url;
+                        // Wait for image to load before fading in
+                        if (lb.complete) {
+                            lb.style.opacity = '1';
+                        } else {
+                            lb.onload = () => { lb.style.opacity = '1'; };
+                        }
+                    }, 150); // Wait for fade-out to complete
+                } else {
+                    // Mobile: quick toggle to prevent flash
+                    lb.style.opacity = '0';
+                    lb.onload = () => { lb.style.opacity = '1'; };
+                    lb.src = img.url;
+                }
+                
+                document.getElementById('lightbox-dl').href = img.downloadUrl;
+                document.getElementById('lightbox-counter').textContent = `${currentIndex+1} / ${images.length}`;
+                
+                // Always enable buttons for looping
+                document.getElementById('lightbox-prev').disabled = false;
+                document.getElementById('lightbox-next').disabled = false;
+                
+                // Show overlays when switching images
+                overlaysVisible = true;
+                updateOverlays();
+            }
+            
+            function updateOverlays() {
+                const overlays = document.querySelectorAll('#lightbox-close, #lightbox-dl, #lightbox-prev, #lightbox-next, #lightbox-counter');
+                overlays.forEach(el => {
+                    el.style.opacity = overlaysVisible ? '1' : '0';
+                    el.style.pointerEvents = overlaysVisible ? 'auto' : 'none';
+                });
+            }
+            
+            // Toggle overlays on image click
+            lightboxImg.addEventListener('click', (e) => {
+                e.stopPropagation();
+                overlaysVisible = !overlaysVisible;
+                updateOverlays();
+            });
+            
+            // Touch swipe handling
+            document.getElementById('lightbox').addEventListener('touchstart', e => {
+                touchStartX = e.changedTouches[0].screenX;
+            }, { passive: true });
+            
+            document.getElementById('lightbox').addEventListener('touchend', e => {
+                touchEndX = e.changedTouches[0].screenX;
+                handleSwipe();
+            }, { passive: true });
+            
+            function handleSwipe() {
+                const swipeThreshold = 50;
+                const diff = touchStartX - touchEndX;
+                
+                if (Math.abs(diff) > swipeThreshold) {
+                    if (diff > 0) {
+                        // Swipe left - next (loop from last to first)
+                        currentIndex = (currentIndex + 1) % images.length;
+                        renderLightbox();
+                    } else {
+                        // Swipe right - previous (loop from first to last)
+                        currentIndex = (currentIndex - 1 + images.length) % images.length;
+                        renderLightbox();
+                    }
+                }
+            }
+            
+            document.getElementById('lightbox-close').onclick = closeLightbox;
+            document.getElementById('lightbox-prev').onclick = () => { 
+                currentIndex = (currentIndex - 1 + images.length) % images.length;
+                renderLightbox(); 
+            };
+            document.getElementById('lightbox-next').onclick = () => { 
+                currentIndex = (currentIndex + 1) % images.length;
+                renderLightbox(); 
+            };
+            document.getElementById('lightbox').onclick = e => { if(e.target.id==='lightbox') closeLightbox(); };
+
+            window.addEventListener('keydown', e => {
+                if(!document.getElementById('lightbox').classList.contains('is-open')) return;
+                if(e.key==='ArrowLeft') document.getElementById('lightbox-prev').click();
+                if(e.key==='ArrowRight') document.getElementById('lightbox-next').click();
+                if(e.key==='Escape') closeLightbox();
+            });
+
+            // ── Shuffle ─────────────────────────────────────────────────────
+            document.getElementById('shuffle-btn').onclick = () => {
+                images.sort(() => Math.random() - 0.5);
+                renderGrid();
+            };
+
+            // ── Back to top ─────────────────────────────────────────────────
+            const btt = document.getElementById('back-to-top');
+            window.onscroll = () => {
+                if(window.scrollY > 400) btt.classList.remove('opacity-0', 'pointer-events-none');
+                else btt.classList.add('opacity-0', 'pointer-events-none');
+            };
+            btt.onclick = () => window.scrollTo({top:0, behavior:'smooth'});
+
+        })();
+    </script>
+</body>
+</html>
