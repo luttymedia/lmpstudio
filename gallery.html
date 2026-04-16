@@ -113,6 +113,10 @@
             transition: opacity 0.4s ease;
         }
 
+        html.dark .entry-screen {
+            background: #121111;
+        }
+
         .entry-screen.visible {
             opacity: 1;
             pointer-events: auto;
@@ -314,7 +318,7 @@
     </style>
 </head>
 
-<body class="bg-surface text-on-surface font-body selection:bg-primary-container selection:text-on-primary-container">
+<body class="bg-surface text-on-surface font-body selection:bg-primary-container selection:text-on-primary-container dark:bg-[#121111] dark:text-[#fcf9f8]">
 
     <!-- ═══════════════════════════════════════════════════════
          ENTRY SCREEN (Optimistic UI)
@@ -329,7 +333,7 @@
 
             <div>
                 <!-- Loading hint / Session label -->
-                <p class="text-xs text-secondary uppercase tracking-widest font-bold mb-2"
+                <p class="text-xs text-secondary dark:text-[#fcf9f8]/60 uppercase tracking-widest font-bold mb-2"
                     data-i18n="entry.yourSession">Your Session</p>
 
                 <!-- Pulse bar while title is unknown, actual title once meta arrives -->
@@ -338,7 +342,7 @@
                     </div>
                     <h1 id="entry-title-text"
                         class="font-headline text-3xl font-extrabold editorial-spacing mb-3 hidden"></h1>
-                    <p id="entry-subtitle" class="text-secondary text-sm hidden"></p>
+                    <p id="entry-subtitle" class="text-secondary dark:text-[#fcf9f8]/60 text-sm hidden"></p>
                 </div>
             </div>
 
@@ -348,7 +352,7 @@
                 <!-- PIN Option -->
                 <div id="pin-section" class="w-full hidden flex-col items-center gap-4">
                     <input id="pin-input" type="number" inputmode="numeric" maxlength="6" placeholder="· · · ·"
-                        class="w-full max-w-[200px] px-4 py-4 rounded-lg border border-outline-variant bg-surface text-on-surface focus:outline-none focus:ring-2 focus:ring-primary"
+                        class="w-full max-w-[200px] px-4 py-4 rounded-lg border border-outline-variant bg-surface dark:bg-[#252525] text-on-surface dark:text-[#fcf9f8] focus:outline-none focus:ring-2 focus:ring-primary"
                         aria-label="PIN code" />
                     <p id="pin-error" class="text-error text-sm font-medium hidden" data-i18n="entry.pinError">Incorrect
                         PIN. Please try again.</p>
@@ -358,12 +362,12 @@
                         Unlock Gallery
                     </button>
                     <button id="mobile-lang-switch-entry"
-                        class="md:hidden flex items-center gap-1.5 text-[#1c1b1b]/60 font-medium hover:text-[#775a19] transition-colors duration-300 text-sm py-2">
+                        class="md:hidden flex items-center gap-1.5 text-[#1c1b1b]/60 dark:text-[#fcf9f8]/60 font-medium hover:text-[#775a19] dark:hover:text-[#e9c176] transition-colors duration-300 text-sm py-2">
                         <span class="material-symbols-outlined text-[18px]">language</span>
                         <span class="lang-label">ES</span>
                     </button>
                     <button id="desktop-lang-switch-entry"
-                        class="hidden md:flex items-center gap-1.5 text-[#1c1b1b]/60 font-medium hover:text-[#775a19] transition-colors duration-300 text-sm py-2">
+                        class="hidden md:flex items-center gap-1.5 text-[#1c1b1b]/60 dark:text-[#fcf9f8]/60 font-medium hover:text-[#775a19] dark:hover:text-[#e9c176] transition-colors duration-300 text-sm py-2">
                         <span class="material-symbols-outlined text-[18px]">language</span>
                         <span class="lang-label">ES</span>
                     </button>
@@ -377,12 +381,12 @@
                         <span data-i18n="entry.viewGallery">View Gallery</span>
                     </button>
                     <button id="mobile-lang-switch-public"
-                        class="md:hidden flex items-center gap-1.5 text-[#1c1b1b]/60 font-medium hover:text-[#775a19] transition-colors duration-300 text-sm py-2">
+                        class="md:hidden flex items-center gap-1.5 text-[#1c1b1b]/60 dark:text-[#fcf9f8]/60 font-medium hover:text-[#775a19] dark:hover:text-[#e9c176] transition-colors duration-300 text-sm py-2">
                         <span class="material-symbols-outlined text-[18px]">language</span>
                         <span class="lang-label">ES</span>
                     </button>
                     <button id="desktop-lang-switch-public"
-                        class="hidden md:flex items-center gap-1.5 text-[#1c1b1b]/60 font-medium hover:text-[#775a19] transition-colors duration-300 text-sm py-2">
+                        class="hidden md:flex items-center gap-1.5 text-[#1c1b1b]/60 dark:text-[#fcf9f8]/60 font-medium hover:text-[#775a19] dark:hover:text-[#e9c176] transition-colors duration-300 text-sm py-2">
                         <span class="material-symbols-outlined text-[18px]">language</span>
                         <span class="lang-label">ES</span>
                     </button>
@@ -395,18 +399,28 @@
          HEADER (Hidden during entry screens)
     ═══════════════════════════════════════════════════════ -->
     <header id="site-header"
-        class="fixed top-0 w-full z-[100] bg-[#fcf9f8]/90 backdrop-blur-md shadow-[0_20px_50px_rgba(28,27,27,0.05)] opacity-0 pointer-events-none transition-opacity duration-500">
+        class="fixed top-0 w-full z-[100] bg-[#fcf9f8]/90 dark:bg-[#121111]/90 backdrop-blur-md shadow-[0_20px_50px_rgba(28,27,27,0.05)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.3)] opacity-0 pointer-events-none transition-opacity duration-500">
         <nav class="flex justify-between items-center px-6 md:px-12 py-3 max-w-[1440px] mx-auto">
             <span class="hover:opacity-70 transition-opacity cursor-default">
-                <img src="images/logo-nav.png" alt="Lutty Moreira Photo" class="h-6 md:h-8 w-auto aspect-auto"
+                <img src="images/logo-nav.png" alt="Lutty Moreira Photo" class="h-6 md:h-8 w-auto aspect-auto dark:hidden"
                     style="image-rendering:-webkit-optimize-contrast;mix-blend-mode:multiply;">
+                <img src="images/logo-nav-white.png" alt="Lutty Moreira Photo" class="h-6 md:h-8 w-auto aspect-auto hidden dark:block"
+                    style="image-rendering:-webkit-optimize-contrast;">
             </span>
             <div class="flex items-center gap-3">
                 <div id="gallery-title-header"
-                    class="font-headline text-sm font-bold text-secondary tracking-widest uppercase hidden md:block">
+                    class="font-headline text-sm font-bold text-secondary dark:text-[#fcf9f8]/60 tracking-widest uppercase hidden md:block">
                 </div>
+                <button id="mobile-theme-toggle-gallery"
+                    class="md:hidden flex items-center justify-center p-2 text-[#1c1b1b]/60 dark:text-[#fcf9f8]/60 font-medium hover:text-[#775a19] dark:hover:text-[#e9c176] transition-colors">
+                    <span class="material-symbols-outlined text-[18px]">dark_mode</span>
+                </button>
+                <button id="theme-toggle-gallery"
+                    class="hidden md:flex items-center gap-1.5 text-[#1c1b1b]/60 dark:text-[#fcf9f8]/60 font-medium hover:text-[#775a19] dark:hover:text-[#e9c176] transition-colors duration-300 text-sm py-2 px-3 hover:bg-black/5 dark:hover:bg-white/10 rounded-lg">
+                    <span class="material-symbols-outlined text-[20px]">dark_mode</span>
+                </button>
                 <button id="lang-switch-gallery"
-                    class="flex items-center gap-1.5 text-[#1c1b1b]/60 font-medium hover:text-[#775a19] transition-colors duration-300 text-sm py-2 px-3 hover:bg-black/5 rounded-lg">
+                    class="flex items-center gap-1.5 text-[#1c1b1b]/60 dark:text-[#fcf9f8]/60 font-medium hover:text-[#775a19] dark:hover:text-[#e9c176] transition-colors duration-300 text-sm py-2 px-3 hover:bg-black/5 dark:hover:bg-white/10 rounded-lg">
                     <span class="material-symbols-outlined text-[20px]">language</span>
                     <span class="lang-label">ES</span>
                 </button>
@@ -425,7 +439,7 @@
             <span class="material-symbols-outlined text-5xl text-outline mb-4">broken_image</span>
             <p id="error-message" class="font-headline text-xl font-bold mb-2" data-i18n="error.notFound">Gallery not
                 found</p>
-            <p class="text-secondary text-sm mb-6" data-i18n="error.checkLink">Please check your link and try again.</p>
+            <p class="text-secondary dark:text-[#fcf9f8]/60 text-sm mb-6" data-i18n="error.checkLink">Please check your link and try again.</p>
             <a href="/" class="text-primary font-medium underline underline-offset-4" data-i18n="error.backToHome">←
                 Back to home</a>
         </div>
@@ -433,7 +447,7 @@
         <!-- Skeleton grid (shown while awaiting parallel image fetch) -->
         <div id="skeleton-state" class="hidden">
             <div
-                class="px-6 md:px-12 py-8 max-w-[1440px] mx-auto flex flex-col md:flex-row justify-between items-start md:items-end gap-4 border-b border-outline-variant/20 mb-2">
+                class="px-6 md:px-12 py-8 max-w-[1440px] mx-auto flex flex-col md:flex-row justify-between items-start md:items-end gap-4 border-b border-outline-variant/20 dark:border-white/10 mb-2">
                 <div>
                     <h1 id="skeleton-title"
                         class="font-headline text-3xl md:text-4xl font-extrabold editorial-spacing h-10 w-64 skeleton-pulse rounded-lg">
@@ -449,17 +463,17 @@
         <!-- Actual Gallery Container -->
         <div id="gallery-content" class="hidden translate-y-4 opacity-0 transition-all duration-700">
             <div
-                class="px-6 md:px-12 py-8 max-w-[1440px] mx-auto flex flex-col md:flex-row justify-between items-start md:items-end gap-4 border-b border-outline-variant/20 mb-2">
+                class="px-6 md:px-12 py-8 max-w-[1440px] mx-auto flex flex-col md:flex-row justify-between items-start md:items-end gap-4 border-b border-outline-variant/20 dark:border-white/10 mb-2">
                 <div>
-                    <p class="text-xs text-secondary uppercase tracking-widest font-bold mb-1"
+                    <p class="text-xs text-secondary dark:text-[#fcf9f8]/60 uppercase tracking-widest font-bold mb-1"
                         data-i18n="content.yourSession">Your Session</p>
                     <h1 id="gallery-title" class="font-headline text-3xl md:text-4xl font-extrabold editorial-spacing">
                     </h1>
                 </div>
                 <div class="flex items-center gap-3 flex-wrap">
-                    <span id="image-count" class="text-sm text-secondary font-medium"></span>
+                    <span id="image-count" class="text-sm text-secondary dark:text-[#fcf9f8]/60 font-medium"></span>
                     <button id="shuffle-btn"
-                        class="flex items-center gap-1.5 text-sm font-semibold text-secondary border border-outline-variant px-4 py-2.5 rounded-lg hover:bg-surface-container transition-all">
+                        class="flex items-center gap-1.5 text-sm font-semibold text-secondary dark:text-[#fcf9f8]/60 border border-outline-variant dark:border-white/20 px-4 py-2.5 rounded-lg hover:bg-surface-container dark:hover:bg-white/10 transition-all">
                         <span class="material-symbols-outlined text-[18px]">shuffle</span> <span
                             data-i18n="content.shuffle">Shuffle</span>
                     </button>
@@ -684,6 +698,57 @@
                     .catch(err => {
                         console.error('Failed to load translations:', err);
                     });
+
+                // ─── Dark Mode Toggle ─────────────────────────────────────────────────
+                const themeToggleGallery = document.getElementById('theme-toggle-gallery');
+                const mobileThemeToggleGallery = document.getElementById('mobile-theme-toggle-gallery');
+
+                // Check for saved theme preference or use system preference
+                function getPreferredTheme() {
+                    const savedTheme = localStorage.getItem('theme');
+                    if (savedTheme) return savedTheme;
+                    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+                }
+
+                // Apply theme
+                function applyTheme(theme) {
+                    if (theme === 'dark') {
+                        document.documentElement.classList.add('dark');
+                    } else {
+                        document.documentElement.classList.remove('dark');
+                    }
+                    localStorage.setItem('theme', theme);
+                    updateThemeIconGallery(theme);
+                }
+
+                // Update toggle icon
+                function updateThemeIconGallery(theme) {
+                    if (themeToggleGallery) {
+                        const icon = themeToggleGallery.querySelector('span');
+                        icon.textContent = theme === 'dark' ? 'light_mode' : 'dark_mode';
+                    }
+                    if (mobileThemeToggleGallery) {
+                        const icon = mobileThemeToggleGallery.querySelector('span');
+                        icon.textContent = theme === 'dark' ? 'light_mode' : 'dark_mode';
+                    }
+                }
+
+                // Initialize theme
+                applyTheme(getPreferredTheme());
+
+                // Toggle click handler
+                function handleThemeToggleGallery() {
+                    const currentTheme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+                    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                    applyTheme(newTheme);
+                }
+
+                if (themeToggleGallery) {
+                    themeToggleGallery.addEventListener('click', handleThemeToggleGallery);
+                }
+                if (mobileThemeToggleGallery) {
+                    mobileThemeToggleGallery.addEventListener('click', handleThemeToggleGallery);
+                }
 
                 // ── Parallel Initialization ─────────────────────────────────────
                 const API_BASE = 'https://script.google.com/macros/s/AKfycbxw7wIRWBsQmhuzCxNvdNYPldONiXN8gH3fAva0fhiL2Z9AgIAqZgL-wQcc855LBYyLZw/exec';

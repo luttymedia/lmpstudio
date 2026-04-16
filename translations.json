@@ -6,7 +6,8 @@
       "studio": "Studio",
       "location": "Location",
       "faq": "FAQ",
-      "contact": "Contact"
+      "contact": "Contact",
+      "theme": "Theme"
     },
     "hero": {
       "title": "Studio Sessions in Barcelona",
@@ -189,7 +190,8 @@
         "studio": "Studio",
         "location": "Location",
         "faq": "FAQ",
-        "contact": "Contact"
+        "contact": "Contact",
+        "theme": "Theme"
       }
     }
   },
@@ -200,7 +202,8 @@
       "studio": "Estudio",
       "location": "Ubicación",
       "faq": "FAQ",
-      "contact": "Contacto"
+      "contact": "Contacto",
+      "theme": "Tema"
     },
     "hero": {
       "title": "Sesiones de Estudio en Barcelona",

@@ -332,40 +332,47 @@
     </style>
 </head>
 
-<body class="bg-surface text-on-surface font-body selection:bg-primary-container selection:text-on-primary-container">
+<body class="bg-surface text-on-surface font-body selection:bg-primary-container selection:text-on-primary-container dark:bg-[#121111] dark:text-[#fcf9f8]">
     <!-- TopNavBar (Shared Component) -->
     <header
-        class="fixed top-0 w-full z-[100] bg-[#fcf9f8]/80 backdrop-blur-md shadow-[0_20px_50px_rgba(28,27,27,0.05)]">
+        class="fixed top-0 w-full z-[100] bg-[#fcf9f8]/80 dark:bg-[#121111]/80 backdrop-blur-md shadow-[0_20px_50px_rgba(28,27,27,0.05)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.3)]">
         <nav class="flex justify-between items-center px-6 md:px-12 py-2 max-w-[1440px] mx-auto">
             <a href="#" class="hover:opacity-70 transition-opacity">
-                <img src="images/logo-nav.png" alt="Lutty Moreira Photo" class="h-6 md:h-8 w-auto aspect-auto"
+                <img src="images/logo-nav.png" alt="Lutty Moreira Photo" class="h-6 md:h-8 w-auto aspect-auto dark:hidden"
                     style="image-rendering: -webkit-optimize-contrast; mix-blend-mode: multiply;">
+                <img src="images/logo-nav-white.png" alt="Lutty Moreira Photo" class="h-6 md:h-8 w-auto aspect-auto hidden dark:block"
+                    style="image-rendering: -webkit-optimize-contrast;">
             </a>
             <div class="hidden md:flex items-center gap-8">
-                <a class="text-[#1c1b1b]/60 font-medium hover:text-[#775a19] transition-colors duration-300"
+                <a class="text-[#1c1b1b]/60 dark:text-[#fcf9f8]/60 font-medium hover:text-[#775a19] dark:hover:text-[#e9c176] transition-colors duration-300"
                     href="#pricing" data-i18n="nav.pricing">Pricing</a>
-                <a class="text-[#1c1b1b]/60 font-medium hover:text-[#775a19] transition-colors duration-300"
+                <a class="text-[#1c1b1b]/60 dark:text-[#fcf9f8]/60 font-medium hover:text-[#775a19] dark:hover:text-[#e9c176] transition-colors duration-300"
                     href="#portfolio" data-i18n="nav.portfolio">Portfolio</a>
-                <a class="text-[#1c1b1b]/60 font-medium hover:text-[#775a19] transition-colors duration-300"
+                <a class="text-[#1c1b1b]/60 dark:text-[#fcf9f8]/60 font-medium hover:text-[#775a19] dark:hover:text-[#e9c176] transition-colors duration-300"
                     href="#studio" data-i18n="nav.studio">Studio</a>
-                <a class="text-[#1c1b1b]/60 font-medium hover:text-[#775a19] transition-colors duration-300"
+                <a class="text-[#1c1b1b]/60 dark:text-[#fcf9f8]/60 font-medium hover:text-[#775a19] dark:hover:text-[#e9c176] transition-colors duration-300"
                     href="#location" data-i18n="nav.location">Location</a>
-                <a class="text-[#1c1b1b]/60 font-medium hover:text-[#775a19] transition-colors duration-300" href="#faq"
+                <a class="text-[#1c1b1b]/60 dark:text-[#fcf9f8]/60 font-medium hover:text-[#775a19] dark:hover:text-[#e9c176] transition-colors duration-300" href="#faq"
                     data-i18n="nav.faq">FAQ</a>
             </div>
             <div class="flex items-center gap-2">
                 <button id="mobile-lang-switch-nav"
-                    class="md:hidden text-[#1c1b1b]/60 font-medium hover:text-[#775a19] transition-colors p-2 text-sm flex items-center gap-1">
+                    class="md:hidden text-[#1c1b1b]/60 dark:text-[#fcf9f8]/60 font-medium hover:text-[#775a19] dark:hover:text-[#e9c176] transition-colors p-2 text-sm flex items-center gap-1">
                     <span class="material-symbols-outlined text-[18px]">language</span>
                     <span class="lang-label">ES</span>
                 </button>
+                <!-- Mobile theme toggle moved to hamburger menu -->
                 <button id="mobile-menu-toggle"
-                    class="md:hidden flex items-center justify-center p-2 text-[#1c1b1b] hover:bg-black/5 rounded-full transition-colors">
+                    class="md:hidden flex items-center justify-center p-2 text-[#1c1b1b] dark:text-[#fcf9f8] hover:bg-black/5 dark:hover:bg-white/10 rounded-full transition-colors">
                     <span class="material-symbols-outlined transition-all duration-300 menu-icon">menu</span>
                     <span class="material-symbols-outlined transition-all duration-300 close-icon hidden">close</span>
                 </button>
+                <button id="theme-toggle"
+                    class="hidden md:flex items-center gap-1.5 text-[#1c1b1b]/60 dark:text-[#fcf9f8]/60 font-medium hover:text-[#775a19] dark:hover:text-[#e9c176] transition-colors duration-300 text-sm py-2 px-3 hover:bg-black/5 dark:hover:bg-white/10 rounded-lg">
+                    <span class="material-symbols-outlined text-[20px]">dark_mode</span>
+                </button>
                 <button id="lang-switch"
-                    class="hidden md:flex items-center gap-1.5 text-[#1c1b1b]/60 font-medium hover:text-[#775a19] transition-colors duration-300 text-sm py-2 px-3 hover:bg-black/5 rounded-lg">
+                    class="hidden md:flex items-center gap-1.5 text-[#1c1b1b]/60 dark:text-[#fcf9f8]/60 font-medium hover:text-[#775a19] dark:hover:text-[#e9c176] transition-colors duration-300 text-sm py-2 px-3 hover:bg-black/5 dark:hover:bg-white/10 rounded-lg">
                     <span class="material-symbols-outlined text-[20px]">language</span>
                     <span class="lang-label">ES</span>
                 </button>
@@ -409,80 +416,80 @@
             </div>
         </section>
         <!-- Quick Overview -->
-        <section class="py-24 px-6 md:px-12 bg-surface">
+        <section class="py-24 px-6 md:px-12 bg-surface dark:bg-[#1c1b1b]">
             <div class="max-w-[1440px] mx-auto">
                 <div class="grid grid-cols-1 md:grid-cols-4 gap-1">
                     <div
-                        class="p-12 bg-surface-container-low flex flex-col justify-center gap-4 group hover:bg-surface-container-high transition-colors">
-                        <span class="material-symbols-outlined text-primary text-4xl">schedule</span>
+                        class="p-12 bg-surface-container-low dark:bg-[#2a2a2a] flex flex-col justify-center gap-4 group hover:bg-surface-container-high dark:hover:bg-[#3a3a3a] transition-colors">
+                        <span class="material-symbols-outlined text-primary dark:text-[#e9c176] text-4xl">schedule</span>
                         <h3 class="font-headline text-2xl font-bold" data-i18n="overview.title1">Flexible Sessions</h3>
-                        <p class="text-on-surface-variant body-md" data-i18n="overview.desc1">Productive, impactful
+                        <p class="text-on-surface-variant body-md dark:text-[#fcf9f8]/60" data-i18n="overview.desc1">Productive, impactful
                             sessions starting from 150€.</p>
                     </div>
                     <div
-                        class="p-12 bg-surface-container flex flex-col justify-center gap-4 group hover:bg-surface-container-high transition-colors">
-                        <span class="material-symbols-outlined text-primary text-4xl">checkroom</span>
+                        class="p-12 bg-surface-container dark:bg-[#252525] flex flex-col justify-center gap-4 group hover:bg-surface-container-high dark:hover:bg-[#3a3a3a] transition-colors">
+                        <span class="material-symbols-outlined text-primary dark:text-[#e9c176] text-4xl">checkroom</span>
                         <h3 class="font-headline text-2xl font-bold" data-i18n="overview.title2">3 Outfits</h3>
-                        <p class="text-on-surface-variant body-md" data-i18n="overview.desc2">Express your range with up
+                        <p class="text-on-surface-variant body-md dark:text-[#fcf9f8]/60" data-i18n="overview.desc2">Express your range with up
                             to three look changes.</p>
                     </div>
                     <div
-                        class="p-12 bg-surface-container-low flex flex-col justify-center gap-4 group hover:bg-surface-container-high transition-colors">
-                        <span class="material-symbols-outlined text-primary text-4xl">lightbulb</span>
+                        class="p-12 bg-surface-container-low dark:bg-[#2a2a2a] flex flex-col justify-center gap-4 group hover:bg-surface-container-high dark:hover:bg-[#3a3a3a] transition-colors">
+                        <span class="material-symbols-outlined text-primary dark:text-[#e9c176] text-4xl">lightbulb</span>
                         <h3 class="font-headline text-2xl font-bold" data-i18n="overview.title3">Studio Included</h3>
-                        <p class="text-on-surface-variant body-md" data-i18n="overview.desc3">Professional lighting gear
+                        <p class="text-on-surface-variant body-md dark:text-[#fcf9f8]/60" data-i18n="overview.desc3">Professional lighting gear
                             and cyclorama ready.</p>
                     </div>
                     <div
-                        class="p-12 bg-surface-container flex flex-col justify-center gap-4 group hover:bg-surface-container-high transition-colors">
-                        <span class="material-symbols-outlined text-primary text-4xl">wb_sunny</span>
+                        class="p-12 bg-surface-container dark:bg-[#252525] flex flex-col justify-center gap-4 group hover:bg-surface-container-high dark:hover:bg-[#3a3a3a] transition-colors">
+                        <span class="material-symbols-outlined text-primary dark:text-[#e9c176] text-4xl">wb_sunny</span>
                         <h3 class="font-headline text-2xl font-bold" data-i18n="overview.title4">Mixed Options</h3>
-                        <p class="text-on-surface-variant body-md" data-i18n="overview.desc4">Book studio and outdoor
+                        <p class="text-on-surface-variant body-md dark:text-[#fcf9f8]/60" data-i18n="overview.desc4">Book studio and outdoor
                             setups within the same session.</p>
                     </div>
                 </div>
             </div>
         </section>
         <!-- Pricing Section -->
-        <section class="py-24 bg-surface-container-low" id="pricing">
+        <section class="py-24 bg-surface-container-low dark:bg-[#1a1a1a]" id="pricing">
             <div class="max-w-5xl mx-auto px-6">
                 <div class="text-center mb-16">
                     <h2 class="font-headline text-4xl font-bold mb-4 editorial-spacing" data-i18n="pricing.title">
                         Investment</h2>
-                    <p class="text-secondary font-medium uppercase tracking-widest text-xs"
+                    <p class="text-secondary dark:text-[#fcf9f8]/60 font-medium uppercase tracking-widest text-xs"
                         data-i18n="pricing.subtitle">Tailored Session Packages</p>
                 </div>
                 <div class="grid md:grid-cols-2 gap-8 mb-16">
                     <!-- 1 Hour -->
                     <div
-                        class="bg-surface p-12 shadow-[0_20px_50px_rgba(28,27,27,0.03)] hover:shadow-[0_20px_50px_rgba(28,27,27,0.06)] transition-all flex flex-col">
+                        class="bg-surface dark:bg-[#252525] p-12 shadow-[0_20px_50px_rgba(28,27,27,0.03)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.3)] hover:shadow-[0_20px_50px_rgba(28,27,27,0.06)] dark:hover:shadow-[0_20px_50px_rgba(0,0,0,0.4)] transition-all flex flex-col">
                         <h3 class="font-headline text-xl font-bold mb-2" data-i18n="pricing.session1Title">1 Hour
                             Session</h3>
-                        <div class="text-3xl font-headline font-bold text-primary mb-8"
+                        <div class="text-3xl font-headline font-bold text-primary dark:text-[#e9c176] mb-8"
                             data-i18n="pricing.session1Price">150€</div>
                         <ul class="space-y-4 mb-12 flex-grow" id="session1-features"></ul>
                     </div>
                     <!-- 2 Hours -->
                     <div
-                        class="bg-surface p-12 shadow-[0_20px_50px_rgba(28,27,27,0.03)] hover:shadow-[0_20px_50px_rgba(28,27,27,0.06)] transition-all flex flex-col border border-primary/10">
+                        class="bg-surface dark:bg-[#252525] p-12 shadow-[0_20px_50px_rgba(28,27,27,0.03)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.3)] hover:shadow-[0_20px_50px_rgba(28,27,27,0.06)] dark:hover:shadow-[0_20px_50px_rgba(0,0,0,0.4)] transition-all flex flex-col border border-primary/10">
                         <h3 class="font-headline text-xl font-bold mb-2" data-i18n="pricing.session2Title">2 Hour
                             Session</h3>
-                        <div class="text-3xl font-headline font-bold text-primary mb-8"
+                        <div class="text-3xl font-headline font-bold text-primary dark:text-[#e9c176] mb-8"
                             data-i18n="pricing.session2Price">250€</div>
                         <ul class="space-y-4 mb-12 flex-grow" id="session2-features"></ul>
                     </div>
                 </div>
-                <div class="bg-surface-container p-8">
+                <div class="bg-surface-container dark:bg-[#2a2a2a] p-8">
                     <h4 class="font-headline font-bold text-sm uppercase tracking-widest mb-6"
                         data-i18n="pricing.additionalExtras">Add-ons</h4>
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="extras-list"></div>
                 </div>
-                <p class="mt-8 text-center text-secondary text-sm font-medium" data-i18n="pricing.note">Same price for
+                <p class="mt-8 text-center text-secondary dark:text-[#fcf9f8]/60 text-sm font-medium" data-i18n="pricing.note">Same price for
                     individuals, couples, and small groups (up to 5 people)</p>
             </div>
         </section>
         <!-- Fast Contact CTA -->
-        <section class="py-24 bg-surface-container text-center">
+        <section class="py-24 bg-surface-container dark:bg-[#252525] text-center">
             <div class="max-w-4xl mx-auto px-6">
                 <h2 class="font-headline text-3xl font-bold editorial-spacing mb-12" data-i18n="ctaContact.title">
                     Check availability or ask any questions
@@ -522,7 +529,7 @@
             </div>
         </section>
         <!-- Portfolio Gallery -->
-        <section class="py-24 px-6 bg-surface" id="portfolio">
+        <section class="py-24 px-6 bg-surface dark:bg-[#1c1b1b]" id="portfolio">
             <div class="max-w-[1440px] mx-auto">
                 <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
                     <div class="max-w-2xl">
@@ -532,7 +539,7 @@
                             to discover setups, looks, and find ideas for your own shoot.</p>
                     </div>
                     <button id="gallery-open-btn"
-                        class="px-8 py-4 border-b-2 border-primary font-bold text-primary hover:bg-primary-container/10 transition-all"
+                        class="px-8 py-4 border-b-2 border-primary dark:border-[#e9c176] font-bold text-primary dark:text-[#e9c176] hover:bg-primary-container/10 dark:hover:bg-white/10 transition-all"
                         data-i18n="portfolio.viewExamples">View Gallery</button>
                 </div>
                 <div class="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 items-start">
@@ -581,7 +588,7 @@
             </div>
         </section>
         <!-- Studio Details -->
-        <section class="py-24 bg-surface-container-lowest" id="studio">
+        <section class="py-24 bg-surface-container-lowest dark:bg-[#151515]" id="studio">
             <div class="max-w-[1440px] mx-auto px-6">
                 <!-- Mobile Only Title -->
                 <h2 class="font-headline text-4xl font-bold mb-12 editorial-spacing md:hidden" data-i18n="studio.title">
@@ -614,25 +621,25 @@
                             data-i18n="studio.title">The Studio</h2>
                         <div class="space-y-8">
                             <div class="flex gap-6">
-                                <span class="material-symbols-outlined text-primary text-3xl">panorama_horizontal</span>
+                                <span class="material-symbols-outlined text-primary dark:text-[#e9c176] text-3xl">panorama_horizontal</span>
                                 <div>
                                     <h4 class="font-headline font-bold text-lg mb-2" data-i18n="studio.feature1Title">
                                         Infinite cyclorama</h4>
-                                    <p class="text-on-surface-variant" data-i18n="studio.feature1Desc">Clean seamless
+                                    <p class="text-on-surface-variant dark:text-[#fcf9f8]/60" data-i18n="studio.feature1Desc">Clean seamless
                                         background for a minimal, professional look</p>
                                 </div>
                             </div>
                             <div class="flex gap-6">
-                                <span class="material-symbols-outlined text-primary text-3xl">weekend</span>
+                                <span class="material-symbols-outlined text-primary dark:text-[#e9c176] text-3xl">weekend</span>
                                 <div>
                                     <h4 class="font-headline font-bold text-lg mb-2" data-i18n="studio.feature2Title">
                                         Ambient room</h4>
-                                    <p class="text-on-surface-variant" data-i18n="studio.feature2Desc">Textured walls,
+                                    <p class="text-on-surface-variant dark:text-[#fcf9f8]/60" data-i18n="studio.feature2Desc">Textured walls,
                                         props, and more natural setups</p>
                                 </div>
                             </div>
                             <div class="flex gap-6">
-                                <span class="material-symbols-outlined text-primary text-3xl">verified</span>
+                                <span class="material-symbols-outlined text-primary dark:text-[#e9c176] text-3xl">verified</span>
                                 <div>
                                     <h4 class="font-headline font-bold text-lg mb-2" data-i18n="studio.feature3Title">
                                         Included in all sessions</h4>
@@ -649,34 +656,34 @@
             </div>
         </section>
         <!-- Location -->
-        <section class="py-24 bg-surface" id="location">
+        <section class="py-24 bg-surface dark:bg-[#1c1b1b]" id="location">
             <div class="max-w-[1440px] mx-auto px-6">
-                <div class="bg-surface-container-low p-1 rounded-xl overflow-hidden grid grid-cols-1 md:grid-cols-2">
+                <div class="bg-surface-container-low dark:bg-[#252525] p-1 rounded-xl overflow-hidden grid grid-cols-1 md:grid-cols-2">
                     <!-- Column 1: Context & Core Info -->
                     <div class="p-12 md:p-24 flex flex-col justify-center">
                         <h2 class="font-headline text-4xl font-bold mb-6 editorial-spacing" data-i18n="location.title">
                             Find us in Poble Espanyol</h2>
-                        <p class="text-lg text-secondary mb-12" data-i18n="location.desc">Nestled in the heart of
+                        <p class="text-lg text-secondary dark:text-[#fcf9f8]/60 mb-12" data-i18n="location.desc">Nestled in the heart of
                             Montjuïc, our studio combines historic charm with modern technical facilities.</p>
 
                         <div class="space-y-6">
                             <div class="flex items-center gap-4">
-                                <span class="material-symbols-outlined text-primary">pin_drop</span>
+                                <span class="material-symbols-outlined text-primary dark:text-[#e9c176]">pin_drop</span>
                                 <a href="https://www.google.com/maps/search/?api=1&query=Porta+d'Àvila+-+Av.+de+Francesc+Ferrer+i+Guàrdia,+13,+08038+Barcelona"
                                     target="_blank"
-                                    class="font-medium hover:text-primary transition-colors underline decoration-primary/30 underline-offset-4"
+                                    class="font-medium hover:text-primary dark:hover:text-[#e9c176] transition-colors underline decoration-primary/30 underline-offset-4"
                                     data-i18n="location.address">
                                     Porta d'Àvila - Av. de Francesc Ferrer i Guàrdia, 13, 08038 Barcelona
                                 </a>
                             </div>
 
                             <div class="flex items-center gap-4">
-                                <span class="material-symbols-outlined text-primary">local_parking</span>
+                                <span class="material-symbols-outlined text-primary dark:text-[#e9c176]">local_parking</span>
                                 <span class="font-medium" data-i18n="location.parking">Parking available nearby</span>
                             </div>
 
                             <div class="flex items-center gap-4">
-                                <span class="material-symbols-outlined text-primary">verified</span>
+                                <span class="material-symbols-outlined text-primary dark:text-[#e9c176]">verified</span>
                                 <span class="font-medium" data-i18n="location.entrance">Free entrance to the
                                     village</span>
                             </div>
@@ -685,7 +692,7 @@
 
                     <!-- Column 2: Logistics & Bonus -->
                     <div
-                        class="p-12 md:p-24 bg-surface-container flex flex-col justify-center border-t md:border-t-0 md:border-l border-outline-variant/30">
+                        class="p-12 md:p-24 bg-surface-container dark:bg-[#2a2a2a] flex flex-col justify-center border-t md:border-t-0 md:border-l border-outline-variant/30">
                         <!-- Getting there Section -->
                         <div class="space-y-8">
                             <h3 class="font-headline text-[11px] font-extrabold uppercase tracking-[0.2em] text-secondary/80"
@@ -693,7 +700,7 @@
 
                             <div class="space-y-5">
                                 <div class="flex items-center gap-4">
-                                    <span class="material-symbols-outlined text-primary text-xl"
+                                    <span class="material-symbols-outlined text-primary dark:text-[#e9c176] text-xl"
                                         style="font-variation-settings: 'wght' 400;">subway</span>
                                     <p class="text-sm text-left">
                                         <span class="font-bold" data-i18n="location.transitMetroLabel">Metro:</span>
@@ -703,7 +710,7 @@
                                 </div>
 
                                 <div class="flex items-center gap-4">
-                                    <span class="material-symbols-outlined text-primary text-xl"
+                                    <span class="material-symbols-outlined text-primary dark:text-[#e9c176] text-xl"
                                         style="font-variation-settings: 'wght' 400;">train</span>
                                     <p class="text-sm text-left">
                                         <span class="font-bold" data-i18n="location.transitTrainLabel">Renfe &
@@ -713,7 +720,7 @@
                                 </div>
 
                                 <div class="flex items-center gap-4">
-                                    <span class="material-symbols-outlined text-primary text-xl"
+                                    <span class="material-symbols-outlined text-primary dark:text-[#e9c176] text-xl"
                                         style="font-variation-settings: 'wght' 400;">train</span>
                                     <p class="text-sm text-left">
                                         <span class="font-bold" data-i18n="location.transitFGCLabel">FGC:</span> <span
@@ -722,7 +729,7 @@
                                 </div>
 
                                 <div class="flex items-center gap-4">
-                                    <span class="material-symbols-outlined text-primary text-xl"
+                                    <span class="material-symbols-outlined text-primary dark:text-[#e9c176] text-xl"
                                         style="font-variation-settings: 'wght' 400;">directions_bus</span>
                                     <p class="text-sm text-left">
                                         <span class="font-bold" data-i18n="location.transitBusLabel">Bus:</span> <span
@@ -735,10 +742,10 @@
 
                         <!-- Bonus Box -->
                         <div
-                            class="mt-12 p-6 bg-primary/5 border border-primary/20 rounded-lg flex items-center gap-4 group hover:bg-primary/10 transition-all duration-300">
+                            class="mt-12 p-6 bg-primary/5 dark:bg-[#2a2a2a] border border-primary/20 dark:border-[#e9c176]/20 rounded-lg flex items-center gap-4 group hover:bg-primary/10 dark:hover:bg-[#3a3a3a] transition-all duration-300">
                             <span
-                                class="material-symbols-outlined text-primary group-hover:scale-110 transition-transform duration-300">grade</span>
-                            <p class="text-sm font-medium text-on-surface" data-i18n="location.bonus">
+                                class="material-symbols-outlined text-primary dark:text-[#e9c176] group-hover:scale-110 transition-transform duration-300">grade</span>
+                            <p class="text-sm font-medium text-on-surface dark:text-[#fcf9f8]" data-i18n="location.bonus">
                                 Access to Poble Espanyol included with your session
                             </p>
                         </div>
@@ -747,7 +754,7 @@
             </div>
         </section>
         <!-- Process -->
-        <section class="py-24 bg-surface-container-low">
+        <section class="py-24 bg-surface-container-low dark:bg-[#1a1a1a]">
             <div class="max-w-[1440px] mx-auto px-6">
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
                     <div class="text-center">
@@ -778,63 +785,63 @@
             </div>
         </section>
         <!-- FAQ Section -->
-        <section class="py-24 bg-surface" id="faq">
+        <section class="py-24 bg-surface dark:bg-[#1c1b1b]" id="faq">
             <div class="max-w-3xl mx-auto px-6">
                 <h2 class="font-headline text-3xl font-bold mb-12 text-center editorial-spacing" data-i18n="faq.title">
                     Frequently Asked Questions</h2>
-                <div class="divide-y divide-outline-variant/20 border-t border-outline-variant/20">
+                <div class="divide-y divide-outline-variant/20 border-t border-outline-variant/20 dark:divide-white/10 dark:border-white/10">
                     <details class="group py-4 transition-all duration-300">
                         <summary
-                            class="flex justify-between items-center font-medium cursor-pointer list-none text-on-surface">
+                            class="flex justify-between items-center font-medium cursor-pointer list-none text-on-surface dark:text-[#fcf9f8]">
                             <span data-i18n="faq.q1">What happens if I'm late?</span>
                             <span
-                                class="material-symbols-outlined group-open:rotate-180 transition-transform text-primary/50">expand_more</span>
+                                class="material-symbols-outlined group-open:rotate-180 transition-transform text-primary/50 dark:text-[#e9c176]/50">expand_more</span>
                         </summary>
-                        <p class="mt-2 text-sm text-on-surface-variant/80 leading-relaxed" data-i18n="faq.a1">Session
+                        <p class="mt-2 text-sm text-on-surface-variant/80 dark:text-[#fcf9f8]/60 leading-relaxed" data-i18n="faq.a1">Session
                             time starts at the booked hour. Being late will reduce your shooting time as we often have
                             consecutive bookings.</p>
                     </details>
                     <details class="group py-4 transition-all duration-300">
                         <summary
-                            class="flex justify-between items-center font-medium cursor-pointer list-none text-on-surface">
+                            class="flex justify-between items-center font-medium cursor-pointer list-none text-on-surface dark:text-[#fcf9f8]">
                             <span data-i18n="faq.q2">Can I have the RAW files?</span>
                             <span
-                                class="material-symbols-outlined group-open:rotate-180 transition-transform text-primary/50">expand_more</span>
+                                class="material-symbols-outlined group-open:rotate-180 transition-transform text-primary/50 dark:text-[#e9c176]/50">expand_more</span>
                         </summary>
-                        <p class="mt-2 text-sm text-on-surface-variant/80 leading-relaxed" data-i18n="faq.a2">We do not
+                        <p class="mt-2 text-sm text-on-surface-variant/80 dark:text-[#fcf9f8]/60 leading-relaxed" data-i18n="faq.a2">We do not
                             deliver RAW or unedited files. Part of our studio's value is the curated editing and color
                             grading process.</p>
                     </details>
                     <details class="group py-4 transition-all duration-300">
                         <summary
-                            class="flex justify-between items-center font-medium cursor-pointer list-none text-on-surface">
+                            class="flex justify-between items-center font-medium cursor-pointer list-none text-on-surface dark:text-[#fcf9f8]">
                             <span data-i18n="faq.q3">Studio shoe policy?</span>
                             <span
-                                class="material-symbols-outlined group-open:rotate-180 transition-transform text-primary/50">expand_more</span>
+                                class="material-symbols-outlined group-open:rotate-180 transition-transform text-primary/50 dark:text-[#e9c176]/50">expand_more</span>
                         </summary>
-                        <p class="mt-2 text-sm text-on-surface-variant/80 leading-relaxed" data-i18n="faq.a3">To keep
+                        <p class="mt-2 text-sm text-on-surface-variant/80 dark:text-[#fcf9f8]/60 leading-relaxed" data-i18n="faq.a3">To keep
                             our white cyclorama pristine, we ask that all shoes used for shooting have their soles
                             thoroughly cleaned before stepping on the wall.</p>
                     </details>
                     <details class="group py-4 transition-all duration-300">
                         <summary
-                            class="flex justify-between items-center font-medium cursor-pointer list-none text-on-surface">
+                            class="flex justify-between items-center font-medium cursor-pointer list-none text-on-surface dark:text-[#fcf9f8]">
                             <span data-i18n="faq.q4">Does the session time include setup?</span>
                             <span
-                                class="material-symbols-outlined group-open:rotate-180 transition-transform text-primary/50">expand_more</span>
+                                class="material-symbols-outlined group-open:rotate-180 transition-transform text-primary/50 dark:text-[#e9c176]/50">expand_more</span>
                         </summary>
-                        <p class="mt-2 text-sm text-on-surface-variant/80 leading-relaxed" data-i18n="faq.a4">Yes,
+                        <p class="mt-2 text-sm text-on-surface-variant/80 dark:text-[#fcf9f8]/60 leading-relaxed" data-i18n="faq.a4">Yes,
                             session time includes both setup at the beginning and wrap-up at the end (around 20
                             minutes).</p>
                     </details>
                     <details class="group py-4 transition-all duration-300">
                         <summary
-                            class="flex justify-between items-center font-medium cursor-pointer list-none text-on-surface">
+                            class="flex justify-between items-center font-medium cursor-pointer list-none text-on-surface dark:text-[#fcf9f8]">
                             <span data-i18n="faq.q5">What is the cancellation policy?</span>
                             <span
-                                class="material-symbols-outlined group-open:rotate-180 transition-transform text-primary/50">expand_more</span>
+                                class="material-symbols-outlined group-open:rotate-180 transition-transform text-primary/50 dark:text-[#e9c176]/50">expand_more</span>
                         </summary>
-                        <p class="mt-2 text-sm text-on-surface-variant/80 leading-relaxed" data-i18n="faq.a5">
+                        <p class="mt-2 text-sm text-on-surface-variant/80 dark:text-[#fcf9f8]/60 leading-relaxed" data-i18n="faq.a5">
                             Cancellation depends on booking conditions (deposit loss, rebooking, etc).</p>
                     </details>
                 </div>
@@ -925,7 +932,7 @@
     </div>
 
     <!-- Contact Form Section -->
-    <section id="form" class="py-12 px-6 bg-surface">
+    <section id="form" class="py-12 px-6 bg-surface dark:bg-[#1c1b1b]">
         <div class="max-w-xl mx-auto">
             <h2 class="font-headline text-4xl font-bold mb-4 text-center" data-i18n="contact.title">
                 Get in touch
@@ -1016,7 +1023,7 @@
                         class="text-[9px] tracking-[0.2em] font-bold text-[#1c1b1b]/40 dark:text-[#fcf9f8]/40 uppercase"
                         data-i18n="footer.label_instagram">INSTAGRAM</span>
                     <a href="https://www.instagram.com/luttymoreira/" target="_blank" rel="noopener noreferrer"
-                        class="text-[12px] tracking-[0.1em] font-normal text-[#1c1b1b]/60 dark:text-[#fcf9f8]/60 hover:font-medium hover:text-primary transition-all duration-300"
+                        class="text-[12px] tracking-[0.1em] font-normal text-[#1c1b1b]/60 dark:text-[#fcf9f8]/60 hover:font-medium hover:text-primary dark:hover:text-[#e9c176] transition-all duration-300"
                         data-i18n="footer.value_instagram">
                         @luttymoreira
                     </a>
@@ -1054,7 +1061,7 @@
                             d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-5.5-2.8-23.4-8.6-44.6-27.6-16.5-14.7-27.6-32.8-30.8-38.4-3.2-5.6-.3-8.6 2.5-11.4 2.5-2.5 5.5-6.5 8.3-9.8 2.8-3.3 3.7-5.6 5.5-9.3 1.8-3.7.9-7-0.5-9.8-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 13.3 5.7 23.7 9.1 31.7 11.7 13.3 4.2 25.4 3.6 35 2.2 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z" />
                     </svg>
                 </a>
-                <a class="flex items-center justify-center text-[#1c1b1b]/40 dark:text-[#fcf9f8]/40 hover:text-primary transition-all duration-300"
+                <a class="flex items-center justify-center text-[#1c1b1b]/40 dark:text-[#fcf9f8]/40 hover:text-primary dark:hover:text-[#e9c176] transition-all duration-300"
                     href="https://www.instagram.com/luttymoreira/" target="_blank" rel="noopener noreferrer"
                     data-i18n-title="ctaContact.instagram" aria-label="Instagram">
                     <svg class="w-5 h-5 fill-current stroke-current" style="stroke-width: 0.5px;" viewBox="0 0 24 24"
@@ -1074,56 +1081,63 @@
                         style="font-variation-settings: 'wght' 600;">edit_document</span>
                 </a>
             </div>
-            <div class="font-inter text-[10px] tracking-widest uppercase text-[#1c1b1b]/40"
+            <div class="font-inter text-[10px] tracking-widest uppercase text-[#1c1b1b]/40 dark:text-[#fcf9f8]/40"
                 data-i18n="footer.copyright">
                 © 2026 LUTTY MOREIRA PHOTO
             </div>
         </div>
     </footer>
     <div id="mobile-overlay"
-        class="fixed inset-0 bg-[#1c1b1b]/40 z-[80] opacity-0 pointer-events-none transition-opacity duration-300 backdrop-blur-sm md:hidden">
+        class="fixed inset-0 bg-[#1c1b1b]/40 dark:bg-black/60 z-[80] opacity-0 pointer-events-none transition-opacity duration-300 backdrop-blur-sm md:hidden">
     </div>
     <div id="mobile-menu"
-        class="fixed top-0 left-0 w-full bg-surface/95 backdrop-blur-xl z-[90] border-b border-outline-variant/30 transform -translate-y-full transition-transform duration-500 ease-in-out md:hidden shadow-2xl overflow-hidden">
+        class="fixed top-0 left-0 w-full bg-surface/95 dark:bg-[#1c1b1b]/95 backdrop-blur-xl z-[90] border-b border-outline-variant/30 dark:border-white/10 transform -translate-y-full transition-transform duration-500 ease-in-out md:hidden shadow-2xl overflow-hidden">
         <div class="px-6 pt-[100px] pb-12 flex flex-col gap-8 max-h-screen overflow-y-auto">
             <nav class="flex flex-col gap-6">
-                <a class="mobile-nav-link text-lg font-headline font-medium text-[#1c1b1b]/60 flex items-center justify-between group"
+                <a class="mobile-nav-link text-lg font-headline font-medium text-[#1c1b1b]/60 dark:text-[#fcf9f8]/60 flex items-center justify-between group"
                     href="#pricing">
                     <span data-i18n="nav.pricing">Pricing</span>
                     <span
-                        class="material-symbols-outlined text-primary opacity-0 -translate-x-4 transition-all group-hover:opacity-100 group-hover:translate-x-0">arrow_forward</span>
+                        class="material-symbols-outlined text-primary dark:text-[#e9c176] opacity-0 -translate-x-4 transition-all group-hover:opacity-100 group-hover:translate-x-0">arrow_forward</span>
                 </a>
-                <a class="mobile-nav-link text-lg font-headline font-medium text-[#1c1b1b]/60 flex items-center justify-between group"
+                <a class="mobile-nav-link text-lg font-headline font-medium text-[#1c1b1b]/60 dark:text-[#fcf9f8]/60 flex items-center justify-between group"
                     href="#portfolio">
                     <span data-i18n="nav.portfolio">Portfolio</span>
                     <span
-                        class="material-symbols-outlined text-primary opacity-0 -translate-x-4 transition-all group-hover:opacity-100 group-hover:translate-x-0">arrow_forward</span>
+                        class="material-symbols-outlined text-primary dark:text-[#e9c176] opacity-0 -translate-x-4 transition-all group-hover:opacity-100 group-hover:translate-x-0">arrow_forward</span>
                 </a>
-                <a class="mobile-nav-link text-lg font-headline font-medium text-[#1c1b1b]/60 flex items-center justify-between group"
+                <a class="mobile-nav-link text-lg font-headline font-medium text-[#1c1b1b]/60 dark:text-[#fcf9f8]/60 flex items-center justify-between group"
                     href="#studio">
                     <span data-i18n="nav.studio">Studio</span>
                     <span
-                        class="material-symbols-outlined text-primary opacity-0 -translate-x-4 transition-all group-hover:opacity-100 group-hover:translate-x-0">arrow_forward</span>
+                        class="material-symbols-outlined text-primary dark:text-[#e9c176] opacity-0 -translate-x-4 transition-all group-hover:opacity-100 group-hover:translate-x-0">arrow_forward</span>
                 </a>
-                <a class="mobile-nav-link text-lg font-headline font-medium text-[#1c1b1b]/60 flex items-center justify-between group"
+                <a class="mobile-nav-link text-lg font-headline font-medium text-[#1c1b1b]/60 dark:text-[#fcf9f8]/60 flex items-center justify-between group"
                     href="#location">
                     <span data-i18n="nav.location">Location</span>
                     <span
-                        class="material-symbols-outlined text-primary opacity-0 -translate-x-4 transition-all group-hover:opacity-100 group-hover:translate-x-0">arrow_forward</span>
+                        class="material-symbols-outlined text-primary dark:text-[#e9c176] opacity-0 -translate-x-4 transition-all group-hover:opacity-100 group-hover:translate-x-0">arrow_forward</span>
                 </a>
-                <a class="mobile-nav-link text-lg font-headline font-medium text-[#1c1b1b]/60 flex items-center justify-between group"
+                <a class="mobile-nav-link text-lg font-headline font-medium text-[#1c1b1b]/60 dark:text-[#fcf9f8]/60 flex items-center justify-between group"
                     href="#faq">
                     <span data-i18n="nav.faq">FAQ</span>
                     <span
-                        class="material-symbols-outlined text-primary opacity-0 -translate-x-4 transition-all group-hover:opacity-100 group-hover:translate-x-0">arrow_forward</span>
+                        class="material-symbols-outlined text-primary dark:text-[#e9c176] opacity-0 -translate-x-4 transition-all group-hover:opacity-100 group-hover:translate-x-0">arrow_forward</span>
                 </a>
             </nav>
-            <div class="pt-8 border-t border-outline-variant/30 flex justify-center items-center">
+            <div class="pt-8 border-t border-outline-variant/30 dark:border-white/10 flex justify-center items-center">
                 <a href="#contact"
                     class="mobile-nav-link bg-gradient-to-r from-primary to-primary-container text-on-primary px-8 py-4 rounded-lg font-semibold shadow-xl active:scale-95 transition-all text-sm w-full text-center block"
                     data-i18n="nav.contact">
                     Contact
                 </a>
+            </div>
+            <div class="flex justify-center items-center pt-6">
+                <button id="mobile-menu-theme-toggle"
+                    class="flex items-center gap-2 text-[#1c1b1b]/60 dark:text-[#fcf9f8]/60 font-medium hover:text-[#775a19] dark:hover:text-[#e9c176] transition-colors text-sm">
+                    <span class="material-symbols-outlined text-[20px]">dark_mode</span>
+                    <span data-i18n="nav.theme">Theme</span>
+                </button>
             </div>
         </div>
     </div>
@@ -1164,7 +1178,7 @@
             if (session1Features) {
                 const features = t('pricing.session1Features');
                 session1Features.innerHTML = (Array.isArray(features) ? features : []).map(f =>
-                    '<li class="flex items-start gap-3 text-on-surface-variant"><span class="material-symbols-outlined text-primary-container text-xl">done</span><span>' + f + '</span></li>'
+                    '<li class="flex items-start gap-3 text-on-surface-variant dark:text-[#fcf9f8]/60"><span class="material-symbols-outlined text-primary-container dark:text-[#e9c176] text-xl">done</span><span>' + f + '</span></li>'
                 ).join('');
             }
 
@@ -1172,7 +1186,7 @@
             if (session2Features) {
                 const features = t('pricing.session2Features');
                 session2Features.innerHTML = (Array.isArray(features) ? features : []).map(f =>
-                    '<li class="flex items-start gap-3 text-on-surface-variant"><span class="material-symbols-outlined text-primary-container text-xl">done</span><span>' + f + '</span></li>'
+                    '<li class="flex items-start gap-3 text-on-surface-variant dark:text-[#fcf9f8]/60"><span class="material-symbols-outlined text-primary-container dark:text-[#e9c176] text-xl">done</span><span>' + f + '</span></li>'
                 ).join('');
             }
 
@@ -1180,7 +1194,7 @@
             if (studioInclusions) {
                 const inclusions = t('studio.feature3Desc');
                 studioInclusions.innerHTML = (Array.isArray(inclusions) ? inclusions : []).map(f =>
-                    '<li>- ' + f + '</li>'
+                    '<li class="dark:text-[#fcf9f8]/60">- ' + f + '</li>'
                 ).join('');
             }
 
@@ -1196,10 +1210,10 @@
                 ];
                 extrasList.innerHTML = extras.map(e => {
                     if (e.isNote) {
-                        return '<div class="md:col-start-3"><small class="text-[12px] opacity-70 block leading-tight">' + t(e.label) + '</small></div>';
+                        return '<div class="md:col-start-3"><small class="text-[12px] opacity-70 block leading-tight dark:text-[#fcf9f8]/60">' + t(e.label) + '</small></div>';
                     }
-                    const subtextHtml = e.subtext ? `<br><small class="text-[12px] opacity-70 block mt-1">${t(e.subtext)}</small>` : '';
-                    return '<div class="flex justify-between items-center border-b border-outline-variant/30 pb-2"><span class="text-on-surface-variant">' + t(e.label) + subtextHtml + '</span><span class="font-bold' + (e.label === 'pricing.expressDelivery' ? ' text-xs uppercase' : '') + '">' + e.price + '</span></div>';
+                    const subtextHtml = e.subtext ? `<br><small class="text-[12px] opacity-70 block mt-1 dark:text-[#fcf9f8]/60">${t(e.subtext)}</small>` : '';
+                    return '<div class="flex justify-between items-center border-b border-outline-variant/30 dark:border-white/10 pb-2"><span class="text-on-surface-variant dark:text-[#fcf9f8]/60">' + t(e.label) + subtextHtml + '</span><span class="font-bold dark:text-[#fcf9f8]"' + (e.label === 'pricing.expressDelivery' ? ' text-xs uppercase' : '') + '>' + e.price + '</span></div>';
                 }).join('');
             }
 
@@ -1244,6 +1258,57 @@
             .catch(err => {
                 console.error('Failed to load translations:', err);
             });
+
+        // ─── Dark Mode Toggle ───────────────────────────────────────────────────
+        const themeToggle = document.getElementById('theme-toggle');
+        const mobileMenuThemeToggle = document.getElementById('mobile-menu-theme-toggle');
+
+        // Check for saved theme preference or use system preference
+        function getPreferredTheme() {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme) return savedTheme;
+            return 'light'; // Default to light mode
+        }
+
+        // Apply theme
+        function applyTheme(theme) {
+            if (theme === 'dark') {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+            localStorage.setItem('theme', theme);
+            updateThemeIcon(theme);
+        }
+
+        // Update toggle icon
+        function updateThemeIcon(theme) {
+            if (themeToggle) {
+                const icon = themeToggle.querySelector('span');
+                icon.textContent = theme === 'dark' ? 'light_mode' : 'dark_mode';
+            }
+            if (mobileMenuThemeToggle) {
+                const icon = mobileMenuThemeToggle.querySelector('span');
+                icon.textContent = theme === 'dark' ? 'light_mode' : 'dark_mode';
+            }
+        }
+
+        // Initialize theme
+        applyTheme(getPreferredTheme());
+
+        // Toggle click handler
+        function handleThemeToggle() {
+            const currentTheme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            applyTheme(newTheme);
+        }
+
+        if (themeToggle) {
+            themeToggle.addEventListener('click', handleThemeToggle);
+        }
+        if (mobileMenuThemeToggle) {
+            mobileMenuThemeToggle.addEventListener('click', handleThemeToggle);
+        }
 
         /* ─── GalleryModal + Masonry + Lightbox ─────────────────────────────────
            Single source of truth:
