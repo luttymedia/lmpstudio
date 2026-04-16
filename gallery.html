@@ -273,7 +273,7 @@
         /* Desktop/tablet: enable transition */
         @media (min-width: 768px) {
             #lightbox-img {
-                transition: opacity 0.25s ease;
+                transition: opacity 0.15s ease;
             }
         }
 
@@ -318,7 +318,8 @@
     </style>
 </head>
 
-<body class="bg-surface text-on-surface font-body selection:bg-primary-container selection:text-on-primary-container dark:bg-[#121111] dark:text-[#fcf9f8]">
+<body
+    class="bg-surface text-on-surface font-body selection:bg-primary-container selection:text-on-primary-container dark:bg-[#121111] dark:text-[#fcf9f8]">
 
     <!-- ═══════════════════════════════════════════════════════
          ENTRY SCREEN (Optimistic UI)
@@ -327,8 +328,12 @@
     <div id="entry-gate" class="entry-screen visible" role="dialog" aria-modal="true">
         <div class="flex flex-col items-center gap-8 px-6 max-w-sm w-full text-center">
             <span class="hover:opacity-70 transition-opacity cursor-default">
-                <img src="images/logo-nav.png" alt="Lutty Moreira Photo" class="h-8 w-auto"
+                <img src="images/logo-nav.png" alt="Lutty Moreira Photo"
+                    class="h-8 w-auto dark:hidden"
                     style="image-rendering:-webkit-optimize-contrast;mix-blend-mode:multiply;">
+                <img src="images/logo-nav-white.png" alt="Lutty Moreira Photo"
+                    class="h-8 w-auto hidden dark:block"
+                    style="image-rendering:-webkit-optimize-contrast;">
             </span>
 
             <div>
@@ -402,9 +407,11 @@
         class="fixed top-0 w-full z-[100] bg-[#fcf9f8]/90 dark:bg-[#121111]/90 backdrop-blur-md shadow-[0_20px_50px_rgba(28,27,27,0.05)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.3)] opacity-0 pointer-events-none transition-opacity duration-500">
         <nav class="flex justify-between items-center px-6 md:px-12 py-3 max-w-[1440px] mx-auto">
             <span class="hover:opacity-70 transition-opacity cursor-default">
-                <img src="images/logo-nav.png" alt="Lutty Moreira Photo" class="h-6 md:h-8 w-auto aspect-auto dark:hidden"
+                <img src="images/logo-nav.png" alt="Lutty Moreira Photo"
+                    class="h-6 md:h-8 w-auto aspect-auto dark:hidden"
                     style="image-rendering:-webkit-optimize-contrast;mix-blend-mode:multiply;">
-                <img src="images/logo-nav-white.png" alt="Lutty Moreira Photo" class="h-6 md:h-8 w-auto aspect-auto hidden dark:block"
+                <img src="images/logo-nav-white.png" alt="Lutty Moreira Photo"
+                    class="h-6 md:h-8 w-auto aspect-auto hidden dark:block"
                     style="image-rendering:-webkit-optimize-contrast;">
             </span>
             <div class="flex items-center gap-3">
@@ -439,7 +446,8 @@
             <span class="material-symbols-outlined text-5xl text-outline mb-4">broken_image</span>
             <p id="error-message" class="font-headline text-xl font-bold mb-2" data-i18n="error.notFound">Gallery not
                 found</p>
-            <p class="text-secondary dark:text-[#fcf9f8]/60 text-sm mb-6" data-i18n="error.checkLink">Please check your link and try again.</p>
+            <p class="text-secondary dark:text-[#fcf9f8]/60 text-sm mb-6" data-i18n="error.checkLink">Please check your
+                link and try again.</p>
             <a href="/" class="text-primary font-medium underline underline-offset-4" data-i18n="error.backToHome">←
                 Back to home</a>
         </div>
@@ -590,14 +598,14 @@
                 function t(key) {
                     // First check gallery-specific translations (nested under gallery), then fall back to shared top-level translations
                     const langData = translations[currentLang] || {};
-                    
+
                     // Try the key as-is (for top-level translations like footer, nav, etc.)
                     let keys = key.split('.');
                     let val = langData;
                     for (const k of keys) {
                         val = val?.[k];
                     }
-                    
+
                     // If not found and key starts with entry/content/error, try under gallery prefix
                     const needsGalleryPrefix = key.startsWith('entry.') || key.startsWith('content.') || key.startsWith('error.');
                     if (val === undefined && needsGalleryPrefix) {
@@ -607,7 +615,7 @@
                             val = val?.[k];
                         }
                     }
-                    
+
                     return val === undefined ? key : val;
                 }
 
@@ -694,6 +702,7 @@
                     .then(data => {
                         translations = data;
                         updateTranslations();
+                        updateDynamicTranslations();
                     })
                     .catch(err => {
                         console.error('Failed to load translations:', err);
