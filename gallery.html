@@ -1047,6 +1047,12 @@
                 let touchStartX = 0;
                 let touchEndX = 0;
                 let overlaysVisible = true;
+                let isLightboxOpen = false;
+                let _handlingPop = false;
+
+                function _pushState(state) {
+                    if (!_handlingPop) history.pushState(state, '');
+                }
 
                 function openLightbox(i) {
                     currentIndex = i;
@@ -1054,12 +1060,27 @@
                     renderLightbox();
                     document.getElementById('lightbox').classList.add('is-open');
                     document.body.style.overflow = 'hidden';
+                    isLightboxOpen = true;
+                    _pushState({ gallery: 'lightbox', index: i });
                 }
 
                 function closeLightbox() {
                     document.getElementById('lightbox').classList.remove('is-open');
                     document.body.style.overflow = '';
+                    isLightboxOpen = false;
                 }
+
+                // Handle browser back button
+                window.addEventListener('popstate', e => {
+                    _handlingPop = true;
+                    try {
+                        if (isLightboxOpen) {
+                            closeLightbox();
+                        }
+                    } finally {
+                        _handlingPop = false;
+                    }
+                });
 
                 function renderLightbox() {
                     const img = images[currentIndex];
