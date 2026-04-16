@@ -574,14 +574,27 @@
                 let currentLang = localStorage.getItem('lang') || 'en';
 
                 function t(key) {
-                    // First check gallery-specific translations, then fall back to shared top-level translations
+                    // First check gallery-specific translations (nested under gallery), then fall back to shared top-level translations
                     const langData = translations[currentLang] || {};
-                    const keys = key.split('.');
+                    
+                    // Try the key as-is (for top-level translations like footer, nav, etc.)
+                    let keys = key.split('.');
                     let val = langData;
                     for (const k of keys) {
                         val = val?.[k];
                     }
-                    return val || key;
+                    
+                    // If not found and key starts with entry/content/error, try under gallery prefix
+                    const needsGalleryPrefix = key.startsWith('entry.') || key.startsWith('content.') || key.startsWith('error.');
+                    if (val === undefined && needsGalleryPrefix) {
+                        keys = ['gallery', ...key.split('.')];
+                        val = langData;
+                        for (const k of keys) {
+                            val = val?.[k];
+                        }
+                    }
+                    
+                    return val === undefined ? key : val;
                 }
 
                 function setLang(lang) {
