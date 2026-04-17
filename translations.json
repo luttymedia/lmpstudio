@@ -62,7 +62,51 @@
       "title": "Gallery",
       "desc": "Explore our sessions to discover setups, looks, and find ideas for your own shoot.",
       "viewExamples": "View Gallery",
-      "imgAlt": "Studio portrait"
+      "imgAlt": "Studio portrait",
+      "expand": "Expand",
+      "collapse": "Collapse",
+      "captions": [
+        {
+          "title": "Classic Editorial",
+          "caption": "A go-to setup for half-body portraits that prioritizes clarity and a balanced, centered glow. The shadowed edges naturally draw focus to the subject, making it perfect for creative professionals and dancers who need striking, clean imagery."
+        },
+        {
+          "title": "Sculpted Minimalist",
+          "caption": "This setup brings a modern, lifestyle edge to the classic studio portrait. By letting subtle shadows fall naturally, we create gorgeous depth and volume without losing that crisp, clean aesthetic. It's a wonderful choice for capturing the dynamic connection and authentic style of couples and dancers."
+        },
+        {
+          "title": "Golden Hour Portrait",
+          "caption": "Inspired by the magic of natural golden hour, this setup wraps the subject in warm, enveloping light. The soft glow creates a flattering, ethereal look that's ideal for beauty shots and intimate portraits."
+        },
+        {
+          "title": "Dramatic Contrast",
+          "caption": "A bold, high-contrast setup that emphasizes mood and mystery. The interplay of light and shadow adds dimension and drama, perfect for editorial spreads and artistic profiles."
+        },
+        {
+          "title": "Soft Focus Romance",
+          "caption": "Gentle, diffused lighting creates a romantic, timeless feel. The subtle softness flatters any subject and adds a dreamy quality that's perfect for couples and intimate sessions."
+        },
+        {
+          "title": "Clean & Modern",
+          "caption": "Stripped back to essentials, this minimalist setup puts the focus entirely on the subject. The clean background and simple lighting are perfect for professional headshots and brand imagery."
+        },
+        {
+          "title": "Dynamic Movement",
+          "caption": "Capturing energy and motion, this setup uses intentional light falloff to create a sense of movement. Ideal for dancers, athletes, and anyone looking to convey vibrancy."
+        },
+        {
+          "title": "Natural Elegance",
+          "caption": "A refined balance between soft and defined, this setup flatters the form while maintaining elegance. Perfect for fashion forward portraits and artistic studies."
+        },
+        {
+          "title": "Studio Noir",
+          "caption": "Channeling classic noir vibes, this dramatic setup uses deep shadows and focused light to create mood. The timeless aesthetic suits subjects wanting a bold, artistic statement."
+        },
+        {
+          "title": "Bright & Airy",
+          "caption": "An uplifting, fresh setup that maximizes brightness and space. The airy quality brings a sense of freedom and positivity, perfect for lifestyle content and creative projects."
+        }
+      ]
     },
     "studio": {
       "title": "The Studio",
@@ -258,7 +302,51 @@
       "title": "Galería",
       "desc": "Explora nuestras sesiones para descubrir diferentes estilos y encontrar ideas para tu sesión.",
       "viewExamples": "Ver Galería",
-      "imgAlt": "Retrato de estudio"
+      "imgAlt": "Retrato de estudio",
+      "expand": "Expandir",
+      "collapse": "Contraer",
+      "captions": [
+        {
+          "title": "Clásico Editorial",
+          "caption": "Un setup versátil para retratos de medio cuerpo que prioriza la claridad y un brillo centrado y equilibrado. Los bordes sombreados enfocan naturalmente la atención en el sujeto, siendo perfecto para profesionales creativos y dancers que necesitan imágenes impactantes y limpias."
+        },
+        {
+          "title": "Escultura Minimalista",
+          "caption": "Este setup aporta un toque moderno y lifestyle al retrato clásico de estudio. Al dejar que las sombras sutiles caigan naturalmente, creamos una profundidad y volumen最美的 sin perder esa estética limpa y crujiente. Es una opción maravillosa para capturar la conexión dinámica y el estilo auténtico de parejas y bailarines."
+        },
+        {
+          "title": "Retrato Hora Dorada",
+          "caption": "Inspirado en la magia de la hora dorada natural, este setup envuelve al sujeto en una luz cálida y envolvente. El brillo suave crea un aspecto favorecedor y etéreo, ideal para shots de belleza y retratos íntimos."
+        },
+        {
+          "title": "Contraste Dramático",
+          "caption": "Un setup audaz y de alto contraste que enfatiza el estado de ánimo y el misterio. El juego de luz y sombra añade dimensión y drama, perfecto para publicaciones editoriales y perfiles artísticos."
+        },
+        {
+          "title": "Enfoque Suave Romántico",
+          "caption": "Una iluminación gentil y difusa crea una sensación romántica e atemporal. La subtleza favorece a cualquier sujeto y añade una cualidad de ensueño, perfecta para parejas y sesiones íntimas."
+        },
+        {
+          "title": "Limpio & Moderno",
+          "caption": "Reducido a lo esencial, este setup minimalista pone el foco completamente en el sujeto. El fondo limpio y la iluminación simple son perfectos para headshots profesionales e imágenes de marca."
+        },
+        {
+          "title": "Movimiento Dinámico",
+          "caption": "Capturando energía y movimiento, este setup usa una caída de luz intencional para crear una sensación de movimiento. Ideal para bailarines, atletas y cualquiera que quiera transmitir vitalidad."
+        },
+        {
+          "title": "Elegancia Natural",
+          "caption": "Un balance refinado entre suave y definido, este setup favorece la forma mientras mantiene la elegancia. Perfecto para retratos fashion forward y estudios artísticos."
+        },
+        {
+          "title": "Studio Noir",
+          "caption": "Canalizando vibraciones del noir clásico, este setup dramático usa sombras profundas y luz enfocada para crear atmósfera. La estética atemporal suits subjects wanting una declaración artística audaz."
+        },
+        {
+          "title": "Brillante & Aireado",
+          "caption": "Un setup lifted y fresco que maximiza el brillo y el espacio. La cualidad aireada bring una sensación de libertad y positividad, perfecto para contenido lifestyle y proyectos creativos."
+        }
+      ]
     },
     "studio": {
       "title": "El Estudio",

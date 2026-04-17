@@ -329,6 +329,24 @@
         .gallery-preview-img {
             cursor: pointer;
         }
+
+        /* ── Lightbox Caption Overlay ─────────────────────────────── */
+        #lightbox-caption-wrap {
+            border-radius: 0 0 4px 4px;
+        }
+
+        #lightbox-caption-wrap.is-visible {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        #lightbox-caption-content.is-expanded {
+            max-height: 200px !important;
+        }
+
+        #lightbox-caption-icon.is-rotated {
+            transform: rotate(180deg);
+        }
     </style>
 </head>
 
@@ -924,6 +942,18 @@
         </button>
         <div id="lightbox-img-wrap">
             <img id="lightbox-img" src="" alt="Enlarged photo" />
+            <!-- Title + Caption overlay -->
+            <div id="lightbox-caption-wrap" class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent pt-8 pb-5 px-6 opacity-100 pointer-events-auto transition-opacity duration-300">
+                <button id="lightbox-caption-toggle" class="flex items-center justify-between w-full text-left group" aria-expanded="false" aria-controls="lightbox-caption-content">
+                    <div class="flex-1 pr-4">
+                        <h4 id="lightbox-caption-title" class="text-white font-headline font-bold text-lg leading-tight mb-1"></h4>
+                    </div>
+                    <span id="lightbox-caption-icon" class="material-symbols-outlined text-white/80 group-hover:text-white transition-colors">expand_more</span>
+                </button>
+                <div id="lightbox-caption-content" class="overflow-hidden max-h-0 transition-all duration-300">
+                    <p id="lightbox-caption-text" class="text-white/80 text-sm leading-relaxed mt-2 pr-8"></p>
+                </div>
+            </div>
         </div>
         <button id="lightbox-next" class="lightbox-arrow" aria-label="Next image">
             <span class="material-symbols-outlined">chevron_right</span>
@@ -1450,6 +1480,91 @@
                 // Looping: never disable arrows
                 lightboxPrev.disabled = false;
                 lightboxNext.disabled = false;
+
+                // Update caption overlay
+                updateLightboxCaption();
+            }
+
+            function updateLightboxCaption() {
+                const captions = t('portfolio.captions');
+                const captionData = Array.isArray(captions) ? captions[lightboxIndex] : null;
+                const captionWrap = document.getElementById('lightbox-caption-wrap');
+                const captionTitle = document.getElementById('lightbox-caption-title');
+                const captionText = document.getElementById('lightbox-caption-text');
+
+                if (captionData && captionTitle && captionText && captionWrap) {
+                    captionTitle.textContent = captionData.title || '';
+                    captionText.textContent = captionData.caption || '';
+                    captionWrap.classList.add('is-visible');
+                    // Restore the persisted expanded state
+                    if (captionExpandedStates[lightboxIndex]) {
+                        expandCaptionContent();
+                    }
+                } else if (captionWrap) {
+                    captionWrap.classList.remove('is-visible');
+                }
+            }
+
+            // Track expanded state per image
+            const captionExpandedStates = {};
+            let overlayVisible = true;
+
+            function expandCaptionContent() {
+                const captionContent = document.getElementById('lightbox-caption-content');
+                const captionIcon = document.getElementById('lightbox-caption-icon');
+                const toggleBtn = document.getElementById('lightbox-caption-toggle');
+                if (captionContent) captionContent.classList.add('is-expanded');
+                if (captionIcon) captionIcon.classList.add('is-rotated');
+                if (toggleBtn) toggleBtn.setAttribute('aria-expanded', 'true');
+            }
+
+            function collapseCaptionContent() {
+                const captionContent = document.getElementById('lightbox-caption-content');
+                const captionIcon = document.getElementById('lightbox-caption-icon');
+                const toggleBtn = document.getElementById('lightbox-caption-toggle');
+                if (captionContent) captionContent.classList.remove('is-expanded');
+                if (captionIcon) captionIcon.classList.remove('is-rotated');
+                if (toggleBtn) toggleBtn.setAttribute('aria-expanded', 'false');
+            }
+
+            function toggleCaption(e) {
+                if (e) e.stopPropagation();
+                const toggleBtn = document.getElementById('lightbox-caption-toggle');
+                if (!toggleBtn) return;
+
+                const isExpanded = toggleBtn.getAttribute('aria-expanded') === 'true';
+                // Save state and update UI
+                captionExpandedStates[lightboxIndex] = !isExpanded;
+                if (isExpanded) {
+                    collapseCaptionContent();
+                } else {
+                    expandCaptionContent();
+                }
+            }
+
+            function toggleOverlay() {
+                overlayVisible = !overlayVisible;
+                const captionWrap = document.getElementById('lightbox-caption-wrap');
+                const lightboxCloseEl = document.getElementById('lightbox-close');
+                const lightboxPrevEl = document.getElementById('lightbox-prev');
+                const lightboxNextEl = document.getElementById('lightbox-next');
+                const lightboxCounterEl = document.getElementById('lightbox-counter');
+
+                if (captionWrap) {
+                    captionWrap.style.opacity = overlayVisible ? '1' : '0';
+                }
+                if (lightboxCloseEl) {
+                    lightboxCloseEl.style.opacity = overlayVisible ? '1' : '0';
+                }
+                if (lightboxPrevEl) {
+                    lightboxPrevEl.style.opacity = overlayVisible ? '1' : '0';
+                }
+                if (lightboxNextEl) {
+                    lightboxNextEl.style.opacity = overlayVisible ? '1' : '0';
+                }
+                if (lightboxCounterEl) {
+                    lightboxCounterEl.style.opacity = overlayVisible ? '1' : '0';
+                }
             }
 
             function lightboxNavigate(delta) {
@@ -1489,6 +1604,18 @@
             lightboxClose.addEventListener('click', closeLightbox);
             lightboxPrev.addEventListener('click', () => lightboxNavigate(-1));
             lightboxNext.addEventListener('click', () => lightboxNavigate(1));
+
+            // Caption toggle
+            const captionToggle = document.getElementById('lightbox-caption-toggle');
+            if (captionToggle) {
+                captionToggle.addEventListener('click', toggleCaption);
+            }
+
+            // Click image to toggle overlay visibility
+            lightboxImg.addEventListener('click', e => {
+                e.stopPropagation();
+                toggleOverlay();
+            });
 
             // Click outside lightbox image
             lightbox.addEventListener('click', e => {
