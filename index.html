@@ -493,6 +493,176 @@
             text-decoration: underline;
             text-underline-offset: 3px;
         }
+
+        /* ── FAQ Drawer ──────────────────────────────────────────────── */
+        #faq-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 390;
+            background: rgba(0, 0, 0, 0.45);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            backdrop-filter: blur(2px);
+        }
+        #faq-overlay.is-open {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        /* Mobile: bottom sheet */
+        #faq-drawer {
+            position: fixed;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 395;
+            background: #fcf9f8;
+            color: #1c1b1b;
+            border-radius: 16px 16px 0 0;
+            max-height: 85vh;
+            display: flex;
+            flex-direction: column;
+            transform: translateY(100%);
+            transition: transform 0.38s cubic-bezier(0.32, 0.72, 0, 1);
+            box-shadow: 0 -8px 40px rgba(0,0,0,0.18);
+        }
+        .dark #faq-drawer {
+            background: #1f1e1e;
+            color: #fcf9f8;
+        }
+        #faq-drawer.is-open {
+            transform: translateY(0);
+        }
+
+        /* Desktop: right-side panel */
+        @media (min-width: 768px) {
+            #faq-drawer {
+                left: auto;
+                right: 0;
+                top: 0;
+                bottom: 0;
+                width: min(480px, 92vw);
+                border-radius: 0;
+                max-height: 100vh;
+                transform: translateX(100%);
+                box-shadow: -8px 0 40px rgba(0,0,0,0.18);
+            }
+            #faq-drawer.is-open {
+                transform: translateX(0);
+            }
+        }
+
+        #faq-drawer-handle {
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 24px 16px;
+            border-bottom: 1px solid rgba(0,0,0,0.07);
+        }
+        .dark #faq-drawer-handle {
+            border-bottom-color: rgba(255,255,255,0.08);
+        }
+        #faq-drawer-handle h2 {
+            font-family: 'Manrope', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: #1c1b1b;
+        }
+        .dark #faq-drawer-handle h2 {
+            color: #fcf9f8;
+        }
+        /* Mobile drag handle pill */
+        #faq-drag-pill {
+            width: 36px;
+            height: 4px;
+            border-radius: 2px;
+            background: rgba(0,0,0,0.15);
+            margin: 10px auto 0;
+            flex-shrink: 0;
+        }
+        .dark #faq-drag-pill {
+            background: rgba(255,255,255,0.2);
+        }
+        @media (min-width: 768px) {
+            #faq-drag-pill { display: none; }
+        }
+
+        #faq-close {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: none;
+            background: rgba(0,0,0,0.06);
+            color: #1c1b1b;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+            flex-shrink: 0;
+        }
+        .dark #faq-close {
+            background: rgba(255,255,255,0.08);
+            color: #fcf9f8;
+        }
+        #faq-close:hover { background: rgba(0,0,0,0.12); }
+        .dark #faq-close:hover { background: rgba(255,255,255,0.16); }
+
+        #faq-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 8px 24px 32px;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(0,0,0,0.12) transparent;
+        }
+        .dark #faq-body {
+            scrollbar-color: rgba(255,255,255,0.1) transparent;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid rgba(0,0,0,0.07);
+        }
+        .dark .faq-item {
+            border-bottom-color: rgba(255,255,255,0.08);
+        }
+        .faq-item:last-child { border-bottom: none; }
+
+        .faq-item summary {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 0;
+            cursor: pointer;
+            list-style: none;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #1c1b1b;
+            gap: 12px;
+        }
+        .dark .faq-item summary { color: #fcf9f8; }
+        .faq-item summary::-webkit-details-marker { display: none; }
+
+        .faq-item summary .faq-icon {
+            flex-shrink: 0;
+            color: rgba(119,90,25,0.5);
+            transition: transform 0.25s ease;
+        }
+        .dark .faq-item summary .faq-icon { color: rgba(233,193,118,0.5); }
+        .faq-item[open] summary .faq-icon { transform: rotate(180deg); }
+
+        .faq-answer {
+            padding-bottom: 18px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.84rem;
+            line-height: 1.65;
+            color: rgba(28,27,27,0.65);
+        }
+        .dark .faq-answer { color: rgba(252,249,248,0.60); }
     </style>
 </head>
 
@@ -533,8 +703,7 @@
                     href="#studio" data-i18n="nav.studio">Studio</a>
                 <a class="text-[#1c1b1b]/60 dark:text-[#fcf9f8]/60 font-medium hover:text-[#775a19] dark:hover:text-[#e9c176] transition-colors duration-300"
                     href="#location" data-i18n="nav.location">Location</a>
-                <a class="text-[#1c1b1b]/60 dark:text-[#fcf9f8]/60 font-medium hover:text-[#775a19] dark:hover:text-[#e9c176] transition-colors duration-300" href="#faq"
-                    data-i18n="nav.faq">FAQ</a>
+                <button id="faq-trigger-desktop" class="text-[#1c1b1b]/60 dark:text-[#fcf9f8]/60 font-medium hover:text-[#775a19] dark:hover:text-[#e9c176] transition-colors duration-300 bg-transparent border-none cursor-pointer" data-i18n="nav.faq">FAQ</button>
             </div>
             
             <!-- Desktop: Right side buttons -->
@@ -957,69 +1126,7 @@
                 </div>
             </div>
         </section>
-        <!-- FAQ Section -->
-        <section class="py-24 bg-surface dark:bg-[#1c1b1b]" id="faq">
-            <div class="max-w-3xl mx-auto px-6">
-                <h2 class="font-headline text-3xl font-bold mb-12 text-center editorial-spacing" data-i18n="faq.title">
-                    Frequently Asked Questions</h2>
-                <div class="divide-y divide-outline-variant/20 border-t border-outline-variant/20 dark:divide-white/10 dark:border-white/10">
-                    <details class="group py-4 transition-all duration-300">
-                        <summary
-                            class="flex justify-between items-center font-medium cursor-pointer list-none text-on-surface dark:text-[#fcf9f8]">
-                            <span data-i18n="faq.q1">What happens if I'm late?</span>
-                            <span
-                                class="material-symbols-outlined group-open:rotate-180 transition-transform text-primary/50 dark:text-[#e9c176]/50">expand_more</span>
-                        </summary>
-                        <p class="mt-2 text-sm text-on-surface-variant/80 dark:text-[#fcf9f8]/60 leading-relaxed" data-i18n="faq.a1">Session
-                            time starts at the booked hour. Being late will reduce your shooting time as we often have
-                            consecutive bookings.</p>
-                    </details>
-                    <details class="group py-4 transition-all duration-300">
-                        <summary
-                            class="flex justify-between items-center font-medium cursor-pointer list-none text-on-surface dark:text-[#fcf9f8]">
-                            <span data-i18n="faq.q2">Can I have the RAW files?</span>
-                            <span
-                                class="material-symbols-outlined group-open:rotate-180 transition-transform text-primary/50 dark:text-[#e9c176]/50">expand_more</span>
-                        </summary>
-                        <p class="mt-2 text-sm text-on-surface-variant/80 dark:text-[#fcf9f8]/60 leading-relaxed" data-i18n="faq.a2">We do not
-                            deliver RAW or unedited files. Part of our studio's value is the curated editing and color
-                            grading process.</p>
-                    </details>
-                    <details class="group py-4 transition-all duration-300">
-                        <summary
-                            class="flex justify-between items-center font-medium cursor-pointer list-none text-on-surface dark:text-[#fcf9f8]">
-                            <span data-i18n="faq.q3">Studio shoe policy?</span>
-                            <span
-                                class="material-symbols-outlined group-open:rotate-180 transition-transform text-primary/50 dark:text-[#e9c176]/50">expand_more</span>
-                        </summary>
-                        <p class="mt-2 text-sm text-on-surface-variant/80 dark:text-[#fcf9f8]/60 leading-relaxed" data-i18n="faq.a3">To keep
-                            our white cyclorama pristine, we ask that all shoes used for shooting have their soles
-                            thoroughly cleaned before stepping on the wall.</p>
-                    </details>
-                    <details class="group py-4 transition-all duration-300">
-                        <summary
-                            class="flex justify-between items-center font-medium cursor-pointer list-none text-on-surface dark:text-[#fcf9f8]">
-                            <span data-i18n="faq.q4">Does the session time include setup?</span>
-                            <span
-                                class="material-symbols-outlined group-open:rotate-180 transition-transform text-primary/50 dark:text-[#e9c176]/50">expand_more</span>
-                        </summary>
-                        <p class="mt-2 text-sm text-on-surface-variant/80 dark:text-[#fcf9f8]/60 leading-relaxed" data-i18n="faq.a4">Yes,
-                            session time includes both setup at the beginning and wrap-up at the end (around 20
-                            minutes).</p>
-                    </details>
-                    <details class="group py-4 transition-all duration-300">
-                        <summary
-                            class="flex justify-between items-center font-medium cursor-pointer list-none text-on-surface dark:text-[#fcf9f8]">
-                            <span data-i18n="faq.q5">What is the cancellation policy?</span>
-                            <span
-                                class="material-symbols-outlined group-open:rotate-180 transition-transform text-primary/50 dark:text-[#e9c176]/50">expand_more</span>
-                        </summary>
-                        <p class="mt-2 text-sm text-on-surface-variant/80 dark:text-[#fcf9f8]/60 leading-relaxed" data-i18n="faq.a5">
-                            Cancellation depends on booking conditions (deposit loss, rebooking, etc).</p>
-                    </details>
-                </div>
-            </div>
-        </section>
+
         <!-- Final CTA -->
         <section id="contact" class="py-10 px-6">
             <div
@@ -1134,6 +1241,67 @@
                 <li data-i18n="about.line3">Focused on portraits, dance, corporate and personal content</li>
                 <li data-i18n="about.line4">Simple setups, clean results, no overcomplication</li>
             </ul>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         FAQ DRAWER
+    ═══════════════════════════════════════════════════════════ -->
+    <div id="faq-overlay" aria-hidden="true"></div>
+    <div id="faq-drawer" role="dialog" aria-modal="true" aria-label="FAQ">
+        <!-- Mobile drag pill -->
+        <div id="faq-drag-pill"></div>
+        <!-- Header -->
+        <div id="faq-drawer-handle">
+            <h2 data-i18n="faq.title">Frequently Asked Questions</h2>
+            <button id="faq-close" aria-label="Close FAQ">
+                <span class="material-symbols-outlined" style="font-size:20px">close</span>
+            </button>
+        </div>
+        <!-- Scrollable body -->
+        <div id="faq-body">
+            <details class="faq-item">
+                <summary>
+                    <span data-i18n="faq.q1">What happens if I'm late?</span>
+                    <span class="material-symbols-outlined faq-icon">expand_more</span>
+                </summary>
+                <p class="faq-answer" data-i18n="faq.a1">Session time starts at the booked hour. Being late will reduce your shooting time as we often have consecutive bookings.</p>
+            </details>
+            <details class="faq-item">
+                <summary>
+                    <span data-i18n="faq.q2">Does the session time include setup?</span>
+                    <span class="material-symbols-outlined faq-icon">expand_more</span>
+                </summary>
+                <p class="faq-answer" data-i18n="faq.a2">Yes, session time includes both setup at the beginning and wrap-up at the end (around 20 minutes).</p>
+            </details>
+            <details class="faq-item">
+                <summary>
+                    <span data-i18n="faq.q3">Do you apply filters or heavy edits to the photos?</span>
+                    <span class="material-symbols-outlined faq-icon">expand_more</span>
+                </summary>
+                <p class="faq-answer" data-i18n="faq.a3">We don't apply heavy filters or highly stylized edits. Images are delivered with a clean, natural color correction. If you're looking for a specific artistic style, I can adapt the editing if discussed in advance.</p>
+            </details>
+            <details class="faq-item">
+                <summary>
+                    <span data-i18n="faq.q4">Can I have the RAW files?</span>
+                    <span class="material-symbols-outlined faq-icon">expand_more</span>
+                </summary>
+                <p class="faq-answer" data-i18n="faq.a4">We do not deliver RAW or unedited files. Part of our studio's value is the curated editing and color grading process.</p>
+            </details>
+            <details class="faq-item">
+                <summary>
+                    <span data-i18n="faq.q5">Studio shoe policy?</span>
+                    <span class="material-symbols-outlined faq-icon">expand_more</span>
+                </summary>
+                <p class="faq-answer" data-i18n="faq.a5">To keep our white cyclorama pristine, we ask that all shoes used for shooting have their soles thoroughly cleaned before stepping on the wall.</p>
+            </details>
+            <details class="faq-item">
+                <summary>
+                    <span data-i18n="faq.q6">What is the cancellation policy?</span>
+                    <span class="material-symbols-outlined faq-icon">expand_more</span>
+                </summary>
+                <p class="faq-answer" data-i18n="faq.a6">A deposit is required when booking a session. If the session is canceled within a reasonable timeframe, an option to reschedule may be offered depending on availability. Otherwise, the deposit will be retained.</p>
+            </details>
         </div>
     </div>
 
@@ -1324,12 +1492,10 @@
                     <span
                         class="material-symbols-outlined text-primary dark:text-[#e9c176] opacity-0 -translate-x-4 transition-all group-hover:opacity-100 group-hover:translate-x-0">arrow_forward</span>
                 </a>
-                <a class="mobile-nav-link text-lg font-headline font-medium text-[#1c1b1b]/60 dark:text-[#fcf9f8]/60 flex items-center justify-between group"
-                    href="#faq">
+                <button id="faq-trigger-mobile" class="mobile-nav-link text-lg font-headline font-medium text-[#1c1b1b]/60 dark:text-[#fcf9f8]/60 flex items-center justify-between group w-full text-left bg-transparent border-none cursor-pointer">
                     <span data-i18n="nav.faq">FAQ</span>
-                    <span
-                        class="material-symbols-outlined text-primary dark:text-[#e9c176] opacity-0 -translate-x-4 transition-all group-hover:opacity-100 group-hover:translate-x-0">arrow_forward</span>
-                </a>
+                    <span class="material-symbols-outlined text-primary dark:text-[#e9c176] opacity-0 -translate-x-4 transition-all group-hover:opacity-100 group-hover:translate-x-0">arrow_forward</span>
+                </button>
             </nav>
             <div class="pt-8 border-t border-outline-variant/30 dark:border-white/10 flex justify-center items-center">
                 <a href="#contact"
@@ -1974,9 +2140,17 @@
             const modal = document.getElementById('about-modal');
             const btnOpen = document.getElementById('about-byline');
             const btnClose = document.getElementById('about-modal-close');
+            let _handlingPop = false;
 
-            function openAbout() { modal.classList.add('is-open'); }
-            function closeAbout() { modal.classList.remove('is-open'); }
+            function openAbout() {
+                modal.classList.add('is-open');
+                document.body.style.overflow = 'hidden';
+                if (!_handlingPop) history.pushState({ panel: 'about' }, '');
+            }
+            function closeAbout() {
+                modal.classList.remove('is-open');
+                document.body.style.overflow = '';
+            }
 
             btnOpen.addEventListener('click', openAbout);
             btnClose.addEventListener('click', closeAbout);
@@ -1985,6 +2159,83 @@
             });
             document.addEventListener('keydown', function (e) {
                 if (e.key === 'Escape' && modal.classList.contains('is-open')) closeAbout();
+            });
+            window.addEventListener('popstate', function (e) {
+                if (modal.classList.contains('is-open')) {
+                    _handlingPop = true;
+                    closeAbout();
+                    _handlingPop = false;
+                }
+            });
+        })();
+    </script>
+
+    <!-- ── FAQ Drawer JS ──────────────────────────────────────────── -->
+    <script>
+        (function () {
+            const overlay  = document.getElementById('faq-overlay');
+            const drawer   = document.getElementById('faq-drawer');
+            const btnClose = document.getElementById('faq-close');
+            const triggers = [
+                document.getElementById('faq-trigger-desktop'),
+                document.getElementById('faq-trigger-mobile')
+            ];
+            let _handlingPop = false;
+
+            function openFaq() {
+                overlay.classList.add('is-open');
+                drawer.classList.add('is-open');
+                document.body.style.overflow = 'hidden';
+                if (!_handlingPop) history.pushState({ panel: 'faq' }, '');
+            }
+
+            function closeFaq() {
+                overlay.classList.remove('is-open');
+                drawer.classList.remove('is-open');
+                document.body.style.overflow = '';
+            }
+
+            triggers.forEach(function (btn) {
+                if (btn) btn.addEventListener('click', function () {
+                    // Close mobile menu first if open, then open drawer
+                    const mobileMenu = document.getElementById('mobile-menu');
+                    if (mobileMenu && !mobileMenu.classList.contains('-translate-y-full')) {
+                        // trigger the existing toggleMenu logic
+                        const toggle = document.getElementById('mobile-menu-toggle');
+                        if (toggle) toggle.click();
+                        // Slight delay so menu closes before drawer opens
+                        setTimeout(openFaq, 320);
+                    } else {
+                        openFaq();
+                    }
+                });
+            });
+
+            // ── Accordion: opening one item collapses all others ──────
+            const faqItems = drawer.querySelectorAll('details.faq-item');
+            faqItems.forEach(function (item) {
+                item.addEventListener('toggle', function () {
+                    if (item.open) {
+                        faqItems.forEach(function (other) {
+                            if (other !== item) other.open = false;
+                        });
+                    }
+                });
+            });
+
+            btnClose.addEventListener('click', closeFaq);
+            overlay.addEventListener('click', closeFaq);
+
+            document.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape' && drawer.classList.contains('is-open')) closeFaq();
+            });
+
+            window.addEventListener('popstate', function (e) {
+                if (drawer.classList.contains('is-open')) {
+                    _handlingPop = true;
+                    closeFaq();
+                    _handlingPop = false;
+                }
             });
         })();
     </script>
