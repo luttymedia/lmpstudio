@@ -405,33 +405,29 @@
     ═══════════════════════════════════════════════════════ -->
     <header id="site-header"
         class="fixed top-0 w-full z-[100] bg-[#fcf9f8]/90 dark:bg-[#121111]/90 backdrop-blur-md shadow-[0_20px_50px_rgba(28,27,27,0.05)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.3)] opacity-0 pointer-events-none transition-opacity duration-500">
-        <nav class="flex justify-between items-center px-6 md:px-12 py-3 max-w-[1440px] mx-auto">
-            <span class="hover:opacity-70 transition-opacity cursor-default">
+        <nav class="relative flex justify-between items-center px-3 md:px-12 py-3 max-w-[1440px] mx-auto">
+            <!-- Left: Theme toggle -->
+            <button id="mobile-theme-toggle-gallery"
+                class="absolute left-3 top-1/2 -translate-y-1/2 p-2 text-[#1c1b1b]/60 dark:text-[#fcf9f8]/60 font-medium hover:text-[#775a19] dark:hover:text-[#e9c176] transition-colors z-10">
+                <span class="material-symbols-outlined text-[18px]">dark_mode</span>
+            </button>
+            
+            <!-- Center: Logo -->
+            <a href="/" class="mx-auto hover:opacity-70 transition-opacity">
                 <img src="images/logo-nav.png" alt="Lutty Moreira Photo"
                     class="h-6 md:h-8 w-auto aspect-auto dark:hidden"
                     style="image-rendering:-webkit-optimize-contrast;mix-blend-mode:multiply;">
                 <img src="images/logo-nav-white.png" alt="Lutty Moreira Photo"
                     class="h-6 md:h-8 w-auto aspect-auto hidden dark:block"
                     style="image-rendering:-webkit-optimize-contrast;">
-            </span>
-            <div class="flex items-center gap-3">
-                <div id="gallery-title-header"
-                    class="font-headline text-sm font-bold text-secondary dark:text-[#fcf9f8]/60 tracking-widest uppercase hidden md:block">
-                </div>
-                <button id="mobile-theme-toggle-gallery"
-                    class="md:hidden flex items-center justify-center p-2 text-[#1c1b1b]/60 dark:text-[#fcf9f8]/60 font-medium hover:text-[#775a19] dark:hover:text-[#e9c176] transition-colors">
-                    <span class="material-symbols-outlined text-[18px]">dark_mode</span>
-                </button>
-                <button id="theme-toggle-gallery"
-                    class="hidden md:flex items-center gap-1.5 text-[#1c1b1b]/60 dark:text-[#fcf9f8]/60 font-medium hover:text-[#775a19] dark:hover:text-[#e9c176] transition-colors duration-300 text-sm py-2 px-3 hover:bg-black/5 dark:hover:bg-white/10 rounded-lg">
-                    <span class="material-symbols-outlined text-[20px]">dark_mode</span>
-                </button>
-                <button id="lang-switch-gallery"
-                    class="flex items-center gap-1.5 text-[#1c1b1b]/60 dark:text-[#fcf9f8]/60 font-medium hover:text-[#775a19] dark:hover:text-[#e9c176] transition-colors duration-300 text-sm py-2 px-3 hover:bg-black/5 dark:hover:bg-white/10 rounded-lg">
-                    <span class="material-symbols-outlined text-[20px]">language</span>
-                    <span class="lang-label">ES</span>
-                </button>
-            </div>
+            </a>
+            
+            <!-- Right: Language selector -->
+            <button id="lang-switch-gallery"
+                class="absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-1 text-[#1c1b1b]/60 dark:text-[#fcf9f8]/60 font-medium hover:text-[#775a19] dark:hover:text-[#e9c176] transition-colors p-2 text-sm z-10">
+                <span class="material-symbols-outlined text-[18px]">language</span>
+                <span class="lang-label">ES</span>
+            </button>
         </nav>
     </header>
 
@@ -631,11 +627,6 @@
                     document.querySelectorAll('.lang-label').forEach(el => {
                         el.textContent = lang === 'en' ? 'ES' : 'EN';
                     });
-                    // Update the header title if it exists
-                    const headerTitle = document.getElementById('gallery-title-header');
-                    if (headerTitle && galleryMeta && headerTitle.textContent === galleryMeta.title) {
-                        // Keep the gallery title, but update if needed
-                    }
                     // Note: Dynamic content (gallery title, photo count) comes from API and is not translated
                 }
 
@@ -846,7 +837,6 @@
 
                     // Setup gallery directly from stored data
                     document.getElementById('gallery-title').textContent = galleryMeta.title;
-                    document.getElementById('gallery-title-header').textContent = galleryMeta.title;
                     document.getElementById('image-count').textContent = `${images.length} ${images.length === 1 ? t('content.photo') : t('content.photos')}`;
 
                     if (downloadZipUrl) {
@@ -951,7 +941,6 @@
 
                         // Setup gallery
                         document.getElementById('gallery-title').textContent = galleryMeta.title;
-                        document.getElementById('gallery-title-header').textContent = galleryMeta.title;
                         document.getElementById('image-count').textContent = `${images.length} ${images.length === 1 ? t('content.photo') : t('content.photos')}`;
                         if (imageData.downloadZipUrl) {
                             const dlBtn = document.getElementById('download-all-btn');

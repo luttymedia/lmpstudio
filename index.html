@@ -354,14 +354,31 @@
     <!-- TopNavBar (Shared Component) -->
     <header
         class="fixed top-0 w-full z-[100] bg-[#fcf9f8]/80 dark:bg-[#121111]/80 backdrop-blur-md shadow-[0_20px_50px_rgba(28,27,27,0.05)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.3)]">
-        <nav class="flex justify-between items-center px-6 md:px-12 py-2 max-w-[1440px] mx-auto">
-            <a href="#" class="hover:opacity-70 transition-opacity">
-                <img src="images/logo-nav.png" alt="Lutty Moreira Photo" class="h-6 md:h-8 w-auto aspect-auto dark:hidden"
+        <nav class="relative flex justify-between items-center px-3 lg:px-12 py-3 max-w-[1440px] mx-auto">
+            <!-- Mobile/Tablet: Left button (hamburger) -->
+            <button id="mobile-menu-toggle"
+                class="lg:hidden absolute left-3 top-1/2 -translate-y-1/2 p-2 text-[#1c1b1b] dark:text-[#fcf9f8] hover:bg-black/5 dark:hover:bg-white/10 rounded-full transition-colors z-10">
+                <span class="material-symbols-outlined transition-all duration-300 menu-icon">menu</span>
+                <span class="material-symbols-outlined transition-all duration-300 close-icon hidden">close</span>
+            </button>
+            
+            <!-- Logo (centered on mobile/tablet, left on desktop) -->
+            <a href="#" class="mx-auto lg:mx-0 hover:opacity-70 transition-opacity">
+                <img src="images/logo-nav.png" alt="Lutty Moreira Photo" class="h-6 lg:h-8 w-auto aspect-auto dark:hidden"
                     style="image-rendering: -webkit-optimize-contrast; mix-blend-mode: multiply;">
-                <img src="images/logo-nav-white.png" alt="Lutty Moreira Photo" class="h-6 md:h-8 w-auto aspect-auto hidden dark:block"
+                <img src="images/logo-nav-white.png" alt="Lutty Moreira Photo" class="h-6 lg:h-8 w-auto aspect-auto hidden dark:block"
                     style="image-rendering: -webkit-optimize-contrast;">
             </a>
-            <div class="hidden md:flex items-center gap-8">
+            
+            <!-- Mobile/Tablet: Right button (language) -->
+            <button id="mobile-lang-switch-nav"
+                class="lg:hidden absolute right-3 top-1/2 -translate-y-1/2 text-[#1c1b1b]/60 dark:text-[#fcf9f8]/60 font-medium hover:text-[#775a19] dark:hover:text-[#e9c176] transition-colors p-2 text-sm flex items-center gap-1 z-10">
+                <span class="material-symbols-outlined text-[18px]">language</span>
+                <span class="lang-label">ES</span>
+            </button>
+            
+            <!-- Desktop: Navigation menu -->
+            <div class="hidden lg:flex items-center gap-8">
                 <a class="text-[#1c1b1b]/60 dark:text-[#fcf9f8]/60 font-medium hover:text-[#775a19] dark:hover:text-[#e9c176] transition-colors duration-300"
                     href="#pricing" data-i18n="nav.pricing">Pricing</a>
                 <a class="text-[#1c1b1b]/60 dark:text-[#fcf9f8]/60 font-medium hover:text-[#775a19] dark:hover:text-[#e9c176] transition-colors duration-300"
@@ -373,29 +390,20 @@
                 <a class="text-[#1c1b1b]/60 dark:text-[#fcf9f8]/60 font-medium hover:text-[#775a19] dark:hover:text-[#e9c176] transition-colors duration-300" href="#faq"
                     data-i18n="nav.faq">FAQ</a>
             </div>
-            <div class="flex items-center gap-2">
-                <button id="mobile-lang-switch-nav"
-                    class="md:hidden text-[#1c1b1b]/60 dark:text-[#fcf9f8]/60 font-medium hover:text-[#775a19] dark:hover:text-[#e9c176] transition-colors p-2 text-sm flex items-center gap-1">
-                    <span class="material-symbols-outlined text-[18px]">language</span>
-                    <span class="lang-label">ES</span>
-                </button>
-                <!-- Mobile theme toggle moved to hamburger menu -->
-                <button id="mobile-menu-toggle"
-                    class="md:hidden flex items-center justify-center p-2 text-[#1c1b1b] dark:text-[#fcf9f8] hover:bg-black/5 dark:hover:bg-white/10 rounded-full transition-colors">
-                    <span class="material-symbols-outlined transition-all duration-300 menu-icon">menu</span>
-                    <span class="material-symbols-outlined transition-all duration-300 close-icon hidden">close</span>
-                </button>
+            
+            <!-- Desktop: Right side buttons -->
+            <div class="hidden lg:flex items-center gap-2">
                 <button id="theme-toggle"
-                    class="hidden md:flex items-center gap-1.5 text-[#1c1b1b]/60 dark:text-[#fcf9f8]/60 font-medium hover:text-[#775a19] dark:hover:text-[#e9c176] transition-colors duration-300 text-sm py-2 px-3 hover:bg-black/5 dark:hover:bg-white/10 rounded-lg">
+                    class="flex items-center gap-1.5 text-[#1c1b1b]/60 dark:text-[#fcf9f8]/60 font-medium hover:text-[#775a19] dark:hover:text-[#e9c176] transition-colors duration-300 text-sm py-2 px-3 hover:bg-black/5 dark:hover:bg-white/10 rounded-lg">
                     <span class="material-symbols-outlined text-[20px]">dark_mode</span>
                 </button>
                 <button id="lang-switch"
-                    class="hidden md:flex items-center gap-1.5 text-[#1c1b1b]/60 dark:text-[#fcf9f8]/60 font-medium hover:text-[#775a19] dark:hover:text-[#e9c176] transition-colors duration-300 text-sm py-2 px-3 hover:bg-black/5 dark:hover:bg-white/10 rounded-lg">
+                    class="flex items-center gap-1.5 text-[#1c1b1b]/60 dark:text-[#fcf9f8]/60 font-medium hover:text-[#775a19] dark:hover:text-[#e9c176] transition-colors duration-300 text-sm py-2 px-3 hover:bg-black/5 dark:hover:bg-white/10 rounded-lg">
                     <span class="material-symbols-outlined text-[20px]">language</span>
                     <span class="lang-label">ES</span>
                 </button>
                 <a href="#contact"
-                    class="hidden md:block bg-gradient-to-r from-primary to-primary-container text-on-primary px-6 py-2.5 rounded-lg text-sm font-semibold tracking-wide hover:opacity-90 active:scale-95 transition-all shadow-sm"
+                    class="bg-gradient-to-r from-primary to-primary-container text-on-primary px-6 py-2.5 rounded-lg text-sm font-semibold tracking-wide hover:opacity-90 active:scale-95 transition-all shadow-sm"
                     data-i18n="nav.contact">
                     Contact
                 </a>
@@ -1118,10 +1126,10 @@
         </div>
     </footer>
     <div id="mobile-overlay"
-        class="fixed inset-0 bg-[#1c1b1b]/40 dark:bg-black/60 z-[80] opacity-0 pointer-events-none transition-opacity duration-300 backdrop-blur-sm md:hidden">
+        class="fixed inset-0 bg-[#1c1b1b]/40 dark:bg-black/60 z-[80] opacity-0 pointer-events-none transition-opacity duration-300 backdrop-blur-sm lg:hidden">
     </div>
     <div id="mobile-menu"
-        class="fixed top-0 left-0 w-full bg-surface/95 dark:bg-[#1c1b1b]/95 backdrop-blur-xl z-[90] border-b border-outline-variant/30 dark:border-white/10 transform -translate-y-full transition-transform duration-500 ease-in-out md:hidden shadow-2xl overflow-hidden">
+        class="fixed top-0 left-0 w-full bg-surface/95 dark:bg-[#1c1b1b]/95 backdrop-blur-xl z-[90] border-b border-outline-variant/30 dark:border-white/10 transform -translate-y-full transition-transform duration-500 ease-in-out lg:hidden shadow-2xl overflow-hidden">
         <div class="px-6 pt-[100px] pb-12 flex flex-col gap-8 max-h-screen overflow-y-auto">
             <nav class="flex flex-col gap-6">
                 <a class="mobile-nav-link text-lg font-headline font-medium text-[#1c1b1b]/60 dark:text-[#fcf9f8]/60 flex items-center justify-between group"
