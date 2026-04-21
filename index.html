@@ -347,6 +347,152 @@
         #lightbox-caption-icon.is-rotated {
             transform: rotate(180deg);
         }
+
+        /* ── About Modal ─────────────────────────────────────────── */
+        #about-modal {
+            position: fixed;
+            inset: 0;
+            z-index: 400;
+            background: rgba(0, 0, 0, 0.60);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.25s ease;
+            backdrop-filter: blur(4px);
+        }
+
+        #about-modal.is-open {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        #about-modal-card {
+            background: #fcf9f8;
+            color: #1c1b1b;
+            border-radius: 4px;
+            max-width: 380px;
+            width: 100%;
+            padding: 28px;
+            position: relative;
+            transform: translateY(10px);
+            transition: transform 0.25s ease;
+            box-shadow: 0 8px 40px rgba(0,0,0,0.18);
+        }
+
+        .dark #about-modal-card {
+            background: #1f1e1e;
+            color: #fcf9f8;
+        }
+
+        #about-modal.is-open #about-modal-card {
+            transform: translateY(0);
+        }
+
+        #about-modal-close {
+            position: absolute;
+            top: 14px;
+            right: 14px;
+            width: 32px;
+            height: 32px;
+            border: none;
+            background: rgba(0,0,0,0.07);
+            color: #1c1b1b;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+        }
+
+        .dark #about-modal-close {
+            background: rgba(255,255,255,0.08);
+            color: #fcf9f8;
+        }
+
+        #about-modal-close:hover {
+            background: rgba(0,0,0,0.13);
+        }
+
+        .dark #about-modal-close:hover {
+            background: rgba(255,255,255,0.16);
+        }
+
+        /* Header row: portrait photo + name */
+        #about-modal-header {
+            display: flex;
+            align-items: flex-end;
+            gap: 18px;
+            margin-bottom: 22px;
+        }
+
+        #about-modal-photo {
+            width: 132px;
+            height: 132px;
+            border-radius: 4px;
+            object-fit: cover;
+            object-position: top center;
+            flex-shrink: 0;
+        }
+
+        #about-modal-name {
+            font-family: 'Manrope', sans-serif;
+            font-size: 1.35rem;
+            font-weight: 800;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+            color: #775a19;
+        }
+
+        .dark #about-modal-name {
+            color: #e9c176;
+        }
+
+        #about-modal ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        #about-modal ul li {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.82rem;
+            line-height: 1.4;
+            color: rgba(28,27,27,0.65);
+            padding-left: 12px;
+            border-left: 2px solid rgba(119,90,25,0.45);
+        }
+
+        .dark #about-modal ul li {
+            color: rgba(252,249,248,0.70);
+            border-left-color: rgba(201,160,89,0.5);
+        }
+
+        #about-byline {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 400;
+            letter-spacing: 0.04em;
+            color: rgba(255,255,255,0.45);
+            padding: 0;
+            transition: color 0.2s;
+            text-decoration: none;
+        }
+
+        #about-byline:hover {
+            color: rgba(255,255,255,0.75);
+            text-decoration: underline;
+            text-underline-offset: 3px;
+        }
     </style>
 </head>
 
@@ -427,9 +573,10 @@
                     data-i18n="hero.title">
                     Studio Sessions in Barcelona
                 </h1>
-                <p class="font-body text-lg md:text-xl text-white/90 mb-8 max-w-2xl mx-auto" data-i18n="hero.subtitle">
+                <p class="font-body text-lg md:text-xl text-white/90 mb-3 max-w-2xl mx-auto" data-i18n="hero.subtitle">
                     Photo & video sessions in a fully equipped studio.
                 </p>
+                <button id="about-byline" class="mb-8" data-i18n="hero.byline">by Lutty Moreira</button>
                 <div class="flex flex-col md:flex-row items-center justify-center gap-6">
                     <span class="text-white/80 font-medium text-lg" data-i18n="hero.priceInfo">From 150€ · Edited photos
                         included</span>
@@ -967,6 +1114,27 @@
             <span class="material-symbols-outlined">chevron_right</span>
         </button>
         <div id="lightbox-counter"></div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         ABOUT MODAL
+    ═══════════════════════════════════════════════════════════ -->
+    <div id="about-modal" role="dialog" aria-modal="true" aria-label="About Lutty Moreira">
+        <div id="about-modal-card">
+            <button id="about-modal-close" aria-label="Close">
+                <span class="material-symbols-outlined" style="font-size:16px">close</span>
+            </button>
+            <div id="about-modal-header">
+                <img id="about-modal-photo" src="images/luttyProfile.png" alt="Lutty Moreira" />
+                <p id="about-modal-name" data-i18n="about.name">Hi, I'm Lutty!</p>
+            </div>
+            <ul>
+                <li data-i18n="about.line1">Photographer based in Barcelona working around Europe</li>
+                <li data-i18n="about.line2">Shooting since 2007</li>
+                <li data-i18n="about.line3">Focused on portraits, dance, corporate and personal content</li>
+                <li data-i18n="about.line4">Simple setups, clean results, no overcomplication</li>
+            </ul>
+        </div>
     </div>
 
     <!-- Contact Form Section -->
@@ -1799,6 +1967,28 @@
             });
         }
     </script>
+
+    <!-- ── About Modal JS ─────────────────────────────────────────── -->
+    <script>
+        (function () {
+            const modal = document.getElementById('about-modal');
+            const btnOpen = document.getElementById('about-byline');
+            const btnClose = document.getElementById('about-modal-close');
+
+            function openAbout() { modal.classList.add('is-open'); }
+            function closeAbout() { modal.classList.remove('is-open'); }
+
+            btnOpen.addEventListener('click', openAbout);
+            btnClose.addEventListener('click', closeAbout);
+            modal.addEventListener('click', function (e) {
+                if (e.target === modal) closeAbout();
+            });
+            document.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape' && modal.classList.contains('is-open')) closeAbout();
+            });
+        })();
+    </script>
+
 </body>
 
 </html>

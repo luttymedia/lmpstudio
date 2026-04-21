@@ -12,8 +12,16 @@
     "hero": {
       "title": "Studio Sessions in Barcelona",
       "subtitle": "Photo & video sessions in a fully equipped studio.",
+      "byline": "by Lutty Moreira",
       "priceInfo": "From 150€ · Edited photos included",
       "cta": "Contact Now"
+    },
+    "about": {
+      "name": "Hi, I'm Lutty!",
+      "line1": "Photographer based in Barcelona, working around Europe",
+      "line2": "Shooting since 2007",
+      "line3": "Focused on portraits, dance, corporate and personal content",
+      "line4": "Simple setups, clean results, no overcomplication"
     },
     "overview": {
       "title1": "Flexible Sessions",
@@ -252,8 +260,16 @@
     "hero": {
       "title": "Sesiones de Estudio en Barcelona",
       "subtitle": "Sesiones de foto y video en un estudio completamente equipado.",
+      "byline": "por Lutty Moreira",
       "priceInfo": "Desde 150€ · Fotos editadas incluidas",
       "cta": "Contactar ahora"
+    },
+    "about": {
+      "name": "¡Hola, soy Lutty!",
+      "line1": "Fotógrafo basado en Barcelona, trabajando por Europa",
+      "line2": "Disparando desde 2007",
+      "line3": "Especializado en retratos, danza, corporativo y contenido personal",
+      "line4": "Sets simples, resultados limpios, sin complicaciones"
     },
     "overview": {
       "title1": "Sesiones Flexibles",
