@@ -379,7 +379,7 @@
             position: relative;
             transform: translateY(10px);
             transition: transform 0.25s ease;
-            box-shadow: 0 8px 40px rgba(0,0,0,0.18);
+            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.18);
         }
 
         .dark #about-modal-card {
@@ -398,7 +398,7 @@
             width: 32px;
             height: 32px;
             border: none;
-            background: rgba(0,0,0,0.07);
+            background: rgba(0, 0, 0, 0.07);
             color: #1c1b1b;
             border-radius: 50%;
             cursor: pointer;
@@ -409,16 +409,16 @@
         }
 
         .dark #about-modal-close {
-            background: rgba(255,255,255,0.08);
+            background: rgba(255, 255, 255, 0.08);
             color: #fcf9f8;
         }
 
         #about-modal-close:hover {
-            background: rgba(0,0,0,0.13);
+            background: rgba(0, 0, 0, 0.13);
         }
 
         .dark #about-modal-close:hover {
-            background: rgba(255,255,255,0.16);
+            background: rgba(255, 255, 255, 0.16);
         }
 
         /* Header row: portrait photo + name */
@@ -464,14 +464,14 @@
             font-family: 'Inter', sans-serif;
             font-size: 0.82rem;
             line-height: 1.4;
-            color: rgba(28,27,27,0.65);
+            color: rgba(28, 27, 27, 0.65);
             padding-left: 12px;
-            border-left: 2px solid rgba(119,90,25,0.45);
+            border-left: 2px solid rgba(119, 90, 25, 0.45);
         }
 
         .dark #about-modal ul li {
-            color: rgba(252,249,248,0.70);
-            border-left-color: rgba(201,160,89,0.5);
+            color: rgba(252, 249, 248, 0.70);
+            border-left-color: rgba(201, 160, 89, 0.5);
         }
 
         #about-byline {
@@ -482,14 +482,14 @@
             font-size: 0.75rem;
             font-weight: 400;
             letter-spacing: 0.04em;
-            color: rgba(255,255,255,0.45);
+            color: rgba(255, 255, 255, 0.45);
             padding: 0;
             transition: color 0.2s;
             text-decoration: none;
         }
 
         #about-byline:hover {
-            color: rgba(255,255,255,0.75);
+            color: rgba(255, 255, 255, 0.75);
             text-decoration: underline;
             text-underline-offset: 3px;
         }
@@ -505,6 +505,7 @@
             transition: opacity 0.3s ease;
             backdrop-filter: blur(2px);
         }
+
         #faq-overlay.is-open {
             opacity: 1;
             pointer-events: all;
@@ -525,12 +526,14 @@
             flex-direction: column;
             transform: translateY(100%);
             transition: transform 0.38s cubic-bezier(0.32, 0.72, 0, 1);
-            box-shadow: 0 -8px 40px rgba(0,0,0,0.18);
+            box-shadow: 0 -8px 40px rgba(0, 0, 0, 0.18);
         }
+
         .dark #faq-drawer {
             background: #1f1e1e;
             color: #fcf9f8;
         }
+
         #faq-drawer.is-open {
             transform: translateY(0);
         }
@@ -546,8 +549,9 @@
                 border-radius: 0;
                 max-height: 100vh;
                 transform: translateX(100%);
-                box-shadow: -8px 0 40px rgba(0,0,0,0.18);
+                box-shadow: -8px 0 40px rgba(0, 0, 0, 0.18);
             }
+
             #faq-drawer.is-open {
                 transform: translateX(0);
             }
@@ -559,11 +563,13 @@
             align-items: center;
             justify-content: space-between;
             padding: 20px 24px 16px;
-            border-bottom: 1px solid rgba(0,0,0,0.07);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.07);
         }
+
         .dark #faq-drawer-handle {
-            border-bottom-color: rgba(255,255,255,0.08);
+            border-bottom-color: rgba(255, 255, 255, 0.08);
         }
+
         #faq-drawer-handle h2 {
             font-family: 'Manrope', sans-serif;
             font-size: 1rem;
@@ -572,23 +578,29 @@
             text-transform: uppercase;
             color: #1c1b1b;
         }
+
         .dark #faq-drawer-handle h2 {
             color: #fcf9f8;
         }
+
         /* Mobile drag handle pill */
         #faq-drag-pill {
             width: 36px;
             height: 4px;
             border-radius: 2px;
-            background: rgba(0,0,0,0.15);
+            background: rgba(0, 0, 0, 0.15);
             margin: 10px auto 0;
             flex-shrink: 0;
         }
+
         .dark #faq-drag-pill {
-            background: rgba(255,255,255,0.2);
+            background: rgba(255, 255, 255, 0.2);
         }
+
         @media (min-width: 768px) {
-            #faq-drag-pill { display: none; }
+            #faq-drag-pill {
+                display: none;
+            }
         }
 
         #faq-close {
@@ -596,7 +608,7 @@
             height: 36px;
             border-radius: 50%;
             border: none;
-            background: rgba(0,0,0,0.06);
+            background: rgba(0, 0, 0, 0.06);
             color: #1c1b1b;
             cursor: pointer;
             display: flex;
@@ -605,31 +617,43 @@
             transition: background 0.2s;
             flex-shrink: 0;
         }
+
         .dark #faq-close {
-            background: rgba(255,255,255,0.08);
+            background: rgba(255, 255, 255, 0.08);
             color: #fcf9f8;
         }
-        #faq-close:hover { background: rgba(0,0,0,0.12); }
-        .dark #faq-close:hover { background: rgba(255,255,255,0.16); }
+
+        #faq-close:hover {
+            background: rgba(0, 0, 0, 0.12);
+        }
+
+        .dark #faq-close:hover {
+            background: rgba(255, 255, 255, 0.16);
+        }
 
         #faq-body {
             flex: 1;
             overflow-y: auto;
             padding: 8px 24px 32px;
             scrollbar-width: thin;
-            scrollbar-color: rgba(0,0,0,0.12) transparent;
+            scrollbar-color: rgba(0, 0, 0, 0.12) transparent;
         }
+
         .dark #faq-body {
-            scrollbar-color: rgba(255,255,255,0.1) transparent;
+            scrollbar-color: rgba(255, 255, 255, 0.1) transparent;
         }
 
         .faq-item {
-            border-bottom: 1px solid rgba(0,0,0,0.07);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.07);
         }
+
         .dark .faq-item {
-            border-bottom-color: rgba(255,255,255,0.08);
+            border-bottom-color: rgba(255, 255, 255, 0.08);
         }
-        .faq-item:last-child { border-bottom: none; }
+
+        .faq-item:last-child {
+            border-bottom: none;
+        }
 
         .faq-item summary {
             display: flex;
@@ -644,29 +668,45 @@
             color: #1c1b1b;
             gap: 12px;
         }
-        .dark .faq-item summary { color: #fcf9f8; }
-        .faq-item summary::-webkit-details-marker { display: none; }
+
+        .dark .faq-item summary {
+            color: #fcf9f8;
+        }
+
+        .faq-item summary::-webkit-details-marker {
+            display: none;
+        }
 
         .faq-item summary .faq-icon {
             flex-shrink: 0;
-            color: rgba(119,90,25,0.5);
+            color: rgba(119, 90, 25, 0.5);
             transition: transform 0.25s ease;
         }
-        .dark .faq-item summary .faq-icon { color: rgba(233,193,118,0.5); }
-        .faq-item[open] summary .faq-icon { transform: rotate(180deg); }
+
+        .dark .faq-item summary .faq-icon {
+            color: rgba(233, 193, 118, 0.5);
+        }
+
+        .faq-item[open] summary .faq-icon {
+            transform: rotate(180deg);
+        }
 
         .faq-answer {
             padding-bottom: 18px;
             font-family: 'Inter', sans-serif;
             font-size: 0.84rem;
             line-height: 1.65;
-            color: rgba(28,27,27,0.65);
+            color: rgba(28, 27, 27, 0.65);
         }
-        .dark .faq-answer { color: rgba(252,249,248,0.60); }
+
+        .dark .faq-answer {
+            color: rgba(252, 249, 248, 0.60);
+        }
     </style>
 </head>
 
-<body class="bg-surface text-on-surface font-body selection:bg-primary-container selection:text-on-primary-container dark:bg-[#121111] dark:text-[#fcf9f8]">
+<body
+    class="bg-surface text-on-surface font-body selection:bg-primary-container selection:text-on-primary-container dark:bg-[#121111] dark:text-[#fcf9f8]">
     <!-- TopNavBar (Shared Component) -->
     <header
         class="fixed top-0 w-full z-[100] bg-[#fcf9f8]/80 dark:bg-[#121111]/80 backdrop-blur-md shadow-[0_20px_50px_rgba(28,27,27,0.05)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.3)]">
@@ -677,22 +717,24 @@
                 <span class="material-symbols-outlined transition-all duration-300 menu-icon">menu</span>
                 <span class="material-symbols-outlined transition-all duration-300 close-icon hidden">close</span>
             </button>
-            
+
             <!-- Logo (centered on mobile/tablet, left on desktop) -->
             <a href="#" class="mx-auto lg:mx-0 hover:opacity-70 transition-opacity">
-                <img src="images/logo-nav.png" alt="Lutty Moreira Photo" class="h-6 lg:h-8 w-auto aspect-auto dark:hidden"
+                <img src="images/logo-nav.png" alt="Lutty Moreira Photo"
+                    class="h-6 lg:h-8 w-auto aspect-auto dark:hidden"
                     style="image-rendering: -webkit-optimize-contrast; mix-blend-mode: multiply;">
-                <img src="images/logo-nav-white.png" alt="Lutty Moreira Photo" class="h-6 lg:h-8 w-auto aspect-auto hidden dark:block"
+                <img src="images/logo-nav-white.png" alt="Lutty Moreira Photo"
+                    class="h-6 lg:h-8 w-auto aspect-auto hidden dark:block"
                     style="image-rendering: -webkit-optimize-contrast;">
             </a>
-            
+
             <!-- Mobile/Tablet: Right button (language) -->
             <button id="mobile-lang-switch-nav"
                 class="lg:hidden absolute right-3 top-1/2 -translate-y-1/2 text-[#1c1b1b]/60 dark:text-[#fcf9f8]/60 font-medium hover:text-[#775a19] dark:hover:text-[#e9c176] transition-colors p-2 text-sm flex items-center gap-1 z-10">
                 <span class="material-symbols-outlined text-[18px]">language</span>
                 <span class="lang-label">ES</span>
             </button>
-            
+
             <!-- Desktop: Navigation menu -->
             <div class="hidden lg:flex items-center gap-8">
                 <a class="text-[#1c1b1b]/60 dark:text-[#fcf9f8]/60 font-medium hover:text-[#775a19] dark:hover:text-[#e9c176] transition-colors duration-300"
@@ -703,9 +745,11 @@
                     href="#studio" data-i18n="nav.studio">Studio</a>
                 <a class="text-[#1c1b1b]/60 dark:text-[#fcf9f8]/60 font-medium hover:text-[#775a19] dark:hover:text-[#e9c176] transition-colors duration-300"
                     href="#location" data-i18n="nav.location">Location</a>
-                <button id="faq-trigger-desktop" class="text-[#1c1b1b]/60 dark:text-[#fcf9f8]/60 font-medium hover:text-[#775a19] dark:hover:text-[#e9c176] transition-colors duration-300 bg-transparent border-none cursor-pointer" data-i18n="nav.faq">FAQ</button>
+                <button id="faq-trigger-desktop"
+                    class="text-[#1c1b1b]/60 dark:text-[#fcf9f8]/60 font-medium hover:text-[#775a19] dark:hover:text-[#e9c176] transition-colors duration-300 bg-transparent border-none cursor-pointer"
+                    data-i18n="nav.faq">FAQ</button>
             </div>
-            
+
             <!-- Desktop: Right side buttons -->
             <div class="hidden lg:flex items-center gap-2">
                 <button id="theme-toggle"
@@ -743,7 +787,7 @@
                     Studio Sessions in Barcelona
                 </h1>
                 <p class="font-body text-lg md:text-xl text-white/90 mb-3 max-w-2xl mx-auto" data-i18n="hero.subtitle">
-                    Photo & video sessions in a fully equipped studio.
+                    Flexible studio setups for portraits, dance, and personal content.
                 </p>
                 <button id="about-byline" class="mb-8" data-i18n="hero.byline">by Lutty Moreira</button>
                 <div class="flex flex-col md:flex-row items-center justify-center gap-6">
@@ -763,30 +807,38 @@
                 <div class="grid grid-cols-1 md:grid-cols-4 gap-1">
                     <div
                         class="p-12 bg-surface-container-low dark:bg-[#2a2a2a] flex flex-col justify-center gap-4 group hover:bg-surface-container-high dark:hover:bg-[#3a3a3a] transition-colors">
-                        <span class="material-symbols-outlined text-primary dark:text-[#e9c176] text-4xl">schedule</span>
-                        <h3 class="font-headline text-2xl font-bold" data-i18n="overview.title1">Flexible Sessions</h3>
-                        <p class="text-on-surface-variant body-md dark:text-[#fcf9f8]/60" data-i18n="overview.desc1">Productive, impactful
-                            sessions starting from 150€.</p>
+                        <span
+                            class="material-symbols-outlined text-primary dark:text-[#e9c176] text-4xl">add_task</span>
+                        <h3 class="font-headline text-2xl font-bold" data-i18n="overview.title1">Guided Sessions</h3>
+                        <p class="text-on-surface-variant body-md dark:text-[#fcf9f8]/60" data-i18n="overview.desc1">
+                            We help you plan and
+                            guide you during the shoot.</p>
                     </div>
                     <div
                         class="p-12 bg-surface-container dark:bg-[#252525] flex flex-col justify-center gap-4 group hover:bg-surface-container-high dark:hover:bg-[#3a3a3a] transition-colors">
-                        <span class="material-symbols-outlined text-primary dark:text-[#e9c176] text-4xl">checkroom</span>
+                        <span
+                            class="material-symbols-outlined text-primary dark:text-[#e9c176] text-4xl">checkroom</span>
                         <h3 class="font-headline text-2xl font-bold" data-i18n="overview.title2">3 Outfits</h3>
-                        <p class="text-on-surface-variant body-md dark:text-[#fcf9f8]/60" data-i18n="overview.desc2">Express your range with up
+                        <p class="text-on-surface-variant body-md dark:text-[#fcf9f8]/60" data-i18n="overview.desc2">
+                            Express your range with up
                             to three look changes.</p>
                     </div>
                     <div
                         class="p-12 bg-surface-container-low dark:bg-[#2a2a2a] flex flex-col justify-center gap-4 group hover:bg-surface-container-high dark:hover:bg-[#3a3a3a] transition-colors">
-                        <span class="material-symbols-outlined text-primary dark:text-[#e9c176] text-4xl">lightbulb</span>
+                        <span
+                            class="material-symbols-outlined text-primary dark:text-[#e9c176] text-4xl">lightbulb</span>
                         <h3 class="font-headline text-2xl font-bold" data-i18n="overview.title3">Studio Included</h3>
-                        <p class="text-on-surface-variant body-md dark:text-[#fcf9f8]/60" data-i18n="overview.desc3">Professional lighting gear
+                        <p class="text-on-surface-variant body-md dark:text-[#fcf9f8]/60" data-i18n="overview.desc3">
+                            Professional lighting gear
                             and cyclorama ready.</p>
                     </div>
                     <div
                         class="p-12 bg-surface-container dark:bg-[#252525] flex flex-col justify-center gap-4 group hover:bg-surface-container-high dark:hover:bg-[#3a3a3a] transition-colors">
-                        <span class="material-symbols-outlined text-primary dark:text-[#e9c176] text-4xl">wb_sunny</span>
+                        <span
+                            class="material-symbols-outlined text-primary dark:text-[#e9c176] text-4xl">wb_sunny</span>
                         <h3 class="font-headline text-2xl font-bold" data-i18n="overview.title4">Mixed Options</h3>
-                        <p class="text-on-surface-variant body-md dark:text-[#fcf9f8]/60" data-i18n="overview.desc4">Book studio and outdoor
+                        <p class="text-on-surface-variant body-md dark:text-[#fcf9f8]/60" data-i18n="overview.desc4">
+                            Book studio and outdoor
                             setups within the same session.</p>
                     </div>
                 </div>
@@ -826,7 +878,8 @@
                         data-i18n="pricing.additionalExtras">Add-ons</h4>
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="extras-list"></div>
                 </div>
-                <p class="mt-8 text-center text-secondary dark:text-[#fcf9f8]/60 text-sm font-medium" data-i18n="pricing.note">Same price for
+                <p class="mt-8 text-center text-secondary dark:text-[#fcf9f8]/60 text-sm font-medium"
+                    data-i18n="pricing.note">Same price for
                     individuals, couples, and small groups (up to 5 people)</p>
             </div>
         </section>
@@ -963,25 +1016,30 @@
                             data-i18n="studio.title">The Studio</h2>
                         <div class="space-y-8">
                             <div class="flex gap-6">
-                                <span class="material-symbols-outlined text-primary dark:text-[#e9c176] text-3xl">panorama_horizontal</span>
+                                <span
+                                    class="material-symbols-outlined text-primary dark:text-[#e9c176] text-3xl">panorama_horizontal</span>
                                 <div>
                                     <h4 class="font-headline font-bold text-lg mb-2" data-i18n="studio.feature1Title">
                                         Infinite cyclorama</h4>
-                                    <p class="text-on-surface-variant dark:text-[#fcf9f8]/60" data-i18n="studio.feature1Desc">Clean seamless
+                                    <p class="text-on-surface-variant dark:text-[#fcf9f8]/60"
+                                        data-i18n="studio.feature1Desc">Clean seamless
                                         background for a minimal, professional look</p>
                                 </div>
                             </div>
                             <div class="flex gap-6">
-                                <span class="material-symbols-outlined text-primary dark:text-[#e9c176] text-3xl">weekend</span>
+                                <span
+                                    class="material-symbols-outlined text-primary dark:text-[#e9c176] text-3xl">weekend</span>
                                 <div>
                                     <h4 class="font-headline font-bold text-lg mb-2" data-i18n="studio.feature2Title">
                                         Ambient room</h4>
-                                    <p class="text-on-surface-variant dark:text-[#fcf9f8]/60" data-i18n="studio.feature2Desc">Textured walls,
+                                    <p class="text-on-surface-variant dark:text-[#fcf9f8]/60"
+                                        data-i18n="studio.feature2Desc">Textured walls,
                                         props, and more natural setups</p>
                                 </div>
                             </div>
                             <div class="flex gap-6">
-                                <span class="material-symbols-outlined text-primary dark:text-[#e9c176] text-3xl">verified</span>
+                                <span
+                                    class="material-symbols-outlined text-primary dark:text-[#e9c176] text-3xl">verified</span>
                                 <div>
                                     <h4 class="font-headline font-bold text-lg mb-2" data-i18n="studio.feature3Title">
                                         Included in all sessions</h4>
@@ -1000,12 +1058,14 @@
         <!-- Location -->
         <section class="py-24 bg-surface dark:bg-[#1c1b1b]" id="location">
             <div class="max-w-[1440px] mx-auto px-6">
-                <div class="bg-surface-container-low dark:bg-[#252525] p-1 rounded-xl overflow-hidden grid grid-cols-1 md:grid-cols-2">
+                <div
+                    class="bg-surface-container-low dark:bg-[#252525] p-1 rounded-xl overflow-hidden grid grid-cols-1 md:grid-cols-2">
                     <!-- Column 1: Context & Core Info -->
                     <div class="p-12 md:p-24 flex flex-col justify-center">
                         <h2 class="font-headline text-4xl font-bold mb-6 editorial-spacing" data-i18n="location.title">
                             Find us in Poble Espanyol</h2>
-                        <p class="text-lg text-secondary dark:text-[#fcf9f8]/60 mb-12" data-i18n="location.desc">Nestled in the heart of
+                        <p class="text-lg text-secondary dark:text-[#fcf9f8]/60 mb-12" data-i18n="location.desc">Nestled
+                            in the heart of
                             Montjuïc, our studio combines historic charm with modern technical facilities.</p>
 
                         <div class="space-y-6">
@@ -1020,7 +1080,8 @@
                             </div>
 
                             <div class="flex items-center gap-4">
-                                <span class="material-symbols-outlined text-primary dark:text-[#e9c176]">local_parking</span>
+                                <span
+                                    class="material-symbols-outlined text-primary dark:text-[#e9c176]">local_parking</span>
                                 <span class="font-medium" data-i18n="location.parking">Parking available nearby</span>
                             </div>
 
@@ -1087,7 +1148,8 @@
                             class="mt-12 p-6 bg-primary/5 dark:bg-[#2a2a2a] border border-primary/20 dark:border-[#e9c176]/20 rounded-lg flex items-center gap-4 group hover:bg-primary/10 dark:hover:bg-[#3a3a3a] transition-all duration-300">
                             <span
                                 class="material-symbols-outlined text-primary dark:text-[#e9c176] group-hover:scale-110 transition-transform duration-300">grade</span>
-                            <p class="text-sm font-medium text-on-surface dark:text-[#fcf9f8]" data-i18n="location.bonus">
+                            <p class="text-sm font-medium text-on-surface dark:text-[#fcf9f8]"
+                                data-i18n="location.bonus">
                                 Access to Poble Espanyol included with your session
                             </p>
                         </div>
@@ -1205,12 +1267,16 @@
         <div id="lightbox-img-wrap">
             <img id="lightbox-img" src="" alt="Enlarged photo" />
             <!-- Title + Caption overlay -->
-            <div id="lightbox-caption-wrap" class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent pt-8 pb-5 px-6 opacity-100 pointer-events-auto transition-opacity duration-300">
-                <button id="lightbox-caption-toggle" class="flex items-center justify-between w-full text-left group" aria-expanded="false" aria-controls="lightbox-caption-content">
+            <div id="lightbox-caption-wrap"
+                class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent pt-8 pb-5 px-6 opacity-100 pointer-events-auto transition-opacity duration-300">
+                <button id="lightbox-caption-toggle" class="flex items-center justify-between w-full text-left group"
+                    aria-expanded="false" aria-controls="lightbox-caption-content">
                     <div class="flex-1 pr-4">
-                        <h4 id="lightbox-caption-title" class="text-white font-headline font-bold text-lg leading-tight mb-1"></h4>
+                        <h4 id="lightbox-caption-title"
+                            class="text-white font-headline font-bold text-lg leading-tight mb-1"></h4>
                     </div>
-                    <span id="lightbox-caption-icon" class="material-symbols-outlined text-white/80 group-hover:text-white transition-colors">expand_more</span>
+                    <span id="lightbox-caption-icon"
+                        class="material-symbols-outlined text-white/80 group-hover:text-white transition-colors">expand_more</span>
                 </button>
                 <div id="lightbox-caption-content" class="overflow-hidden max-h-0 transition-all duration-300">
                     <p id="lightbox-caption-text" class="text-white/80 text-sm leading-relaxed mt-2 pr-8"></p>
@@ -1265,42 +1331,50 @@
                     <span data-i18n="faq.q1">What happens if I'm late?</span>
                     <span class="material-symbols-outlined faq-icon">expand_more</span>
                 </summary>
-                <p class="faq-answer" data-i18n="faq.a1">Session time starts at the booked hour. Being late will reduce your shooting time as we often have consecutive bookings.</p>
+                <p class="faq-answer" data-i18n="faq.a1">Session time starts at the booked hour. Being late will reduce
+                    your shooting time as we often have consecutive bookings.</p>
             </details>
             <details class="faq-item">
                 <summary>
                     <span data-i18n="faq.q2">Does the session time include setup?</span>
                     <span class="material-symbols-outlined faq-icon">expand_more</span>
                 </summary>
-                <p class="faq-answer" data-i18n="faq.a2">Yes, session time includes both setup at the beginning and wrap-up at the end (around 20 minutes).</p>
+                <p class="faq-answer" data-i18n="faq.a2">Yes, session time includes both setup at the beginning and
+                    wrap-up at the end (around 20 minutes).</p>
             </details>
             <details class="faq-item">
                 <summary>
                     <span data-i18n="faq.q3">Do you apply filters or heavy edits to the photos?</span>
                     <span class="material-symbols-outlined faq-icon">expand_more</span>
                 </summary>
-                <p class="faq-answer" data-i18n="faq.a3">We don't apply heavy filters or highly stylized edits. Images are delivered with a clean, natural color correction. If you're looking for a specific artistic style, I can adapt the editing if discussed in advance.</p>
+                <p class="faq-answer" data-i18n="faq.a3">We don't apply heavy filters or highly stylized edits. Images
+                    are delivered with a clean, natural color correction. If you're looking for a specific artistic
+                    style, I can adapt the editing if discussed in advance.</p>
             </details>
             <details class="faq-item">
                 <summary>
                     <span data-i18n="faq.q4">Can I have the RAW files?</span>
                     <span class="material-symbols-outlined faq-icon">expand_more</span>
                 </summary>
-                <p class="faq-answer" data-i18n="faq.a4">We do not deliver RAW or unedited files. Part of our studio's value is the curated editing and color grading process.</p>
+                <p class="faq-answer" data-i18n="faq.a4">We do not deliver RAW or unedited files. Part of our studio's
+                    value is the curated editing and color grading process.</p>
             </details>
             <details class="faq-item">
                 <summary>
                     <span data-i18n="faq.q5">Studio shoe policy?</span>
                     <span class="material-symbols-outlined faq-icon">expand_more</span>
                 </summary>
-                <p class="faq-answer" data-i18n="faq.a5">To keep our white cyclorama pristine, we ask that all shoes used for shooting have their soles thoroughly cleaned before stepping on the wall.</p>
+                <p class="faq-answer" data-i18n="faq.a5">To keep our white cyclorama pristine, we ask that all shoes
+                    used for shooting have their soles thoroughly cleaned before stepping on the wall.</p>
             </details>
             <details class="faq-item">
                 <summary>
                     <span data-i18n="faq.q6">What is the cancellation policy?</span>
                     <span class="material-symbols-outlined faq-icon">expand_more</span>
                 </summary>
-                <p class="faq-answer" data-i18n="faq.a6">A deposit is required when booking a session. If the session is canceled within a reasonable timeframe, an option to reschedule may be offered depending on availability. Otherwise, the deposit will be retained.</p>
+                <p class="faq-answer" data-i18n="faq.a6">A deposit is required when booking a session. If the session is
+                    canceled within a reasonable timeframe, an option to reschedule may be offered depending on
+                    availability. Otherwise, the deposit will be retained.</p>
             </details>
         </div>
     </div>
@@ -1492,9 +1566,11 @@
                     <span
                         class="material-symbols-outlined text-primary dark:text-[#e9c176] opacity-0 -translate-x-4 transition-all group-hover:opacity-100 group-hover:translate-x-0">arrow_forward</span>
                 </a>
-                <button id="faq-trigger-mobile" class="mobile-nav-link text-lg font-headline font-medium text-[#1c1b1b]/60 dark:text-[#fcf9f8]/60 flex items-center justify-between group w-full text-left bg-transparent border-none cursor-pointer">
+                <button id="faq-trigger-mobile"
+                    class="mobile-nav-link text-lg font-headline font-medium text-[#1c1b1b]/60 dark:text-[#fcf9f8]/60 flex items-center justify-between group w-full text-left bg-transparent border-none cursor-pointer">
                     <span data-i18n="nav.faq">FAQ</span>
-                    <span class="material-symbols-outlined text-primary dark:text-[#e9c176] opacity-0 -translate-x-4 transition-all group-hover:opacity-100 group-hover:translate-x-0">arrow_forward</span>
+                    <span
+                        class="material-symbols-outlined text-primary dark:text-[#e9c176] opacity-0 -translate-x-4 transition-all group-hover:opacity-100 group-hover:translate-x-0">arrow_forward</span>
                 </button>
             </nav>
             <div class="pt-8 border-t border-outline-variant/30 dark:border-white/10 flex justify-center items-center">
@@ -2173,8 +2249,8 @@
     <!-- ── FAQ Drawer JS ──────────────────────────────────────────── -->
     <script>
         (function () {
-            const overlay  = document.getElementById('faq-overlay');
-            const drawer   = document.getElementById('faq-drawer');
+            const overlay = document.getElementById('faq-overlay');
+            const drawer = document.getElementById('faq-drawer');
             const btnClose = document.getElementById('faq-close');
             const triggers = [
                 document.getElementById('faq-trigger-desktop'),
