@@ -994,13 +994,13 @@
                     <div class="relative">
                         <div class="grid grid-cols-2 gap-3 md:gap-4 relative">
                             <img class="rounded-lg shadow-lg hover:scale-[1.02] transition-transform duration-500 w-full aspect-[4/3] object-cover"
-                                src="images/studio-1.png" alt="Studio Room 1">
-                            <img class="rounded-lg shadow-lg hover:scale-[1.02] transition-transform duration-500 w-full aspect-[4/3] object-cover"
                                 src="images/studio-2.png" alt="Studio Room 2">
                             <img class="rounded-lg shadow-lg hover:scale-[1.02] transition-transform duration-500 w-full aspect-[4/3] object-cover"
-                                src="images/studio-makeup.png" alt="Makeup Area">
+                                src="images/studio-1.png" alt="Studio Room 1">
                             <img class="rounded-lg shadow-lg hover:scale-[1.02] transition-transform duration-500 w-full aspect-[4/3] object-cover"
                                 src="images/studio-equipment.png" alt="Studio Equipment">
+                            <img class="rounded-lg shadow-lg hover:scale-[1.02] transition-transform duration-500 w-full aspect-[4/3] object-cover"
+                                src="images/studio-makeup.png" alt="Makeup Area">
                             <div
                                 class="absolute -bottom-6 -right-6 bg-primary p-8 text-white hidden md:block z-10 shadow-xl">
                                 <span class="text-3xl font-headline font-bold" data-i18n="studio.spaceSize">150m²</span>
@@ -1766,19 +1766,44 @@
         ─────────────────────────────────────────────────────────────────────── */
         window.GallerySystem = (function GallerySystem() {
             // ── Data ─────────────────────────────────────────────────
+            const _allImages = [
+                { src: 'images/portfolio/clean1.jpg',     captionKey: 'clean' },
+                { src: 'images/portfolio/clean2.jpg',     captionKey: 'clean' },
+                { src: 'images/portfolio/dark1.jpg',      captionKey: 'dark' },
+                { src: 'images/portfolio/dark2.jpg',      captionKey: 'dark' },
+                { src: 'images/portfolio/color1.jpg',     captionKey: 'color' },
+                { src: 'images/portfolio/color2.jpg',     captionKey: 'color' },
+                { src: 'images/portfolio/editorial1.jpg', captionKey: 'editorial' },
+                { src: 'images/portfolio/editorial2.jpg', captionKey: 'editorial' },
+                { src: 'images/portfolio/lifestyle1.jpg', captionKey: 'lifestyle' },
+                { src: 'images/portfolio/lifestyle2.jpg', captionKey: 'lifestyle' },
+                { src: 'images/portfolio/v1.png',         captionKey: 'clean' },
+                { src: 'images/portfolio/v2.png',         captionKey: 'editorial' },
+                { src: 'images/portfolio/h1.png',         captionKey: 'lifestyle' },
+                { src: 'images/portfolio/h2.png',         captionKey: 'editorial' },
+            ];
+
+            // Shuffle once per session (new tab = new order; refresh = same order)
+            const _SESSION_KEY = 'galleryOrder';
+            function _getShuffledOrder() {
+                const saved = sessionStorage.getItem(_SESSION_KEY);
+                if (saved) return JSON.parse(saved);
+                const order = _allImages.map((_, i) => i);
+                for (let i = order.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [order[i], order[j]] = [order[j], order[i]];
+                }
+                sessionStorage.setItem(_SESSION_KEY, JSON.stringify(order));
+                return order;
+            }
+            const _shuffledOrder = _getShuffledOrder();
+
             function getGalleryImages() {
-                return [
-                    { src: 'images/portfolio/v1.png', alt: t('portfolio.imgAlt') + ' 1' },
-                    { src: 'images/portfolio/h1.png', alt: t('portfolio.imgAlt') + ' 2' },
-                    { src: 'images/portfolio/h2.png', alt: t('portfolio.imgAlt') + ' 3' },
-                    { src: 'images/portfolio/v2.png', alt: t('portfolio.imgAlt') + ' 4' },
-                    { src: 'images/portfolio/h2.png', alt: t('portfolio.imgAlt') + ' 5' },
-                    { src: 'images/portfolio/v1.png', alt: t('portfolio.imgAlt') + ' 6' },
-                    { src: 'images/portfolio/v2.png', alt: t('portfolio.imgAlt') + ' 7' },
-                    { src: 'images/portfolio/h1.png', alt: t('portfolio.imgAlt') + ' 8' },
-                    { src: 'images/portfolio/v1.png', alt: t('portfolio.imgAlt') + ' 9' },
-                    { src: 'images/portfolio/h2.png', alt: t('portfolio.imgAlt') + ' 10' },
-                ];
+                return _shuffledOrder.map((i, pos) => ({
+                    src: _allImages[i].src,
+                    captionKey: _allImages[i].captionKey,
+                    alt: t('portfolio.imgAlt') + ' ' + (pos + 1),
+                }));
             }
 
             let galleryImages = getGalleryImages();
@@ -1904,8 +1929,11 @@
             }
 
             function updateLightboxCaption() {
-                const captions = t('portfolio.captions');
-                const captionData = Array.isArray(captions) ? captions[lightboxIndex] : null;
+                const img = galleryImages[lightboxIndex];
+                const captionsByKey = t('portfolio.captionsByKey');
+                const captionData = (captionsByKey && img && img.captionKey)
+                    ? captionsByKey[img.captionKey]
+                    : null;
                 const captionWrap = document.getElementById('lightbox-caption-wrap');
                 const captionTitle = document.getElementById('lightbox-caption-title');
                 const captionText = document.getElementById('lightbox-caption-text');
@@ -2000,13 +2028,10 @@
             // CTA button
             galleryOpenBtn.addEventListener('click', () => openModal());
 
-            // Preview images → open modal and highlight
-            document.querySelectorAll('.gallery-preview-img').forEach(img => {
-                img.addEventListener('click', () => {
-                    const idx = parseInt(img.dataset.galleryIndex, 10);
-                    openModal(isNaN(idx) ? undefined : idx);
-                });
-            });
+            // Preview images → open modal
+            document.querySelectorAll('.gallery-preview-img').forEach(img =>
+                img.addEventListener('click', () => openModal())
+            );
 
             // Modal close
             const galleryModalInner = document.getElementById('gallery-modal-inner');
