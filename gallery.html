@@ -348,6 +348,7 @@
                     <h1 id="entry-title-text"
                         class="font-headline text-3xl font-extrabold editorial-spacing mb-3 hidden"></h1>
                     <p id="entry-subtitle" class="text-secondary dark:text-[#fcf9f8]/60 text-sm hidden"></p>
+                    <p id="entry-expire-notice" class="text-secondary dark:text-[#fcf9f8]/60 text-sm hidden"></p>
                 </div>
             </div>
 
@@ -456,6 +457,7 @@
                     <h1 id="skeleton-title"
                         class="font-headline text-3xl md:text-4xl font-extrabold editorial-spacing h-10 w-64 skeleton-pulse rounded-lg">
                     </h1>
+                    <p id="skeleton-expire-notice" class="h-4 w-48 mt-2 skeleton-pulse rounded-lg hidden"></p>
                 </div>
                 <div class="h-10 w-32 skeleton-pulse rounded-lg bg-surface-variant"></div>
             </div>
@@ -476,6 +478,7 @@
                 </div>
                 <div class="flex items-center gap-3 flex-wrap">
                     <span id="image-count" class="text-sm text-secondary dark:text-[#fcf9f8]/60 font-medium"></span>
+                    <p id="gallery-expire-notice" class="hidden text-sm text-secondary dark:text-[#fcf9f8]/60 font-medium"></p>
                     <button id="shuffle-btn"
                         class="flex items-center gap-1.5 text-sm font-semibold text-secondary dark:text-[#fcf9f8]/60 border border-outline-variant dark:border-white/20 px-4 py-2.5 rounded-lg hover:bg-surface-container dark:hover:bg-white/10 transition-all">
                         <span class="material-symbols-outlined text-[18px]">shuffle</span> <span
@@ -591,7 +594,7 @@
                 let translations = {};
                 let currentLang = localStorage.getItem('lang') || 'en';
 
-                function t(key) {
+                function t(key, params) {
                     // First check gallery-specific translations (nested under gallery), then fall back to shared top-level translations
                     const langData = translations[currentLang] || {};
 
@@ -612,7 +615,14 @@
                         }
                     }
 
-                    return val === undefined ? key : val;
+                    let result = val === undefined ? key : val;
+                    // Interpolate params (e.g. {date})
+                    if (params && typeof result === 'string') {
+                        for (const [k, v] of Object.entries(params)) {
+                            result = result.replace(new RegExp(`\\{${k}\\}`, 'g'), v);
+                        }
+                    }
+                    return result;
                 }
 
                 function setLang(lang) {
@@ -646,7 +656,20 @@
                     // Update image count if visible
                     const imageCountEl = document.getElementById('image-count');
                     if (imageCountEl && images.length > 0) {
-                        imageCountEl.textContent = `${images.length} ${images.length === 1 ? t('content.photo') : t('content.photos')}`;
+                        imageCountEl.textContent = `${images.length} ${images.length === 1 ? t('gallery.content.photo') : t('gallery.content.photos')}`;
+                    }
+                    // Update entry expiration notice if visible
+                    const entryExpireNoticeEl = document.getElementById('entry-expire-notice');
+                    if (entryExpireNoticeEl && !entryExpireNoticeEl.classList.contains('hidden') && galleryMeta && galleryMeta.created_at) {
+                        const formattedDate = formatExpiryDate(galleryMeta.created_at);
+                        entryExpireNoticeEl.textContent = isExpired(galleryMeta.created_at)
+                            ? t('gallery.entry.expiredOn', { date: formattedDate })
+                            : t('gallery.entry.expiresOn', { date: formattedDate });
+                    }
+                    // Update gallery expiration notice if visible
+                    const galleryExpireNoticeEl = document.getElementById('gallery-expire-notice');
+                    if (galleryExpireNoticeEl && !galleryExpireNoticeEl.classList.contains('hidden') && galleryMeta && galleryMeta.created_at) {
+                        galleryExpireNoticeEl.textContent = t('gallery.content.expireNotice', { date: formatExpiryDate(galleryMeta.created_at) });
                     }
                     // Update PIN error if visible
                     const pinErrorEl = document.getElementById('pin-error');
@@ -835,14 +858,21 @@
                         downloadZipUrl = sessionStorage.getItem('galleryDownloadZip');
                     } catch (e) { /* ignore */ }
 
-                    // Setup gallery directly from stored data
+// Setup gallery directly from stored data
                     document.getElementById('gallery-title').textContent = galleryMeta.title;
-                    document.getElementById('image-count').textContent = `${images.length} ${images.length === 1 ? t('content.photo') : t('content.photos')}`;
+                    document.getElementById('image-count').textContent = `${images.length} ${images.length === 1 ? t('gallery.content.photo') : t('gallery.content.photos')}`;
 
                     if (downloadZipUrl) {
                         const dlBtn = document.getElementById('download-all-btn');
                         dlBtn.classList.replace('hidden', 'flex');
                         dlBtn.onclick = () => window.open(downloadZipUrl, '_blank');
+                    }
+
+                    // Show expiration notice in gallery header if not expired
+                    if (galleryMeta.created_at && !isExpired(galleryMeta.created_at)) {
+                        const galleryExpireNotice = document.getElementById('gallery-expire-notice');
+                        galleryExpireNotice.textContent = t('gallery.content.expireNotice', { date: formatExpiryDate(galleryMeta.created_at) });
+                        galleryExpireNotice.classList.remove('hidden');
                     }
 
                     renderGrid();
@@ -890,8 +920,18 @@
                         entryTitleSkel.classList.add('hidden');
                         entryTitleText.textContent = meta.title || 'Your Gallery';
                         entryTitleText.classList.remove('hidden');
-                        entrySubtitle.textContent = meta.requiresPin ? t('entry.enterPin') : t('entry.photosReady');
-                        entrySubtitle.classList.remove('hidden');
+
+                        // Handle expiration notice
+                        if (meta.created_at) {
+                            const notExpired = setupExpirationNotice(meta.created_at);
+                            if (notExpired) {
+                                entrySubtitle.textContent = t('gallery.entry.photosReady');
+                                entrySubtitle.classList.remove('hidden');
+                            }
+                        } else {
+                            entrySubtitle.textContent = meta.requiresPin ? t('gallery.entry.enterPin') : t('gallery.entry.photosReady');
+                            entrySubtitle.classList.remove('hidden');
+                        }
 
                         // Now show the appropriate action (can't show button until we know if PIN required)
                         if (meta.requiresPin) {
@@ -939,13 +979,20 @@
                         // Save to session storage for instant reload on refresh
                         saveGalleryState(galleryMeta, images, imageData.downloadZipUrl || null);
 
-                        // Setup gallery
+// Setup gallery
                         document.getElementById('gallery-title').textContent = galleryMeta.title;
-                        document.getElementById('image-count').textContent = `${images.length} ${images.length === 1 ? t('content.photo') : t('content.photos')}`;
+                        document.getElementById('image-count').textContent = `${images.length} ${images.length === 1 ? t('gallery.content.photo') : t('gallery.content.photos')}`;
                         if (imageData.downloadZipUrl) {
                             const dlBtn = document.getElementById('download-all-btn');
                             dlBtn.classList.replace('hidden', 'flex');
                             dlBtn.onclick = () => window.open(imageData.downloadZipUrl, '_blank');
+                        }
+
+                        // Show expiration notice in gallery header if not expired
+                        if (galleryMeta.created_at && !isExpired(galleryMeta.created_at)) {
+                            const galleryExpireNotice = document.getElementById('gallery-expire-notice');
+                            galleryExpireNotice.textContent = t('gallery.content.expireNotice', { date: formatExpiryDate(galleryMeta.created_at) });
+                            galleryExpireNotice.classList.remove('hidden');
                         }
 
                         renderGrid();
@@ -992,6 +1039,43 @@
                     if (window.innerWidth >= 1024) return 4;
                     if (window.innerWidth >= 768) return 3;
                     return 2;
+                }
+
+                function formatExpiryDate(createdAt) {
+                    const d = new Date(createdAt);
+                    d.setMonth(d.getMonth() + 1);
+                    return d.toLocaleDateString(currentLang === 'es' ? 'es-ES' : 'en-US', {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric'
+                    });
+                }
+
+                function isExpired(createdAt) {
+                    const expiry = new Date(createdAt);
+                    expiry.setMonth(expiry.getMonth() + 1);
+                    return new Date() > expiry;
+                }
+
+                function setupExpirationNotice(createdAt) {
+                    const expired = isExpired(createdAt);
+                    const formattedDate = formatExpiryDate(createdAt);
+                    const entryExpireNotice = document.getElementById('entry-expire-notice');
+                    const viewGalleryBtn = document.getElementById('view-gallery-btn');
+
+                    if (expired) {
+                        // Expired state
+                        document.getElementById('entry-subtitle').classList.add('hidden');
+                        entryExpireNotice.textContent = t('gallery.entry.expiredOn', { date: formattedDate });
+                        entryExpireNotice.classList.remove('hidden');
+                        viewGalleryBtn.disabled = true;
+                        viewGalleryBtn.classList.add('opacity-50', 'cursor-not-allowed');
+                    } else {
+                        // Not expired - show expiration notice below photos ready
+                        entryExpireNotice.textContent = t('gallery.entry.expiresOn', { date: formattedDate });
+                        entryExpireNotice.classList.remove('hidden');
+                    }
+                    return !expired;
                 }
 
                 function buildSkeletonGrid() {

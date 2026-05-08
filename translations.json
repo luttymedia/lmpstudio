@@ -204,7 +204,9 @@
         "pinCode": "PIN code",
         "pinError": "Incorrect PIN. Please try again.",
         "unlockGallery": "Unlock Gallery",
-        "viewGallery": "View Gallery"
+        "viewGallery": "View Gallery",
+        "expiresOn": "Gallery expires on {date}.",
+        "expiredOn": "Oops! This gallery expired on {date}."
       },
       "error": {
         "notFound": "Gallery not found",
@@ -216,7 +218,8 @@
         "shuffle": "Shuffle",
         "downloadFullAlbum": "Download Full Album",
         "photo": "photo",
-        "photos": "photos"
+        "photos": "photos",
+        "expireNotice": "Download your photos before {date}!"
       },
       "nav": {
         "pricing": "Pricing",
@@ -434,7 +437,9 @@
         "pinCode": "Código PIN",
         "pinError": "PIN incorrecto. Inténtalo de nuevo.",
         "unlockGallery": "Desbloquear",
-        "viewGallery": "Ver Galería"
+        "viewGallery": "Ver Galería",
+        "expiresOn": "La galeria expira el {date}.",
+        "expiredOn": "Ups! Esta galeria expiró el {date}."
       },
       "error": {
         "notFound": "Galería no encontrada",
@@ -446,7 +451,8 @@
         "shuffle": "Mezclar",
         "downloadFullAlbum": "Descargar Álbum",
         "photo": "foto",
-        "photos": "fotos"
+        "photos": "fotos",
+        "expireNotice": "Descarga tus fotos antes del {date}!"
       },
       "nav": {
         "pricing": "Precios",
