@@ -315,6 +315,42 @@
             font-size: 28px;
             line-height: 1;
         }
+
+        /* ── Sub-Album Tabs ── */
+        .tab-btn {
+            padding: 8px 12px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: all 0.15s ease;
+            background: transparent;
+            color: #5f5e5e;
+            border: none;
+            border-bottom: 2px solid transparent;
+            cursor: pointer;
+            margin-right: 8px;
+        }
+
+        .tab-btn-inactive:hover {
+            color: #1c1b1b;
+        }
+
+        html.dark .tab-btn-inactive {
+            color: #fcf9f8;
+        }
+
+        html.dark .tab-btn-inactive:hover {
+            color: #ffffff;
+        }
+
+        .tab-btn-active {
+            color: #775a19;
+            border-bottom-color: #775a19;
+        }
+
+        html.dark .tab-btn-active {
+            color: #e9c176;
+            border-bottom-color: #e9c176;
+        }
     </style>
 </head>
 
@@ -328,11 +364,9 @@
     <div id="entry-gate" class="entry-screen visible" role="dialog" aria-modal="true">
         <div class="flex flex-col items-center gap-8 px-6 max-w-sm w-full text-center">
             <span class="hover:opacity-70 transition-opacity cursor-default">
-                <img src="images/logo-nav.png" alt="Lutty Moreira Photo"
-                    class="h-8 w-auto dark:hidden"
+                <img src="images/logo-nav.png" alt="Lutty Moreira Photo" class="h-8 w-auto dark:hidden"
                     style="image-rendering:-webkit-optimize-contrast;mix-blend-mode:multiply;">
-                <img src="images/logo-nav-white.png" alt="Lutty Moreira Photo"
-                    class="h-8 w-auto hidden dark:block"
+                <img src="images/logo-nav-white.png" alt="Lutty Moreira Photo" class="h-8 w-auto hidden dark:block"
                     style="image-rendering:-webkit-optimize-contrast;">
             </span>
 
@@ -412,7 +446,7 @@
                 class="absolute left-3 top-1/2 -translate-y-1/2 p-2 text-[#1c1b1b]/60 dark:text-[#fcf9f8]/60 font-medium hover:text-[#775a19] dark:hover:text-[#e9c176] transition-colors z-10">
                 <span class="material-symbols-outlined text-[18px]">dark_mode</span>
             </button>
-            
+
             <!-- Center: Logo -->
             <a href="/" class="mx-auto hover:opacity-70 transition-opacity">
                 <img src="images/logo-nav.png" alt="Lutty Moreira Photo"
@@ -422,7 +456,7 @@
                     class="h-6 md:h-8 w-auto aspect-auto hidden dark:block"
                     style="image-rendering:-webkit-optimize-contrast;">
             </a>
-            
+
             <!-- Right: Language selector -->
             <button id="lang-switch-gallery"
                 class="absolute right-3 top-1/2 -translate-y-1/2 flex items-center gap-1 text-[#1c1b1b]/60 dark:text-[#fcf9f8]/60 font-medium hover:text-[#775a19] dark:hover:text-[#e9c176] transition-colors p-2 text-sm z-10">
@@ -478,7 +512,8 @@
                 </div>
                 <div class="flex items-center gap-3 flex-wrap">
                     <span id="image-count" class="text-sm text-secondary dark:text-[#fcf9f8]/60 font-medium"></span>
-                    <p id="gallery-expire-notice" class="hidden text-sm text-secondary dark:text-[#fcf9f8]/60 font-medium"></p>
+                    <p id="gallery-expire-notice"
+                        class="hidden text-sm text-secondary dark:text-[#fcf9f8]/60 font-medium"></p>
                     <button id="shuffle-btn"
                         class="flex items-center gap-1.5 text-sm font-semibold text-secondary dark:text-[#fcf9f8]/60 border border-outline-variant dark:border-white/20 px-4 py-2.5 rounded-lg hover:bg-surface-container dark:hover:bg-white/10 transition-all">
                         <span class="material-symbols-outlined text-[18px]">shuffle</span> <span
@@ -492,7 +527,11 @@
                 </div>
             </div>
 
-            <div class="px-4 md:px-8 py-6 max-w-[1440px] mx-auto">
+            <div class="px-4 md:px-8 py-3 max-w-[1440px] mx-auto">
+                <!-- Sub-album tabs -->
+                <div id="tabs-container" class="hidden mb-4">
+                    <div id="tabs-wrapper" class="flex gap-2 flex-wrap"></div>
+                </div>
                 <div id="masonry-grid"></div>
             </div>
         </div>
@@ -637,6 +676,11 @@
                     document.querySelectorAll('.lang-label').forEach(el => {
                         el.textContent = lang === 'en' ? 'ES' : 'EN';
                     });
+                    // Re-render tabs if they exist (to update ALL/TODO translation)
+                    if (subfolders.length > 0) {
+                        renderTabs();
+                        renderGrid(); // Update empty message translation
+                    }
                     // Note: Dynamic content (gallery title, photo count) comes from API and is not translated
                 }
 
@@ -788,6 +832,9 @@
                 // ── State & Refs ────────────────────────────────────────────────
                 let galleryMeta = null;
                 let images = [];
+                let subfolders = [];
+                let activeTab = 'all';
+                let visibleImages = [];
                 let currentIndex = 0;
                 let metaPromise = null;
                 let imagePromise = null;
@@ -806,12 +853,15 @@
                 const errorState = document.getElementById('error-state');
 
                 // ── Session Storage Helpers ───────────────────────────────────────
-                function saveGalleryState(meta, imgs, downloadZipUrl) {
+                function saveGalleryState(meta, imgs, downloadZipUrl, subs) {
                     try {
                         sessionStorage.setItem('galleryMeta', JSON.stringify(meta));
                         sessionStorage.setItem('galleryImages', JSON.stringify(imgs));
                         if (downloadZipUrl) {
                             sessionStorage.setItem('galleryDownloadZip', downloadZipUrl);
+                        }
+                        if (subs && subs.length > 0) {
+                            sessionStorage.setItem('gallerySubfolders', JSON.stringify(subs));
                         }
                     } catch (e) { /* ignore storage errors */ }
                 }
@@ -821,11 +871,13 @@
                         const metaStr = sessionStorage.getItem('galleryMeta');
                         const imgsStr = sessionStorage.getItem('galleryImages');
                         const downloadZip = sessionStorage.getItem('galleryDownloadZip');
+                        const subsStr = sessionStorage.getItem('gallerySubfolders');
                         if (metaStr && imgsStr) {
                             return {
                                 meta: JSON.parse(metaStr),
                                 images: JSON.parse(imgsStr),
-                                downloadZipUrl: downloadZip || null
+                                downloadZipUrl: downloadZip || null,
+                                subfolders: subsStr ? JSON.parse(subsStr) : []
                             };
                         }
                     } catch (e) { /* ignore */ }
@@ -837,6 +889,7 @@
                         sessionStorage.removeItem('galleryMeta');
                         sessionStorage.removeItem('galleryImages');
                         sessionStorage.removeItem('galleryDownloadZip');
+                        sessionStorage.removeItem('gallerySubfolders');
                     } catch (e) { /* ignore */ }
                 }
 
@@ -858,10 +911,16 @@
                         downloadZipUrl = sessionStorage.getItem('galleryDownloadZip');
                     } catch (e) { /* ignore */ }
 
-// Setup gallery directly from stored data
+                    // Setup gallery directly from stored data
                     document.getElementById('gallery-title').textContent = galleryMeta.title;
-                    document.getElementById('image-count').textContent = `${images.length} ${images.length === 1 ? t('gallery.content.photo') : t('gallery.content.photos')}`;
 
+                    // Handle subfolders
+                    if (subfolders && subfolders.length > 0) {
+                        activeTab = 'all';
+                        renderTabs();
+                    }
+
+                    updateImageCount();
                     if (downloadZipUrl) {
                         const dlBtn = document.getElementById('download-all-btn');
                         dlBtn.classList.replace('hidden', 'flex');
@@ -887,8 +946,6 @@
                     document.getElementById('site-footer').classList.remove('hidden');
                     document.title = `${galleryMeta.title} · Lutty Moreira Photo`;
 
-                    // Apply translations to dynamic content
-                    document.getElementById('image-count').textContent = `${images.length} ${images.length === 1 ? t('content.photo') : t('content.photos')}`;
                     updateTranslations();
                 }
 
@@ -898,6 +955,7 @@
                     const stored = loadGalleryState();
                     galleryMeta = stored.meta;
                     images = stored.images;
+                    subfolders = stored.subfolders || [];
                     // Immediately show the gallery without the entry screen
                     revealGalleryDirect();
                 } else {
@@ -976,12 +1034,23 @@
                             images = imageData.images || [];
                         }
 
-                        // Save to session storage for instant reload on refresh
-                        saveGalleryState(galleryMeta, images, imageData.downloadZipUrl || null);
+                        // Get subfolders from response
+                        subfolders = imageData.subfolders || [];
 
-// Setup gallery
+                        // Save to session storage for instant reload on refresh
+                        saveGalleryState(galleryMeta, images, imageData.downloadZipUrl || null, subfolders);
+
+                        // Setup gallery
                         document.getElementById('gallery-title').textContent = galleryMeta.title;
-                        document.getElementById('image-count').textContent = `${images.length} ${images.length === 1 ? t('gallery.content.photo') : t('gallery.content.photos')}`;
+
+                        // Handle subfolders
+                        if (subfolders.length > 0) {
+                            activeTab = 'all';
+                            renderTabs();
+                        }
+
+                        updateImageCount();
+
                         if (imageData.downloadZipUrl) {
                             const dlBtn = document.getElementById('download-all-btn');
                             dlBtn.classList.replace('hidden', 'flex');
@@ -1095,11 +1164,44 @@
                 }
 
                 function renderGrid() {
+                    // Filter images based on active tab
+                    let filteredImages = images;
+
+                    if (subfolders.length > 0) {
+                        if (activeTab === 'all') {
+                            // Combine root images + all subfolder images
+                            filteredImages = [...images];
+                            subfolders.forEach(sf => {
+                                filteredImages = filteredImages.concat(sf.images);
+                            });
+                        } else {
+                            const subfolder = subfolders.find(sf => sf.name === activeTab);
+                            if (subfolder) {
+                                filteredImages = subfolder.images;
+                            }
+                        }
+                    }
+
+                    // Store for lightbox
+                    visibleImages = filteredImages;
+
+                    const grid = document.getElementById('masonry-grid');
+                    
+                    // Show empty message if no images
+                    if (filteredImages.length === 0) {
+                        grid.innerHTML = '';
+                        const emptyMsg = document.createElement('div');
+                        emptyMsg.className = 'w-full text-center py-12 text-secondary dark:text-[#fcf9f8]/60';
+                        emptyMsg.textContent = t('gallery.content.noPhotos');
+                        grid.appendChild(emptyMsg);
+                        return;
+                    }
+
                     const num = getNumCols();
                     const cols = Array.from({ length: num }, () => {
                         const c = document.createElement('div'); c.className = 'masonry-col'; return c;
                     });
-                    images.forEach((img, idx) => {
+                    filteredImages.forEach((img, idx) => {
                         const item = document.createElement('div');
                         item.className = 'masonry-item';
                         item.onclick = () => openLightbox(idx);
@@ -1110,9 +1212,66 @@
                         item.append(i, d);
                         cols[idx % num].appendChild(item);
                     });
-                    const grid = document.getElementById('masonry-grid');
                     grid.innerHTML = '';
                     cols.forEach(c => grid.appendChild(c));
+                }
+
+                function renderTabs() {
+                    const tabsContainer = document.getElementById('tabs-container');
+                    const tabsWrapper = document.getElementById('tabs-wrapper');
+
+                    if (subfolders.length === 0) {
+                        tabsContainer.classList.add('hidden');
+                        return;
+                    }
+
+                    tabsContainer.classList.remove('hidden');
+                    tabsWrapper.innerHTML = '';
+
+                    // Create ALL tab first
+                    const allTab = document.createElement('button');
+                    allTab.className = 'tab-btn ' + (activeTab === 'all' ? 'tab-btn-active' : 'tab-btn-inactive');
+                    allTab.textContent = t('gallery.content.all');
+                    allTab.onclick = () => {
+                        activeTab = 'all';
+                        renderTabs();
+                        updateImageCount();
+                        renderGrid();
+                    };
+                    tabsWrapper.appendChild(allTab);
+
+                    // Create tabs for each subfolder (already sorted alphabetically from API)
+                    subfolders.forEach(sf => {
+                        const tab = document.createElement('button');
+                        tab.className = 'tab-btn ' + (activeTab === sf.name ? 'tab-btn-active' : 'tab-btn-inactive');
+                        tab.textContent = sf.name;
+                        tab.onclick = () => {
+                            activeTab = sf.name;
+                            renderTabs();
+                            updateImageCount();
+                            renderGrid();
+                        };
+                        tabsWrapper.appendChild(tab);
+                    });
+                }
+
+                function updateImageCount() {
+                    let count = images.length;
+                    if (subfolders.length > 0) {
+                        if (activeTab === 'all') {
+                            // Count all images (root + all subfolders)
+                            count = images.length;
+                            subfolders.forEach(sf => {
+                                count += sf.images.length;
+                            });
+                        } else {
+                            const subfolder = subfolders.find(sf => sf.name === activeTab);
+                            if (subfolder) {
+                                count = subfolder.images.length;
+                            }
+                        }
+                    }
+                    document.getElementById('image-count').textContent = `${count} ${count === 1 ? t('gallery.content.photo') : t('gallery.content.photos')}`;
                 }
 
                 // ── Lightbox ────────────────────────────────────────────────────
@@ -1156,7 +1315,7 @@
                 });
 
                 function renderLightbox() {
-                    const img = images[currentIndex];
+                    const img = visibleImages[currentIndex];
                     const lb = document.getElementById('lightbox-img');
                     const isDesktop = window.innerWidth >= 768;
 
@@ -1180,11 +1339,11 @@
                     }
 
                     document.getElementById('lightbox-dl').href = img.downloadUrl;
-                    document.getElementById('lightbox-counter').textContent = `${currentIndex + 1} / ${images.length}`;
+                    document.getElementById('lightbox-counter').textContent = `${currentIndex + 1} / ${visibleImages.length}`;
 
                     // Always enable buttons for looping
-                    document.getElementById('lightbox-prev').disabled = false;
-                    document.getElementById('lightbox-next').disabled = false;
+                    document.getElementById('lightbox-prev').disabled = visibleImages.length === 0;
+                    document.getElementById('lightbox-next').disabled = visibleImages.length === 0;
 
                     // Show overlays when switching images
                     overlaysVisible = true;
@@ -1223,11 +1382,11 @@
                     if (Math.abs(diff) > swipeThreshold) {
                         if (diff > 0) {
                             // Swipe left - next (loop from last to first)
-                            currentIndex = (currentIndex + 1) % images.length;
+                            currentIndex = (currentIndex + 1) % visibleImages.length;
                             renderLightbox();
                         } else {
                             // Swipe right - previous (loop from first to last)
-                            currentIndex = (currentIndex - 1 + images.length) % images.length;
+                            currentIndex = (currentIndex - 1 + visibleImages.length) % visibleImages.length;
                             renderLightbox();
                         }
                     }
@@ -1235,11 +1394,11 @@
 
                 document.getElementById('lightbox-close').onclick = closeLightbox;
                 document.getElementById('lightbox-prev').onclick = () => {
-                    currentIndex = (currentIndex - 1 + images.length) % images.length;
+                    currentIndex = (currentIndex - 1 + visibleImages.length) % visibleImages.length;
                     renderLightbox();
                 };
                 document.getElementById('lightbox-next').onclick = () => {
-                    currentIndex = (currentIndex + 1) % images.length;
+                    currentIndex = (currentIndex + 1) % visibleImages.length;
                     renderLightbox();
                 };
                 document.getElementById('lightbox').onclick = e => { if (e.target.id === 'lightbox') closeLightbox(); };
@@ -1253,7 +1412,20 @@
 
                 // ── Shuffle ─────────────────────────────────────────────────────
                 document.getElementById('shuffle-btn').onclick = () => {
-                    images.sort(() => Math.random() - 0.5);
+                    // Shuffle only the currently visible images
+                    if (activeTab === 'all' && subfolders.length > 0) {
+                        // Shuffle combined view - create a shuffled copy and update visibleImages directly
+                        visibleImages = visibleImages.slice().sort(() => Math.random() - 0.5);
+                    } else if (activeTab !== 'all' && subfolders.length > 0) {
+                        // Shuffle specific subfolder
+                        const subfolder = subfolders.find(sf => sf.name === activeTab);
+                        if (subfolder) {
+                            subfolder.images.sort(() => Math.random() - 0.5);
+                        }
+                    } else {
+                        // No subfolders - shuffle root images
+                        images.sort(() => Math.random() - 0.5);
+                    }
                     renderGrid();
                 };
 

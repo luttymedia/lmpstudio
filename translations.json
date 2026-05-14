@@ -219,7 +219,9 @@
         "downloadFullAlbum": "Download Full Album",
         "photo": "photo",
         "photos": "photos",
-        "expireNotice": "Download your photos before {date}!"
+        "expireNotice": "Download your photos before {date}!",
+        "all": "ALL",
+        "noPhotos": "No photos in this album"
       },
       "nav": {
         "pricing": "Pricing",
@@ -452,7 +454,9 @@
         "downloadFullAlbum": "Descargar Álbum",
         "photo": "foto",
         "photos": "fotos",
-        "expireNotice": "Descarga tus fotos antes del {date}!"
+        "expireNotice": "Descarga tus fotos antes del {date}!",
+        "all": "TODO",
+        "noPhotos": "No hay fotos en este álbum"
       },
       "nav": {
         "pricing": "Precios",

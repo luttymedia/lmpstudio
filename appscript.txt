@@ -107,7 +107,8 @@ function doGet(e) {
         gallery: {
           id: galleryId,
           title: title,
-          requiresPin: requiresPin
+          requiresPin: requiresPin,
+          created_at: foundRow[5]
         }
       };
       if (requiresPin) {
@@ -149,14 +150,61 @@ function doGet(e) {
 
       images.sort((a, b) => a.name.localeCompare(b.name));
 
-      return createJsonResponse({
+      // Check for subfolders
+      const subfolders = [];
+      const childFolders = folder.getFolders();
+      while (childFolders.hasNext()) {
+        const childFolder = childFolders.next();
+        const subfolderName = childFolder.getName();
+        const subfolderImages = [];
+        const subFiles = childFolder.getFiles();
+
+        while (subFiles.hasNext()) {
+          const file = subFiles.next();
+          const mimeType = file.getMimeType();
+          const fileName = file.getName();
+
+          if (
+            mimeType === MimeType.JPEG ||
+            mimeType === MimeType.PNG  ||
+            mimeType === "image/webp"  ||
+            mimeType === "image/jpg"
+          ) {
+            const fileId = file.getId();
+            subfolderImages.push({
+              name: fileName,
+              url: "https://drive.google.com/thumbnail?id=" + fileId + "&sz=w2000",
+              downloadUrl: "https://drive.google.com/uc?export=download&id=" + fileId
+            });
+          }
+        }
+
+        subfolderImages.sort((a, b) => a.name.localeCompare(b.name));
+
+        subfolders.push({
+          name: subfolderName,
+          images: subfolderImages
+        });
+      }
+
+      // Sort subfolders alphabetically by name
+      subfolders.sort((a, b) => a.name.localeCompare(b.name));
+
+      const responseData = {
         status: "success",
         gallery: {
           id: galleryId,
           images: images,
           downloadZipUrl: downloadZipUrl
         }
-      });
+      };
+
+      // Only include subfolders if they exist
+      if (subfolders.length > 0) {
+        responseData.gallery.subfolders = subfolders;
+      }
+
+      return createJsonResponse(responseData);
     }
 
     // ── Legacy / single-step (no action param) ───────────────────────────
@@ -191,6 +239,46 @@ function doGet(e) {
 
     images.sort((a, b) => a.name.localeCompare(b.name));
 
+    // Check for subfolders
+    const subfolders = [];
+    const childFolders = folder.getFolders();
+    while (childFolders.hasNext()) {
+      const childFolder = childFolders.next();
+      const subfolderName = childFolder.getName();
+      const subfolderImages = [];
+      const subFiles = childFolder.getFiles();
+
+      while (subFiles.hasNext()) {
+        const file = subFiles.next();
+        const mimeType = file.getMimeType();
+        const fileName = file.getName();
+
+        if (
+          mimeType === MimeType.JPEG ||
+          mimeType === MimeType.PNG  ||
+          mimeType === "image/webp"  ||
+          mimeType === "image/jpg"
+        ) {
+          const fileId = file.getId();
+          subfolderImages.push({
+            name: fileName,
+            url: "https://drive.google.com/thumbnail?id=" + fileId + "&sz=w2000",
+            downloadUrl: "https://drive.google.com/uc?export=download&id=" + fileId
+          });
+        }
+      }
+
+      subfolderImages.sort((a, b) => a.name.localeCompare(b.name));
+
+      subfolders.push({
+        name: subfolderName,
+        images: subfolderImages
+      });
+    }
+
+    // Sort subfolders alphabetically by name
+    subfolders.sort((a, b) => a.name.localeCompare(b.name));
+
     const responsePayload = {
       status: "success",
       gallery: {
@@ -205,6 +293,11 @@ function doGet(e) {
 
     if (requiresPin) {
       responsePayload.gallery.pin = String(pin);
+    }
+
+    // Only include subfolders if they exist
+    if (subfolders.length > 0) {
+      responsePayload.gallery.subfolders = subfolders;
     }
 
     return createJsonResponse(responsePayload);
