@@ -1409,14 +1409,28 @@
                     updateOverlays();
                 });
 
-                // Touch swipe handling
+                // Touch swipe handling - prevent swipe during pinch
+                let lastTouchMoveTouchCount = 0;
+                let wasPinching = false;
+
                 document.getElementById('lightbox').addEventListener('touchstart', e => {
                     touchStartX = e.changedTouches[0].screenX;
                 }, { passive: true });
 
+                document.getElementById('lightbox').addEventListener('touchmove', e => {
+                    lastTouchMoveTouchCount = e.touches.length;
+                }, { passive: true });
+
                 document.getElementById('lightbox').addEventListener('touchend', e => {
-                    touchEndX = e.changedTouches[0].screenX;
-                    handleSwipe();
+                    // If there were 2+ fingers during move, it was a pinch - don't swipe
+                    wasPinching = lastTouchMoveTouchCount >= 2;
+                    lastTouchMoveTouchCount = 0;
+
+                    if (!wasPinching) {
+                        touchEndX = e.changedTouches[0].screenX;
+                        handleSwipe();
+                    }
+                    wasPinching = false;
                 }, { passive: true });
 
                 function handleSwipe() {
