@@ -351,6 +351,23 @@
             color: #e9c176;
             border-bottom-color: #e9c176;
         }
+
+        /* ── Shuffle Button Active State ── */
+        .shuffle-toggle.active {
+            background: linear-gradient(to right, #775a19, #c5a059) !important;
+            color: #ffffff !important;
+            border: none !important;
+            box-shadow: none !important;
+            outline: none !important;
+        }
+
+        .shuffle-toggle.active:hover {
+            opacity: 0.9;
+        }
+
+        .shuffle-toggle.active:active {
+            transform: scale(0.95);
+        }
     </style>
 </head>
 
@@ -515,7 +532,7 @@
                     <p id="gallery-expire-notice"
                         class="hidden text-sm text-secondary dark:text-[#fcf9f8]/60 font-medium"></p>
                     <button id="shuffle-btn"
-                        class="flex items-center gap-1.5 text-sm font-semibold text-secondary dark:text-[#fcf9f8]/60 border border-outline-variant dark:border-white/20 px-4 py-2.5 rounded-lg hover:bg-surface-container dark:hover:bg-white/10 transition-all">
+                        class="shuffle-toggle flex items-center gap-2 text-sm font-semibold text-secondary dark:text-[#fcf9f8]/60 border border-outline-variant dark:border-white/20 px-5 py-2.5 rounded-lg hover:bg-surface-container dark:hover:bg-white/10 transition-all">
                         <span class="material-symbols-outlined text-[18px]">shuffle</span> <span
                             data-i18n="content.shuffle">Shuffle</span>
                     </button>
@@ -838,6 +855,8 @@
                 let currentIndex = 0;
                 let metaPromise = null;
                 let imagePromise = null;
+                // Store shuffled states separately for each tab (including 'all')
+                let shuffledStates = {};
 
                 const entryGate = document.getElementById('entry-gate');
                 const entryTitleSkel = document.getElementById('entry-title-skeleton');
@@ -947,6 +966,7 @@
                     document.title = `${galleryMeta.title} · Lutty Moreira Photo`;
 
                     updateTranslations();
+                    updateShuffleButton();
                 }
 
                 // ── Initialization ────────────────────────────────────────────────
@@ -1076,6 +1096,8 @@
 
                         document.getElementById('site-footer').classList.remove('hidden');
 
+                        updateShuffleButton();
+
                     } catch (err) {
                         console.error('Error loading photos:', err);
                         skeletonState.classList.add('hidden');
@@ -1167,17 +1189,37 @@
                     // Filter images based on active tab
                     let filteredImages = images;
 
+                    // For galleries without subfolders, check if there's a stored shuffle state for 'all' tab
+                    if (subfolders.length === 0 && shuffledStates['all']?.images) {
+                        filteredImages = shuffledStates['all'].images;
+                    }
+
                     if (subfolders.length > 0) {
                         if (activeTab === 'all') {
-                            // Combine root images + all subfolder images
-                            filteredImages = [...images];
-                            subfolders.forEach(sf => {
-                                filteredImages = filteredImages.concat(sf.images);
-                            });
+                            // Check if this tab has a stored shuffled state
+                            if (shuffledStates['all']?.images) {
+                                filteredImages = shuffledStates['all'].images;
+                            } else {
+                                // Combine root images + all subfolder images
+                                filteredImages = [...images];
+                                subfolders.forEach(sf => {
+                                    // Use stored shuffled state for subfolder if exists, otherwise use original
+                                    if (shuffledStates[sf.name]?.images) {
+                                        filteredImages = filteredImages.concat(shuffledStates[sf.name].images);
+                                    } else {
+                                        filteredImages = filteredImages.concat(sf.images);
+                                    }
+                                });
+                            }
                         } else {
                             const subfolder = subfolders.find(sf => sf.name === activeTab);
                             if (subfolder) {
-                                filteredImages = subfolder.images;
+                                // Check if this subfolder has a stored shuffled state
+                                if (shuffledStates[activeTab]?.images) {
+                                    filteredImages = shuffledStates[activeTab].images;
+                                } else {
+                                    filteredImages = subfolder.images;
+                                }
                             }
                         }
                     }
@@ -1237,6 +1279,7 @@
                         renderTabs();
                         updateImageCount();
                         renderGrid();
+                        updateShuffleButton();
                     };
                     tabsWrapper.appendChild(allTab);
 
@@ -1250,6 +1293,7 @@
                             renderTabs();
                             updateImageCount();
                             renderGrid();
+                            updateShuffleButton();
                         };
                         tabsWrapper.appendChild(tab);
                     });
@@ -1411,22 +1455,50 @@
                 });
 
                 // ── Shuffle ─────────────────────────────────────────────────────
-                document.getElementById('shuffle-btn').onclick = () => {
-                    // Shuffle only the currently visible images
-                    if (activeTab === 'all' && subfolders.length > 0) {
-                        // Shuffle combined view - create a shuffled copy and update visibleImages directly
-                        visibleImages = visibleImages.slice().sort(() => Math.random() - 0.5);
-                    } else if (activeTab !== 'all' && subfolders.length > 0) {
-                        // Shuffle specific subfolder
-                        const subfolder = subfolders.find(sf => sf.name === activeTab);
-                        if (subfolder) {
-                            subfolder.images.sort(() => Math.random() - 0.5);
-                        }
+                function updateShuffleButton() {
+                    const shuffleBtn = document.getElementById('shuffle-btn');
+                    const isActive = shuffledStates[activeTab]?.active;
+                    if (isActive) {
+                        shuffleBtn.classList.add('active');
                     } else {
-                        // No subfolders - shuffle root images
-                        images.sort(() => Math.random() - 0.5);
+                        shuffleBtn.classList.remove('active');
+                    }
+                }
+
+                document.getElementById('shuffle-btn').onclick = () => {
+                    const currentState = shuffledStates[activeTab];
+
+                    // Check if already active - if so, unshuffle (remove the shuffle state)
+                    if (currentState?.active) {
+                        // Unshuffle - remove the shuffle state
+                        delete shuffledStates[activeTab];
+                    } else {
+                        // Shuffle - create copies to avoid mutating originals and set active to true
+                        if (activeTab === 'all' && subfolders.length > 0) {
+                            // Shuffle combined view - store in shuffledStates['all']
+                            shuffledStates['all'] = {
+                                images: visibleImages.slice().sort(() => Math.random() - 0.5),
+                                active: true
+                            };
+                        } else if (activeTab !== 'all' && subfolders.length > 0) {
+                            // Shuffle specific subfolder - store in shuffledStates[subfolderName]
+                            const subfolder = subfolders.find(sf => sf.name === activeTab);
+                            if (subfolder) {
+                                shuffledStates[activeTab] = {
+                                    images: subfolder.images.slice().sort(() => Math.random() - 0.5),
+                                    active: true
+                                };
+                            }
+                        } else {
+                            // No subfolders - shuffle root images and store in shuffledStates['all']
+                            shuffledStates['all'] = {
+                                images: images.slice().sort(() => Math.random() - 0.5),
+                                active: true
+                            };
+                        }
                     }
                     renderGrid();
+                    updateShuffleButton();
                 };
 
                 // ── Back to top ─────────────────────────────────────────────────
