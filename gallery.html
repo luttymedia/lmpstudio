@@ -1389,8 +1389,7 @@
                     document.getElementById('lightbox-prev').disabled = visibleImages.length === 0;
                     document.getElementById('lightbox-next').disabled = visibleImages.length === 0;
 
-                    // Show overlays when switching images
-                    overlaysVisible = true;
+                    // Keep current overlay visibility state when switching images
                     updateOverlays();
                 }
 
