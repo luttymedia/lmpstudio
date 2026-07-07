@@ -23,3 +23,8 @@ jspm_packages/
 .gemini/
 DESIGN.md
 .agent/rules.md
+
+# Agent Customizations
+.agents/
+skills-lock.json
+
