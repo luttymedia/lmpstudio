@@ -8,6 +8,19 @@
     <meta name="description" content="Access your private photo gallery from Lutty Moreira Photo." />
     <meta name="robots" content="noindex, nofollow" />
 
+    <!-- Open Graph / Social Media Link Previews -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://lmpstudio.onrender.com/gallery.html" />
+    <meta property="og:title" content="Your Gallery · Lutty Moreira Photo" />
+    <meta property="og:description" content="Access your private photo gallery from Lutty Moreira Photo." />
+    <meta property="og:image" content="https://lmpstudio.onrender.com/images/social-preview.png" />
+
+    <!-- Twitter / X Link Previews -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Your Gallery · Lutty Moreira Photo" />
+    <meta name="twitter:description" content="Access your private photo gallery from Lutty Moreira Photo." />
+    <meta name="twitter:image" content="https://lmpstudio.onrender.com/images/social-preview.png" />
+
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com" rel="preconnect" />
     <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
@@ -323,11 +336,13 @@
             appearance: none;
             background: transparent;
         }
+
         #lightbox-zoom-slider::-webkit-slider-runnable-track {
             background: rgba(255, 255, 255, 0.25);
             height: 4px;
             border-radius: 2px;
         }
+
         #lightbox-zoom-slider::-webkit-slider-thumb {
             -webkit-appearance: none;
             appearance: none;
@@ -339,14 +354,17 @@
             margin-top: -4px;
             transition: transform 0.1s;
         }
+
         #lightbox-zoom-slider::-webkit-slider-thumb:hover {
             transform: scale(1.25);
         }
+
         #lightbox-zoom-slider::-moz-range-track {
             background: rgba(255, 255, 255, 0.25);
             height: 4px;
             border-radius: 2px;
         }
+
         #lightbox-zoom-slider::-moz-range-thumb {
             width: 12px;
             height: 12px;
@@ -356,6 +374,7 @@
             cursor: pointer;
             transition: transform 0.1s;
         }
+
         #lightbox-zoom-slider::-moz-range-thumb:hover {
             transform: scale(1.25);
         }
@@ -1284,7 +1303,7 @@
                     visibleImages = filteredImages;
 
                     const grid = document.getElementById('masonry-grid');
-                    
+
                     // Show empty message if no images
                     if (filteredImages.length === 0) {
                         grid.innerHTML = '';
@@ -1439,41 +1458,41 @@
 
                 function updateMaxScale() {
                     if (!lightboxImg) return;
-                    
+
                     const w = lightboxImg.clientWidth;
                     const naturalW = lightboxImg.naturalWidth;
-                    
+
                     if (w > 0 && naturalW > 0) {
                         maxScale = Math.max(1, naturalW / w);
                     } else {
                         maxScale = 1;
                     }
-                    
+
                     const zoomBtn = document.getElementById('lightbox-zoom');
                     const zoomPanel = document.getElementById('zoom-control-panel');
                     const slider = document.getElementById('lightbox-zoom-slider');
-                    
+
                     if (maxScale <= 1.01) {
                         zoomBtn?.classList.add('hidden');
                         zoomPanel?.classList.add('hidden');
                     } else {
                         zoomBtn?.classList.remove('hidden');
                         zoomPanel?.classList.remove('hidden');
-                        
+
                         if (slider) {
                             const minPercent = Math.round((1 / maxScale) * 100);
                             slider.min = minPercent;
                             slider.max = 100;
                         }
                     }
-                    
+
                     updateZoomPanelVisibility();
                 }
 
                 function setZoomFromSlider(value) {
                     const P = parseFloat(value);
                     currentScale = (P / 100) * maxScale;
-                    
+
                     if (currentScale <= 1.01) {
                         currentScale = 1;
                         panX = 0;
@@ -1484,18 +1503,18 @@
                             const H = window.innerHeight;
                             const w = lightboxImg.clientWidth;
                             const h = lightboxImg.clientHeight;
-                            
+
                             const scaledWidth = w * currentScale;
                             const scaledHeight = h * currentScale;
-                            
+
                             const maxPanX = Math.max(0, (scaledWidth - W) / 2);
                             const maxPanY = Math.max(0, (scaledHeight - H) / 2);
-                            
+
                             panX = Math.min(maxPanX, Math.max(-maxPanX, panX));
                             panY = Math.min(maxPanY, Math.max(-maxPanY, panY));
                         }
                     }
-                    
+
                     if (lightboxImg) {
                         lightboxImg.style.transition = 'transform 0.2s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.15s ease';
                     }
@@ -1506,11 +1525,11 @@
                 function updateZoomSlider() {
                     const slider = document.getElementById('lightbox-zoom-slider');
                     if (!slider) return;
-                    
+
                     const minPercent = Math.round((1 / maxScale) * 100);
                     slider.min = minPercent;
                     slider.max = 100;
-                    
+
                     const value = Math.round((currentScale / maxScale) * 100);
                     slider.value = value;
                     updateZoomPercentLabel(value);
@@ -1534,7 +1553,7 @@
 
                 function applyZoomTransform() {
                     if (!lightboxImg) return;
-                    
+
                     if (currentScale <= 1) {
                         lightboxImg.style.transform = '';
                         lightboxImg.style.cursor = 'zoom-in';
@@ -1542,7 +1561,7 @@
                         lightboxImg.style.transform = `translate(${panX}px, ${panY}px) scale(${currentScale})`;
                         lightboxImg.style.cursor = 'grab';
                     }
-                    
+
                     const zoomBtn = document.getElementById('lightbox-zoom');
                     if (zoomBtn) {
                         const icon = zoomBtn.querySelector('span');
@@ -1550,7 +1569,7 @@
                             icon.textContent = currentScale > 1 ? 'zoom_out' : 'zoom_in';
                         }
                     }
-                    
+
                     updateZoomPanelVisibility();
                 }
 
@@ -1604,7 +1623,7 @@
                         el.style.opacity = overlaysVisible ? '1' : '0';
                         el.style.pointerEvents = overlaysVisible ? 'auto' : 'none';
                     });
-                    
+
                     updateZoomPanelVisibility();
                 }
 
@@ -1626,12 +1645,12 @@
                     isDragging = true;
                     startX = e.clientX - panX;
                     startY = e.clientY - panY;
-                    
+
                     dragW = lightboxImg.clientWidth;
                     dragH = lightboxImg.clientHeight;
                     dragW_viewport = window.innerWidth;
                     dragH_viewport = window.innerHeight;
-                    
+
                     lightboxImg.style.cursor = 'grabbing';
                     lightboxImg.style.transition = 'none';
                     mouseDownX = e.clientX;
@@ -1641,23 +1660,23 @@
 
                 window.addEventListener('mousemove', (e) => {
                     if (!isDragging) return;
-                    
+
                     if (Math.abs(e.clientX - mouseDownX) > 5 || Math.abs(e.clientY - mouseDownY) > 5) {
                         dragMoved = true;
                     }
-                    
+
                     const newPanX = e.clientX - startX;
                     const newPanY = e.clientY - startY;
-                    
+
                     const scaledWidth = dragW * currentScale;
                     const scaledHeight = dragH * currentScale;
-                    
+
                     const maxPanX = Math.max(0, (scaledWidth - dragW_viewport) / 2);
                     const maxPanY = Math.max(0, (scaledHeight - dragH_viewport) / 2);
-                    
+
                     panX = Math.min(maxPanX, Math.max(-maxPanX, newPanX));
                     panY = Math.min(maxPanY, Math.max(-maxPanY, newPanY));
-                    
+
                     applyZoomTransform();
                 });
 
@@ -1671,7 +1690,7 @@
                 // Double click to zoom
                 lightboxImg.addEventListener('dblclick', (e) => {
                     if (maxScale <= 1.01) return;
-                    
+
                     if (currentScale > 1) {
                         resetZoom();
                     } else {
@@ -1691,12 +1710,12 @@
                         isDragging = true;
                         startX = e.touches[0].clientX - panX;
                         startY = e.touches[0].clientY - panY;
-                        
+
                         dragW = lightboxImg.clientWidth;
                         dragH = lightboxImg.clientHeight;
                         dragW_viewport = window.innerWidth;
                         dragH_viewport = window.innerHeight;
-                        
+
                         lightboxImg.style.transition = 'none';
                         mouseDownX = e.touches[0].clientX;
                         mouseDownY = e.touches[0].clientY;
@@ -1709,30 +1728,30 @@
                     if (e.touches.length === 1) {
                         const clientX = e.touches[0].clientX;
                         const clientY = e.touches[0].clientY;
-                        
+
                         if (Math.abs(clientX - mouseDownX) > 5 || Math.abs(clientY - mouseDownY) > 5) {
                             dragMoved = true;
                         }
-                        
+
                         const newPanX = clientX - startX;
                         const newPanY = clientY - startY;
-                        
+
                         const scaledWidth = dragW * currentScale;
                         const scaledHeight = dragH * currentScale;
-                        
+
                         const maxPanX = Math.max(0, (scaledWidth - dragW_viewport) / 2);
                         const maxPanY = Math.max(0, (scaledHeight - dragH_viewport) / 2);
-                        
+
                         panX = Math.min(maxPanX, Math.max(-maxPanX, newPanX));
                         panY = Math.min(maxPanY, Math.max(-maxPanY, newPanY));
-                        
+
                         applyZoomTransform();
                     }
                 }, { passive: true });
 
                 lightboxImg.addEventListener('touchend', (e) => {
                     isDragging = false;
-                    
+
                     // Check for double tap
                     const currentTime = new Date().getTime();
                     const tapLength = currentTime - lastTapTime;
@@ -1822,16 +1841,16 @@
                             const H = window.innerHeight;
                             const w = lightboxImg.clientWidth;
                             const h = lightboxImg.clientHeight;
-                            
+
                             const scaledWidth = w * currentScale;
                             const scaledHeight = h * currentScale;
-                            
+
                             const maxPanX = Math.max(0, (scaledWidth - W) / 2);
                             const maxPanY = Math.max(0, (scaledHeight - H) / 2);
-                            
+
                             panX = Math.min(maxPanX, Math.max(-maxPanX, panX));
                             panY = Math.min(maxPanY, Math.max(-maxPanY, panY));
-                            
+
                             applyZoomTransform();
                         }
                     }
