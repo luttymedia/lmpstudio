@@ -171,6 +171,7 @@
       "messageLabel": "Message *",
       "messagePlaceholder": "Tell us about your project, ideal date, style...",
       "submit": "Send message",
+      "sending": "Sending...",
       "success": "✓ Message sent! We'll be in touch soon.",
       "error": "✗ Something went wrong. Please try again or contact us directly."
     },
@@ -406,6 +407,7 @@
       "messageLabel": "Mensaje *",
       "messagePlaceholder": "Cuéntanos sobre tu proyecto, fecha ideal, estilo...",
       "submit": "Enviar mensaje",
+      "sending": "Enviando...",
       "success": "✓ ¡Mensaje enviado! Nos pondremos en contacto pronto.",
       "error": "✗ Algo salió mal. Inténtalo de nuevo o contáctanos directamente."
     },

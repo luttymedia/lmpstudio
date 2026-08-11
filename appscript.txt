@@ -10,7 +10,12 @@ function doPost(e) {
       ).setMimeType(ContentService.MimeType.JSON);
     }
 
-    const data = e.parameter || {};
+    let data = (e && e.parameter) ? e.parameter : {};
+    if ((!data.name && !data.email) && e && e.postData && e.postData.contents) {
+      try {
+        data = JSON.parse(e.postData.contents);
+      } catch (err) {}
+    }
 
     const id = Utilities.formatDate(new Date(), Session.getScriptTimeZone(), "yyMMdd-HHmmss");
     const timestamp = new Date();
@@ -30,6 +35,29 @@ function doPost(e) {
       message,
       source
     ]);
+
+    // ── Email notification to studio owner ──────────────────────────────────
+    try {
+      const recipient = "luttyphoto@gmail.com"; // Change to your preferred email address
+      const subject = `📩 New Lead from ${name || 'Website Visitor'}`;
+      const body = `You received a new message from your website contact form:
+
+Name: ${name}
+Email: ${email}
+Phone: ${phone || 'Not provided'}
+Source: ${source}
+Date/Time: ${timestamp}
+Lead ID: ${id}
+
+Message:
+----------------------------------------
+${message}
+----------------------------------------
+`;
+      MailApp.sendEmail(recipient, subject, body);
+    } catch (mailErr) {
+      Logger.log("Email notification failed: " + mailErr.toString());
+    }
 
     return ContentService.createTextOutput(
       JSON.stringify({
