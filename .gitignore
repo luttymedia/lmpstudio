@@ -28,3 +28,10 @@ DESIGN.md
 .agents/
 skills-lock.json
 
+
+# Local / Offline miscellaneous assets (not synced to GitHub)
+Offline Assets/
+Misc Assets/
+misc-assets/
+design-assets/
+

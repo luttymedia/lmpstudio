@@ -233,6 +233,104 @@
         "contact": "Contact",
         "theme": "Theme"
       }
+    },
+    "dance": {
+      "metaTitle": "Dance Video Sessions | Lutty Moreira",
+      "eyebrow": "Price list",
+      "title": "Dance Video Sessions",
+      "subtitle": "2 videos · from €120",
+      "intro": "A simple, professional video session for dancers who want quality content without overcomplicating the production.",
+      "packTitle": "The base pack includes:",
+      "videosTitle": "Sample videos",
+      "videosDesc": "A few dance videos from previous sessions. Tap any video to watch it with sound.",
+      "features": [
+        {
+          "icon": "videocam",
+          "text": "Up to <strong>1 hour of shooting</strong>"
+        },
+        {
+          "icon": "location_on",
+          "text": "<strong>1 location</strong>"
+        },
+        {
+          "icon": "movie",
+          "text": "<strong>2 one-shot videos</strong>, one continuous take, professionally recorded and edited"
+        },
+        {
+          "icon": "palette",
+          "text": "Basic color correction"
+        },
+        {
+          "icon": "music_note",
+          "text": "Music"
+        },
+        {
+          "icon": "auto_awesome",
+          "text": "Simple text or overlays when needed"
+        },
+        {
+          "icon": "photo_camera",
+          "text": "<strong>A few edited photos</strong> from the session, perfect for your social media post covers"
+        },
+        {
+          "icon": "inventory_2",
+          "text": "Standard delivery"
+        }
+      ],
+      "basePrice": "€120",
+      "extrasTitle": "Make it your own",
+      "extrasDesc": "Need more time, more content or a more dynamic edit? Add exactly what your project needs.",
+      "extras": [
+        {
+          "title": "+ Extra Single-Take Video",
+          "price": "+€35 / video",
+          "desc": "Add another one-shot video, filmed within the existing 1-hour session."
+        },
+        {
+          "title": "+ Extra Shooting Time",
+          "price": "+€40 / hour (+€25 / 30 min)",
+          "desc": "For longer sessions or when you want to record more material."
+        },
+        {
+          "title": "+ Additional Location",
+          "price": "from +€25",
+          "desc": "For a second nearby location, including the move and re-setup.",
+          "note": "If moving between locations significantly increases the total shooting time, the extra time is calculated separately."
+        },
+        {
+          "title": "+ Multi-Take Dynamic Edit",
+          "price": "+€40 / video",
+          "desc": "Turn a standard one-shot video into a more dynamic edit, using multiple takes and/or angles to create a more polished, energetic result."
+        },
+        {
+          "title": "+ Rush Delivery",
+          "price": "from +€30",
+          "desc": "Need your videos sooner than the standard delivery time? Rush delivery can be added depending on availability."
+        }
+      ],
+      "exampleTitle": "Example",
+      "exampleSummary": "2 videos · 1h30 shooting · 2 nearby locations · Multi-Take Dynamic Edit",
+      "exampleLines": [
+        {
+          "label": "Base pack",
+          "price": "€120"
+        },
+        {
+          "label": "Extra shooting time",
+          "price": "€25"
+        },
+        {
+          "label": "Second location",
+          "price": "€25"
+        },
+        {
+          "label": "Multi-Take Dynamic Edit",
+          "price": "€80"
+        }
+      ],
+      "exampleTotalLabel": "Estimated total",
+      "exampleTotal": "€250",
+      "exampleNote": "For projects that go significantly beyond the standard package, you'll receive a clear final price before the shoot - no surprises."
     }
   },
   "es": {
@@ -247,7 +345,7 @@
     },
     "hero": {
       "title": "Sesiones de Estudio en Barcelona",
-      "subtitle": "Setups de estudio flexibles para retratos, danza y contenido personal.",
+      "subtitle": "Setups de estudio flexibles para retratos, baile y contenido personal.",
       "byline": "por Lutty Moreira",
       "priceInfo": "Desde 150€ · Fotos editadas incluidas",
       "cta": "Contactar ahora"
@@ -256,7 +354,7 @@
       "name": "¡Hola, soy Lutty!",
       "line1": "Fotógrafo basado en Barcelona, trabajando por Europa",
       "line2": "Disparando desde 2007",
-      "line3": "Especializado en retratos, danza, corporativo y contenido personal",
+      "line3": "Especializado en retratos, baile, corporativo y contenido personal",
       "line4": "Sets simples, resultados limpios, sin complicaciones"
     },
     "overview": {
@@ -468,6 +566,104 @@
         "faq": "FAQ",
         "contact": "Contacto"
       }
+    },
+    "dance": {
+      "metaTitle": "Sesiones de vídeo de baile | Lutty Moreira",
+      "eyebrow": "Lista de precios",
+      "title": "Sesiones de vídeo de baile",
+      "subtitle": "2 vídeos · desde 120 €",
+      "intro": "Una sesión de vídeo sencilla y profesional para bailarines que quieren contenido de calidad sin complicar la producción.",
+      "packTitle": "El pack base incluye:",
+      "videosTitle": "Vídeos de muestra",
+      "videosDesc": "Algunos vídeos de danza de sesiones anteriores. Toca cualquier vídeo para verlo con sonido.",
+      "features": [
+        {
+          "icon": "videocam",
+          "text": "Hasta <strong>1 hora de grabación</strong>"
+        },
+        {
+          "icon": "location_on",
+          "text": "<strong>1 localización</strong>"
+        },
+        {
+          "icon": "movie",
+          "text": "<strong>2 vídeos en plano secuencia</strong>, una toma continua, grabada y editada profesionalmente"
+        },
+        {
+          "icon": "palette",
+          "text": "Corrección de color básica"
+        },
+        {
+          "icon": "music_note",
+          "text": "Música"
+        },
+        {
+          "icon": "auto_awesome",
+          "text": "Texto o gráficos sencillos cuando sea necesario"
+        },
+        {
+          "icon": "photo_camera",
+          "text": "<strong>Algunas fotos editadas</strong> de la sesión, perfectas para las portadas de tus publicaciones en redes"
+        },
+        {
+          "icon": "inventory_2",
+          "text": "Entrega estándar"
+        }
+      ],
+      "basePrice": "120 €",
+      "extrasTitle": "Hazlo a tu manera",
+      "extrasDesc": "¿Necesitas más tiempo, más contenido o una edición más dinámica? Añade justo lo que necesita tu proyecto.",
+      "extras": [
+        {
+          "title": "+ Vídeo extra en plano secuencia",
+          "price": "+35 € / vídeo",
+          "desc": "Añade otro vídeo en plano secuencia, grabado dentro de la sesión de 1 hora existente."
+        },
+        {
+          "title": "+ Tiempo extra de grabación",
+          "price": "+40 € / hora (+25 € / 30 min)",
+          "desc": "Para sesiones más largas o cuando quieres grabar más material."
+        },
+        {
+          "title": "+ Localización adicional",
+          "price": "desde +25 €",
+          "desc": "Para una segunda localización cercana, incluyendo el traslado y el montaje.",
+          "note": "Si el desplazamiento entre localizaciones aumenta significativamente el tiempo total de grabación, el tiempo extra se calcula por separado."
+        },
+        {
+          "title": "+ Edición dinámica multitoma",
+          "price": "+40 € / vídeo",
+          "desc": "Convierte un vídeo en plano secuencia en una edición más dinámica, usando varias tomas y/o ángulos para lograr un resultado más pulido y enérgico."
+        },
+        {
+          "title": "+ Entrega urgente",
+          "price": "desde +30 €",
+          "desc": "¿Necesitas tus vídeos antes del plazo estándar? La entrega urgente puede añadirse según disponibilidad."
+        }
+      ],
+      "exampleTitle": "Ejemplo",
+      "exampleSummary": "2 vídeos · 1h30 de grabación · 2 localizaciones cercanas · Edición dinámica multitoma",
+      "exampleLines": [
+        {
+          "label": "Pack base",
+          "price": "120 €"
+        },
+        {
+          "label": "Tiempo extra de grabación",
+          "price": "25 €"
+        },
+        {
+          "label": "Segunda localización",
+          "price": "25 €"
+        },
+        {
+          "label": "Edición dinámica multitoma",
+          "price": "80 €"
+        }
+      ],
+      "exampleTotalLabel": "Total estimado",
+      "exampleTotal": "250 €",
+      "exampleNote": "Para proyectos que van bastante más allá del paquete estándar, recibirás un precio final claro antes de la sesión - sin sorpresas."
     }
   }
 }
