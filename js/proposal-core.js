@@ -146,8 +146,8 @@
       defaultQty: 1,
       priceSuffixEn: ' / 10 photos',
       priceSuffixEs: ' / 10 fotos',
-      descriptionEn: '+10 extra high-resolution professionally color graded photos.',
-      descriptionEs: '+10 fotografías adicionales en alta resolución con etalonaje.'
+      descriptionEn: '+10 extra high-resolution and professionally edited photos.',
+      descriptionEs: '+10 fotografías adicionales editadas profesionalmente y en alta resolución.'
     },
     {
       id: 'photo-retouch',
@@ -160,7 +160,7 @@
       priceSuffixEn: ' / hour',
       priceSuffixEs: ' / hora',
       descriptionEn: 'High-end frequency separation and detailed editorial skin retouching.',
-      descriptionEs: 'Separación de frecuencias y retoque editorial minucioso por hora.'
+      descriptionEs: 'Separación de frecuencias y retoque editorial minucioso.'
     },
     {
       id: 'photo-express',
@@ -199,8 +199,8 @@
       defaultQty: 1,
       priceSuffixEn: ' / 30 min',
       priceSuffixEs: ' / 30 min',
-      descriptionEn: 'Additional 30 minutes of shooting time (+25 € / 30 min).',
-      descriptionEs: '30 minutos adicionales de grabación (+25 € / 30 min).'
+      descriptionEn: 'Extend shoot by 30 minutes for additional takes or costume changes.',
+      descriptionEs: 'Amplía el rodaje en 30 minutos para tomas adicionales o cambios de vestuario.'
     },
     {
       id: 'video-extra-time',
@@ -212,8 +212,8 @@
       defaultQty: 1,
       priceSuffixEn: ' / hour',
       priceSuffixEs: ' / hora',
-      descriptionEn: 'Additional 1 hour of shooting time for longer rehearsals or more material.',
-      descriptionEs: '1 hora adicional de grabación para más repeticiones o material.'
+      descriptionEn: 'Extend shoot by 1 hour for deeper rehearsal and multi-look variations.',
+      descriptionEs: 'Amplía el rodaje en 1 hora para ensayos detallados y variaciones de vestuario.'
     },
     {
       id: 'video-location',
@@ -224,8 +224,8 @@
       priceType: 'editable',
       priceSuffixEn: ' (starting)',
       priceSuffixEs: ' (desde)',
-      descriptionEn: 'Moving to a second nearby location with setup and lighting transit.',
-      descriptionEs: 'Desplazamiento a una segunda localización cercana con montaje.'
+      descriptionEn: 'Add a second nearby location with transit and dedicated setup.',
+      descriptionEs: 'Añade una segunda localización cercana con desplazamiento y montaje.'
     },
     {
       id: 'video-dynamic-edit',
@@ -237,8 +237,8 @@
       defaultQty: 1,
       priceSuffixEn: ' / video',
       priceSuffixEs: ' / vídeo',
-      descriptionEn: 'Upgrade one-shot into a rhythmic, multi-angle dynamic cut.',
-      descriptionEs: 'Convierte el plano secuencia en una edición rítmica con varios ángulos.'
+      descriptionEn: 'Upgrade continuous one-shot into a rhythmic, multi-angle dynamic cut.',
+      descriptionEs: 'Convierte la toma continua en una edición dinámica rítmica multi-ángulo.'
     },
     {
       id: 'video-rush',
@@ -249,8 +249,8 @@
       priceType: 'editable',
       priceSuffixEn: ' (starting)',
       priceSuffixEs: ' (desde)',
-      descriptionEn: 'Fast-track video editing and export within 48 hours.',
-      descriptionEs: 'Entrega prioritaria del montaje de vídeo en 48 horas.'
+      descriptionEn: 'Fast-track video editing and export delivered within 48 hours.',
+      descriptionEs: 'Montaje prioritario y entrega de los vídeos en 48 horas.'
     }
   ];
 
@@ -584,7 +584,7 @@
       if (parsed.hostname === '127.0.0.1' || parsed.hostname === 'localhost' || parsed.hostname === '0.0.0.0') {
         targetUrl = targetUrl.replace(parsed.origin, 'https://lmpstudio.onrender.com');
       }
-    } catch (_) {}
+    } catch (_) { }
 
     // 1. Try URLVanish (fast GET, CORS-friendly)
     try {
@@ -751,22 +751,202 @@
   function getDefaultDeliverables(packageId, addons = [], lang = 'en') {
     const isEs = lang === 'es';
     const items = [];
-    const pkgDef = PACKAGES.find(pkg => pkg.id === packageId) || PACKAGES[0];
-    const baseFeatures = isEs ? (pkgDef.featuresEs || pkgDef.featuresEn) : pkgDef.featuresEn;
-    if (Array.isArray(baseFeatures)) {
-      baseFeatures.forEach(f => items.push(f));
+    const safeAddons = Array.isArray(addons) ? addons : [];
+    const consumedAddonIds = new Set();
+
+    const findAddon = (id) => safeAddons.find(a => a.id === id);
+    const getQty = (id) => {
+      const a = findAddon(id);
+      return a ? Math.max(1, Number(a.qty) || 1) : 0;
+    };
+
+    if (packageId === 'video-dance') {
+      // 1. Shooting duration
+      const extra30mQty = getQty('video-extra-time-30m');
+      const extra1hQty = getQty('video-extra-time');
+      const totalExtraMinutes = (extra30mQty * 30) + (extra1hQty * 60);
+      const totalMinutes = 60 + totalExtraMinutes;
+
+      if (totalExtraMinutes > 0) {
+        consumedAddonIds.add('video-extra-time-30m');
+        consumedAddonIds.add('video-extra-time');
+        const hours = totalMinutes / 60;
+        const hoursStr = (hours % 1 === 0) ? hours.toString() : hours.toFixed(1).replace('.0', '');
+        items.push(isEs
+          ? `Hasta ${hoursStr} horas de grabación (sesión ampliada con tiempo extra)`
+          : `Up to ${hoursStr} hours of shooting (extended session)`
+        );
+      } else {
+        items.push(isEs ? 'Hasta 1 hora de grabación' : 'Up to 1 hour of shooting');
+      }
+
+      // 2. Locations
+      const extraLocQty = getQty('video-location');
+      if (extraLocQty > 0) {
+        consumedAddonIds.add('video-location');
+        const totalLocs = 1 + extraLocQty;
+        items.push(isEs
+          ? `${totalLocs} localizaciones de rodaje (1 exterior principal + ${extraLocQty} adicional${extraLocQty > 1 ? 'es' : ''} cercana${extraLocQty > 1 ? 's' : ''})`
+          : `${totalLocs} shooting locations (1 outdoor primary + ${extraLocQty} additional nearby)`
+        );
+      } else {
+        items.push(isEs ? '1 localización exterior' : '1 outdoor location');
+      }
+
+      // 3. Videos & Format
+      const extraTakes = getQty('video-extra-take');
+      const dynamicEdits = getQty('video-dynamic-edit');
+      const totalVideos = 2 + extraTakes;
+
+      if (extraTakes > 0) consumedAddonIds.add('video-extra-take');
+      if (dynamicEdits > 0) consumedAddonIds.add('video-dynamic-edit');
+
+      if (dynamicEdits >= totalVideos) {
+        items.push(isEs
+          ? `${totalVideos} vídeos con edición dinámica multi-toma (montaje rítmico multi-ángulo, etalonaje y sincronización musical)`
+          : `${totalVideos} dynamic multi-angle cut videos (rhythmic multi-take edits with color grading & music sync)`
+        );
+      } else if (dynamicEdits > 0) {
+        const oneShotCount = totalVideos - dynamicEdits;
+        items.push(isEs
+          ? `${dynamicEdits} vídeo${dynamicEdits > 1 ? 's' : ''} con edición dinámica multi-toma + ${oneShotCount} vídeo${oneShotCount > 1 ? 's' : ''} en plano secuencia continuo`
+          : `${dynamicEdits} dynamic multi-angle cut video${dynamicEdits > 1 ? 's' : ''} + ${oneShotCount} one-shot continuous video${oneShotCount > 1 ? 's' : ''}`
+        );
+      } else if (extraTakes > 0) {
+        items.push(isEs
+          ? `${totalVideos} vídeos en plano secuencia, tomas continuas, grabados y editados profesionalmente`
+          : `${totalVideos} one-shot videos, continuous takes, professionally recorded & color graded`
+        );
+      } else {
+        items.push(isEs
+          ? '2 vídeos en plano secuencia, toma continua, grabados y editados profesionalmente'
+          : '2 one-shot videos, one continuous take, professionally recorded & color graded'
+        );
+      }
+
+      // 4. Color correction & overlays
+      items.push(isEs ? 'Corrección de color básica y sincronización musical' : 'Basic color correction & music sync');
+      items.push(isEs ? 'Texto simple o grafismos si se requieren' : 'Simple text / branding overlays when needed');
+      items.push(isEs ? 'Fotos de portada editadas para redes sociales' : 'Edited cover photos from the session for social media');
+
+      // 5. Delivery
+      if (findAddon('video-rush')) {
+        consumedAddonIds.add('video-rush');
+        items.push(isEs
+          ? 'Entrega urgente prioritaria mediante galería privada (en 48 horas)'
+          : 'Express rush delivery via private gallery (within 48 hours)'
+        );
+      } else {
+        items.push(isEs ? 'Entrega estándar mediante galería privada' : 'Standard delivery via private gallery');
+      }
+
+    } else if (packageId === 'photo-1h' || packageId === 'photo-2h') {
+      const is2h = packageId === 'photo-2h';
+
+      // 1. Studio time
+      items.push(isEs
+        ? (is2h ? 'Hasta 2 horas de estudio (incluye montaje y recogida)' : 'Hasta 1 hora (incluye montaje y recogida)')
+        : (is2h ? 'Up to 2 hours of studio time (includes setup & wrap-up)' : 'Up to 1 hour (includes setup & wrap-up)')
+      );
+
+      // 2. Photos count
+      const extraPhotoBatches = getQty('photo-extra-photos');
+      const extraPhotos = extraPhotoBatches * 10;
+      if (extraPhotos > 0) {
+        consumedAddonIds.add('photo-extra-photos');
+        if (is2h) {
+          items.push(isEs
+            ? `40–80+ fotos editadas profesionalmente (incluye ${extraPhotos} fotos adicionales)`
+            : `40–80+ professionally edited photos (includes ${extraPhotos} extra photos)`
+          );
+        } else {
+          const minPhotos = 20 + extraPhotos;
+          const maxPhotos = 40 + extraPhotos;
+          items.push(isEs
+            ? `${minPhotos}–${maxPhotos} fotos editadas profesionalmente (incluye ${extraPhotos} fotos adicionales)`
+            : `${minPhotos}–${maxPhotos} professionally edited photos (includes ${extraPhotos} extra photos)`
+          );
+        }
+      } else {
+        items.push(isEs
+          ? (is2h ? 'Doble tiempo de disparo = significativamente más fotos' : '20-40 fotos editadas profesionalmente')
+          : (is2h ? 'Double shooting time = significantly more photos' : '20-40 professionally edited photos')
+        );
+      }
+
+      // 3. Retouching
+      const retouchQty = getQty('photo-retouch');
+      if (retouchQty > 0) {
+        consumedAddonIds.add('photo-retouch');
+        items.push(isEs
+          ? `Retoque de belleza avanzado (${retouchQty} hora${retouchQty > 1 ? 's' : ''} de separación de frecuencias y retoque editorial)`
+          : `Advanced beauty retouching (${retouchQty} hour${retouchQty > 1 ? 's' : ''} of detailed frequency separation & editorial retouch)`
+        );
+      } else {
+        items.push(isEs ? '2-3 retoques detallados incluidos' : '2-3 detailed edits included');
+      }
+
+      // 4. Studio & backdrops / Location
+      if (findAddon('photo-outdoor')) {
+        consumedAddonIds.add('photo-outdoor');
+        items.push(isEs
+          ? 'Sesión combinada de estudio y exterior en Poble Espanyol (fondos arquitectónicos e iluminación de estudio)'
+          : 'Combined studio + outdoor session at Poble Espanyol (architectural backdrops & studio lighting)'
+        );
+      } else {
+        items.push(isEs
+          ? 'Acceso completo al estudio y equipo de iluminación'
+          : 'Full studio access & lighting gear'
+        );
+        items.push(isEs
+          ? 'Opciones de fondo (ciclorama blanco, pared texturizada, negro)'
+          : 'Backdrop options available (white cyclorama, textured walls, black)'
+        );
+      }
+
+      // 5. Outfits
+      items.push(isEs
+        ? (is2h ? 'Opción de múltiples esquemas de luz y cambios de look' : 'Hasta 3 cambios de vestuario')
+        : (is2h ? 'Opportunity for multiple lighting setups & outfit changes' : 'Up to 3 outfits')
+      );
+
+      // 6. Video clip if selected
+      if (findAddon('photo-video')) {
+        consumedAddonIds.add('photo-video');
+        items.push(isEs
+          ? 'Clip de vídeo dinámico / reel grabado durante la sesión'
+          : 'Dynamic video clip / social reel filmed during the session'
+        );
+      }
+
+      // 7. Express delivery if selected
+      if (findAddon('photo-express')) {
+        consumedAddonIds.add('photo-express');
+        items.push(isEs
+          ? 'Entrega urgente 24-48h mediante galería privada'
+          : 'Express 24-48h delivery via private gallery'
+        );
+      }
+
+    } else {
+      // Custom or generic package: start with package base features
+      const pkgDef = PACKAGES.find(pkg => pkg.id === packageId) || PACKAGES[0];
+      const baseFeatures = isEs ? (pkgDef.featuresEs || pkgDef.featuresEn) : pkgDef.featuresEn;
+      if (Array.isArray(baseFeatures)) {
+        baseFeatures.forEach(f => items.push(f));
+      }
     }
 
-    if (Array.isArray(addons)) {
-      addons.forEach(a => {
-        const addDef = ADDONS.find(item => item.id === a.id);
-        if (!addDef) return;
-        const desc = isEs ? addDef.descriptionEs : addDef.descriptionEn;
-        const title = isEs ? addDef.nameEs : addDef.nameEn;
-        const qtyStr = (a.qty && a.qty > 1) ? ` (${a.qty}x)` : '';
-        items.push(`<strong>${title}${qtyStr}:</strong> ${desc}`);
-      });
-    }
+    // Append any unconsumed add-ons (clean plain text format)
+    safeAddons.forEach(a => {
+      if (consumedAddonIds.has(a.id)) return;
+      const addDef = ADDONS.find(item => item.id === a.id);
+      if (!addDef) return;
+      const desc = isEs ? addDef.descriptionEs : addDef.descriptionEn;
+      const title = isEs ? addDef.nameEs : addDef.nameEn;
+      const qtyStr = (a.qty && a.qty > 1) ? ` (${a.qty}x)` : '';
+      items.push(`${title}${qtyStr}: ${desc}`);
+    });
 
     return items;
   }

@@ -15,6 +15,69 @@
     .material-symbols-outlined {
       font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
     }
+
+    /* Discreet Category Color Coding for Packages & Add-ons */
+    .card-accent-photo {
+      border-left: 3.5px solid #0284c7 !important;
+    }
+    .dark .card-accent-photo {
+      border-left: 3.5px solid #38bdf8 !important;
+    }
+
+    .card-accent-video {
+      border-left: 3.5px solid #7c3aed !important;
+    }
+    .dark .card-accent-video {
+      border-left: 3.5px solid #a78bfa !important;
+    }
+
+    .card-accent-custom {
+      border-left: 3.5px solid #d97706 !important;
+    }
+    .dark .card-accent-custom {
+      border-left: 3.5px solid #fbbf24 !important;
+    }
+
+
+    .badge-match-active {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 9999px;
+      background: rgba(16, 185, 129, 0.1);
+      color: #047857;
+      border: 1px solid rgba(16, 185, 129, 0.25);
+    }
+    .dark .badge-match-active {
+      background: rgba(52, 211, 153, 0.15);
+      color: #6ee7b7;
+      border-color: rgba(52, 211, 153, 0.3);
+    }
+
+    /* Deliverables checkmark color matching */
+    .check-photo {
+      color: #0284c7 !important;
+    }
+    .dark .check-photo {
+      color: #38bdf8 !important;
+    }
+
+    .check-video {
+      color: #7c3aed !important;
+    }
+    .dark .check-video {
+      color: #a78bfa !important;
+    }
+
+    .check-custom {
+      color: #d97706 !important;
+    }
+    .dark .check-custom {
+      color: #fbbf24 !important;
+    }
   </style>
 </head>
 
@@ -154,18 +217,29 @@
 
         <!-- 4. Add-ons Selector -->
         <section class="bg-surface-container-low rounded-xl p-6 shadow-sm">
-          <div class="flex items-center justify-between mb-4">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-4 gap-3">
             <div>
               <h2 class="font-headline text-lg font-bold editorial-spacing flex items-center gap-2">
                 <span class="material-symbols-outlined text-primary dark:text-[#e9c176]">add_box</span>
                 <span>4. Optional Add-ons</span>
               </h2>
-              <p class="text-xs text-secondary mt-1">Select any combination of photo and video add-ons.</p>
+              <p class="text-xs text-secondary mt-1">Color-coded to match Studio (blue) and Video (purple) packages.</p>
             </div>
-            <div class="flex items-center gap-3">
-              <label class="flex items-center gap-2 cursor-pointer text-xs font-bold select-none">
+            <div class="flex items-center gap-2 sm:gap-3 flex-wrap">
+              <div class="flex items-center gap-1 bg-surface border border-outline-variant/40 rounded-lg p-0.5 text-[11px]" id="addons-filter-tabs">
+                <button type="button" data-filter="all" class="addon-filter-btn px-2.5 py-1 rounded font-semibold transition-colors bg-primary text-white">All</button>
+                <button type="button" data-filter="photo" class="addon-filter-btn px-2.5 py-1 rounded font-semibold text-secondary hover:text-on-surface transition-colors flex items-center gap-1.5">
+                  <span class="w-2 h-2 rounded-full" style="background-color: #0284c7;"></span>
+                  <span>Studio</span>
+                </button>
+                <button type="button" data-filter="video" class="addon-filter-btn px-2.5 py-1 rounded font-semibold text-secondary hover:text-on-surface transition-colors flex items-center gap-1.5">
+                  <span class="w-2 h-2 rounded-full" style="background-color: #7c3aed;"></span>
+                  <span>Video</span>
+                </button>
+              </div>
+              <label class="flex items-center gap-1.5 cursor-pointer text-xs font-bold select-none">
                 <input id="toggle-section-addons" type="checkbox" checked class="w-4 h-4 text-primary rounded border-outline-variant focus:ring-0" />
-                <span>Show Section</span>
+                <span>Show</span>
               </label>
               <div class="text-xs font-semibold text-secondary">
                 <span id="addons-selected-badge" class="px-2 py-1 bg-surface rounded-full">0 selected</span>
@@ -214,7 +288,7 @@
           <div class="flex items-center justify-between mb-4">
             <div>
               <h2 class="font-headline text-lg font-bold editorial-spacing flex items-center gap-2">
-                <span class="material-symbols-outlined text-primary dark:text-[#e9c176]">task_alt</span>
+                <span id="deliverables-section-icon" class="material-symbols-outlined text-primary dark:text-[#e9c176]">task_alt</span>
                 <span>6. Included Deliverables</span>
               </h2>
               <p class="text-xs text-secondary mt-1">Review, reword, or add custom deliverables for this proposal.</p>
@@ -225,6 +299,11 @@
                 <span>Show Section</span>
               </label>
               <div class="flex items-center gap-2">
+                <span id="deliverables-custom-badge" class="hidden text-[10px] uppercase font-bold tracking-wider text-amber-600 dark:text-amber-400 bg-amber-500/10 px-2 py-0.5 rounded-full border border-amber-500/20">Customized</span>
+                <button id="btn-sync-deliverables" type="button" class="hidden text-xs font-semibold px-2.5 py-1 rounded-lg border border-primary/50 text-primary dark:text-[#e9c176] bg-primary/5 hover:bg-primary/10 transition-colors flex items-center gap-1" title="Update deliverables to reflect current package & add-ons">
+                  <span class="material-symbols-outlined text-xs">sync</span>
+                  <span>Sync with Add-ons</span>
+                </button>
                 <button id="btn-reset-deliverables" type="button" class="text-xs font-semibold px-2.5 py-1 rounded-lg border border-outline-variant/50 hover:bg-surface-container-high text-secondary hover:text-on-surface transition-colors" title="Reset to default items for selected package + add-ons">
                   Reset
                 </button>
@@ -234,6 +313,18 @@
                 </button>
               </div>
             </div>
+          </div>
+
+          <!-- Out-of-sync alert shown when add-ons change after custom edits -->
+          <div id="deliverables-sync-alert" class="hidden mb-3 p-3 rounded-lg bg-amber-500/10 border border-amber-500/20 text-xs flex items-center justify-between gap-2">
+            <div class="flex items-center gap-2 text-on-surface">
+              <span class="material-symbols-outlined text-amber-600 dark:text-amber-400 text-sm">info</span>
+              <span>Package or add-ons changed. Deliverables currently keep your custom edits.</span>
+            </div>
+            <button id="btn-sync-deliverables-banner" type="button" class="font-bold text-primary dark:text-[#e9c176] hover:underline flex items-center gap-1 whitespace-nowrap">
+              <span class="material-symbols-outlined text-xs">sync</span>
+              <span>Update to Match</span>
+            </button>
           </div>
 
           <div id="deliverables-section-controls" class="transition-opacity">
@@ -472,6 +563,57 @@
     (function () {
       const core = window.ProposalCore;
       let currentProposal = core.createBlankProposal();
+      let deliverablesCustomized = false;
+      let currentAddonFilter = 'all';
+
+      function onPackageOrAddonChanged() {
+        if (!deliverablesCustomized) {
+          currentProposal.deliverables = core.getDefaultDeliverables(
+            currentProposal.packageId,
+            currentProposal.addons,
+            currentProposal.defaultLang || 'en'
+          );
+          renderDeliverablesEditor();
+          hideDeliverablesSyncNotice();
+        } else {
+          showDeliverablesSyncNotice();
+        }
+      }
+
+      function showDeliverablesSyncNotice() {
+        const alert = document.getElementById('deliverables-sync-alert');
+        const syncBtn = document.getElementById('btn-sync-deliverables');
+        if (alert) alert.classList.remove('hidden');
+        if (syncBtn) syncBtn.classList.remove('hidden');
+      }
+
+      function hideDeliverablesSyncNotice() {
+        const alert = document.getElementById('deliverables-sync-alert');
+        const syncBtn = document.getElementById('btn-sync-deliverables');
+        if (alert) alert.classList.add('hidden');
+        if (syncBtn) syncBtn.classList.add('hidden');
+      }
+
+      function updateDeliverablesCustomBadge() {
+        const badge = document.getElementById('deliverables-custom-badge');
+        if (badge) {
+          badge.classList.toggle('hidden', !deliverablesCustomized);
+        }
+      }
+
+      function syncDeliverablesWithAddons() {
+        currentProposal.deliverables = core.getDefaultDeliverables(
+          currentProposal.packageId,
+          currentProposal.addons,
+          currentProposal.defaultLang || 'en'
+        );
+        deliverablesCustomized = false;
+        currentProposal.deliverablesCustomized = false;
+        hideDeliverablesSyncNotice();
+        updateDeliverablesCustomBadge();
+        renderDeliverablesEditor();
+        showToast('Deliverables synced with package & add-ons');
+      }
 
       // Theme toggle initialization
       const savedTheme = localStorage.getItem('theme') || 'light';
@@ -507,16 +649,24 @@
         grid.innerHTML = core.PACKAGES.map(pkg => {
           const isSelected = currentProposal.packageId === pkg.id;
           const priceDisplay = pkg.isCustom ? 'Custom Quote' : core.formatEUR(pkg.price);
+
+          let accentClass = 'card-accent-custom';
+          if (pkg.category === 'photo') {
+            accentClass = 'card-accent-photo';
+          } else if (pkg.category === 'video') {
+            accentClass = 'card-accent-video';
+          }
+
           return `
-            <div data-pkg-id="${pkg.id}" class="pkg-card cursor-pointer p-4 rounded-xl border transition-all ${
+            <div data-pkg-id="${pkg.id}" class="pkg-card cursor-pointer p-4 rounded-xl border transition-all ${accentClass} ${
               isSelected
                 ? 'bg-primary/5 dark:bg-[#e9c176]/10 border-primary dark:border-[#e9c176] ring-1 ring-primary dark:ring-[#e9c176]'
                 : 'bg-surface border-outline-variant/30 hover:border-outline-variant'
             }">
               <div class="flex items-start justify-between">
                 <div>
-                  <h4 class="font-bold text-sm font-headline">${pkg.nameEn}</h4>
-                  <p class="text-xs text-secondary mt-1 leading-relaxed">${pkg.descriptionEn}</p>
+                  <h4 class="font-bold text-sm font-headline mb-1">${pkg.nameEn}</h4>
+                  <p class="text-xs text-secondary leading-relaxed">${pkg.descriptionEn}</p>
                 </div>
                 <div class="font-bold text-sm font-headline text-primary dark:text-[#e9c176] ml-2 whitespace-nowrap">${priceDisplay}</div>
               </div>
@@ -529,6 +679,9 @@
             currentProposal.packageId = el.getAttribute('data-pkg-id');
             renderPackageSelector();
             updateCustomPackageVisibility();
+            renderAddonsList();
+            renderDeliverablesEditor();
+            onPackageOrAddonChanged();
             updateLiveCalculations();
           });
         });
@@ -540,49 +693,121 @@
         box.classList.toggle('hidden', !isCustom);
       }
 
+      function initAddonFilterTabs() {
+        const filterBtns = document.querySelectorAll('.addon-filter-btn');
+        filterBtns.forEach(btn => {
+          btn.onclick = () => {
+            currentAddonFilter = btn.getAttribute('data-filter');
+            filterBtns.forEach(b => {
+              const active = b.getAttribute('data-filter') === currentAddonFilter;
+              if (active) {
+                b.className = 'addon-filter-btn px-2.5 py-1 rounded font-semibold transition-colors bg-primary text-white flex items-center gap-1.5';
+              } else {
+                b.className = 'addon-filter-btn px-2.5 py-1 rounded font-semibold text-secondary hover:text-on-surface transition-colors flex items-center gap-1.5';
+              }
+            });
+            renderAddonsList();
+          };
+        });
+      }
+
+      function renderAddonCard(addon) {
+        const selected = currentProposal.addons.find(a => a.id === addon.id);
+        const isChecked = Boolean(selected);
+        const currentQty = selected ? (selected.qty || 1) : 1;
+        const currentPrice = selected && selected.price !== undefined ? selected.price : addon.price;
+
+        let controlsHtml = '';
+        if (addon.priceType === 'quantity') {
+          controlsHtml = `
+            <div class="flex items-center gap-1.5 ml-auto">
+              <label class="text-[11px] text-secondary">Qty:</label>
+              <input type="number" min="1" max="50" value="${currentQty}" data-addon-id="${addon.id}" class="addon-qty-input w-16 bg-surface border border-outline-variant/40 rounded px-2 py-0.5 text-xs text-center focus:outline-none focus:border-primary" />
+              <span class="text-xs text-secondary">${addon.priceSuffixEn}</span>
+            </div>
+          `;
+        } else if (addon.priceType === 'editable') {
+          controlsHtml = `
+            <div class="flex items-center gap-1.5 ml-auto">
+              <label class="text-[11px] text-secondary">Price (€):</label>
+              <input type="number" min="0" step="5" value="${currentPrice}" data-addon-id="${addon.id}" class="addon-price-input w-20 bg-surface border border-outline-variant/40 rounded px-2 py-0.5 text-xs text-center focus:outline-none focus:border-primary" />
+            </div>
+          `;
+        } else {
+          controlsHtml = `<span class="text-xs font-bold text-primary dark:text-[#e9c176] ml-auto">+${core.formatEUR(addon.price)}</span>`;
+        }
+
+        const isPhoto = addon.category === 'photo';
+        const accentClass = isPhoto ? 'card-accent-photo' : 'card-accent-video';
+
+        return `
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between p-3.5 rounded-xl border ${isChecked ? 'border-primary/50 dark:border-[#e9c176]/50 bg-primary/5 dark:bg-[#e9c176]/5' : 'border-outline-variant/30 bg-surface'} gap-3 transition-all ${accentClass}">
+            <label class="flex items-start gap-3 cursor-pointer select-none">
+              <input type="checkbox" data-addon-id="${addon.id}" class="addon-toggle mt-0.5 w-4 h-4 text-primary rounded border-outline-variant focus:ring-0" ${isChecked ? 'checked' : ''} />
+              <div>
+                <div class="text-sm font-semibold">${addon.nameEn}</div>
+                <div class="text-xs text-secondary mt-0.5">${addon.descriptionEn}</div>
+              </div>
+            </label>
+            <div class="flex items-center pl-7 sm:pl-0">
+              ${controlsHtml}
+            </div>
+          </div>
+        `;
+      }
+
       function renderAddonsList() {
         const container = document.getElementById('addons-list-container');
-        container.innerHTML = core.ADDONS.map(addon => {
-          const selected = currentProposal.addons.find(a => a.id === addon.id);
-          const isChecked = Boolean(selected);
-          const currentQty = selected ? (selected.qty || 1) : 1;
-          const currentPrice = selected && selected.price !== undefined ? selected.price : addon.price;
+        const activePkg = core.PACKAGES.find(p => p.id === currentProposal.packageId) || core.PACKAGES[0];
+        const isPhotoActive = activePkg.category === 'photo';
+        const isVideoActive = activePkg.category === 'video';
 
-          let controlsHtml = '';
-          if (addon.priceType === 'quantity') {
-            controlsHtml = `
-              <div class="flex items-center gap-1.5 ml-auto">
-                <label class="text-[11px] text-secondary">Qty:</label>
-                <input type="number" min="1" max="50" value="${currentQty}" data-addon-id="${addon.id}" class="addon-qty-input w-16 bg-surface border border-outline-variant/40 rounded px-2 py-0.5 text-xs text-center focus:outline-none focus:border-primary" />
-                <span class="text-xs text-secondary">${addon.priceSuffixEn}</span>
-              </div>
-            `;
-          } else if (addon.priceType === 'editable') {
-            controlsHtml = `
-              <div class="flex items-center gap-1.5 ml-auto">
-                <label class="text-[11px] text-secondary">Price (€):</label>
-                <input type="number" min="0" step="5" value="${currentPrice}" data-addon-id="${addon.id}" class="addon-price-input w-20 bg-surface border border-outline-variant/40 rounded px-2 py-0.5 text-xs text-center focus:outline-none focus:border-primary" />
-              </div>
-            `;
-          } else {
-            controlsHtml = `<span class="text-xs font-bold text-primary dark:text-[#e9c176] ml-auto">+${core.formatEUR(addon.price)}</span>`;
-          }
+        let html = '';
 
-          return `
-            <div class="flex flex-col sm:flex-row sm:items-center justify-between p-3.5 rounded-xl border border-outline-variant/30 bg-surface gap-3">
-              <label class="flex items-start gap-3 cursor-pointer select-none">
-                <input type="checkbox" data-addon-id="${addon.id}" class="addon-toggle mt-0.5 w-4 h-4 text-primary rounded border-outline-variant focus:ring-0" ${isChecked ? 'checked' : ''} />
-                <div>
-                  <div class="text-sm font-semibold">${addon.nameEn}</div>
-                  <div class="text-xs text-secondary mt-0.5">${addon.descriptionEn}</div>
+        // 1. Studio Add-ons Group
+        if (currentAddonFilter === 'all' || currentAddonFilter === 'photo') {
+          const photoAddons = core.ADDONS.filter(a => a.category === 'photo');
+          html += `
+            <div class="space-y-2.5">
+              <div class="flex items-center justify-between pb-1.5 border-b border-outline-variant/30">
+                <div class="flex items-center gap-2">
+                  <span class="w-2.5 h-2.5 rounded-full" style="background-color: #0284c7;"></span>
+                  <span class="text-xs font-bold uppercase tracking-wider text-sky-700 dark:text-sky-300">Studio Add-ons</span>
+                  <span class="text-[11px] text-secondary">(${photoAddons.length})</span>
                 </div>
-              </label>
-              <div class="flex items-center pl-7 sm:pl-0">
-                ${controlsHtml}
+                ${isPhotoActive ? '<span class="badge-match-active"><span class="material-symbols-outlined text-[13px]">check_circle</span>Matches Base Package</span>' : ''}
+              </div>
+              <div class="space-y-2">
+                ${photoAddons.map(renderAddonCard).join('')}
               </div>
             </div>
           `;
-        }).join('');
+        }
+
+        // 2. Video & Dance Add-ons Group
+        if (currentAddonFilter === 'all' || currentAddonFilter === 'video') {
+          const videoAddons = core.ADDONS.filter(a => a.category === 'video');
+          html += `
+            <div class="space-y-2.5 pt-1">
+              <div class="flex items-center justify-between pb-1.5 border-b border-outline-variant/30">
+                <div class="flex items-center gap-2">
+                  <span class="w-2.5 h-2.5 rounded-full" style="background-color: #7c3aed;"></span>
+                  <span class="text-xs font-bold uppercase tracking-wider text-purple-700 dark:text-purple-300">Dance & Video Add-ons</span>
+                  <span class="text-[11px] text-secondary">(${videoAddons.length})</span>
+                </div>
+                ${isVideoActive ? '<span class="badge-match-active"><span class="material-symbols-outlined text-[13px]">check_circle</span>Matches Base Package</span>' : ''}
+              </div>
+              <div class="space-y-2">
+                ${videoAddons.map(renderAddonCard).join('')}
+              </div>
+            </div>
+          `;
+        }
+
+        container.innerHTML = html;
+
+        // Initialize filter buttons
+        initAddonFilterTabs();
 
         // Listeners for add-ons
         container.querySelectorAll('.addon-toggle').forEach(el => {
@@ -601,6 +826,8 @@
               currentProposal.addons = currentProposal.addons.filter(a => a.id !== id);
             }
             updateAddonBadge();
+            renderAddonsList();
+            onPackageOrAddonChanged();
             updateLiveCalculations();
           });
         });
@@ -620,6 +847,7 @@
               item.qty = val;
             }
             updateAddonBadge();
+            onPackageOrAddonChanged();
             updateLiveCalculations();
           });
         });
@@ -706,25 +934,54 @@
           );
         }
 
+        updateDeliverablesCustomBadge();
+
+        const activePkg = core.PACKAGES.find(p => p.id === currentProposal.packageId) || core.PACKAGES[0];
+        let defaultCheckClass = 'check-custom';
+        if (activePkg.category === 'photo') defaultCheckClass = 'check-photo';
+        else if (activePkg.category === 'video') defaultCheckClass = 'check-video';
+
+        const sectionIcon = document.getElementById('deliverables-section-icon');
+        if (sectionIcon) {
+          sectionIcon.className = `material-symbols-outlined ${defaultCheckClass}`;
+        }
+
         if (currentProposal.deliverables.length === 0) {
           container.innerHTML = `<div class="text-xs text-secondary italic p-2">No deliverables listed. Click "+ Add Item" or "Reset to Defaults".</div>`;
           return;
         }
 
-        container.innerHTML = currentProposal.deliverables.map((item, idx) => `
-          <div class="flex items-center gap-2 p-2 bg-surface rounded-lg border border-outline-variant/30">
-            <span class="material-symbols-outlined text-primary dark:text-[#e9c176] text-base shrink-0">check_circle</span>
-            <input type="text" value="${item.replace(/"/g, '&quot;')}" data-idx="${idx}" class="deliverable-text-input flex-1 bg-transparent px-2 py-1 text-sm focus:outline-none" />
-            <button type="button" data-idx="${idx}" class="btn-remove-deliverable p-1 text-secondary hover:text-error transition-colors" title="Delete">
-              <span class="material-symbols-outlined text-base">delete</span>
-            </button>
-          </div>
-        `).join('');
+        container.innerHTML = currentProposal.deliverables.map((item, idx) => {
+          let itemCheckClass = defaultCheckClass;
+          const lower = (item || '').toLowerCase();
+          if (activePkg.category === 'photo') {
+            if (lower.includes('video') || lower.includes('vídeo') || lower.includes('reel')) {
+              itemCheckClass = 'check-video';
+            }
+          } else if (activePkg.category === 'video') {
+            if (lower.includes('photo') || lower.includes('foto') || lower.includes('portada')) {
+              itemCheckClass = 'check-photo';
+            }
+          }
+
+          return `
+            <div class="flex items-center gap-2 p-2 bg-surface rounded-lg border border-outline-variant/30">
+              <span class="material-symbols-outlined ${itemCheckClass} text-base shrink-0">check_circle</span>
+              <input type="text" value="${item.replace(/"/g, '&quot;')}" data-idx="${idx}" class="deliverable-text-input flex-1 bg-transparent px-2 py-1 text-sm focus:outline-none" />
+              <button type="button" data-idx="${idx}" class="btn-remove-deliverable p-1 text-secondary hover:text-error transition-colors" title="Delete">
+                <span class="material-symbols-outlined text-base">delete</span>
+              </button>
+            </div>
+          `;
+        }).join('');
 
         container.querySelectorAll('.deliverable-text-input').forEach(el => {
           el.addEventListener('input', () => {
             const idx = parseInt(el.getAttribute('data-idx'), 10);
             currentProposal.deliverables[idx] = el.value;
+            deliverablesCustomized = true;
+            currentProposal.deliverablesCustomized = true;
+            updateDeliverablesCustomBadge();
           });
         });
 
@@ -732,6 +989,9 @@
           el.addEventListener('click', () => {
             const idx = parseInt(el.getAttribute('data-idx'), 10);
             currentProposal.deliverables.splice(idx, 1);
+            deliverablesCustomized = true;
+            currentProposal.deliverablesCustomized = true;
+            updateDeliverablesCustomBadge();
             renderDeliverablesEditor();
           });
         });
@@ -865,6 +1125,7 @@
         currentProposal.customPackageNameEn = document.getElementById('input-custom-pkg-name-en').value;
         currentProposal.customPackageNameEs = document.getElementById('input-custom-pkg-name-es').value;
         currentProposal.customPackagePrice = parseFloat(document.getElementById('input-custom-pkg-price').value) || 0;
+        currentProposal.deliverablesCustomized = deliverablesCustomized;
 
         const totals = core.calculateTotals(currentProposal);
 
@@ -967,6 +1228,18 @@
         document.getElementById('input-custom-pkg-name-es').value = p.customPackageNameEs || '';
         document.getElementById('input-custom-pkg-price').value = p.customPackagePrice || 0;
 
+        // Determine if deliverables was customized
+        if (typeof p.deliverablesCustomized === 'boolean') {
+          deliverablesCustomized = p.deliverablesCustomized;
+        } else if (Array.isArray(p.deliverables) && p.deliverables.length > 0) {
+          const defaults = core.getDefaultDeliverables(p.packageId, p.addons, p.defaultLang || 'en');
+          deliverablesCustomized = JSON.stringify(p.deliverables) !== JSON.stringify(defaults);
+        } else {
+          deliverablesCustomized = false;
+        }
+        hideDeliverablesSyncNotice();
+        updateDeliverablesCustomBadge();
+
         renderPackageSelector();
         updateCustomPackageVisibility();
         renderAddonsList();
@@ -1027,19 +1300,30 @@
           );
         }
         currentProposal.deliverables.push('Custom deliverable item');
+        deliverablesCustomized = true;
+        currentProposal.deliverablesCustomized = true;
+        updateDeliverablesCustomBadge();
         renderDeliverablesEditor();
       });
 
-      // Deliverables Reset
+      // Deliverables Reset & Sync
       document.getElementById('btn-reset-deliverables').addEventListener('click', () => {
-        currentProposal.deliverables = core.getDefaultDeliverables(
-          currentProposal.packageId,
-          currentProposal.addons,
-          currentProposal.defaultLang || 'en'
-        );
-        renderDeliverablesEditor();
-        showToast('Deliverables reset to package & add-on defaults');
+        syncDeliverablesWithAddons();
       });
+
+      const syncBtnHeader = document.getElementById('btn-sync-deliverables');
+      if (syncBtnHeader) {
+        syncBtnHeader.addEventListener('click', () => {
+          syncDeliverablesWithAddons();
+        });
+      }
+
+      const syncBtnBanner = document.getElementById('btn-sync-deliverables-banner');
+      if (syncBtnBanner) {
+        syncBtnBanner.addEventListener('click', () => {
+          syncDeliverablesWithAddons();
+        });
+      }
 
       // Section Visibility Toggles
       const sectionToggleBindings = [
@@ -1114,14 +1398,24 @@
       });
 
       // Form inputs change
-      ['input-client-name', 'input-client-company', 'input-project-title', 'input-proposal-date', 'input-proposal-expiry', 'select-default-lang', 'input-scope', 'input-custom-pkg-name-en', 'input-custom-pkg-name-es', 'input-custom-pkg-price'].forEach(id => {
+      ['input-client-name', 'input-client-company', 'input-project-title', 'input-proposal-date', 'input-proposal-expiry', 'input-scope', 'input-custom-pkg-name-en', 'input-custom-pkg-name-es', 'input-custom-pkg-price'].forEach(id => {
         const el = document.getElementById(id);
         if (el) el.addEventListener('input', updateLiveCalculations);
       });
 
+      const langSelectEl = document.getElementById('select-default-lang');
+      if (langSelectEl) {
+        langSelectEl.addEventListener('change', () => {
+          currentProposal.defaultLang = langSelectEl.value;
+          onPackageOrAddonChanged();
+          updateLiveCalculations();
+        });
+      }
+
       // Action: New Proposal
       document.getElementById('btn-new-proposal').addEventListener('click', () => {
         if (confirm('Create a new blank proposal? Unsaved changes in the current view will be discarded.')) {
+          deliverablesCustomized = false;
           populateFormFromProposal(core.createBlankProposal());
           showToast('New blank proposal initialized');
         }
