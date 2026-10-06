@@ -1,3 +1,121 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Lumina Noir custom utilities */
+.editorial-spacing {
+  letter-spacing: -0.02em;
+}
+
+/* Print Stylesheet for Proposals */
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 8mm 10mm 8mm 10mm;
+  }
+
+  html, body {
+    background-color: #ffffff !important;
+    color: #1c1b1b !important;
+    font-size: 11px !important;
+    line-height: 1.35 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* Force light theme in print */
+  .dark {
+    background-color: #ffffff !important;
+    color: #1c1b1b !important;
+  }
+
+  .no-print,
+  nav,
+  header,
+  #proposal-actions,
+  #expired-banner,
+  .toast,
+  button {
+    display: none !important;
+  }
+
+  main {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    max-width: 100% !important;
+  }
+
+  /* Compact sections for print */
+  #proposal-content {
+    gap: 0.75rem !important;
+    margin-top: 0 !important;
+  }
+
+  #proposal-content > section {
+    margin-bottom: 0.65rem !important;
+  }
+
+  .print-page-break {
+    page-break-before: always;
+    break-before: page;
+  }
+
+  .print-avoid-break {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  /* Hero gallery: 3-column vertical (3:4) images in print */
+  .proposal-hero-gallery {
+    margin-bottom: 0.5rem !important;
+  }
+  .proposal-hero-gallery #hero-gallery-grid {
+    display: grid !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: 0.5rem !important;
+  }
+  .proposal-hero-gallery .hero-img-card {
+    aspect-ratio: 3 / 4 !important;
+    height: 140px !important;
+    max-height: 145px !important;
+    width: auto !important;
+    margin: 0 auto !important;
+    border-radius: 6px !important;
+    overflow: hidden !important;
+  }
+  .proposal-hero-gallery img {
+    height: 100% !important;
+    width: 100% !important;
+    object-fit: cover !important;
+    display: block !important;
+  }
+
+  /* Ensure card backgrounds and borders print with subtle contrast */
+  .bg-surface-container-low,
+  .bg-surface-container,
+  .bg-surface-container-high {
+    background-color: #f8f6f5 !important;
+    border: 1px solid #e8e3de !important;
+    padding: 0.75rem 1rem !important;
+    border-radius: 8px !important;
+  }
+
+  /* Table padding in print */
+  table th, table td {
+    padding-top: 0.35rem !important;
+    padding-bottom: 0.35rem !important;
+    padding-left: 0.75rem !important;
+    padding-right: 0.75rem !important;
+  }
+
+  /* Remove heavy shadows */
+  * {
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+
+  a {
+    text-decoration: none !important;
+    color: inherit !important;
+  }
+}

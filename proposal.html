@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Proposal · LMP Studio Barcelona</title>
+  <meta name="description" content="Visual project proposal from LMP Studio Barcelona." />
+  <link rel="icon" type="image/png" sizes="192x192" href="images/favicon-192.png" />
+  <link href="https://fonts.googleapis.com" rel="preconnect" />
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap"
+    rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+    }
+  </style>
+</head>
+
+<body
+  class="bg-surface text-on-surface min-h-screen transition-colors duration-200 selection:bg-primary-container selection:text-white">
+
+  <!-- Main Container (Tightened padding & spacing for compact 1-page print) -->
+  <main class="max-w-4xl mx-auto px-4 sm:px-6 py-6 sm:py-8 space-y-6">
+
+    <!-- Loading State -->
+    <div id="loading-state" class="py-16 text-center space-y-3">
+      <div class="inline-block animate-spin rounded-full h-8 w-8 border-2 border-primary border-t-transparent"></div>
+      <p class="text-sm text-secondary">Loading proposal...</p>
+    </div>
+
+    <!-- Error State -->
+    <div id="error-state" class="hidden py-20 text-center max-w-md mx-auto space-y-4">
+      <span class="material-symbols-outlined text-5xl text-error">error_outline</span>
+      <h2 class="font-headline text-2xl font-bold" data-i18n="proposal.errorTitle">Proposal Not Found</h2>
+      <p class="text-sm text-secondary leading-relaxed" data-i18n="proposal.errorDesc">The link appears to be incomplete
+        or invalid. Please check the URL or request a new proposal link.</p>
+      <a href="index.html"
+        class="inline-block mt-4 px-6 py-2.5 rounded-lg bg-surface-container-high hover:bg-surface-container-highest text-sm font-semibold transition-colors">Visit
+        LMP Studio</a>
+    </div>
+
+    <!-- Proposal View -->
+    <div id="proposal-content" class="hidden space-y-6 sm:space-y-7">
+
+      <!-- Expired Banner -->
+      <div id="expired-banner"
+        class="hidden bg-error-container/40 border border-error/20 rounded-2xl p-4 sm:p-5 flex items-start gap-3 sm:gap-4 text-on-surface">
+        <span class="material-symbols-outlined text-error text-2xl shrink-0 mt-0.5">warning</span>
+        <div>
+          <h3 class="font-headline text-sm font-bold text-error" data-i18n="proposal.expiredBannerTitle">This proposal
+            has expired</h3>
+          <p class="text-xs text-secondary mt-1 leading-relaxed" data-i18n="proposal.expiredBannerDesc">The timeframe or
+            pricing validity has passed. You can still review the details or request an updated quote below.</p>
+        </div>
+      </div>
+
+      <!-- Branded Document Header (Always visible on print and on-screen) -->
+      <div class="flex items-center justify-between pb-2 border-b border-outline-variant/30 print:pb-2">
+        <div class="flex items-center">
+          <img src="images/logo-nav.png" alt="LMP Studio" class="h-8 w-auto dark:hidden print:block" />
+          <img src="images/logo-nav-white.png" alt="LMP Studio" class="h-8 w-auto hidden dark:block print:hidden" />
+        </div>
+        <div class="text-[11px] font-bold tracking-widest uppercase text-primary dark:text-[#e9c176]"
+          data-i18n="proposal.proposalEyebrow">Project Proposal</div>
+      </div>
+
+      <!-- Project Metadata Card -->
+      <section class="bg-surface-container-low rounded-xl p-4 sm:p-5 shadow-sm print-avoid-break">
+        <div
+          class="flex flex-col sm:flex-row sm:items-start justify-between gap-3">
+          <div>
+            <h1 id="prop-project-title"
+              class="font-headline text-xl sm:text-2xl font-extrabold editorial-spacing text-on-surface">
+              <!-- Title -->
+            </h1>
+            <div id="prop-client-meta" class="mt-1 text-xs text-secondary">
+              <span data-i18n="proposal.proposalFor">Prepared for</span> <strong id="prop-client-name"
+                class="text-on-surface font-semibold"></strong>
+              <span id="prop-client-company-sep" class="hidden">·</span>
+              <span id="prop-client-company" class="italic"></span>
+            </div>
+          </div>
+
+          <div class="text-left sm:text-right shrink-0 space-y-0.5 text-xs">
+            <div class="text-secondary font-mono text-[11px]" id="prop-reference-id">Ref: P-000000</div>
+            <div>
+              <span class="text-secondary" data-i18n="proposal.date">Date:</span>
+              <span id="prop-date" class="font-semibold ml-1"></span>
+            </div>
+            <div>
+              <span class="text-secondary" data-i18n="proposal.validUntil">Valid until:</span>
+              <span id="prop-expiry-date" class="font-semibold ml-1"></span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Scope & Creative Direction -->
+      <section id="scope-section" class="print-avoid-break space-y-2">
+        <h2 class="font-headline text-base font-bold editorial-spacing flex items-center gap-1.5"
+          data-i18n="proposal.scopeTitle">
+          <span class="material-symbols-outlined text-primary dark:text-[#e9c176] text-lg">palette</span>
+          <span>Scope & Creative Direction</span>
+        </h2>
+        <div id="prop-scope-body"
+          class="bg-surface-container-low rounded-xl p-4 sm:p-5 shadow-sm text-xs sm:text-sm leading-relaxed space-y-1.5">
+          <!-- Markdown rendered content -->
+        </div>
+      </section>
+
+      <!-- Included Deliverables -->
+      <section id="deliverables-section" class="print-avoid-break space-y-2">
+        <h2 class="font-headline text-base font-bold editorial-spacing flex items-center gap-1.5"
+          data-i18n="proposal.deliverablesTitle">
+          <span class="material-symbols-outlined text-primary dark:text-[#e9c176] text-lg">task_alt</span>
+          <span>Included Deliverables</span>
+        </h2>
+        <div class="bg-surface-container-low rounded-xl p-4 sm:p-5 shadow-sm">
+          <ul id="prop-deliverables-list" class="space-y-2 text-xs sm:text-sm">
+            <!-- Bullet points with done icon -->
+          </ul>
+        </div>
+      </section>
+
+      <!-- Hero Gallery (3-column vertical grid) - Placed between Deliverables & Financial Breakdown -->
+      <section id="hero-gallery-section" class="proposal-hero-gallery print-avoid-break">
+        <div id="hero-gallery-grid" class="grid grid-cols-3 gap-2 sm:gap-3 rounded-xl overflow-hidden">
+          <!-- Populated by JS -->
+        </div>
+      </section>
+
+      <!-- Financial Breakdown -->
+      <section id="financial-section" class="print-avoid-break space-y-2">
+        <h2 class="font-headline text-base font-bold editorial-spacing flex items-center gap-1.5"
+          data-i18n="proposal.investmentTitle">
+          <span class="material-symbols-outlined text-primary dark:text-[#e9c176] text-lg">receipt_long</span>
+          <span>Financial Breakdown</span>
+        </h2>
+
+        <div class="bg-surface-container-low rounded-xl overflow-hidden shadow-sm border border-outline-variant/30">
+          <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse text-xs sm:text-sm">
+              <thead>
+                <tr
+                  class="border-b border-outline-variant/40 bg-surface-container text-[11px] uppercase tracking-wider text-secondary">
+                  <th class="py-2.5 px-4 font-bold" data-i18n="proposal.item">Item</th>
+                  <th class="py-2.5 px-3 font-bold text-center w-16" data-i18n="proposal.qty">Qty</th>
+                  <th class="py-2.5 px-4 font-bold text-right w-24" data-i18n="proposal.rate">Rate</th>
+                  <th class="py-2.5 px-4 font-bold text-right w-28" data-i18n="proposal.amount">Amount</th>
+                </tr>
+              </thead>
+              <tbody id="prop-table-body" class="divide-y divide-outline-variant/20">
+                <!-- Rows populated by JS -->
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Totals Area -->
+          <div class="bg-surface-container/60 p-4 sm:p-5 border-t border-outline-variant/30 flex flex-col items-end">
+            <div class="w-full max-w-xs space-y-1.5 text-xs sm:text-sm">
+
+              <!-- Subtotal -->
+              <div class="flex justify-between text-secondary">
+                <span data-i18n="proposal.subtotal">Subtotal</span>
+                <span id="prop-subtotal" class="font-medium text-on-surface"></span>
+              </div>
+
+              <!-- Discount (if on) -->
+              <div id="prop-discount-row" class="hidden flex justify-between text-error font-medium">
+                <span id="prop-discount-label">Discount</span>
+                <span id="prop-discount-val"></span>
+              </div>
+
+              <!-- VAT (if on) -->
+              <div id="prop-vat-row" class="hidden flex justify-between text-secondary">
+                <span id="prop-vat-label">VAT / IVA</span>
+                <span id="prop-vat-val" class="font-medium text-on-surface"></span>
+              </div>
+
+              <!-- Final Total -->
+              <div class="pt-2 border-t border-outline-variant/40 flex justify-between items-baseline">
+                <span class="font-headline font-bold text-sm sm:text-base" data-i18n="proposal.total">Total
+                  Investment</span>
+                <span id="prop-total"
+                  class="font-headline text-xl sm:text-2xl font-extrabold text-primary dark:text-[#e9c176]"></span>
+              </div>
+
+              <!-- Deposit (if on) -->
+              <div id="prop-deposit-row"
+                class="hidden pt-2 border-t border-outline-variant/20 flex justify-between text-xs text-secondary">
+                <div>
+                  <span data-i18n="proposal.deposit">Deposit Required</span>
+                  <span id="prop-deposit-badge"
+                    class="ml-1 text-[10px] font-semibold text-primary dark:text-[#e9c176]"></span>
+                </div>
+                <span id="prop-deposit-val" class="font-bold text-on-surface"></span>
+              </div>
+
+              <!-- Balance (if deposit on) -->
+              <div id="prop-balance-row" class="hidden flex justify-between text-xs text-secondary">
+                <span data-i18n="proposal.balanceDue">Remaining Balance</span>
+                <span id="prop-balance-val" class="font-semibold text-on-surface"></span>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Client Action Buttons -->
+      <section id="proposal-actions" class="no-print pt-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div class="text-xs text-secondary text-center sm:text-left">
+          Questions or custom adjustments? Contact us directly.
+        </div>
+
+        <div class="flex items-center gap-3 w-full sm:w-auto">
+          <!-- Print PDF Button -->
+          <button id="btn-print-pdf" type="button"
+            class="flex-1 sm:flex-none flex items-center justify-center gap-2 px-5 py-3 rounded-xl border border-outline-variant/50 hover:bg-surface-container-high font-semibold text-sm transition-colors">
+            <span class="material-symbols-outlined text-lg">print</span>
+            <span data-i18n="proposal.downloadPdf">Download PDF</span>
+          </button>
+
+          <!-- WhatsApp Accept Button -->
+          <a id="btn-accept-whatsapp" href="#" target="_blank" rel="noopener noreferrer"
+            class="flex-1 sm:flex-none flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-primary hover:bg-[#5d4201] text-white font-bold text-sm shadow-md transition-colors">
+            <span class="material-symbols-outlined text-lg">chat</span>
+            <span id="whatsapp-btn-label" data-i18n="proposal.acceptWhatsApp">Accept via WhatsApp</span>
+          </a>
+        </div>
+      </section>
+
+      <!-- Footer Note -->
+      <footer class="pt-6 border-t border-outline-variant/20 text-center text-xs text-secondary">
+        <p data-i18n="proposal.footerNote">Barcelona, Spain · Commercial & Creative Media Production · Europe-wide</p>
+      </footer>
+
+    </div>
+  </main>
+
+  <!-- Core & Proposal Logic -->
+  <script src="js/proposal-core.js"></script>
+  <script>
+    (function () {
+      const core = window.ProposalCore;
+      let proposalData = null;
+      let translations = {};
+      let currentLang = 'en';
+
+      // Respect user's system/browser theme or stored preference if available
+      const savedTheme = localStorage.getItem('theme') || 'light';
+      if (savedTheme === 'dark') document.documentElement.classList.add('dark');
+
+      function t(key) {
+        const keys = key.split('.');
+        let val = translations[currentLang];
+        for (const k of keys) val = val?.[k];
+        return val || key;
+      }
+
+      function applyTranslations() {
+        document.querySelectorAll('[data-i18n]').forEach(el => {
+          const key = el.getAttribute('data-i18n');
+          el.innerHTML = t(key);
+        });
+
+        document.documentElement.lang = currentLang;
+
+        if (proposalData) {
+          renderProposalContent();
+        }
+      }
+
+      // Print PDF
+      document.getElementById('btn-print-pdf').addEventListener('click', () => {
+        window.print();
+      });
+
+      // Load proposal from URL hash
+      async function init() {
+        // Fetch translations first
+        try {
+          const res = await fetch('translations.json');
+          translations = await res.json();
+        } catch (err) {
+          console.error('Failed to load translations.json', err);
+        }
+
+        const hash = window.location.hash;
+        if (!hash || (!hash.includes('p=') && hash.length < 5)) {
+          showError();
+          return;
+        }
+
+        try {
+          proposalData = await core.decodeProposal(hash);
+          if (!proposalData || !proposalData.packageId) {
+            throw new Error('Invalid proposal payload');
+          }
+
+          // Use proposal's configured language as primary source of truth
+          if (proposalData.defaultLang) {
+            currentLang = proposalData.defaultLang;
+          } else {
+            const storedLang = localStorage.getItem('lang');
+            if (storedLang) currentLang = storedLang;
+          }
+
+          applyTranslations();
+
+          document.getElementById('loading-state').classList.add('hidden');
+          document.getElementById('proposal-content').classList.remove('hidden');
+        } catch (err) {
+          console.error('Decode failed:', err);
+          showError(err.message);
+        }
+      }
+
+      function showError(details) {
+        document.getElementById('loading-state').classList.add('hidden');
+        document.getElementById('error-state').classList.remove('hidden');
+        if (details) {
+          console.warn('Proposal error diagnostic:', details);
+        }
+      }
+
+      function renderProposalContent() {
+        if (!proposalData) return;
+
+        const isEs = currentLang === 'es';
+        const p = proposalData;
+        const totals = core.calculateTotals(p);
+
+        // Expiry check
+        let isExpired = false;
+        if (p.expirationDate) {
+          const today = core.getTodayIso();
+          isExpired = today > p.expirationDate;
+        }
+
+        const expiredBanner = document.getElementById('expired-banner');
+        if (isExpired) {
+          expiredBanner.classList.remove('hidden');
+          document.getElementById('whatsapp-btn-label').textContent = t('proposal.requestUpdateWhatsApp');
+        } else {
+          expiredBanner.classList.add('hidden');
+          document.getElementById('whatsapp-btn-label').textContent = t('proposal.acceptWhatsApp');
+        }
+
+        // Hero Gallery
+        renderHeroGallery(p.images || [], p.showHeroGallery !== false);
+
+        // Update page title
+        document.title = `${p.projectTitle || t('proposal.pageTitle')} · LMP Studio`;
+
+        // Metadata
+        document.getElementById('prop-project-title').textContent = p.projectTitle || (isEs ? 'Propuesta de Producción' : 'Production Proposal');
+        document.getElementById('prop-client-name').textContent = p.clientName || (isEs ? 'Cliente' : 'Client');
+
+        const compEl = document.getElementById('prop-client-company');
+        const compSep = document.getElementById('prop-client-company-sep');
+        if (p.clientCompany) {
+          compEl.textContent = p.clientCompany;
+          compEl.classList.remove('hidden');
+          compSep.classList.remove('hidden');
+        } else {
+          compEl.classList.add('hidden');
+          compSep.classList.add('hidden');
+        }
+
+        document.getElementById('prop-reference-id').textContent = `Ref: ${p.id || 'N/A'}`;
+        document.getElementById('prop-date').textContent = p.date || 'N/A';
+        document.getElementById('prop-expiry-date').textContent = p.expirationDate || 'N/A';
+
+        // Visibility dictionary (fallback: true)
+        const vis = p.sectionVisibility || {};
+
+        // Scope (single field, displayed as is regardless of language)
+        const isScopeVisible = vis.scope !== false;
+        const scopeText = p.scope !== undefined ? p.scope : (isEs && p.scopeEs ? p.scopeEs : (p.scopeEn || ''));
+        const scopeSection = document.getElementById('scope-section');
+        if (isScopeVisible && scopeText && scopeText.trim()) {
+          document.getElementById('prop-scope-body').innerHTML = core.renderMarkdown(scopeText);
+          scopeSection.classList.remove('hidden');
+        } else {
+          scopeSection.classList.add('hidden');
+        }
+
+        // Deliverables
+        const isDelivVisible = vis.deliverables !== false;
+        const delivSection = document.getElementById('deliverables-section');
+        if (isDelivVisible) {
+          delivSection.classList.remove('hidden');
+          renderDeliverables(p, isEs);
+        } else {
+          delivSection.classList.add('hidden');
+        }
+
+        // Hero Gallery
+        const isHeroVisible = (vis.heroGallery !== false) && (p.showHeroGallery !== false);
+        renderHeroGallery(p.images || [], isHeroVisible);
+
+        // Financial Table
+        const isFinVisible = vis.financial !== false;
+        const finSection = document.getElementById('financial-section');
+        if (isFinVisible) {
+          finSection.classList.remove('hidden');
+          renderFinancialTable(p, totals, isEs);
+        } else {
+          finSection.classList.add('hidden');
+        }
+
+        // WhatsApp Link
+        const waBtn = document.getElementById('btn-accept-whatsapp');
+        if (waBtn) {
+          waBtn.href = core.buildWhatsAppUrl(p, totals, currentLang, isExpired);
+        }
+      }
+
+      function renderHeroGallery(images, isHeroOn) {
+        const grid = document.getElementById('hero-gallery-grid');
+        const section = document.getElementById('hero-gallery-section');
+
+        if (!isHeroOn || !images || images.length === 0) {
+          section.classList.add('hidden');
+          return;
+        }
+
+        section.classList.remove('hidden');
+
+        // Ensure all URLs are properly normalized (e.g. Google Drive links)
+        const normalizedImgs = images.map(img => core.normalizeImageUrl(img));
+
+        // Always display as a 3-column grid of vertical (3:4 aspect ratio) portrait images
+        grid.className = 'grid grid-cols-3 gap-2 sm:gap-3 rounded-xl overflow-hidden';
+        grid.innerHTML = normalizedImgs.map((img, idx) => `
+          <div class="hero-img-card relative overflow-hidden bg-surface-container-high rounded-lg shadow-sm" style="aspect-ratio: 3 / 4; width: 100%;">
+            <img src="${img}" class="w-full h-full object-cover block" alt="Hero Preview ${idx + 1}" onerror="this.src='images/social-preview.png'" />
+          </div>
+        `).join('');
+      }
+
+      function renderDeliverables(p, isEs) {
+        const list = document.getElementById('prop-deliverables-list');
+        let items = [];
+
+        // If the proposal has customized deliverables, use them directly
+        if (Array.isArray(p.deliverables) && p.deliverables.length > 0) {
+          items = p.deliverables;
+        } else {
+          // Default auto-generated deliverables
+          items = core.getDefaultDeliverables(p.packageId, p.addons, isEs ? 'es' : 'en');
+        }
+
+        list.innerHTML = items.map(text => `
+          <li class="flex items-start gap-3 text-on-surface-variant dark:text-[#fcf9f8]/80 leading-relaxed">
+            <span class="material-symbols-outlined text-primary dark:text-[#e9c176] text-xl shrink-0 mt-0.5">check_circle</span>
+            <div>${text}</div>
+          </li>
+        `).join('');
+      }
+
+      function renderFinancialTable(p, totals, isEs) {
+        const tbody = document.getElementById('prop-table-body');
+        const rows = [];
+
+        // Base package
+        const pkgName = totals.basePackage.isCustom
+          ? ((isEs && p.customPackageNameEs) ? p.customPackageNameEs : (p.customPackageNameEn || 'Custom Package'))
+          : (isEs ? totals.basePackage.nameEs : totals.basePackage.nameEn);
+
+        rows.push(`
+          <tr class="hover:bg-surface-container/30 transition-colors">
+            <td class="py-3.5 px-6 font-semibold">${pkgName}</td>
+            <td class="py-3.5 px-4 text-center text-secondary">1</td>
+            <td class="py-3.5 px-6 text-right text-secondary">${core.formatEUR(totals.basePrice)}</td>
+            <td class="py-3.5 px-6 text-right font-bold">${core.formatEUR(totals.basePrice)}</td>
+          </tr>
+        `);
+
+        // Selected Add-ons
+        totals.selectedAddons.forEach(a => {
+          const name = isEs ? a.nameEs : a.nameEn;
+          rows.push(`
+            <tr class="hover:bg-surface-container/30 transition-colors">
+              <td class="py-3.5 px-6 text-on-surface-variant dark:text-[#fcf9f8]/90">${name}</td>
+              <td class="py-3.5 px-4 text-center text-secondary">${a.qty}</td>
+              <td class="py-3.5 px-6 text-right text-secondary">${core.formatEUR(a.unitPrice)}</td>
+              <td class="py-3.5 px-6 text-right font-semibold">${core.formatEUR(a.total)}</td>
+            </tr>
+          `);
+        });
+
+        // Custom items
+        totals.customItems.forEach(ci => {
+          rows.push(`
+            <tr class="hover:bg-surface-container/30 transition-colors">
+              <td class="py-3.5 px-6 text-on-surface-variant dark:text-[#fcf9f8]/90">${ci.title}</td>
+              <td class="py-3.5 px-4 text-center text-secondary">1</td>
+              <td class="py-3.5 px-6 text-right text-secondary">${core.formatEUR(ci.price)}</td>
+              <td class="py-3.5 px-6 text-right font-semibold">${core.formatEUR(ci.price)}</td>
+            </tr>
+          `);
+        });
+
+        tbody.innerHTML = rows.join('');
+
+        // Totals display
+        document.getElementById('prop-subtotal').textContent = core.formatEUR(totals.subtotal);
+
+        // Discount
+        const discRow = document.getElementById('prop-discount-row');
+        if (totals.discount.enabled && totals.discount.amount > 0) {
+          discRow.classList.remove('hidden');
+          const dLabel = totals.discount.type === 'percent'
+            ? `${t('proposal.discount')} (${totals.discount.value}%)`
+            : t('proposal.discount');
+          document.getElementById('prop-discount-label').textContent = dLabel;
+          document.getElementById('prop-discount-val').textContent = `- ${core.formatEUR(totals.discount.amount)}`;
+        } else {
+          discRow.classList.add('hidden');
+        }
+
+        // VAT
+        const vatRow = document.getElementById('prop-vat-row');
+        if (totals.vat.enabled && totals.vat.amount > 0) {
+          vatRow.classList.remove('hidden');
+          const vLabel = totals.vat.type === 'percent'
+            ? `${t('proposal.vat')} (${totals.vat.value}%)`
+            : t('proposal.vat');
+          document.getElementById('prop-vat-label').textContent = vLabel;
+          document.getElementById('prop-vat-val').textContent = `+ ${core.formatEUR(totals.vat.amount)}`;
+        } else {
+          vatRow.classList.add('hidden');
+        }
+
+        // Final total
+        document.getElementById('prop-total').textContent = core.formatEUR(totals.total);
+
+        // Deposit
+        const depRow = document.getElementById('prop-deposit-row');
+        const balRow = document.getElementById('prop-balance-row');
+        if (totals.deposit.enabled && totals.deposit.amount > 0) {
+          depRow.classList.remove('hidden');
+          balRow.classList.remove('hidden');
+          const badge = totals.deposit.type === 'percent' ? `(${totals.deposit.value}%)` : '';
+          document.getElementById('prop-deposit-badge').textContent = badge;
+          document.getElementById('prop-deposit-val').textContent = core.formatEUR(totals.deposit.amount);
+          document.getElementById('prop-balance-val').textContent = core.formatEUR(totals.balance);
+        } else {
+          depRow.classList.add('hidden');
+          balRow.classList.add('hidden');
+        }
+      }
+
+      window.addEventListener('hashchange', init);
+      init();
+    })();
+  </script>
+</body>
+
+</html>
