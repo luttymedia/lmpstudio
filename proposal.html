@@ -61,12 +61,20 @@
       </div>
 
       <!-- Branded Document Header (Always visible on print and on-screen) -->
-      <div class="flex items-center justify-between pb-2 border-b border-outline-variant/30 print:pb-2">
-        <div class="flex items-center">
-          <img src="images/logo-nav.png" alt="LMP Studio" class="h-8 w-auto block" />
+      <div class="space-y-1 sm:space-y-0">
+        <div class="flex items-center justify-between pb-2 border-b border-outline-variant/30 print:pb-2">
+          <div class="flex items-center shrink-0">
+            <img src="images/logo-nav.png" alt="LMP Studio" class="h-7 sm:h-8 w-auto object-contain block shrink-0" />
+          </div>
+          <!-- Desktop / Print Eyebrow (beside logo) -->
+          <div class="hidden sm:block text-[11px] font-bold tracking-widest uppercase text-primary print:block shrink-0"
+            data-i18n="proposal.proposalEyebrow">Project Proposal</div>
         </div>
-        <div class="text-[11px] font-bold tracking-widest uppercase text-primary"
-          data-i18n="proposal.proposalEyebrow">Project Proposal</div>
+        <!-- Mobile-only Eyebrow (below divider line, right-aligned) -->
+        <div class="sm:hidden text-right pt-0.5 print:hidden">
+          <span class="text-[10px] font-bold tracking-widest uppercase text-primary"
+            data-i18n="proposal.proposalEyebrow">Project Proposal</span>
+        </div>
       </div>
 
       <!-- Project Metadata Card -->
