@@ -264,11 +264,20 @@
     { label: 'Dark & Moody 1', url: 'images/portfolio/dark1.jpg' },
     { label: 'Dark & Moody 2', url: 'images/portfolio/dark2.jpg' },
     { label: 'Lifestyle 1', url: 'images/portfolio/lifestyle1.jpg' },
+    { label: 'Lifestyle 2', url: 'images/portfolio/lifestyle2.jpg' },
+    { label: 'Portfolio H1', url: 'images/portfolio/h1.png' },
+    { label: 'Portfolio H2', url: 'images/portfolio/h2.png' },
+    { label: 'Portfolio V1', url: 'images/portfolio/v1.png' },
+    { label: 'Portfolio V2', url: 'images/portfolio/v2.png' },
     { label: 'Studio Space 1', url: 'images/studio-1.png' },
     { label: 'Studio Equipment', url: 'images/studio-equipment.png' },
     { label: 'Dance Frame 1', url: 'videos/dance-1.jpg' },
     { label: 'Dance Frame 2', url: 'videos/dance-2.jpg' },
-    { label: 'Dance Frame 3', url: 'videos/dance-3.jpg' }
+    { label: 'Dance Frame 3', url: 'videos/dance-3.jpg' },
+    { label: 'Dance Frame 4', url: 'videos/dance-4.jpg' },
+    { label: 'Dance Frame 5', url: 'videos/dance-5.jpg' },
+    { label: 'Dance Frame 6', url: 'videos/dance-6.jpg' },
+    { label: 'Dance Frame 7', url: 'videos/dance-7.jpg' }
   ];
 
   // ─── UTILITY HELPERS ───────────────────────────────────────────────────────
