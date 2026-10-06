@@ -803,7 +803,7 @@
 
       if (dynamicEdits >= totalVideos) {
         items.push(isEs
-          ? `${totalVideos} vídeos con edición dinámica multi-toma (montaje rítmico multi-ángulo, etalonaje y sincronización musical)`
+          ? `${totalVideos} vídeos con edición dinámica multi-toma (montaje rítmico multi-ángulo, corrección de color y sincronización musical)`
           : `${totalVideos} dynamic multi-angle cut videos (rhythmic multi-take edits with color grading & music sync)`
         );
       } else if (dynamicEdits > 0) {
@@ -826,7 +826,7 @@
 
       // 4. Color correction & overlays
       items.push(isEs ? 'Corrección de color básica y sincronización musical' : 'Basic color correction & music sync');
-      items.push(isEs ? 'Texto simple o grafismos si se requieren' : 'Simple text / branding overlays when needed');
+      items.push(isEs ? 'Texto o grafismos básicos si se requieren' : 'Simple text / branding overlays when needed');
       items.push(isEs ? 'Fotos de portada editadas para redes sociales' : 'Edited cover photos from the session for social media');
 
       // 5. Delivery
@@ -899,8 +899,8 @@
           : 'Full studio access & lighting gear'
         );
         items.push(isEs
-          ? 'Opciones de fondo (ciclorama blanco, pared texturizada, negro)'
-          : 'Backdrop options available (white cyclorama, textured walls, black)'
+          ? 'Opciones de fondo (ciclorama blanco, pared texturizada, fondos de colores)'
+          : 'Backdrop options available (white cyclorama, textured walls, colored backgrounds)'
         );
       }
 
