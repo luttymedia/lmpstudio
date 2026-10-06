@@ -363,6 +363,7 @@
       "downloadPdf": "Download PDF",
       "footerNote": "Barcelona, Spain · Commercial & Creative Media Production · Europe-wide",
       "customDeliverable": "Custom deliverable",
+      "questionsHelp": "Questions or custom adjustments? Contact us directly.",
       "waAcceptMsg": "Hello Lutty! I accept the proposal for '{projectTitle}' (Ref: {id}, Total: {total}). Let's coordinate dates!",
       "waUpdateMsg": "Hello Lutty! I would like to request an updated proposal for '{projectTitle}' (Ref: {id}).",
       "errorTitle": "Proposal Not Found",
@@ -611,7 +612,7 @@
       "intro": "Una sesión de vídeo sencilla y profesional para bailarines que quieren contenido de calidad sin complicar la producción.",
       "packTitle": "El pack base incluye:",
       "videosTitle": "Vídeos de muestra",
-      "videosDesc": "Algunos vídeos de danza de sesiones anteriores. Toca cualquier vídeo para verlo con sonido.",
+      "videosDesc": "Algunos vídeos de baile de sesiones anteriores. Toca cualquier vídeo para verlo con sonido.",
       "features": [
         {
           "icon": "videocam",
@@ -732,6 +733,7 @@
       "downloadPdf": "Descargar PDF",
       "footerNote": "Barcelona, España · Producción Comercial y Creativa · Disponible en toda Europa",
       "customDeliverable": "Entregable personalizado",
+      "questionsHelp": "¿Preguntas o cambios a medida? Contáctanos directamente.",
       "waAcceptMsg": "¡Hola Lutty! Acepto la propuesta para '{projectTitle}' (Ref: {id}, Total: {total}). ¡Coordinemos fechas!",
       "waUpdateMsg": "¡Hola Lutty! Me gustaría solicitar una propuesta actualizada para '{projectTitle}' (Ref: {id}).",
       "errorTitle": "Propuesta no encontrada",

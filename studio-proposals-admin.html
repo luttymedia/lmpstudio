@@ -403,15 +403,37 @@
             <span>Save to Drafts</span>
           </button>
 
-          <button id="btn-copy-direct-link" type="button" class="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-lg bg-primary hover:bg-[#5d4201] text-white font-bold text-sm shadow-md transition-colors">
+          <button id="btn-copy-short-link" type="button" class="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-lg bg-primary hover:bg-[#5d4201] text-white font-bold text-sm shadow-md transition-colors">
             <span class="material-symbols-outlined text-base">link</span>
-            <span>Copy Direct Link</span>
+            <span>Copy Short Link</span>
+          </button>
+
+          <button id="btn-copy-direct-link" type="button" class="w-full flex items-center justify-center gap-2 px-4 py-2 rounded-lg bg-surface border border-outline-variant/50 hover:bg-surface-container-high text-on-surface font-semibold text-xs transition-colors">
+            <span class="material-symbols-outlined text-base">data_object</span>
+            <span>Copy Direct Link (Full Hash)</span>
           </button>
 
           <button id="btn-open-preview" type="button" class="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg border border-outline-variant/50 hover:bg-surface-container-high text-on-surface font-semibold text-sm transition-colors">
             <span class="material-symbols-outlined text-base">open_in_new</span>
             <span>Open Preview in New Tab</span>
           </button>
+
+          <!-- Short Link Result Card (Visible once generated) -->
+          <div id="short-link-result-card" class="hidden text-xs bg-surface rounded-lg p-3 border border-outline-variant/40 space-y-2 mt-2">
+            <div class="flex items-center justify-between text-secondary">
+              <span class="font-bold text-[11px] uppercase tracking-wider">Generated Short Link</span>
+              <span id="short-link-provider-tag" class="text-[10px] px-1.5 py-0.5 rounded bg-surface-container-high font-mono uppercase">short url</span>
+            </div>
+            <div class="flex items-center gap-1.5">
+              <input id="input-short-link-result" type="text" readonly class="w-full bg-surface-container-low text-primary dark:text-[#e9c176] font-mono text-xs px-2.5 py-1.5 rounded border border-outline-variant/40 select-all focus:outline-none" />
+              <button id="btn-copy-short-link-inline" type="button" class="px-2 py-1.5 rounded bg-surface-container-high hover:bg-surface-container-highest text-secondary hover:text-on-surface transition-colors" title="Copy to clipboard">
+                <span class="material-symbols-outlined text-base">content_copy</span>
+              </button>
+              <a id="link-open-short-preview" href="#" target="_blank" class="px-2 py-1.5 rounded bg-surface-container-high hover:bg-surface-container-highest text-secondary hover:text-on-surface transition-colors" title="Open short link">
+                <span class="material-symbols-outlined text-base">launch</span>
+              </a>
+            </div>
+          </div>
         </div>
 
         <div class="text-[11px] text-secondary leading-relaxed px-2">
@@ -1113,6 +1135,74 @@
         showToast('Proposal saved to local drafts!');
       });
 
+      // Action: Copy Short Link (Automatic CORS shortener with cascade)
+      const btnCopyShort = document.getElementById('btn-copy-short-link');
+      const shortCard = document.getElementById('short-link-result-card');
+      const inputShort = document.getElementById('input-short-link-result');
+      const tagProvider = document.getElementById('short-link-provider-tag');
+      const linkOpenShort = document.getElementById('link-open-short-preview');
+
+      btnCopyShort.addEventListener('click', async () => {
+        updateLiveCalculations();
+        core.saveProposalLocally(currentProposal);
+        updateDraftsCount();
+
+        const originalHtml = btnCopyShort.innerHTML;
+        btnCopyShort.disabled = true;
+        btnCopyShort.innerHTML = `<span class="material-symbols-outlined text-base animate-spin">sync</span><span>Shortening Link...</span>`;
+
+        try {
+          const encoded = await core.encodeProposal(currentProposal);
+          const directUrl = new URL('proposal.html', window.location.href);
+          directUrl.hash = `p=${encoded}`;
+
+          const { shortUrl, provider } = await core.shortenUrl(directUrl.toString());
+
+          try {
+            await navigator.clipboard.writeText(shortUrl);
+          } catch (_) {
+            prompt('Copy your short proposal link:', shortUrl);
+          }
+
+          if (shortCard && inputShort) {
+            inputShort.value = shortUrl;
+            if (tagProvider) tagProvider.textContent = provider || 'short url';
+            if (linkOpenShort) linkOpenShort.href = shortUrl;
+            shortCard.classList.remove('hidden');
+          }
+
+          btnCopyShort.innerHTML = `<span class="material-symbols-outlined text-base text-emerald-300">check</span><span>Short Link Copied!</span>`;
+          showToast(`Short link copied to clipboard: ${shortUrl}`);
+        } catch (err) {
+          console.warn('URL shortener failed, falling back to direct link:', err);
+          try {
+            const encoded = await core.encodeProposal(currentProposal);
+            const directUrl = new URL('proposal.html', window.location.href);
+            directUrl.hash = `p=${encoded}`;
+            await navigator.clipboard.writeText(directUrl.toString());
+            showToast('Shortener unavailable. Direct link copied to clipboard.');
+          } catch (clipErr) {
+            alert('Failed to copy link. See console for details.');
+          }
+        } finally {
+          setTimeout(() => {
+            btnCopyShort.disabled = false;
+            btnCopyShort.innerHTML = originalHtml;
+          }, 2500);
+        }
+      });
+
+      // Inline copy button in the short link preview card
+      document.getElementById('btn-copy-short-link-inline')?.addEventListener('click', async () => {
+        if (!inputShort || !inputShort.value) return;
+        try {
+          await navigator.clipboard.writeText(inputShort.value);
+          showToast('Short link copied to clipboard!');
+        } catch (_) {
+          inputShort.select();
+        }
+      });
+
       // Action: Copy Direct Link
       document.getElementById('btn-copy-direct-link').addEventListener('click', async () => {
         updateLiveCalculations();
@@ -1124,7 +1214,7 @@
           const url = new URL('proposal.html', window.location.href);
           url.hash = `p=${encoded}`;
           await navigator.clipboard.writeText(url.toString());
-          showToast('Direct client link copied to clipboard!');
+          showToast('Direct client link (full hash) copied to clipboard!');
         } catch (err) {
           console.error(err);
           alert('Failed to copy link. See console for details.');

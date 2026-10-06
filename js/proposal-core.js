@@ -67,7 +67,7 @@
       id: 'video-dance',
       category: 'video',
       nameEn: 'Dance Video Sessions (Base Pack)',
-      nameEs: 'Sesión de Vídeo Danza (Pack Base)',
+      nameEs: 'Sesión de Vídeo de Baile (Pack Base)',
       price: 120,
       descriptionEn: 'Up to 1h shoot, 1 location, 2 one-shot continuous videos + cover photos.',
       descriptionEs: 'Hasta 1h de grabación, 1 localización, 2 vídeos en plano secuencia + fotos de portada.',
@@ -570,6 +570,68 @@
     return list.find(p => p.id === id) || null;
   }
 
+  // ─── URL SHORTENER ────────────────────────────────────────────────────────
+  /**
+   * Shorten a proposal link using client-side open-CORS shortener services.
+   * Automatically replaces loopback addresses (localhost / 127.0.0.1) with production origin https://lmpstudio.onrender.com
+   * Fallback chain: URLVanish -> Spoo.me
+   */
+  async function shortenUrl(longUrl) {
+    if (!longUrl) throw new Error('No URL provided');
+    let targetUrl = longUrl.toString();
+    try {
+      const parsed = new URL(targetUrl);
+      if (parsed.hostname === '127.0.0.1' || parsed.hostname === 'localhost' || parsed.hostname === '0.0.0.0') {
+        targetUrl = targetUrl.replace(parsed.origin, 'https://lmpstudio.onrender.com');
+      }
+    } catch (_) {}
+
+    // 1. Try URLVanish (fast GET, CORS-friendly)
+    try {
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 6000);
+      const res = await fetch(`https://urlvanish.com/api/shorten?url=${encodeURIComponent(targetUrl)}`, {
+        signal: controller.signal
+      });
+      clearTimeout(timeout);
+      if (res.ok) {
+        const data = await res.json();
+        if (data && data.shorturl && data.shorturl.startsWith('http')) {
+          return { shortUrl: data.shorturl, provider: 'urlvanish' };
+        }
+      }
+    } catch (err) {
+      console.warn('URLVanish shortener attempt failed, trying fallback...', err);
+    }
+
+    // 2. Try Spoo.me (POST, CORS-friendly)
+    try {
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 6000);
+      const res = await fetch('https://spoo.me/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'Accept': 'application/json'
+        },
+        body: `url=${encodeURIComponent(targetUrl)}`,
+        signal: controller.signal
+      });
+      clearTimeout(timeout);
+      if (res.ok) {
+        const data = await res.json();
+        const short = data.short_url || data.url;
+        if (short && short.startsWith('http')) {
+          return { shortUrl: short.replace(/^http:\/\//i, 'https://'), provider: 'spoo.me' };
+        }
+      }
+    } catch (err) {
+      console.warn('Spoo.me shortener fallback failed:', err);
+    }
+
+    throw new Error('Could not shorten URL. Please use the Direct Link.');
+  }
+
   // ─── WHATSAPP LINK BUILDER ────────────────────────────────────────────────
   function buildWhatsAppUrl(proposal, totals, lang = 'en', isExpired = false) {
     const phone = '34634518666';
@@ -726,6 +788,7 @@
     saveProposalLocally,
     deleteProposalLocally,
     getProposalLocally,
+    shortenUrl,
     buildWhatsAppUrl,
     renderMarkdown,
     createBlankProposal,

@@ -95,8 +95,17 @@ Test each row's toggle, mode switch (`%` vs `€`), and calculation order:
   - [ ] Verify the modal opens and displays the saved proposal with its ID, client name, and total.
   - [ ] Click **"Load"** on a draft → Confirm form fields repopulate accurately.
   - [ ] Click the delete icon on a draft → Confirm it is removed from localStorage.
-- [ ] Click **"Copy Direct Link"**:
-  - [ ] Verify the link is copied to the clipboard.
+- [ ] Click **"Copy Short Link"**:
+  - [ ] Verify button displays loading state while contacting shortener service (`Shortening Link...`).
+  - [ ] Verify toast notification appears (`Short link copied to clipboard: https://...`).
+  - [ ] Verify the **Generated Short Link** preview card appears with:
+    - [ ] Clean short URL (e.g., `https://urlvanish.com/...` or `https://spoo.me/...`).
+    - [ ] Provider badge (`URLVANISH` / `SPOO.ME`).
+    - [ ] Inline copy button to re-copy the short link at any time.
+    - [ ] Launch button to test opening the short URL in a new tab.
+  - [ ] Open the short link in a browser tab → Confirm it redirects to `https://lmpstudio.onrender.com/proposal.html#p=...` with the full proposal loaded.
+- [ ] Click **"Copy Direct Link (Full Hash)"**:
+  - [ ] Verify the full hash link is copied to the clipboard.
   - [ ] Inspect the link: ensure it points to `proposal.html#p=...` with a compressed base64 string.
 - [ ] Click **"Open Preview in New Tab"**:
   - [ ] Confirm `proposal.html` opens in a new tab with the proposal loaded from the URL hash.
