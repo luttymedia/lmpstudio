@@ -675,7 +675,7 @@
       const trimmed = line.trim();
       if (trimmed.startsWith('- ') || trimmed.startsWith('* ')) {
         if (!inList) {
-          html += '<ul class="space-y-1 my-2 list-disc list-inside text-on-surface-variant dark:text-[#fcf9f8]/80">';
+          html += '<ul class="space-y-1 my-2 list-disc list-inside text-on-surface-variant">';
           inList = true;
         }
         const itemContent = formatInline(trimmed.substring(2));
@@ -688,7 +688,7 @@
         if (trimmed === '') {
           html += '<div class="h-2"></div>';
         } else {
-          html += `<p class="leading-relaxed text-on-surface-variant dark:text-[#fcf9f8]/80">${formatInline(line)}</p>`;
+          html += `<p class="leading-relaxed text-on-surface-variant">${formatInline(line)}</p>`;
         }
       }
     });
@@ -699,7 +699,7 @@
 
   function formatInline(str) {
     return str
-      .replace(/\*\*(.+?)\*\*/g, '<strong class="font-bold text-on-surface dark:text-[#fcf9f8]">$1</strong>')
+      .replace(/\*\*(.+?)\*\*/g, '<strong class="font-bold text-on-surface">$1</strong>')
       .replace(/\*(.+?)\*/g, '<em class="italic">$1</em>');
   }
 

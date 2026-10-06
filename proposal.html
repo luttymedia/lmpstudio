@@ -63,10 +63,9 @@
       <!-- Branded Document Header (Always visible on print and on-screen) -->
       <div class="flex items-center justify-between pb-2 border-b border-outline-variant/30 print:pb-2">
         <div class="flex items-center">
-          <img src="images/logo-nav.png" alt="LMP Studio" class="h-8 w-auto dark:hidden print:block" />
-          <img src="images/logo-nav-white.png" alt="LMP Studio" class="h-8 w-auto hidden dark:block print:hidden" />
+          <img src="images/logo-nav.png" alt="LMP Studio" class="h-8 w-auto block" />
         </div>
-        <div class="text-[11px] font-bold tracking-widest uppercase text-primary dark:text-[#e9c176]"
+        <div class="text-[11px] font-bold tracking-widest uppercase text-primary"
           data-i18n="proposal.proposalEyebrow">Project Proposal</div>
       </div>
 
@@ -105,7 +104,7 @@
       <section id="scope-section" class="print-avoid-break space-y-2">
         <h2 class="font-headline text-base font-bold editorial-spacing flex items-center gap-1.5"
           data-i18n="proposal.scopeTitle">
-          <span class="material-symbols-outlined text-primary dark:text-[#e9c176] text-lg">palette</span>
+          <span class="material-symbols-outlined text-primary text-lg">palette</span>
           <span>Scope & Creative Direction</span>
         </h2>
         <div id="prop-scope-body"
@@ -118,7 +117,7 @@
       <section id="deliverables-section" class="print-avoid-break space-y-2">
         <h2 class="font-headline text-base font-bold editorial-spacing flex items-center gap-1.5"
           data-i18n="proposal.deliverablesTitle">
-          <span class="material-symbols-outlined text-primary dark:text-[#e9c176] text-lg">task_alt</span>
+          <span class="material-symbols-outlined text-primary text-lg">task_alt</span>
           <span>Included Deliverables</span>
         </h2>
         <div class="bg-surface-container-low rounded-xl p-4 sm:p-5 shadow-sm">
@@ -139,7 +138,7 @@
       <section id="financial-section" class="print-avoid-break space-y-2">
         <h2 class="font-headline text-base font-bold editorial-spacing flex items-center gap-1.5"
           data-i18n="proposal.investmentTitle">
-          <span class="material-symbols-outlined text-primary dark:text-[#e9c176] text-lg">receipt_long</span>
+          <span class="material-symbols-outlined text-primary text-lg">receipt_long</span>
           <span>Financial Breakdown</span>
         </h2>
 
@@ -188,7 +187,7 @@
                 <span class="font-headline font-bold text-sm sm:text-base" data-i18n="proposal.total">Total
                   Investment</span>
                 <span id="prop-total"
-                  class="font-headline text-xl sm:text-2xl font-extrabold text-primary dark:text-[#e9c176]"></span>
+                  class="font-headline text-xl sm:text-2xl font-extrabold text-primary"></span>
               </div>
 
               <!-- Deposit (if on) -->
@@ -197,7 +196,7 @@
                 <div>
                   <span data-i18n="proposal.deposit">Deposit Required</span>
                   <span id="prop-deposit-badge"
-                    class="ml-1 text-[10px] font-semibold text-primary dark:text-[#e9c176]"></span>
+                    class="ml-1 text-[10px] font-semibold text-primary"></span>
                 </div>
                 <span id="prop-deposit-val" class="font-bold text-on-surface"></span>
               </div>
@@ -253,9 +252,8 @@
       let translations = {};
       let currentLang = 'en';
 
-      // Respect user's system/browser theme or stored preference if available
-      const savedTheme = localStorage.getItem('theme') || 'light';
-      if (savedTheme === 'dark') document.documentElement.classList.add('dark');
+      // Proposals are formal business documents: enforce clean light mode always
+      document.documentElement.classList.remove('dark');
 
       function t(key) {
         const keys = key.split('.');
@@ -459,8 +457,8 @@
         }
 
         list.innerHTML = items.map(text => `
-          <li class="flex items-start gap-3 text-on-surface-variant dark:text-[#fcf9f8]/80 leading-relaxed">
-            <span class="material-symbols-outlined text-primary dark:text-[#e9c176] text-xl shrink-0 mt-0.5">check_circle</span>
+          <li class="flex items-start gap-3 text-on-surface-variant leading-relaxed">
+            <span class="material-symbols-outlined text-primary text-xl shrink-0 mt-0.5">check_circle</span>
             <div>${text}</div>
           </li>
         `).join('');
@@ -489,7 +487,7 @@
           const name = isEs ? a.nameEs : a.nameEn;
           rows.push(`
             <tr class="hover:bg-surface-container/30 transition-colors">
-              <td class="py-3.5 px-6 text-on-surface-variant dark:text-[#fcf9f8]/90">${name}</td>
+              <td class="py-3.5 px-6 text-on-surface-variant">${name}</td>
               <td class="py-3.5 px-4 text-center text-secondary">${a.qty}</td>
               <td class="py-3.5 px-6 text-right text-secondary">${core.formatEUR(a.unitPrice)}</td>
               <td class="py-3.5 px-6 text-right font-semibold">${core.formatEUR(a.total)}</td>
@@ -501,7 +499,7 @@
         totals.customItems.forEach(ci => {
           rows.push(`
             <tr class="hover:bg-surface-container/30 transition-colors">
-              <td class="py-3.5 px-6 text-on-surface-variant dark:text-[#fcf9f8]/90">${ci.title}</td>
+              <td class="py-3.5 px-6 text-on-surface-variant">${ci.title}</td>
               <td class="py-3.5 px-4 text-center text-secondary">1</td>
               <td class="py-3.5 px-6 text-right text-secondary">${core.formatEUR(ci.price)}</td>
               <td class="py-3.5 px-6 text-right font-semibold">${core.formatEUR(ci.price)}</td>
