@@ -19,6 +19,12 @@
     .material-symbols-outlined {
       font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
     }
+    @media print {
+      .print-avoid-break {
+        break-inside: avoid;
+        page-break-inside: avoid;
+      }
+    }
   </style>
 </head>
 
@@ -243,9 +249,51 @@
         </div>
       </section>
 
-      <!-- Footer Note -->
-      <footer class="pt-6 border-t border-outline-variant/20 text-center text-xs text-secondary">
-        <p data-i18n="proposal.footerNote">Barcelona, Spain · Commercial & Creative Media Production · Europe-wide</p>
+      <!-- Studio Contact Info Footer -->
+      <footer class="pt-6 mt-2 border-t border-outline-variant/20 flex flex-col items-center text-xs text-secondary print-avoid-break">
+        <!-- Contact Links Grid (always 4-column layout) -->
+        <div class="grid grid-cols-4 gap-2 sm:gap-6 w-full max-w-3xl text-center py-1">
+          <div class="flex flex-col items-center gap-1 min-w-0">
+            <span class="text-[8px] sm:text-[9px] tracking-[0.15em] sm:tracking-[0.2em] font-bold text-secondary uppercase"
+              data-i18n="footer.label_phone">PHONE</span>
+            <a href="https://wa.me/34634518666" target="_blank" rel="noopener noreferrer"
+              class="text-[10px] sm:text-xs text-on-surface hover:text-primary transition-colors font-medium truncate max-w-full"
+              title="+34 634 51 86 66"
+              data-i18n="footer.value_phone">
+              +34 634 51 86 66
+            </a>
+          </div>
+          <div class="flex flex-col items-center gap-1 min-w-0">
+            <span class="text-[8px] sm:text-[9px] tracking-[0.15em] sm:tracking-[0.2em] font-bold text-secondary uppercase"
+              data-i18n="footer.label_instagram">INSTAGRAM</span>
+            <a href="https://www.instagram.com/luttymoreira/" target="_blank" rel="noopener noreferrer"
+              class="text-[10px] sm:text-xs text-on-surface hover:text-primary transition-colors font-medium truncate max-w-full"
+              title="@luttymoreira"
+              data-i18n="footer.value_instagram">
+              @luttymoreira
+            </a>
+          </div>
+          <div class="flex flex-col items-center gap-1 min-w-0">
+            <span class="text-[8px] sm:text-[9px] tracking-[0.15em] sm:tracking-[0.2em] font-bold text-secondary uppercase"
+              data-i18n="footer.label_email">EMAIL</span>
+            <a href="mailto:luttyphoto@gmail.com"
+              class="text-[10px] sm:text-xs text-on-surface hover:text-primary transition-colors font-medium truncate max-w-full"
+              title="luttyphoto@gmail.com"
+              data-i18n="footer.value_email">
+              luttyphoto@gmail.com
+            </a>
+          </div>
+          <div class="flex flex-col items-center gap-1 min-w-0">
+            <span class="text-[8px] sm:text-[9px] tracking-[0.15em] sm:tracking-[0.2em] font-bold text-secondary uppercase"
+              data-i18n="footer.label_youtube">YOUTUBE</span>
+            <a href="https://www.youtube.com/user/luttymoreira" target="_blank" rel="noopener noreferrer"
+              class="text-[10px] sm:text-xs text-on-surface hover:text-primary transition-colors font-medium truncate max-w-full"
+              title="/luttymoreira"
+              data-i18n="footer.value_youtube">
+              /luttymoreira
+            </a>
+          </div>
+        </div>
       </footer>
 
     </div>
