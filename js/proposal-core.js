@@ -21,6 +21,7 @@
       nameEn: '1 Hour Studio Session',
       nameEs: 'Sesión de Estudio de 1 Hora',
       price: 150,
+      originalPrice: 180,
       descriptionEn: 'Up to 1 hour, 20-40 edited photos, full studio access, up to 3 outfits.',
       descriptionEs: 'Hasta 1 hora, 20-40 fotos editadas, acceso total al estudio, hasta 3 cambios de vestuario.',
       featuresEn: [
@@ -46,6 +47,7 @@
       nameEn: '2 Hour Studio Session',
       nameEs: 'Sesión de Estudio de 2 Horas',
       price: 250,
+      originalPrice: 300,
       descriptionEn: 'Extended studio time, more photos, more creative changes.',
       descriptionEs: 'Mayor tiempo de estudio, más fotografías, más cambios creativos.',
       featuresEn: [
@@ -69,6 +71,7 @@
       nameEn: 'Dance Video Sessions (Base Pack)',
       nameEs: 'Sesión de Vídeo de Baile (Pack Base)',
       price: 120,
+      originalPrice: 150,
       descriptionEn: 'Up to 1h shoot, 1 location, 2 one-shot continuous videos + cover photos.',
       descriptionEs: 'Hasta 1h de grabación, 1 localización, 2 vídeos en plano secuencia + fotos de portada.',
       featuresEn: [
@@ -96,6 +99,7 @@
       nameEn: 'Custom Tailored Package',
       nameEs: 'Paquete Personalizado a Medida',
       price: 0,
+      originalPrice: 0,
       isCustom: true,
       descriptionEn: 'Bespoke project tailored to specific creative and commercial requirements.',
       descriptionEs: 'Proyecto a medida adaptado a requerimientos creativos y comerciales específicos.',
@@ -118,6 +122,7 @@
       nameEn: 'Video Clip (during photo session)',
       nameEs: 'Clip de Vídeo (durante la sesión)',
       price: 50,
+      originalPrice: 70,
       priceType: 'fixed', // per session
       priceSuffixEn: '',
       priceSuffixEs: '',
@@ -130,6 +135,7 @@
       nameEn: 'Outdoor Session (Poble Espanyol)',
       nameEs: 'Sesión en Exterior (Poble Espanyol)',
       price: 50,
+      originalPrice: 70,
       priceType: 'fixed',
       priceSuffixEn: '',
       priceSuffixEs: '',
@@ -142,6 +148,7 @@
       nameEn: 'Extra Edited Photos (batch of 10)',
       nameEs: 'Fotos Editadas Extra (lote de 10)',
       price: 30,
+      originalPrice: 45,
       priceType: 'quantity',
       defaultQty: 1,
       priceSuffixEn: ' / 10 photos',
@@ -155,6 +162,7 @@
       nameEn: 'Advanced Beauty Retouch',
       nameEs: 'Retoque Avanzado de Piel / Detalle',
       price: 30,
+      originalPrice: 45,
       priceType: 'quantity',
       defaultQty: 1,
       priceSuffixEn: ' / hour',
@@ -168,6 +176,7 @@
       nameEn: 'Express 24-48h Delivery',
       nameEs: 'Entrega Urgente 24-48h',
       price: 50,
+      originalPrice: 75,
       priceType: 'editable',
       priceSuffixEn: ' (flat)',
       priceSuffixEs: ' (tarifa plana)',
@@ -182,6 +191,7 @@
       nameEn: 'Extra Single-Take Video',
       nameEs: 'Vídeo Extra en Plano Secuencia',
       price: 35,
+      originalPrice: 50,
       priceType: 'quantity',
       defaultQty: 1,
       priceSuffixEn: ' / video',
@@ -195,6 +205,7 @@
       nameEn: 'Extra Shooting Time (30 min)',
       nameEs: 'Tiempo Extra de Grabación (30 min)',
       price: 25,
+      originalPrice: 35,
       priceType: 'quantity',
       defaultQty: 1,
       priceSuffixEn: ' / 30 min',
@@ -208,6 +219,7 @@
       nameEn: 'Extra Shooting Time (1 hour)',
       nameEs: 'Tiempo Extra de Grabación (1 hora)',
       price: 40,
+      originalPrice: 60,
       priceType: 'quantity',
       defaultQty: 1,
       priceSuffixEn: ' / hour',
@@ -221,6 +233,7 @@
       nameEn: 'Additional Location (nearby)',
       nameEs: 'Localización Adicional (cercana)',
       price: 25,
+      originalPrice: 40,
       priceType: 'editable',
       priceSuffixEn: ' (starting)',
       priceSuffixEs: ' (desde)',
@@ -233,6 +246,7 @@
       nameEn: 'Multi-Take Dynamic Edit',
       nameEs: 'Edición Dinámica Multitoma',
       price: 40,
+      originalPrice: 60,
       priceType: 'quantity',
       defaultQty: 1,
       priceSuffixEn: ' / video',
@@ -246,6 +260,7 @@
       nameEn: 'Video Rush Delivery',
       nameEs: 'Entrega Urgente de Vídeo',
       price: 30,
+      originalPrice: 50,
       priceType: 'editable',
       priceSuffixEn: ' (starting)',
       priceSuffixEs: ' (desde)',
@@ -353,9 +368,13 @@
   function calculateTotals(proposal) {
     const basePkg = PACKAGES.find(p => p.id === proposal.packageId) || PACKAGES[0];
     const basePrice = basePkg.isCustom ? (Number(proposal.customPackagePrice) || 0) : basePkg.price;
+    const baseOriginalPrice = basePkg.isCustom
+      ? (proposal.customPackageOriginalPrice !== undefined ? (Number(proposal.customPackageOriginalPrice) || 0) : 0)
+      : (proposal.packageOriginalPrice !== undefined ? (Number(proposal.packageOriginalPrice) || 0) : (basePkg.originalPrice || 0));
 
     // Addons
     let addonsSubtotal = 0;
+    let addonsOriginalSubtotal = 0;
     const selectedAddons = [];
     if (Array.isArray(proposal.addons)) {
       proposal.addons.forEach(a => {
@@ -363,15 +382,24 @@
         if (!catalogItem) return;
         const qty = Math.max(1, Number(a.qty) || 1);
         const unitPrice = a.price !== undefined ? Number(a.price) : catalogItem.price;
+        const unitOriginalPrice = a.originalPrice !== undefined
+          ? (Number(a.originalPrice) || 0)
+          : (catalogItem.originalPrice || 0);
+
         const lineTotal = roundCents(unitPrice * qty);
+        const lineOriginalTotal = roundCents(unitOriginalPrice * qty);
         addonsSubtotal += lineTotal;
+        addonsOriginalSubtotal += (unitOriginalPrice > unitPrice ? lineOriginalTotal : lineTotal);
+
         selectedAddons.push({
           id: a.id,
           nameEn: catalogItem.nameEn,
           nameEs: catalogItem.nameEs,
           unitPrice: roundCents(unitPrice),
+          unitOriginalPrice: roundCents(unitOriginalPrice > unitPrice ? unitOriginalPrice : 0),
           qty: qty,
           total: lineTotal,
+          originalTotal: roundCents(unitOriginalPrice > unitPrice ? lineOriginalTotal : 0),
           catalogItem: catalogItem
         });
       });
@@ -379,22 +407,31 @@
 
     // Custom items
     let customItemsSubtotal = 0;
+    let customItemsOriginalSubtotal = 0;
     const customItems = [];
     if (Array.isArray(proposal.customItems)) {
       proposal.customItems.forEach(ci => {
         const title = (ci.title || '').trim();
         const price = Number(ci.price) || 0;
-        if (!title && price === 0) return;
+        const origPrice = Number(ci.originalPrice) || 0;
+        if (!title && price === 0 && origPrice === 0) return;
         const lineTotal = roundCents(price);
+        const lineOrigTotal = roundCents(origPrice);
         customItemsSubtotal += lineTotal;
+        customItemsOriginalSubtotal += (lineOrigTotal > lineTotal ? lineOrigTotal : lineTotal);
+
         customItems.push({
           title: title || 'Custom Item',
-          price: lineTotal
+          price: lineTotal,
+          originalPrice: roundCents(lineOrigTotal > lineTotal ? lineOrigTotal : 0)
         });
       });
     }
 
     const subtotal = roundCents(basePrice + addonsSubtotal + customItemsSubtotal);
+    const effectiveBaseOrig = baseOriginalPrice > basePrice ? baseOriginalPrice : basePrice;
+    const originalSubtotal = roundCents(effectiveBaseOrig + addonsOriginalSubtotal + customItemsOriginalSubtotal);
+    const hasOriginalPrices = originalSubtotal > subtotal;
 
     // Discount
     const disc = proposal.money?.discount || { enabled: false, type: 'percent', value: 10 };
@@ -423,6 +460,22 @@
 
     const total = roundCents(net + vatAmount);
 
+    let originalTotal = 0;
+    if (hasOriginalPrices) {
+      if (vatConfig.enabled) {
+        if (vatConfig.type === 'percent') {
+          originalTotal = roundCents(originalSubtotal * (1 + (Number(vatConfig.value) || 0) / 100));
+        } else {
+          originalTotal = roundCents(originalSubtotal + (Number(vatConfig.value) || 0));
+        }
+      } else {
+        originalTotal = originalSubtotal;
+      }
+      if (originalTotal <= total) {
+        originalTotal = 0;
+      }
+    }
+
     // Deposit
     const depConfig = proposal.money?.deposit || { enabled: true, type: 'percent', value: 30 };
     let depositAmount = 0;
@@ -439,10 +492,13 @@
 
     return {
       basePrice: roundCents(basePrice),
+      baseOriginalPrice: roundCents(baseOriginalPrice > basePrice ? baseOriginalPrice : 0),
       basePackage: basePkg,
       selectedAddons: selectedAddons,
       customItems: customItems,
       subtotal: subtotal,
+      originalSubtotal: hasOriginalPrices ? originalSubtotal : 0,
+      hasOriginalPrices: hasOriginalPrices,
       discount: {
         enabled: Boolean(disc.enabled),
         type: disc.type,
@@ -457,6 +513,7 @@
         amount: vatAmount
       },
       total: total,
+      originalTotal: originalTotal,
       deposit: {
         enabled: Boolean(depConfig.enabled),
         type: depConfig.type,
@@ -726,13 +783,15 @@
       scopeEn: '', // Kept for legacy backwards-compatibility if loaded from older draft
       scopeEs: '',
       packageId: 'photo-1h',
+      packageOriginalPrice: 180,
       customPackageNameEn: '',
       customPackageNameEs: '',
       customPackagePrice: 0,
+      customPackageOriginalPrice: 0,
       customPackageFeaturesEn: '',
       customPackageFeaturesEs: '',
-      addons: [], // Array of { id, qty, price }
-      customItems: [], // Array of { title, price }
+      addons: [], // Array of { id, qty, price, originalPrice }
+      customItems: [], // Array of { title, price, originalPrice }
       deliverables: null, // Custom user-edited list of strings. If null/undefined, auto-generated from package + addons
       showHeroGallery: true,
       sectionVisibility: {

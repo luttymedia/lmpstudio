@@ -19,10 +19,33 @@
     .material-symbols-outlined {
       font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
     }
+    /* Marketing strikethrough anchor price styling */
+    .price-original,
+    del.price-original {
+      display: inline-block;
+      text-decoration: line-through !important;
+      text-decoration-thickness: 1.5px;
+      color: #a39d95 !important;
+      font-weight: 500;
+      opacity: 0.85;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+    .dark .price-original,
+    .dark del.price-original {
+      color: rgba(252, 249, 248, 0.45) !important;
+    }
     @media print {
       .print-avoid-break {
         break-inside: avoid;
         page-break-inside: avoid;
+      }
+      .price-original,
+      del.price-original {
+        color: #8c857b !important;
+        text-decoration: line-through !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
       }
     }
   </style>
@@ -197,11 +220,11 @@
               </div>
 
               <!-- Final Total -->
-              <div class="pt-2 border-t border-outline-variant/40 flex justify-between items-baseline">
-                <span class="font-headline font-bold text-sm sm:text-base" data-i18n="proposal.total">Total
+              <div class="pt-2 border-t border-outline-variant/40 flex justify-between items-end">
+                <span class="font-headline font-bold text-sm sm:text-base pb-0.5" data-i18n="proposal.total">Total
                   Investment</span>
                 <span id="prop-total"
-                  class="font-headline text-xl sm:text-2xl font-extrabold text-primary"></span>
+                  class="font-headline text-xl sm:text-2xl font-extrabold text-primary text-right"></span>
               </div>
 
               <!-- Deposit (if on) -->
@@ -529,36 +552,49 @@
           ? ((isEs && p.customPackageNameEs) ? p.customPackageNameEs : (p.customPackageNameEn || 'Custom Package'))
           : (isEs ? totals.basePackage.nameEs : totals.basePackage.nameEn);
 
+        const baseOrigHtml = (totals.baseOriginalPrice && totals.baseOriginalPrice > totals.basePrice)
+          ? `<del class="price-original text-xs font-semibold mr-1.5">${core.formatEUR(totals.baseOriginalPrice)}</del>`
+          : '';
+
         rows.push(`
           <tr class="hover:bg-surface-container/30 transition-colors">
             <td class="py-3.5 px-6 font-semibold">${pkgName}</td>
             <td class="py-3.5 px-4 text-center text-secondary">1</td>
-            <td class="py-3.5 px-6 text-right text-secondary">${core.formatEUR(totals.basePrice)}</td>
-            <td class="py-3.5 px-6 text-right font-bold">${core.formatEUR(totals.basePrice)}</td>
+            <td class="py-3.5 px-6 text-right text-secondary whitespace-nowrap">${baseOrigHtml}${core.formatEUR(totals.basePrice)}</td>
+            <td class="py-3.5 px-6 text-right font-bold whitespace-nowrap">${baseOrigHtml}${core.formatEUR(totals.basePrice)}</td>
           </tr>
         `);
 
         // Selected Add-ons
         totals.selectedAddons.forEach(a => {
           const name = isEs ? a.nameEs : a.nameEn;
+          const unitOrigHtml = (a.unitOriginalPrice && a.unitOriginalPrice > a.unitPrice)
+            ? `<del class="price-original text-xs font-semibold mr-1.5">${core.formatEUR(a.unitOriginalPrice)}</del>`
+            : '';
+          const totalOrigHtml = (a.originalTotal && a.originalTotal > a.total)
+            ? `<del class="price-original text-xs font-semibold mr-1.5">${core.formatEUR(a.originalTotal)}</del>`
+            : '';
           rows.push(`
             <tr class="hover:bg-surface-container/30 transition-colors">
               <td class="py-3.5 px-6 text-on-surface-variant">${name}</td>
               <td class="py-3.5 px-4 text-center text-secondary">${a.qty}</td>
-              <td class="py-3.5 px-6 text-right text-secondary">${core.formatEUR(a.unitPrice)}</td>
-              <td class="py-3.5 px-6 text-right font-semibold">${core.formatEUR(a.total)}</td>
+              <td class="py-3.5 px-6 text-right text-secondary whitespace-nowrap">${unitOrigHtml}${core.formatEUR(a.unitPrice)}</td>
+              <td class="py-3.5 px-6 text-right font-semibold whitespace-nowrap">${totalOrigHtml}${core.formatEUR(a.total)}</td>
             </tr>
           `);
         });
 
         // Custom items
         totals.customItems.forEach(ci => {
+          const ciOrigHtml = (ci.originalPrice && ci.originalPrice > ci.price)
+            ? `<del class="price-original text-xs font-semibold mr-1.5">${core.formatEUR(ci.originalPrice)}</del>`
+            : '';
           rows.push(`
             <tr class="hover:bg-surface-container/30 transition-colors">
               <td class="py-3.5 px-6 text-on-surface-variant">${ci.title}</td>
               <td class="py-3.5 px-4 text-center text-secondary">1</td>
-              <td class="py-3.5 px-6 text-right text-secondary">${core.formatEUR(ci.price)}</td>
-              <td class="py-3.5 px-6 text-right font-semibold">${core.formatEUR(ci.price)}</td>
+              <td class="py-3.5 px-6 text-right text-secondary whitespace-nowrap">${ciOrigHtml}${core.formatEUR(ci.price)}</td>
+              <td class="py-3.5 px-6 text-right font-semibold whitespace-nowrap">${ciOrigHtml}${core.formatEUR(ci.price)}</td>
             </tr>
           `);
         });
@@ -566,7 +602,12 @@
         tbody.innerHTML = rows.join('');
 
         // Totals display
-        document.getElementById('prop-subtotal').textContent = core.formatEUR(totals.subtotal);
+        const subtotalEl = document.getElementById('prop-subtotal');
+        if (totals.originalSubtotal && totals.originalSubtotal > totals.subtotal) {
+          subtotalEl.innerHTML = `<del class="price-original text-xs mr-1.5 font-normal">${core.formatEUR(totals.originalSubtotal)}</del><span>${core.formatEUR(totals.subtotal)}</span>`;
+        } else {
+          subtotalEl.textContent = core.formatEUR(totals.subtotal);
+        }
 
         // Discount
         const discRow = document.getElementById('prop-discount-row');
@@ -595,7 +636,17 @@
         }
 
         // Final total
-        document.getElementById('prop-total').textContent = core.formatEUR(totals.total);
+        const totalEl = document.getElementById('prop-total');
+        if (totals.originalTotal && totals.originalTotal > totals.total) {
+          totalEl.innerHTML = `
+            <span class="flex flex-col items-end leading-none">
+              <del class="price-original text-xs sm:text-sm font-bold mb-1">${core.formatEUR(totals.originalTotal)}</del>
+              <span class="text-xl sm:text-2xl font-extrabold text-primary">${core.formatEUR(totals.total)}</span>
+            </span>
+          `;
+        } else {
+          totalEl.textContent = core.formatEUR(totals.total);
+        }
 
         // Deposit
         const depRow = document.getElementById('prop-deposit-row');

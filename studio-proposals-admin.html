@@ -78,6 +78,19 @@
     .dark .check-custom {
       color: #fbbf24 !important;
     }
+
+    /* Strikethrough pricing */
+    .price-original,
+    del.price-original {
+      display: inline-block;
+      text-decoration: line-through !important;
+      text-decoration-thickness: 1.5px;
+      color: #a39d95 !important;
+    }
+    .dark .price-original,
+    .dark del.price-original {
+      color: rgba(252, 249, 248, 0.45) !important;
+    }
   </style>
 </head>
 
@@ -196,6 +209,25 @@
             <!-- Rendered by JS -->
           </div>
 
+          <!-- Standard package pricing details -->
+          <div id="standard-package-pricing-box" class="mt-4 pt-4 border-t border-outline-variant/30">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-surface p-3.5 rounded-lg border border-outline-variant/30">
+              <div>
+                <div class="text-sm font-semibold flex items-center gap-2">
+                  <span>Base Package Pricing</span>
+                  <span id="display-pkg-current-price" class="font-bold text-primary dark:text-[#e9c176]">150 €</span>
+                </div>
+                <div class="text-xs text-secondary mt-0.5">
+                  Set a higher reference price to show a strikethrough discount (e.g. <span class="line-through">180 €</span>). Clear or set to 0 to remove.
+                </div>
+              </div>
+              <div class="flex items-center gap-2">
+                <label for="input-pkg-original-price" class="text-xs font-bold uppercase tracking-wider text-secondary whitespace-nowrap">Orig / Ref Price (€):</label>
+                <input id="input-pkg-original-price" type="number" min="0" step="5" placeholder="None" class="w-24 bg-surface border border-outline-variant/40 rounded-lg px-2.5 py-1.5 text-sm text-right focus:outline-none focus:border-primary" />
+              </div>
+            </div>
+          </div>
+
           <!-- Custom package details (shown only if custom selected) -->
           <div id="custom-package-details" class="hidden mt-4 pt-4 border-t border-outline-variant/30 space-y-3">
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -210,6 +242,10 @@
               <div>
                 <label class="block text-xs font-bold uppercase tracking-wider text-secondary mb-1">Base Price (€)</label>
                 <input id="input-custom-pkg-price" type="number" min="0" step="1" value="0" class="w-full bg-surface border border-outline-variant/40 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-primary" />
+              </div>
+              <div>
+                <label class="block text-xs font-bold uppercase tracking-wider text-secondary mb-1">Orig / Ref Price (€ - Optional)</label>
+                <input id="input-custom-pkg-orig-price" type="number" min="0" step="1" placeholder="Optional reference price" class="w-full bg-surface border border-outline-variant/40 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-primary" />
               </div>
             </div>
           </div>
@@ -471,7 +507,10 @@
 
           <div class="border-t border-outline-variant/30 mt-4 pt-4 flex items-baseline justify-between">
             <span class="font-headline font-bold text-lg">Total</span>
-            <span id="live-total-amount" class="font-headline text-2xl font-extrabold text-primary dark:text-[#e9c176]">0 €</span>
+            <div class="flex flex-col items-end leading-none">
+              <del id="live-orig-total-amount" class="price-original text-sm font-bold mb-1 hidden">0 €</del>
+              <span id="live-total-amount" class="font-headline text-2xl font-extrabold text-primary dark:text-[#e9c176]">0 €</span>
+            </div>
           </div>
 
           <div id="live-deposit-row" class="mt-2 text-xs flex justify-between text-secondary">
@@ -648,7 +687,14 @@
         const grid = document.getElementById('package-selector-grid');
         grid.innerHTML = core.PACKAGES.map(pkg => {
           const isSelected = currentProposal.packageId === pkg.id;
-          const priceDisplay = pkg.isCustom ? 'Custom Quote' : core.formatEUR(pkg.price);
+          let activeOrigPrice = pkg.originalPrice;
+          if (isSelected && currentProposal.packageOriginalPrice !== undefined) {
+            activeOrigPrice = currentProposal.packageOriginalPrice;
+          }
+          const origDisplay = (activeOrigPrice && activeOrigPrice > pkg.price)
+            ? `<del class="price-original text-xs font-semibold mr-1.5">${core.formatEUR(activeOrigPrice)}</del>`
+            : '';
+          const priceDisplay = pkg.isCustom ? 'Custom Quote' : `${origDisplay}${core.formatEUR(pkg.price)}`;
 
           let accentClass = 'card-accent-custom';
           if (pkg.category === 'photo') {
@@ -676,7 +722,14 @@
 
         grid.querySelectorAll('.pkg-card').forEach(el => {
           el.addEventListener('click', () => {
-            currentProposal.packageId = el.getAttribute('data-pkg-id');
+            const newPkgId = el.getAttribute('data-pkg-id');
+            if (currentProposal.packageId !== newPkgId) {
+              currentProposal.packageId = newPkgId;
+              const pkgDef = core.PACKAGES.find(p => p.id === newPkgId);
+              if (pkgDef && !pkgDef.isCustom) {
+                currentProposal.packageOriginalPrice = pkgDef.originalPrice !== undefined ? pkgDef.originalPrice : null;
+              }
+            }
             renderPackageSelector();
             updateCustomPackageVisibility();
             renderAddonsList();
@@ -685,6 +738,25 @@
             updateLiveCalculations();
           });
         });
+
+        // Update standard package pricing box
+        const standardPricingBox = document.getElementById('standard-package-pricing-box');
+        const selectedPkg = core.PACKAGES.find(p => p.id === currentProposal.packageId) || core.PACKAGES[0];
+        if (selectedPkg.isCustom) {
+          if (standardPricingBox) standardPricingBox.classList.add('hidden');
+        } else {
+          if (standardPricingBox) {
+            standardPricingBox.classList.remove('hidden');
+            const curPriceEl = document.getElementById('display-pkg-current-price');
+            if (curPriceEl) curPriceEl.textContent = core.formatEUR(selectedPkg.price);
+            const origInput = document.getElementById('input-pkg-original-price');
+            if (origInput && document.activeElement !== origInput) {
+              origInput.value = currentProposal.packageOriginalPrice !== undefined && currentProposal.packageOriginalPrice !== null
+                ? currentProposal.packageOriginalPrice
+                : '';
+            }
+          }
+        }
       }
 
       function updateCustomPackageVisibility() {
@@ -716,11 +788,14 @@
         const isChecked = Boolean(selected);
         const currentQty = selected ? (selected.qty || 1) : 1;
         const currentPrice = selected && selected.price !== undefined ? selected.price : addon.price;
+        const currentOrigPrice = selected && selected.originalPrice !== undefined
+          ? (selected.originalPrice !== null ? selected.originalPrice : '')
+          : (addon.originalPrice !== undefined ? addon.originalPrice : '');
 
         let controlsHtml = '';
         if (addon.priceType === 'quantity') {
           controlsHtml = `
-            <div class="flex items-center gap-1.5 ml-auto">
+            <div class="flex items-center gap-1.5">
               <label class="text-[11px] text-secondary">Qty:</label>
               <input type="number" min="1" max="50" value="${currentQty}" data-addon-id="${addon.id}" class="addon-qty-input w-16 bg-surface border border-outline-variant/40 rounded px-2 py-0.5 text-xs text-center focus:outline-none focus:border-primary" />
               <span class="text-xs text-secondary">${addon.priceSuffixEn}</span>
@@ -728,13 +803,13 @@
           `;
         } else if (addon.priceType === 'editable') {
           controlsHtml = `
-            <div class="flex items-center gap-1.5 ml-auto">
+            <div class="flex items-center gap-1.5">
               <label class="text-[11px] text-secondary">Price (€):</label>
               <input type="number" min="0" step="5" value="${currentPrice}" data-addon-id="${addon.id}" class="addon-price-input w-20 bg-surface border border-outline-variant/40 rounded px-2 py-0.5 text-xs text-center focus:outline-none focus:border-primary" />
             </div>
           `;
         } else {
-          controlsHtml = `<span class="text-xs font-bold text-primary dark:text-[#e9c176] ml-auto">+${core.formatEUR(addon.price)}</span>`;
+          controlsHtml = `<span class="text-xs font-bold text-primary dark:text-[#e9c176]">+${core.formatEUR(addon.price)}</span>`;
         }
 
         const isPhoto = addon.category === 'photo';
@@ -749,8 +824,14 @@
                 <div class="text-xs text-secondary mt-0.5">${addon.descriptionEn}</div>
               </div>
             </label>
-            <div class="flex items-center pl-7 sm:pl-0">
+            <div class="flex items-center gap-2.5 ml-auto flex-wrap justify-end pl-7 sm:pl-0">
               ${controlsHtml}
+              ${isChecked ? `
+                <div class="flex items-center gap-1 bg-surface-container-high px-2 py-0.5 rounded border border-outline-variant/30" title="Original reference price for strikethrough. Leave empty to remove.">
+                  <label class="text-[10px] uppercase font-bold text-secondary">Orig €:</label>
+                  <input type="number" min="0" step="5" placeholder="None" value="${currentOrigPrice}" data-addon-id="${addon.id}" class="addon-orig-price-input w-16 bg-surface border border-outline-variant/40 rounded px-1.5 py-0.5 text-xs text-center focus:outline-none focus:border-primary" />
+                </div>
+              ` : (addon.originalPrice ? `<del class="price-original text-xs font-semibold mr-1">+${core.formatEUR(addon.originalPrice)}</del>` : '')}
             </div>
           </div>
         `;
@@ -819,7 +900,8 @@
                 currentProposal.addons.push({
                   id: id,
                   qty: 1,
-                  price: addonDef.price
+                  price: addonDef.price,
+                  originalPrice: addonDef.originalPrice !== undefined ? addonDef.originalPrice : null
                 });
               }
             } else {
@@ -828,6 +910,18 @@
             updateAddonBadge();
             renderAddonsList();
             onPackageOrAddonChanged();
+            updateLiveCalculations();
+          });
+        });
+
+        container.querySelectorAll('.addon-orig-price-input').forEach(el => {
+          el.addEventListener('input', () => {
+            const id = el.getAttribute('data-addon-id');
+            const val = el.value.trim() === '' ? null : (parseFloat(el.value) || 0);
+            let item = currentProposal.addons.find(a => a.id === id);
+            if (item) {
+              item.originalPrice = val;
+            }
             updateLiveCalculations();
           });
         });
@@ -886,11 +980,15 @@
         }
 
         container.innerHTML = currentProposal.customItems.map((item, idx) => `
-          <div class="flex items-center gap-2 p-2 bg-surface rounded-lg border border-outline-variant/30">
-            <input type="text" placeholder="Item description..." value="${item.title || ''}" data-idx="${idx}" class="custom-item-title flex-1 bg-transparent px-2 py-1 text-sm focus:outline-none" />
+          <div class="flex items-center gap-2 p-2 bg-surface rounded-lg border border-outline-variant/30 flex-wrap sm:flex-nowrap">
+            <input type="text" placeholder="Item description..." value="${item.title || ''}" data-idx="${idx}" class="custom-item-title flex-1 min-w-[140px] bg-transparent px-2 py-1 text-sm focus:outline-none" />
             <div class="flex items-center gap-1">
               <span class="text-xs text-secondary">€</span>
-              <input type="number" step="any" min="0" placeholder="0" value="${item.price || 0}" data-idx="${idx}" class="custom-item-price w-24 bg-surface-container-high rounded px-2 py-1 text-sm text-right focus:outline-none" />
+              <input type="number" step="any" min="0" placeholder="0" value="${item.price || 0}" data-idx="${idx}" class="custom-item-price w-20 bg-surface-container-high rounded px-2 py-1 text-sm text-right focus:outline-none" />
+            </div>
+            <div class="flex items-center gap-1" title="Original / Strikethrough Price (Optional)">
+              <span class="text-[10px] text-secondary font-bold uppercase">Orig €</span>
+              <input type="number" step="any" min="0" placeholder="None" value="${item.originalPrice !== null && item.originalPrice !== undefined && item.originalPrice > 0 ? item.originalPrice : ''}" data-idx="${idx}" class="custom-item-orig-price w-16 bg-surface-container-high rounded px-1.5 py-1 text-sm text-right focus:outline-none" />
             </div>
             <button type="button" data-idx="${idx}" class="btn-remove-custom-item p-1 text-secondary hover:text-error transition-colors">
               <span class="material-symbols-outlined text-base">delete</span>
@@ -909,6 +1007,15 @@
           el.addEventListener('input', () => {
             const idx = parseInt(el.getAttribute('data-idx'), 10);
             currentProposal.customItems[idx].price = parseFloat(el.value) || 0;
+            updateLiveCalculations();
+          });
+        });
+
+        container.querySelectorAll('.custom-item-orig-price').forEach(el => {
+          el.addEventListener('input', () => {
+            const idx = parseInt(el.getAttribute('data-idx'), 10);
+            const val = el.value.trim() === '' ? null : (parseFloat(el.value) || 0);
+            currentProposal.customItems[idx].originalPrice = val;
             updateLiveCalculations();
           });
         });
@@ -1125,6 +1232,16 @@
         currentProposal.customPackageNameEn = document.getElementById('input-custom-pkg-name-en').value;
         currentProposal.customPackageNameEs = document.getElementById('input-custom-pkg-name-es').value;
         currentProposal.customPackagePrice = parseFloat(document.getElementById('input-custom-pkg-price').value) || 0;
+        const customOrigInput = document.getElementById('input-custom-pkg-orig-price');
+        if (customOrigInput) {
+          const val = customOrigInput.value.trim();
+          currentProposal.customPackageOriginalPrice = val === '' ? null : (parseFloat(val) || 0);
+        }
+        const pkgOrigInput = document.getElementById('input-pkg-original-price');
+        if (pkgOrigInput) {
+          const val = pkgOrigInput.value.trim();
+          currentProposal.packageOriginalPrice = val === '' ? null : (parseFloat(val) || 0);
+        }
         currentProposal.deliverablesCustomized = deliverablesCustomized;
 
         const totals = core.calculateTotals(currentProposal);
@@ -1137,38 +1254,50 @@
         const pkgName = totals.basePackage.isCustom
           ? (currentProposal.customPackageNameEn || 'Custom Package')
           : totals.basePackage.nameEn;
+        const baseOrigHtml = totals.baseOriginalPrice > totals.basePrice
+          ? `<del class="price-original text-xs mr-1">${core.formatEUR(totals.baseOriginalPrice)}</del>`
+          : '';
         html += `
           <div class="flex justify-between items-center text-secondary">
             <span class="truncate pr-2">${pkgName}</span>
-            <span class="font-medium text-on-surface whitespace-nowrap">${core.formatEUR(totals.basePrice)}</span>
+            <span class="font-medium text-on-surface whitespace-nowrap">${baseOrigHtml}${core.formatEUR(totals.basePrice)}</span>
           </div>
         `;
 
         // Add-ons
         totals.selectedAddons.forEach(a => {
+          const addonOrigHtml = a.originalTotal > a.total
+            ? `<del class="price-original text-xs mr-1">${core.formatEUR(a.originalTotal)}</del>`
+            : '';
           html += `
             <div class="flex justify-between items-center text-secondary text-xs">
               <span class="truncate pr-2">+ ${a.nameEn} ${a.qty > 1 ? `(×${a.qty})` : ''}</span>
-              <span class="font-medium text-on-surface whitespace-nowrap">${core.formatEUR(a.total)}</span>
+              <span class="font-medium text-on-surface whitespace-nowrap">${addonOrigHtml}${core.formatEUR(a.total)}</span>
             </div>
           `;
         });
 
         // Custom items
         totals.customItems.forEach(ci => {
+          const ciOrigHtml = ci.originalPrice > ci.price
+            ? `<del class="price-original text-xs mr-1">${core.formatEUR(ci.originalPrice)}</del>`
+            : '';
           html += `
             <div class="flex justify-between items-center text-secondary text-xs">
               <span class="truncate pr-2">+ ${ci.title}</span>
-              <span class="font-medium text-on-surface whitespace-nowrap">${core.formatEUR(ci.price)}</span>
+              <span class="font-medium text-on-surface whitespace-nowrap">${ciOrigHtml}${core.formatEUR(ci.price)}</span>
             </div>
           `;
         });
 
         // Subtotal
+        const subtotalOrigHtml = totals.originalSubtotal > totals.subtotal
+          ? `<del class="price-original text-xs mr-1 font-normal">${core.formatEUR(totals.originalSubtotal)}</del>`
+          : '';
         html += `
           <div class="flex justify-between items-center pt-2 border-t border-outline-variant/30 font-semibold text-xs text-secondary">
             <span>Subtotal</span>
-            <span class="text-on-surface">${core.formatEUR(totals.subtotal)}</span>
+            <span class="text-on-surface">${subtotalOrigHtml}${core.formatEUR(totals.subtotal)}</span>
           </div>
         `;
 
@@ -1197,6 +1326,15 @@
         container.innerHTML = html;
 
         // Bottom lines
+        const liveOrigTotalEl = document.getElementById('live-orig-total-amount');
+        if (liveOrigTotalEl) {
+          if (totals.originalTotal > totals.total) {
+            liveOrigTotalEl.textContent = core.formatEUR(totals.originalTotal);
+            liveOrigTotalEl.classList.remove('hidden');
+          } else {
+            liveOrigTotalEl.classList.add('hidden');
+          }
+        }
         document.getElementById('live-total-amount').textContent = core.formatEUR(totals.total);
 
         const depRow = document.getElementById('live-deposit-row');
@@ -1227,6 +1365,18 @@
         document.getElementById('input-custom-pkg-name-en').value = p.customPackageNameEn || '';
         document.getElementById('input-custom-pkg-name-es').value = p.customPackageNameEs || '';
         document.getElementById('input-custom-pkg-price').value = p.customPackagePrice || 0;
+        const pkgOrigInput = document.getElementById('input-pkg-original-price');
+        if (pkgOrigInput) {
+          pkgOrigInput.value = p.packageOriginalPrice !== undefined && p.packageOriginalPrice !== null && p.packageOriginalPrice > 0
+            ? p.packageOriginalPrice
+            : '';
+        }
+        const customOrigInput = document.getElementById('input-custom-pkg-orig-price');
+        if (customOrigInput) {
+          customOrigInput.value = p.customPackageOriginalPrice !== undefined && p.customPackageOriginalPrice !== null && p.customPackageOriginalPrice > 0
+            ? p.customPackageOriginalPrice
+            : '';
+        }
 
         // Determine if deliverables was customized
         if (typeof p.deliverablesCustomized === 'boolean') {
@@ -1402,6 +1552,25 @@
         const el = document.getElementById(id);
         if (el) el.addEventListener('input', updateLiveCalculations);
       });
+
+      const pkgOrigInputEl = document.getElementById('input-pkg-original-price');
+      if (pkgOrigInputEl) {
+        pkgOrigInputEl.addEventListener('input', () => {
+          const val = pkgOrigInputEl.value.trim();
+          currentProposal.packageOriginalPrice = val === '' ? null : (parseFloat(val) || 0);
+          renderPackageSelector();
+          updateLiveCalculations();
+        });
+      }
+
+      const customPkgOrigInputEl = document.getElementById('input-custom-pkg-orig-price');
+      if (customPkgOrigInputEl) {
+        customPkgOrigInputEl.addEventListener('input', () => {
+          const val = customPkgOrigInputEl.value.trim();
+          currentProposal.customPackageOriginalPrice = val === '' ? null : (parseFloat(val) || 0);
+          updateLiveCalculations();
+        });
+      }
 
       const langSelectEl = document.getElementById('select-default-lang');
       if (langSelectEl) {

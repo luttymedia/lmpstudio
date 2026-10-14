@@ -38,6 +38,20 @@
             letter-spacing: -0.02em;
         }
 
+        /* ── Strikethrough pricing ──────────────────────────────── */
+        .price-original,
+        del.price-original {
+            display: inline-block;
+            text-decoration: line-through !important;
+            text-decoration-thickness: 1.5px;
+            color: #a39d95 !important;
+        }
+
+        .dark .price-original,
+        .dark del.price-original {
+            color: rgba(252, 249, 248, 0.45) !important;
+        }
+
         /* ── Sample video cards ─────────────────────────────────── */
         .video-card {
             position: relative;
@@ -201,7 +215,7 @@
                     <h1 class="font-headline text-4xl md:text-6xl font-extrabold editorial-spacing mt-4 mb-4"
                         data-i18n="dance.title">Dance Video Sessions</h1>
                     <p class="font-headline text-xl md:text-2xl font-bold text-primary dark:text-[#e9c176] mb-6"
-                        data-i18n="dance.subtitle">2 videos · from €120</p>
+                        data-i18n="dance.subtitle">2 videos · <del class="price-original font-normal mr-1.5">€150</del>from €120</p>
                     <p class="text-lg text-on-surface-variant dark:text-[#fcf9f8]/60 max-w-2xl mx-auto"
                         data-i18n="dance.intro">A simple, professional video session for dancers who want quality
                         content without overcomplicating the production.</p>
@@ -213,10 +227,14 @@
                         includes:</h2>
                     <ul id="dance-features" class="space-y-4 mb-10"></ul>
                     <div
-                        class="flex items-center justify-between border-t border-outline-variant/30 dark:border-white/10 pt-6">
+                        class="flex items-end justify-between border-t border-outline-variant/30 dark:border-white/10 pt-6">
                         <span></span>
-                        <span class="font-headline text-5xl font-extrabold text-primary dark:text-[#e9c176]"
-                            data-i18n="dance.basePrice">€120</span>
+                        <div class="flex flex-col items-end">
+                            <del class="price-original text-xl md:text-2xl font-bold leading-none mb-1.5"
+                                data-i18n="dance.basePriceOriginal">€150</del>
+                            <span class="font-headline text-5xl font-extrabold text-primary dark:text-[#e9c176] leading-none"
+                                data-i18n="dance.basePrice">€120</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -321,11 +339,15 @@
                     <p class="font-headline font-bold text-lg mb-6" data-i18n="dance.exampleSummary"></p>
                     <div id="dance-example-lines" class="space-y-3 mb-6"></div>
                     <div
-                        class="flex justify-between items-baseline border-t border-outline-variant/30 dark:border-white/10 pt-6">
+                        class="flex justify-between items-end border-t border-outline-variant/30 dark:border-white/10 pt-6">
                         <span class="font-headline text-lg font-bold" data-i18n="dance.exampleTotalLabel">Estimated
                             total</span>
-                        <span class="font-headline text-4xl font-extrabold text-primary dark:text-[#e9c176]"
-                            data-i18n="dance.exampleTotal">€250</span>
+                        <div class="flex flex-col items-end">
+                            <del class="price-original text-base md:text-lg font-bold leading-none mb-1"
+                                data-i18n="dance.exampleTotalOriginal">€325</del>
+                            <span class="font-headline text-4xl font-extrabold text-primary dark:text-[#e9c176] leading-none"
+                                data-i18n="dance.exampleTotal">€250</span>
+                        </div>
                     </div>
                 </div>
                 <p class="text-sm text-on-surface-variant dark:text-[#fcf9f8]/60 text-center mt-6"
@@ -595,7 +617,9 @@
                     '<div class="bg-surface-container-lowest dark:bg-[#252525] rounded-xl p-6 md:p-8 shadow-[0_20px_50px_rgba(28,27,27,0.04)] dark:shadow-none dark:border dark:border-white/10">' +
                     '<div class="flex flex-col md:flex-row md:items-baseline md:justify-between gap-1 md:gap-6 mb-3">' +
                     '<h3 class="font-headline text-lg font-bold">' + e.title + '</h3>' +
-                    '<span class="font-headline font-extrabold text-primary dark:text-[#e9c176] whitespace-nowrap">' + e.price + '</span></div>' +
+                    '<div class="flex flex-col md:items-end whitespace-nowrap leading-tight">' +
+                    (e.originalPrice ? '<del class="price-original text-xs md:text-sm font-semibold mb-0.5">' + e.originalPrice + '</del>' : '') +
+                    '<span class="font-headline font-extrabold text-primary dark:text-[#e9c176]">' + e.price + '</span></div></div>' +
                     '<p class="text-on-surface-variant dark:text-[#fcf9f8]/60">' + e.desc + '</p>' +
                     (e.note ? '<p class="text-xs opacity-70 mt-3 dark:text-[#fcf9f8]/60">' + e.note + '</p>' : '') +
                     '</div>'
@@ -609,7 +633,9 @@
                 exLines.innerHTML = (Array.isArray(list) ? list : []).map(l =>
                     '<div class="flex justify-between items-center border-b border-outline-variant/30 dark:border-white/10 pb-2">' +
                     '<span class="text-on-surface-variant dark:text-[#fcf9f8]/60">' + l.label + '</span>' +
-                    '<span class="font-bold">' + l.price + '</span></div>'
+                    '<div class="flex items-center gap-2">' +
+                    (l.originalPrice ? '<del class="price-original text-xs font-semibold">' + l.originalPrice + '</del>' : '') +
+                    '<span class="font-bold">' + l.price + '</span></div></div>'
                 ).join('');
             }
 
