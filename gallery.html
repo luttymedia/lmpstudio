@@ -966,25 +966,27 @@
                 const errorState = document.getElementById('error-state');
 
                 // ── Session Storage Helpers ───────────────────────────────────────
+                const STORAGE_PREFIX = 'gallery_v2_';
+
                 function saveGalleryState(meta, imgs, downloadZipUrl, subs) {
                     try {
-                        sessionStorage.setItem('galleryMeta', JSON.stringify(meta));
-                        sessionStorage.setItem('galleryImages', JSON.stringify(imgs));
+                        sessionStorage.setItem(STORAGE_PREFIX + 'meta', JSON.stringify(meta));
+                        sessionStorage.setItem(STORAGE_PREFIX + 'images', JSON.stringify(imgs));
                         if (downloadZipUrl) {
-                            sessionStorage.setItem('galleryDownloadZip', downloadZipUrl);
+                            sessionStorage.setItem(STORAGE_PREFIX + 'downloadZip', downloadZipUrl);
                         }
                         if (subs && subs.length > 0) {
-                            sessionStorage.setItem('gallerySubfolders', JSON.stringify(subs));
+                            sessionStorage.setItem(STORAGE_PREFIX + 'subfolders', JSON.stringify(subs));
                         }
                     } catch (e) { /* ignore storage errors */ }
                 }
 
                 function loadGalleryState() {
                     try {
-                        const metaStr = sessionStorage.getItem('galleryMeta');
-                        const imgsStr = sessionStorage.getItem('galleryImages');
-                        const downloadZip = sessionStorage.getItem('galleryDownloadZip');
-                        const subsStr = sessionStorage.getItem('gallerySubfolders');
+                        const metaStr = sessionStorage.getItem(STORAGE_PREFIX + 'meta');
+                        const imgsStr = sessionStorage.getItem(STORAGE_PREFIX + 'images');
+                        const downloadZip = sessionStorage.getItem(STORAGE_PREFIX + 'downloadZip');
+                        const subsStr = sessionStorage.getItem(STORAGE_PREFIX + 'subfolders');
                         if (metaStr && imgsStr) {
                             return {
                                 meta: JSON.parse(metaStr),
@@ -999,11 +1001,21 @@
 
                 function clearGalleryState() {
                     try {
+                        sessionStorage.removeItem(STORAGE_PREFIX + 'meta');
+                        sessionStorage.removeItem(STORAGE_PREFIX + 'images');
+                        sessionStorage.removeItem(STORAGE_PREFIX + 'downloadZip');
+                        sessionStorage.removeItem(STORAGE_PREFIX + 'subfolders');
+                        // Also purge legacy unversioned keys
                         sessionStorage.removeItem('galleryMeta');
                         sessionStorage.removeItem('galleryImages');
                         sessionStorage.removeItem('galleryDownloadZip');
                         sessionStorage.removeItem('gallerySubfolders');
                     } catch (e) { /* ignore */ }
+                }
+
+                // Auto-purge legacy unversioned cache to force fresh load with video support
+                if (sessionStorage.getItem('galleryImages') && !sessionStorage.getItem(STORAGE_PREFIX + 'images')) {
+                    clearGalleryState();
                 }
 
                 // Check if we have a stored session matching current gallery
@@ -1021,7 +1033,7 @@
                     // Get stored download URL
                     let downloadZipUrl = null;
                     try {
-                        downloadZipUrl = sessionStorage.getItem('galleryDownloadZip');
+                        downloadZipUrl = sessionStorage.getItem(STORAGE_PREFIX + 'downloadZip');
                     } catch (e) { /* ignore */ }
 
                     // Setup gallery directly from stored data
@@ -1450,8 +1462,9 @@
                 function isItemVideo(item) {
                     if (!item) return false;
                     if (item.type === 'video') return true;
+                    if (item.previewUrl) return true;
                     const name = (item.name || '').toLowerCase();
-                    return name.endsWith('.mp4') || name.endsWith('.mov') || name.endsWith('.webm') || name.endsWith('.m4v') || name.endsWith('.avi');
+                    return name.endsWith('.mp4') || name.endsWith('.mov') || name.endsWith('.webm') || name.endsWith('.m4v') || name.endsWith('.avi') || name.includes('.mp4') || name.includes('.mov');
                 }
 
                 function getVideoPreviewUrl(item) {
