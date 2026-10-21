@@ -182,6 +182,60 @@
             opacity: 1;
         }
 
+        .masonry-item .video-play-badge {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: rgba(0, 0, 0, 0.55);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            pointer-events: none;
+            transition: transform 0.3s cubic-bezier(0.34, 1.3, 0.64, 1), background 0.25s ease;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+            z-index: 2;
+        }
+
+        .masonry-item .video-play-badge span {
+            font-size: 28px;
+            margin-left: 2px;
+        }
+
+        .masonry-item:hover .video-play-badge {
+            transform: translate(-50%, -50%) scale(1.15);
+            background: rgba(197, 160, 89, 0.9);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+
+        .masonry-item .video-pill-badge {
+            position: absolute;
+            top: 8px;
+            left: 8px;
+            padding: 3px 8px;
+            border-radius: 4px;
+            background: rgba(0, 0, 0, 0.65);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            color: #fff;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            gap: 3px;
+            pointer-events: none;
+            z-index: 2;
+        }
+
         /* ── Lightbox ── */
         #lightbox {
             position: fixed;
@@ -215,6 +269,34 @@
 
         #lightbox-img {
             transition: opacity 0.15s ease;
+        }
+
+        /* ── Lightbox Video Player ── */
+        #lightbox-video-wrap {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transform: scale(0.95);
+            transition: transform 0.3s cubic-bezier(0.34, 1.3, 0.64, 1);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.85);
+            background: #000;
+            max-width: 90vw;
+            max-height: 85vh;
+        }
+
+        #lightbox.is-open #lightbox-video-wrap {
+            transform: scale(1);
+        }
+
+        #lightbox-video-frame {
+            display: block;
+            border-radius: 12px;
+            border: 0;
+            background: #000;
+            outline: none;
         }
 
         /* Desktop/tablet: enable transition */
@@ -571,6 +653,9 @@
         </button>
         <div id="lightbox-img-wrap"><img id="lightbox-img" src="" alt=""
                 class="max-w-[90vw] max-h-[85vh] object-contain rounded"></div>
+        <div id="lightbox-video-wrap" class="hidden">
+            <iframe id="lightbox-video-frame" allow="autoplay; fullscreen" allowfullscreen></iframe>
+        </div>
         <button id="lightbox-next"
             class="fixed right-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/10 text-white flex items-center justify-center hover:bg-white/20 z-[301] disabled:opacity-20">
             <span class="material-symbols-outlined">chevron_right</span>
@@ -1238,12 +1323,12 @@
 
                     const grid = document.getElementById('masonry-grid');
 
-                    // Show empty message if no images
+                    // Show empty message if no media
                     if (filteredImages.length === 0) {
                         grid.innerHTML = '';
                         const emptyMsg = document.createElement('div');
                         emptyMsg.className = 'w-full text-center py-12 text-secondary dark:text-[#fcf9f8]/60';
-                        emptyMsg.textContent = t('gallery.content.noPhotos');
+                        emptyMsg.textContent = t('gallery.content.noMedia') || t('gallery.content.noPhotos');
                         grid.appendChild(emptyMsg);
                         return;
                     }
@@ -1257,10 +1342,25 @@
                         item.className = 'masonry-item';
                         item.onclick = () => openLightbox(idx);
                         const i = document.createElement('img'); i.src = img.url; i.loading = 'lazy';
+                        i.alt = img.name || '';
                         const d = document.createElement('a'); d.className = 'img-dl-btn'; d.href = img.downloadUrl; d.download = img.name;
                         d.innerHTML = '<span class="material-symbols-outlined" style="font-size:16px">download</span>';
+                        d.title = 'Download';
                         d.onclick = e => e.stopPropagation();
-                        item.append(i, d);
+
+                        if (isItemVideo(img)) {
+                            const badge = document.createElement('span');
+                            badge.className = 'video-play-badge';
+                            badge.innerHTML = '<span class="material-symbols-outlined">play_arrow</span>';
+
+                            const pill = document.createElement('span');
+                            pill.className = 'video-pill-badge';
+                            pill.innerHTML = '<span class="material-symbols-outlined" style="font-size:13px">videocam</span>VIDEO';
+
+                            item.append(i, badge, pill, d);
+                        } else {
+                            item.append(i, d);
+                        }
                         cols[idx % num].appendChild(item);
                     });
                     grid.innerHTML = '';
@@ -1309,22 +1409,59 @@
                 }
 
                 function updateImageCount() {
-                    let count = images.length;
+                    let currentList = [];
                     if (subfolders.length > 0) {
                         if (activeTab === 'all') {
-                            // Count all images (root + all subfolders)
-                            count = images.length;
+                            currentList = [...images];
                             subfolders.forEach(sf => {
-                                count += sf.images.length;
+                                currentList = currentList.concat(sf.images);
                             });
                         } else {
                             const subfolder = subfolders.find(sf => sf.name === activeTab);
                             if (subfolder) {
-                                count = subfolder.images.length;
+                                currentList = subfolder.images;
                             }
                         }
+                    } else {
+                        currentList = images;
                     }
-                    document.getElementById('image-count').textContent = `${count} ${count === 1 ? t('gallery.content.photo') : t('gallery.content.photos')}`;
+
+                    let photoCount = 0;
+                    let videoCount = 0;
+                    currentList.forEach(item => {
+                        if (isItemVideo(item)) videoCount++;
+                        else photoCount++;
+                    });
+
+                    let countText = '';
+                    if (photoCount > 0 && videoCount > 0) {
+                        const photoStr = `${photoCount} ${photoCount === 1 ? t('gallery.content.photo') : t('gallery.content.photos')}`;
+                        const videoStr = `${videoCount} ${videoCount === 1 ? (t('gallery.content.video') || 'video') : (t('gallery.content.videos') || 'videos')}`;
+                        countText = `${photoStr} · ${videoStr}`;
+                    } else if (videoCount > 0) {
+                        countText = `${videoCount} ${videoCount === 1 ? (t('gallery.content.video') || 'video') : (t('gallery.content.videos') || 'videos')}`;
+                    } else {
+                        countText = `${photoCount} ${photoCount === 1 ? t('gallery.content.photo') : t('gallery.content.photos')}`;
+                    }
+
+                    document.getElementById('image-count').textContent = countText;
+                }
+
+                function isItemVideo(item) {
+                    if (!item) return false;
+                    if (item.type === 'video') return true;
+                    const name = (item.name || '').toLowerCase();
+                    return name.endsWith('.mp4') || name.endsWith('.mov') || name.endsWith('.webm') || name.endsWith('.m4v') || name.endsWith('.avi');
+                }
+
+                function getVideoPreviewUrl(item) {
+                    if (!item) return '';
+                    if (item.previewUrl) return item.previewUrl;
+                    const match = (item.url || item.downloadUrl || '').match(/[?&]id=([a-zA-Z0-9_-]+)/);
+                    if (match && match[1]) {
+                        return `https://drive.google.com/file/d/${match[1]}/preview`;
+                    }
+                    return item.downloadUrl || item.url || '';
                 }
 
                 // ── Lightbox ────────────────────────────────────────────────────
@@ -1368,6 +1505,9 @@
                     document.body.style.overflow = '';
                     isLightboxOpen = false;
                     resetZoom();
+
+                    // Immediately stop video playback
+                    stopActiveVideo();
                 }
 
                 // Handle browser back button
@@ -1507,40 +1647,129 @@
                     updateZoomPanelVisibility();
                 }
 
-                function renderLightbox() {
-                    const img = visibleImages[currentIndex];
-                    const lb = document.getElementById('lightbox-img');
-                    const isDesktop = window.innerWidth >= 768;
+                function adaptVideoDimensions(item) {
+                    const frame = document.getElementById('lightbox-video-frame');
+                    const wrap = document.getElementById('lightbox-video-wrap');
+                    if (!frame || !wrap) return;
 
-                    if (isDesktop) {
-                        // Desktop: fade out, then swap image, then fade in
-                        lb.style.opacity = '0';
-                        setTimeout(() => {
-                            resetZoom();
-                            lb.src = img.url;
-                            // Wait for image to load before fading in
-                            if (lb.complete) {
-                                lb.style.opacity = '1';
-                                updateMaxScale();
-                            } else {
-                                lb.onload = () => {
-                                    lb.style.opacity = '1';
-                                    updateMaxScale();
-                                };
-                            }
-                        }, 150); // Wait for fade-out to complete
-                    } else {
-                        // Mobile: quick toggle to prevent flash
-                        lb.style.opacity = '0';
-                        resetZoom();
-                        lb.onload = () => {
-                            lb.style.opacity = '1';
-                            updateMaxScale();
-                        };
-                        lb.src = img.url;
+                    function applyRatio(ratio) {
+                        const isVertical = ratio < 0.85;
+                        if (isVertical) {
+                            // Vertical video (e.g. 9:16)
+                            const maxH = Math.min(window.innerHeight * 0.85, 860);
+                            const maxW = window.innerWidth * 0.9;
+                            const calcW = Math.min(maxW, maxH * ratio);
+                            const calcH = calcW / ratio;
+
+                            frame.style.width = `${Math.round(calcW)}px`;
+                            frame.style.height = `${Math.round(calcH)}px`;
+                            wrap.style.width = `${Math.round(calcW)}px`;
+                            wrap.style.height = `${Math.round(calcH)}px`;
+                        } else {
+                            // Landscape or standard video (e.g. 16:9)
+                            const maxW = Math.min(window.innerWidth * 0.9, 960);
+                            const maxH = window.innerHeight * 0.82;
+                            const calcH = Math.min(maxH, maxW / ratio);
+                            const calcW = calcH * ratio;
+
+                            frame.style.width = `${Math.round(calcW)}px`;
+                            frame.style.height = `${Math.round(calcH)}px`;
+                            wrap.style.width = `${Math.round(calcW)}px`;
+                            wrap.style.height = `${Math.round(calcH)}px`;
+                        }
                     }
 
-                    document.getElementById('lightbox-dl').href = img.downloadUrl;
+                    if (item && item._aspectRatio) {
+                        applyRatio(item._aspectRatio);
+                        return;
+                    }
+
+                    // Check thumbnail image natural dimensions
+                    const testImg = new Image();
+                    testImg.onload = () => {
+                        if (testImg.naturalWidth && testImg.naturalHeight) {
+                            item._aspectRatio = testImg.naturalWidth / testImg.naturalHeight;
+                            applyRatio(item._aspectRatio);
+                        }
+                    };
+                    testImg.src = item.url;
+
+                    if (testImg.complete && testImg.naturalWidth) {
+                        item._aspectRatio = testImg.naturalWidth / testImg.naturalHeight;
+                        applyRatio(item._aspectRatio);
+                    } else {
+                        // Default to 9/16 for vertical reels, will adjust once thumbnail loads
+                        applyRatio(9 / 16);
+                    }
+                }
+
+                function renderLightbox() {
+                    const item = visibleImages[currentIndex];
+                    const lb = document.getElementById('lightbox-img');
+                    const lbImgWrap = document.getElementById('lightbox-img-wrap');
+                    const lbVidWrap = document.getElementById('lightbox-video-wrap');
+                    const lbVidFrame = document.getElementById('lightbox-video-frame');
+                    const zoomBtn = document.getElementById('lightbox-zoom');
+                    const zoomPanel = document.getElementById('zoom-control-panel');
+                    const isDesktop = window.innerWidth >= 768;
+
+                    resetZoom();
+
+                    const isVideo = isItemVideo(item);
+
+                    if (isVideo) {
+                        // Hide image wrap & zoom controls
+                        lbImgWrap.classList.add('hidden');
+                        zoomBtn?.classList.add('hidden');
+                        zoomPanel?.classList.add('hidden');
+
+                        // Show video container
+                        lbVidWrap.classList.remove('hidden');
+
+                        // Adapt player dimensions dynamically to match intrinsic aspect ratio (eliminates letterboxing)
+                        adaptVideoDimensions(item);
+
+                        // Load video preview in Google Drive player
+                        const videoUrl = getVideoPreviewUrl(item);
+                        if (lbVidFrame.src !== videoUrl) {
+                            lbVidFrame.src = videoUrl;
+                        }
+                    } else {
+                        // Stop & hide video player
+                        if (lbVidFrame) lbVidFrame.src = '';
+                        lbVidWrap?.classList.add('hidden');
+
+                        // Show image wrap
+                        lbImgWrap.classList.remove('hidden');
+
+                        if (isDesktop) {
+                            // Desktop: fade out, then swap image, then fade in
+                            lb.style.opacity = '0';
+                            setTimeout(() => {
+                                lb.src = item.url;
+                                // Wait for image to load before fading in
+                                if (lb.complete) {
+                                    lb.style.opacity = '1';
+                                    updateMaxScale();
+                                } else {
+                                    lb.onload = () => {
+                                        lb.style.opacity = '1';
+                                        updateMaxScale();
+                                    };
+                                }
+                            }, 150); // Wait for fade-out to complete
+                        } else {
+                            // Mobile: quick toggle to prevent flash
+                            lb.style.opacity = '0';
+                            lb.onload = () => {
+                                lb.style.opacity = '1';
+                                updateMaxScale();
+                            };
+                            lb.src = item.url;
+                        }
+                    }
+
+                    document.getElementById('lightbox-dl').href = item.downloadUrl;
                     document.getElementById('lightbox-counter').textContent = `${currentIndex + 1} / ${visibleImages.length}`;
 
                     // Always enable buttons for looping
@@ -1712,6 +1941,7 @@
                 let wasPinching = false;
 
                 document.getElementById('lightbox').addEventListener('touchstart', e => {
+                    if (e.target.closest('#lightbox-video-wrap')) return;
                     touchStartX = e.changedTouches[0].screenX;
                 }, { passive: true });
 
@@ -1731,11 +1961,17 @@
                     wasPinching = false;
                 }, { passive: true });
 
+                function stopActiveVideo() {
+                    const lbVidFrame = document.getElementById('lightbox-video-frame');
+                    if (lbVidFrame) lbVidFrame.src = '';
+                }
+
                 function handleSwipe() {
                     const swipeThreshold = 50;
                     const diff = touchStartX - touchEndX;
 
                     if (Math.abs(diff) > swipeThreshold) {
+                        stopActiveVideo();
                         if (diff > 0) {
                             // Swipe left - next (loop from last to first)
                             currentIndex = (currentIndex + 1) % visibleImages.length;
@@ -1750,10 +1986,12 @@
 
                 document.getElementById('lightbox-close').onclick = closeLightbox;
                 document.getElementById('lightbox-prev').onclick = () => {
+                    stopActiveVideo();
                     currentIndex = (currentIndex - 1 + visibleImages.length) % visibleImages.length;
                     renderLightbox();
                 };
                 document.getElementById('lightbox-next').onclick = () => {
+                    stopActiveVideo();
                     currentIndex = (currentIndex + 1) % visibleImages.length;
                     renderLightbox();
                 };
@@ -1769,6 +2007,11 @@
                 // Window resize listener
                 window.addEventListener('resize', () => {
                     if (isLightboxOpen) {
+                        const item = visibleImages[currentIndex];
+                        if (isItemVideo(item)) {
+                            adaptVideoDimensions(item);
+                            return;
+                        }
                         updateMaxScale();
                         if (currentScale > 1) {
                             const W = window.innerWidth;

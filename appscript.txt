@@ -77,12 +77,12 @@ ${message}
 }
 
 /**
- * doGet handler — supports two-step fetch architecture.
+ * doGet handler — supports two-step fetch architecture with photo and video support.
  *
  * Query params (both steps require ?g=GALLERY_ID):
  *   ?g=ID&action=metadata  → Returns title + requiresPin (+ pin if required).
  *                            Does NOT touch DriveApp. Fast response.
- *   ?g=ID&action=images    → Scans the Drive folder. Returns images[] + downloadZipUrl.
+ *   ?g=ID&action=images    → Scans the Drive folder. Returns images[] (photos & videos) + downloadZipUrl.
  *
  * Legacy behaviour: if no action param is supplied the old single-step
  * response is returned for backwards compatibility.
@@ -145,7 +145,7 @@ function doGet(e) {
       return createJsonResponse(payload);
     }
 
-    // ── Step 2: images — DriveApp scan ───────────────────────────────────
+    // ── Step 2: images & videos — DriveApp scan ──────────────────────────
     if (action === "images") {
       const folder = DriveApp.getFolderById(folderId);
       const files = folder.getFiles();
@@ -156,19 +156,10 @@ function doGet(e) {
         const file = files.next();
         const mimeType = file.getMimeType();
         const fileName = file.getName();
+        const mediaItem = buildMediaItem(file);
 
-        if (
-          mimeType === MimeType.JPEG ||
-          mimeType === MimeType.PNG  ||
-          mimeType === "image/webp"  ||
-          mimeType === "image/jpg"
-        ) {
-          const fileId = file.getId();
-          images.push({
-            name: fileName,
-            url: "https://drive.google.com/thumbnail?id=" + fileId + "&sz=w2000",
-            downloadUrl: "https://drive.google.com/uc?export=download&id=" + fileId
-          });
+        if (mediaItem) {
+          images.push(mediaItem);
         } else if (mimeType === MimeType.ZIP || fileName.toLowerCase().endsWith(".zip")) {
           if (!downloadZipUrl) {
             downloadZipUrl = "https://drive.google.com/uc?export=download&id=" + file.getId();
@@ -189,21 +180,9 @@ function doGet(e) {
 
         while (subFiles.hasNext()) {
           const file = subFiles.next();
-          const mimeType = file.getMimeType();
-          const fileName = file.getName();
-
-          if (
-            mimeType === MimeType.JPEG ||
-            mimeType === MimeType.PNG  ||
-            mimeType === "image/webp"  ||
-            mimeType === "image/jpg"
-          ) {
-            const fileId = file.getId();
-            subfolderImages.push({
-              name: fileName,
-              url: "https://drive.google.com/thumbnail?id=" + fileId + "&sz=w2000",
-              downloadUrl: "https://drive.google.com/uc?export=download&id=" + fileId
-            });
+          const mediaItem = buildMediaItem(file);
+          if (mediaItem) {
+            subfolderImages.push(mediaItem);
           }
         }
 
@@ -245,19 +224,10 @@ function doGet(e) {
       const file = files.next();
       const mimeType = file.getMimeType();
       const fileName = file.getName();
+      const mediaItem = buildMediaItem(file);
 
-      if (
-        mimeType === MimeType.JPEG ||
-        mimeType === MimeType.PNG  ||
-        mimeType === "image/webp"  ||
-        mimeType === "image/jpg"
-      ) {
-        const fileId = file.getId();
-        images.push({
-          name: fileName,
-          url: "https://drive.google.com/thumbnail?id=" + fileId + "&sz=w2000",
-          downloadUrl: "https://drive.google.com/uc?export=download&id=" + fileId
-        });
+      if (mediaItem) {
+        images.push(mediaItem);
       } else if (mimeType === MimeType.ZIP || fileName.toLowerCase().endsWith(".zip")) {
         if (!downloadZipUrl) {
           downloadZipUrl = "https://drive.google.com/uc?export=download&id=" + file.getId();
@@ -278,21 +248,9 @@ function doGet(e) {
 
       while (subFiles.hasNext()) {
         const file = subFiles.next();
-        const mimeType = file.getMimeType();
-        const fileName = file.getName();
-
-        if (
-          mimeType === MimeType.JPEG ||
-          mimeType === MimeType.PNG  ||
-          mimeType === "image/webp"  ||
-          mimeType === "image/jpg"
-        ) {
-          const fileId = file.getId();
-          subfolderImages.push({
-            name: fileName,
-            url: "https://drive.google.com/thumbnail?id=" + fileId + "&sz=w2000",
-            downloadUrl: "https://drive.google.com/uc?export=download&id=" + fileId
-          });
+        const mediaItem = buildMediaItem(file);
+        if (mediaItem) {
+          subfolderImages.push(mediaItem);
         }
       }
 
@@ -336,6 +294,59 @@ function doGet(e) {
       message: "An internal error occurred: " + error.message
     });
   }
+}
+
+/**
+ * Builds a standardized media item for photos and videos.
+ * Returns null if the file is not a supported media type.
+ */
+function buildMediaItem(file) {
+  const mimeType = file.getMimeType();
+  const fileName = file.getName();
+  const fileId = file.getId();
+  const lower = (fileName || "").toLowerCase();
+
+  const isImage = (
+    mimeType === MimeType.JPEG ||
+    mimeType === MimeType.PNG  ||
+    mimeType === "image/webp"  ||
+    mimeType === "image/jpg"   ||
+    lower.endsWith(".jpg")     ||
+    lower.endsWith(".jpeg")    ||
+    lower.endsWith(".png")     ||
+    lower.endsWith(".webp")
+  );
+
+  if (isImage) {
+    return {
+      name: fileName,
+      type: "image",
+      url: "https://drive.google.com/thumbnail?id=" + fileId + "&sz=w2000",
+      downloadUrl: "https://drive.google.com/uc?export=download&id=" + fileId
+    };
+  }
+
+  const isVideo = (
+    (mimeType && mimeType.indexOf("video/") === 0) ||
+    mimeType === "video/quicktime" ||
+    lower.endsWith(".mp4")  ||
+    lower.endsWith(".mov")  ||
+    lower.endsWith(".webm") ||
+    lower.endsWith(".m4v")  ||
+    lower.endsWith(".avi")
+  );
+
+  if (isVideo) {
+    return {
+      name: fileName,
+      type: "video",
+      url: "https://drive.google.com/thumbnail?id=" + fileId + "&sz=w2000",
+      previewUrl: "https://drive.google.com/file/d/" + fileId + "/preview",
+      downloadUrl: "https://drive.google.com/uc?export=download&id=" + fileId
+    };
+  }
+
+  return null;
 }
 
 function createJsonResponse(dataObject) {

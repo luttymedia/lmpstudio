@@ -220,9 +220,12 @@
         "downloadFullAlbum": "Download Full Album",
         "photo": "photo",
         "photos": "photos",
+        "video": "video",
+        "videos": "videos",
         "expireNotice": "Download your photos before {date}!",
         "all": "ALL",
-        "noPhotos": "No photos in this album"
+        "noPhotos": "No photos in this album",
+        "noMedia": "No photos or videos in this album"
       },
       "nav": {
         "pricing": "Pricing",
@@ -602,9 +605,12 @@
         "downloadFullAlbum": "Descargar Álbum",
         "photo": "foto",
         "photos": "fotos",
+        "video": "vídeo",
+        "videos": "vídeos",
         "expireNotice": "Descarga tus fotos antes del {date}!",
         "all": "TODO",
-        "noPhotos": "No hay fotos en este álbum"
+        "noPhotos": "No hay fotos en este álbum",
+        "noMedia": "No hay fotos ni vídeos en este álbum"
       },
       "nav": {
         "pricing": "Precios",
