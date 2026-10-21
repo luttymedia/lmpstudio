@@ -283,7 +283,7 @@
             overflow: hidden;
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.85);
             background: #000;
-            max-width: 90vw;
+            max-width: 95vw;
             max-height: 85vh;
         }
 
@@ -297,6 +297,7 @@
             border: 0;
             background: #000;
             outline: none;
+            flex-shrink: 0;
         }
 
         /* Desktop/tablet: enable transition */
@@ -642,6 +643,10 @@
         <a id="lightbox-dl" title="Download"
             class="fixed top-5 right-[70px] w-11 h-11 rounded-full bg-white/10 text-white flex items-center justify-center hover:bg-white/20 transition-colors z-[301]">
             <span class="material-symbols-outlined">download</span>
+        </a>
+        <a id="lightbox-open-external" target="_blank" rel="noopener noreferrer" title="Open full player"
+            class="hidden fixed top-5 right-[120px] w-11 h-11 rounded-full bg-white/10 text-white flex items-center justify-center hover:bg-white/20 transition-colors z-[301]">
+            <span class="material-symbols-outlined">open_in_new</span>
         </a>
         <button id="lightbox-zoom" title="Zoom"
             class="fixed top-5 right-[120px] w-11 h-11 rounded-full bg-white/10 text-white flex items-center justify-center hover:bg-white/20 transition-colors z-[301]">
@@ -1667,19 +1672,43 @@
 
                     function applyRatio(ratio) {
                         const isVertical = ratio < 0.85;
-                        if (isVertical) {
-                            // Vertical video (e.g. 9:16)
-                            const maxH = Math.min(window.innerHeight * 0.85, 860);
-                            const maxW = window.innerWidth * 0.9;
-                            const calcW = Math.min(maxW, maxH * ratio);
-                            const calcH = calcW / ratio;
+                        const isMobile = window.innerWidth < 640;
 
-                            frame.style.width = `${Math.round(calcW)}px`;
-                            frame.style.height = `${Math.round(calcH)}px`;
-                            wrap.style.width = `${Math.round(calcW)}px`;
-                            wrap.style.height = `${Math.round(calcH)}px`;
+                        if (isVertical) {
+                            if (isMobile) {
+                                // On mobile, Google Drive's iframe triggers an intrusive touch overlay at width <= 640px.
+                                // Sizing the iframe internally to 680px and scaling down via transform bypasses this completely!
+                                const internalW = 680;
+                                const internalH = Math.round(internalW / ratio);
+
+                                const maxScreenW = window.innerWidth * 0.94;
+                                const maxScreenH = window.innerHeight * 0.80;
+
+                                const scale = Math.min(maxScreenW / internalW, maxScreenH / internalH);
+
+                                frame.style.width = `${internalW}px`;
+                                frame.style.height = `${internalH}px`;
+                                frame.style.transform = `scale(${scale})`;
+                                frame.style.transformOrigin = 'center center';
+
+                                wrap.style.width = `${Math.round(internalW * scale)}px`;
+                                wrap.style.height = `${Math.round(internalH * scale)}px`;
+                            } else {
+                                // Desktop / Tablet
+                                frame.style.transform = 'none';
+                                const maxH = Math.min(window.innerHeight * 0.85, 860);
+                                const maxW = window.innerWidth * 0.9;
+                                const calcW = Math.min(maxW, maxH * ratio);
+                                const calcH = calcW / ratio;
+
+                                frame.style.width = `${Math.round(calcW)}px`;
+                                frame.style.height = `${Math.round(calcH)}px`;
+                                wrap.style.width = `${Math.round(calcW)}px`;
+                                wrap.style.height = `${Math.round(calcH)}px`;
+                            }
                         } else {
-                            // Landscape or standard video (e.g. 16:9)
+                            // Landscape / Standard 16:9
+                            frame.style.transform = 'none';
                             const maxW = Math.min(window.innerWidth * 0.9, 960);
                             const maxH = window.innerHeight * 0.82;
                             const calcH = Math.min(maxH, maxW / ratio);
@@ -1711,7 +1740,6 @@
                         item._aspectRatio = testImg.naturalWidth / testImg.naturalHeight;
                         applyRatio(item._aspectRatio);
                     } else {
-                        // Default to 9/16 for vertical reels, will adjust once thumbnail loads
                         applyRatio(9 / 16);
                     }
                 }
@@ -1794,8 +1822,38 @@
                 }
 
                 function updateOverlays() {
-                    const overlays = document.querySelectorAll('#lightbox-close, #lightbox-dl, #lightbox-zoom, #lightbox-prev, #lightbox-next, #lightbox-counter');
+                    const isVideo = visibleImages[currentIndex] && isItemVideo(visibleImages[currentIndex]);
+                    const isMobile = window.innerWidth < 768;
+
+                    const prevBtn = document.getElementById('lightbox-prev');
+                    const nextBtn = document.getElementById('lightbox-next');
+                    const extBtn = document.getElementById('lightbox-open-external');
+
+                    // On mobile when watching a video, hide the prev/next arrow buttons so they never cover the video
+                    if (prevBtn) {
+                        prevBtn.style.display = (isVideo && isMobile) ? 'none' : '';
+                    }
+                    if (nextBtn) {
+                        nextBtn.style.display = (isVideo && isMobile) ? 'none' : '';
+                    }
+
+                    // Open external / native player button in top header
+                    if (extBtn) {
+                        if (isVideo) {
+                            extBtn.classList.remove('hidden');
+                            const match = (visibleImages[currentIndex].url || visibleImages[currentIndex].downloadUrl || '').match(/[?&]id=([a-zA-Z0-9_-]+)/);
+                            const fileId = match ? match[1] : '';
+                            extBtn.href = fileId ? `https://drive.google.com/file/d/${fileId}/view` : (visibleImages[currentIndex].previewUrl || '#');
+                        } else {
+                            extBtn.classList.add('hidden');
+                        }
+                    }
+
+                    const overlays = document.querySelectorAll('#lightbox-close, #lightbox-dl, #lightbox-zoom, #lightbox-prev, #lightbox-next, #lightbox-counter, #lightbox-open-external');
                     overlays.forEach(el => {
+                        if (el.id === 'lightbox-zoom' && isVideo) return;
+                        if (el.id === 'lightbox-open-external' && !isVideo) return;
+                        if ((el.id === 'lightbox-prev' || el.id === 'lightbox-next') && isVideo && isMobile) return;
                         el.style.opacity = overlaysVisible ? '1' : '0';
                         el.style.pointerEvents = overlaysVisible ? 'auto' : 'none';
                     });
